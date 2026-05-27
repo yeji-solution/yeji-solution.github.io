@@ -96,6 +96,7 @@
   header {
     position: sticky; top: 0; z-index: 50;
     background: rgba(255,255,255,0.92);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
     backdrop-filter: saturate(180%) blur(12px);
     border-bottom: 1px solid var(--line);
   }
@@ -1304,9 +1305,256 @@
   .rc-bar-fill.af-t { background: var(--todayhome); }
   .rc-bar-fill.af-j { background: var(--jmarket); }
   .rc-bar-num { font-size: 10.5px; font-weight: 700; color: var(--text); width: 72px; text-align: right; flex-shrink: 0; }
+
+  /* =====================================================
+     SPRINT 1 — INTERACTIONS & ANIMATIONS
+  ===================================================== */
+
+  /* 바 차트 width 트랜지션 */
+  .rc-bar-fill {
+    transition: width 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* 그라디언트 모션 (hero strong, stat-num) */
+  @keyframes gradient-x {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  .hero h1 strong {
+    background-size: 200% auto;
+    animation: gradient-x 5s ease infinite;
+  }
+  .stat-num {
+    background-size: 200% auto;
+    animation: gradient-x 5s ease infinite;
+  }
+
+  /* 섹션 내 그리드 카드 stagger */
+  .stagger-child {
+    transition: opacity 0.5s ease var(--sd, 0s), transform 0.5s ease var(--sd, 0s);
+  }
+  .stagger-child.in { opacity: 1 !important; transform: translateY(0) !important; }
+  @media (prefers-reduced-motion: reduce) {
+    .stagger-child { transition: none !important; }
+    .stagger-child.in { opacity: 1 !important; transform: none !important; }
+  }
+
+  /* =====================================================
+     SPRINT 2 — VISUAL QUALITY
+  ===================================================== */
+
+  /* Hero blob (CSS-only, pseudo) */
+  .hero { position: relative; overflow: hidden; }
+  .hero .hero-grid { position: relative; z-index: 1; }
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 520px; height: 520px;
+    background: radial-gradient(circle at 50%, rgba(0,199,60,0.11) 0%, transparent 65%);
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    animation: blob-morph 9s ease-in-out infinite;
+    top: -130px; right: -100px;
+    pointer-events: none; z-index: 0;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    width: 420px; height: 420px;
+    background: radial-gradient(circle at 50%, rgba(255,63,126,0.09) 0%, transparent 65%);
+    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    animation: blob-morph 11s ease-in-out infinite reverse;
+    bottom: -100px; left: -80px;
+    pointer-events: none; z-index: 0;
+  }
+  @keyframes blob-morph {
+    0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+    25%  { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+    50%  { border-radius: 50% 60% 30% 60% / 30% 60% 70% 40%; }
+    75%  { border-radius: 60% 40% 60% 30% / 40% 60% 50% 40%; }
+  }
+
+  /* Hero 최초 등장 애니메이션 */
+  @keyframes hero-up {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-text { animation: hero-up 0.75s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .hero-photo { animation: hero-up 0.75s 0.18s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+  /* Stats 섹션 노이즈 텍스처 느낌 (SVG filter) */
+  .stats { position: relative; }
+  .stats::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    background-size: 256px 256px;
+    pointer-events: none; z-index: 0;
+  }
+  .stats .wrap { position: relative; z-index: 1; }
+
+  /* Results 섹션 배경 노이즈 */
+  section.soft { position: relative; }
+
+  /* =====================================================
+     SPRINT 2 — DARK MODE
+  ===================================================== */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0F1117;
+      --bg-soft: #161A24;
+      --bg-naver: #0D2216;
+      --bg-zigzag: #220A14;
+      --bg-coupang: #1F0B0C;
+      --bg-todayhome: #0B0F23;
+      --bg-jmarket: #0A1120;
+      --line: #252A35;
+      --line-strong: #323848;
+      --text: #F0F2F5;
+      --text-sub: #A0AABA;
+      --text-dim: #60697A;
+    }
+    body { background: var(--bg); color: var(--text); }
+    header { background: rgba(15,17,23,0.93) !important; border-bottom-color: var(--line); }
+    .badge { background: #1A1E2A; color: var(--text-sub); border-color: var(--line-strong); }
+    .badge.naver { background: var(--bg-naver); border-color: rgba(0,199,60,0.25); }
+    .badge.zigzag { background: var(--bg-zigzag); border-color: rgba(255,63,126,0.25); }
+    .cred-block, .strat-block, .tl, .report-item,
+    .fit-block.bad, .qa, .result-card, .review-card,
+    .case-card, .form-card { background: #161A24; border-color: var(--line); }
+    .fp-step { background: #1A1E2A; border-color: var(--line); }
+    .fit-block.good { background: var(--bg-naver); border-color: rgba(0,199,60,0.2); }
+    .form-input, .form-textarea, .form-select {
+      background: #1A1E2A; color: var(--text); border-color: var(--line-strong);
+    }
+    .form-checkbox { background: #1A1E2A; border-color: var(--line-strong); }
+    .form-checkbox.checked { background: var(--bg-naver); border-color: var(--naver); }
+    .cta {
+      background:
+        radial-gradient(ellipse at 30% 50%, rgba(0,199,60,0.05), transparent 60%),
+        radial-gradient(ellipse at 70% 50%, rgba(255,63,126,0.05), transparent 60%),
+        var(--bg-soft);
+    }
+    .ck { background: #1A1E2A; border-color: var(--line); }
+    .stats { background: #070A10; }
+    .pm { background: #161A24; border-color: var(--line); }
+    footer { background: #070A10; border-top-color: var(--line); }
+    .hero::before { background: radial-gradient(circle at 50%, rgba(0,199,60,0.07) 0%, transparent 65%); }
+    .hero::after  { background: radial-gradient(circle at 50%, rgba(255,63,126,0.06) 0%, transparent 65%); }
+    .quote { background: var(--bg-soft); border-left-color: var(--naver); }
+    .mobile-menu { background: #161A24; border-top-color: var(--line); }
+    .mobile-menu a { border-bottom-color: var(--line); color: var(--text-sub); }
+    .sticky-bar { background: #161A24; border-top-color: var(--line); }
+    .to-top { background: #161A24; border-color: var(--line-strong); color: var(--text); }
+    .urgency-badge { background: rgba(255,63,126,0.1); }
+    .kakao-qr-row { background: linear-gradient(135deg, #2A2600 0%, #1F1D00 100%); }
+    .case-note { background: #1A1E2A; }
+    .rc-delta { background: rgba(0,199,60,0.13); }
+    .eyebrow { background: rgba(0,199,60,0.12); }
+    .eyebrow.z { background: rgba(255,63,126,0.12); }
+    .eyebrow.dual { background: rgba(255,255,255,0.05); }
+    .hero-photo-fallback { background: none; }
+    .rc-bar-track { background: var(--line-strong); }
+    .rc-chip { background: #1A1E2A; color: var(--text-sub); }
+    .cred-extra { border-top-color: var(--line-strong); }
+    .story { border-top-color: var(--line); border-bottom-color: var(--line); }
+    .story-cell { border-right-color: var(--line); }
+    .story-cell:hover { background: #1A1E2A; }
+    /* Firefox gradient text 폴백 */
+  }
+  @-moz-document url-prefix() {
+    .hero h1 strong,
+    .stat-num,
+    .cta h2 strong,
+    .quote em { background: none !important; -webkit-background-clip: unset !important; background-clip: unset !important; color: var(--naver) !important; animation: none !important; }
+  }
+
+  /* aspect-ratio Safari 13 이하 폴백 */
+  @supports not (aspect-ratio: 4 / 5) {
+    .hero-photo { height: 0; padding-bottom: 125%; }
+    .mp-photo-card { height: 0; padding-bottom: 125%; }
+  }
+
+  /* =====================================================
+     SPRINT 3 — ADMIN MODE
+  ===================================================== */
+  .admin-bar {
+    display: none;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: #1A1D24; color: #fff;
+    padding: 0 20px;
+    height: 46px;
+    font-size: 13px; font-weight: 700;
+    align-items: center; gap: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    border-bottom: 2px solid var(--naver);
+  }
+  .admin-bar.show { display: flex; }
+  .admin-bar .ab-label {
+    font-size: 10px; font-weight: 800; letter-spacing: 0.12em;
+    color: var(--naver); text-transform: uppercase;
+  }
+  .ab-divider { width: 1px; height: 18px; background: rgba(255,255,255,0.15); }
+  .admin-hint { font-size: 12px; color: rgba(255,255,255,0.45); font-weight: 500; }
+  .admin-save {
+    padding: 6px 14px; background: var(--naver); color: #fff !important;
+    border: none; border-radius: 7px; font-size: 12px; font-weight: 800;
+    cursor: pointer; font-family: inherit; transition: background 0.15s;
+  }
+  .admin-save:hover { background: var(--naver-dark); }
+  .admin-reset {
+    padding: 6px 12px; background: transparent; color: rgba(255,255,255,0.55);
+    border: 1px solid rgba(255,255,255,0.18); border-radius: 7px;
+    font-size: 12px; cursor: pointer; font-family: inherit;
+    transition: border-color 0.15s;
+  }
+  .admin-reset:hover { border-color: rgba(255,255,255,0.4); }
+  .admin-status { margin-left: auto; font-size: 12px; color: var(--naver); font-weight: 700; }
+  [data-ak][contenteditable="true"] {
+    outline: 2px solid #3B82F6 !important;
+    border-radius: 3px;
+    cursor: text;
+  }
+  [data-ak][contenteditable="true"]:focus {
+    outline: 2px solid #60A5FA !important;
+    background: rgba(59,130,246,0.06);
+  }
+
+  /* =====================================================
+     SPRINT 4 — RESPONSIVE (1024~1279 태블릿 가로)
+  ===================================================== */
+  @media (min-width: 1024px) and (max-width: 1279px) {
+    .wrap { max-width: 960px; padding: 0 36px; }
+    .result-grid { grid-template-columns: repeat(2, 1fr); }
+    .review-grid { grid-template-columns: repeat(2, 1fr); }
+    .timeline { grid-template-columns: repeat(2, 1fr); }
+    .case-grid { grid-template-columns: repeat(2, 1fr); }
+    .hero-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
+    h2 { font-size: clamp(20px, 3.5vw, 34px); }
+  }
+
+  /* 720~1023 태블릿 세로 */
+  @media (min-width: 721px) and (max-width: 1023px) {
+    .result-grid { grid-template-columns: repeat(2, 1fr); }
+    .review-grid { grid-template-columns: 1fr; }
+    .case-grid { grid-template-columns: 1fr; }
+    .timeline { grid-template-columns: repeat(2, 1fr); }
+    .hero-grid { grid-template-columns: 1fr; gap: 0; }
+    .hero-photo { display: none; }
+  }
 </style>
 </head>
 <body>
+
+<!-- ADMIN BAR (비공개 관리자 모드 — ?admin=1 로 접근) -->
+<div class="admin-bar" id="adminBar">
+  <span class="ab-label">ADMIN MODE</span>
+  <span class="ab-divider"></span>
+  <span class="admin-hint">파란 테두리 항목을 클릭해 편집하세요</span>
+  <button class="admin-save" id="adminSave" type="button">저장</button>
+  <button class="admin-reset" id="adminReset" type="button">초기화</button>
+  <span class="admin-status" id="adminStatus"></span>
+</div>
 
 <!-- HEADER -->
 <header>
@@ -1376,7 +1624,7 @@
   <div class="wrap">
     <div class="stats-grid">
       <div class="stat">
-        <div class="stat-num">7<span>년차</span></div>
+        <div class="stat-num" data-count="7" data-suffix="년차">7<span>년차</span></div>
         <div class="stat-label">광고 마케팅 경력</div>
       </div>
       <div class="stat">
@@ -1384,11 +1632,11 @@
         <div class="stat-label">1:1 전담 운영</div>
       </div>
       <div class="stat">
-        <div class="stat-num">7<span>일</span></div>
+        <div class="stat-num" data-count="7" data-suffix="일">7<span>일</span></div>
         <div class="stat-label">1차 진단 리포트</div>
       </div>
       <div class="stat">
-        <div class="stat-num">0<span>원</span></div>
+        <div class="stat-num" data-count="0" data-suffix="원">0<span>원</span></div>
         <div class="stat-label">관리비 · 위약금</div>
       </div>
     </div>
@@ -2686,124 +2934,273 @@
 
 
 <script>
-  (function () {
-    // 모바일 햄버거 메뉴
-    var navToggle = document.querySelector('.nav-toggle');
-    var mobileMenu = document.querySelector('.mobile-menu');
-    if (navToggle && mobileMenu) {
-      navToggle.addEventListener('click', function () {
-        var open = navToggle.classList.toggle('open');
-        mobileMenu.classList.toggle('open', open);
-        navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+(function () {
+  'use strict';
+  var qs  = function (s, c) { return (c || document).querySelector(s); };
+  var qsa = function (s, c) { return (c || document).querySelectorAll(s); };
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasIO   = 'IntersectionObserver' in window;
+  var hasHover = window.matchMedia('(hover: hover)').matches;
+
+  /* ===== 모바일 햄버거 ===== */
+  var navToggle = qs('.nav-toggle');
+  var mobileMenu = qs('.mobile-menu');
+  if (navToggle && mobileMenu) {
+    navToggle.addEventListener('click', function () {
+      var open = navToggle.classList.toggle('open');
+      mobileMenu.classList.toggle('open', open);
+      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    qsa('a', mobileMenu).forEach(function (a) {
+      a.addEventListener('click', function () {
+        navToggle.classList.remove('open');
+        mobileMenu.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
       });
-      mobileMenu.querySelectorAll('a').forEach(function (a) {
-        a.addEventListener('click', function () {
-          navToggle.classList.remove('open');
-          mobileMenu.classList.remove('open');
-          navToggle.setAttribute('aria-expanded', 'false');
+    });
+  }
+
+  /* ===== 맨 위로 버튼 ===== */
+  var toTop = qs('.to-top');
+  if (toTop) {
+    toTop.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    window.addEventListener('scroll', function () {
+      toTop.classList.toggle('show', window.scrollY > 600);
+    }, { passive: true });
+  }
+
+  /* ===== 폼 체크박스 ===== */
+  qsa('.form-checkbox input[type="checkbox"]').forEach(function (cb) {
+    var wrap = cb.closest('.form-checkbox');
+    cb.addEventListener('change', function () { wrap.classList.toggle('checked', cb.checked); });
+  });
+
+  /* ===== 폼 제출 ===== */
+  var cf = qs('#contactForm'), fs = qs('#formSuccess'), fe = qs('#formError');
+  if (cf) {
+    cf.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (fe) fe.classList.remove('show');
+      var btn = cf.querySelector('button[type="submit"]');
+      btn.disabled = true; btn.textContent = '제출 중...';
+      var data = new FormData(cf);
+      fetch('https://api.web3forms.com/submit', { method: 'POST', body: data })
+        .then(function (r) { return r.json(); })
+        .then(function (res) {
+          if (res.success) {
+            fetch('/notify', {
+              method: 'POST', headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ name: data.get('name'), phone: data.get('phone'), company: data.get('company'), email: data.get('email'), media: data.getAll('media'), budget: data.get('budget'), message: data.get('message') })
+            }).catch(function () {});
+            cf.style.display = 'none';
+            if (fs) fs.classList.add('show');
+          } else {
+            btn.disabled = false; btn.textContent = '무료 진단 신청하기 →';
+            if (fe) { fe.textContent = '제출 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.'; fe.classList.add('show'); fe.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
+          }
+        })
+        .catch(function () {
+          btn.disabled = false; btn.textContent = '무료 진단 신청하기 →';
+          if (fe) { fe.textContent = '네트워크 오류가 발생했습니다. 잠시 후 다시 시도해주세요.'; fe.classList.add('show'); }
         });
-      });
-    }
+    });
+  }
 
-    // 맨 위로 가기 버튼
-    var toTop = document.querySelector('.to-top');
-    if (toTop) {
-      toTop.addEventListener('click', function () {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-      window.addEventListener('scroll', function () {
-        toTop.classList.toggle('show', window.scrollY > 600);
-      }, { passive: true });
+  /* ===== 스티키 모바일 CTA 바 ===== */
+  var stickyBar = qs('#stickyBar'), contactSection = qs('#contact');
+  if (stickyBar && contactSection) {
+    function updateStickyBar() {
+      var rect = contactSection.getBoundingClientRect();
+      stickyBar.classList.toggle('show', window.scrollY > 400 && !(rect.top < window.innerHeight && rect.bottom > 0));
     }
+    window.addEventListener('scroll', updateStickyBar, { passive: true });
+  }
 
-    // 폼 체크박스 시각 토글
-    document.querySelectorAll('.form-checkbox input[type="checkbox"]').forEach(function (cb) {
-      var wrap = cb.closest('.form-checkbox');
-      cb.addEventListener('change', function () {
-        wrap.classList.toggle('checked', cb.checked);
+  /* =====================================================
+     SPRINT 1 — 바 차트 초기화 (width → 0, data-w에 목표 저장)
+  ===================================================== */
+  qsa('.rc-bar-fill').forEach(function (el) {
+    el.dataset.w = el.style.width || '0%';
+    el.style.width = '0%';
+  });
+
+  /* =====================================================
+     SPRINT 1 — 카운트업
+  ===================================================== */
+  function countUp(el, target, suffix, dur) {
+    var start = null;
+    function step(ts) {
+      if (!start) start = ts;
+      var p = Math.min((ts - start) / dur, 1);
+      var ease = 1 - Math.pow(1 - p, 3);
+      el.innerHTML = Math.round(ease * target) + '<span>' + suffix + '</span>';
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  /* =====================================================
+     SPRINT 1 — IntersectionObserver 기반 애니메이션
+  ===================================================== */
+  if (hasIO && !reduced) {
+
+    /* 1) 섹션 wrap > * reveal */
+    var revealIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        en.target.classList.add('in');
+        revealIO.unobserve(en.target);
+      });
+    }, { threshold: 0.07 });
+    qsa('section .wrap > *').forEach(function (el) { revealIO.observe(el); });
+
+    /* 2) 그리드 stagger */
+    var GRIDS = '.result-grid,.review-grid,.creds,.case-grid,.report-grid,.timeline,.strat-tabs,.fit-grid,.promises-mini,.stats-grid';
+    var staggerIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        var children = Array.from(en.target.children);
+        children.forEach(function (child, i) {
+          child.style.setProperty('--sd', (i * 0.075) + 's');
+          setTimeout(function () { child.classList.add('in'); }, 30 + i * 75);
+        });
+        staggerIO.unobserve(en.target);
+      });
+    }, { threshold: 0.05 });
+    qsa(GRIDS).forEach(function (grid) {
+      Array.from(grid.children).forEach(function (child) {
+        if (document.documentElement.classList.contains('js')) {
+          child.classList.add('stagger-child');
+          child.style.opacity = '0';
+          child.style.transform = 'translateY(18px)';
+        }
+      });
+      staggerIO.observe(grid);
+    });
+
+    /* 3) 바 차트 */
+    var barIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        qsa('.rc-bar-fill', en.target).forEach(function (bar) { bar.style.width = bar.dataset.w || '0%'; });
+        barIO.unobserve(en.target);
+      });
+    }, { threshold: 0.25 });
+    qsa('.result-card').forEach(function (card) { barIO.observe(card); });
+
+    /* 4) 카운트업 */
+    var countIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        var el = en.target;
+        countUp(el, parseInt(el.dataset.count, 10), el.dataset.suffix || '', 1500);
+        countIO.unobserve(el);
+      });
+    }, { threshold: 0.6 });
+    qsa('.stat-num[data-count]').forEach(function (el) { countIO.observe(el); });
+
+  } else {
+    /* motion 비활성 / IO 미지원 */
+    qsa('section .wrap > *').forEach(function (el) { el.classList.add('in'); });
+    qsa('.rc-bar-fill').forEach(function (bar) { bar.style.width = bar.dataset.w || '0%'; });
+  }
+
+  /* =====================================================
+     SPRINT 1 — 3D TILT (hover 지원 기기만)
+  ===================================================== */
+  if (!reduced && hasHover) {
+    qsa('.result-card, .review-card, .strat-block, .tl, .cred-block').forEach(function (card) {
+      card.addEventListener('mousemove', function (e) {
+        var r = card.getBoundingClientRect();
+        var x = (e.clientX - r.left) / r.width  - 0.5;
+        var y = (e.clientY - r.top)  / r.height - 0.5;
+        card.style.transform  = 'perspective(720px) rotateX(' + (-y * 6) + 'deg) rotateY(' + (x * 6) + 'deg) translateY(-3px)';
+        card.style.boxShadow  = '0 16px 36px rgba(26,29,36,0.14)';
+        card.style.transition = 'transform 0.07s ease, box-shadow 0.07s ease';
+      });
+      card.addEventListener('mouseleave', function () {
+        card.style.transform  = '';
+        card.style.boxShadow  = '';
+        card.style.transition = 'transform 0.45s ease, box-shadow 0.45s ease';
+      });
+    });
+  }
+
+  /* =====================================================
+     SPRINT 3 — 관리자 모드 (?admin=1)
+  ===================================================== */
+  var ADMIN_KEY = 'ys_admin_v1';
+  var ADMIN_SELS = [
+    '.rv-quote', '.review-text', '.rv-result-txt',
+    '.rc-title', '.rc-cat',
+    'h2', '.section-sub', '.hero h1', '.hero-tagline',
+    '.story-cell h3', '.story-cell p',
+    '.qa .q', '.qa .a',
+    '.pm strong',
+    '.cred-item .label', '.cred-item .desc',
+    '.fit-list li', '.case-card h3'
+  ];
+
+  /* 모든 편집 대상에 고유 키 부여 (admin/일반 공통) */
+  var akIdx = 0;
+  ADMIN_SELS.forEach(function (sel) {
+    qsa(sel).forEach(function (el) {
+      if (!el.dataset.ak) el.dataset.ak = 'ak' + (akIdx++);
+    });
+  });
+
+  /* 저장된 데이터 복원 (일반 방문자 포함, 같은 기기/브라우저) */
+  function loadSaved() {
+    try {
+      var saved = JSON.parse(localStorage.getItem(ADMIN_KEY) || '{}');
+      Object.keys(saved).forEach(function (k) {
+        var el = qs('[data-ak="' + k + '"]');
+        if (el) el.innerHTML = saved[k];
+      });
+    } catch (e) {}
+  }
+  loadSaved();
+
+  var isAdmin = new URLSearchParams(window.location.search).get('admin') === '1';
+  if (isAdmin) {
+    var adminBar    = qs('#adminBar');
+    var adminStatus = qs('#adminStatus');
+    if (adminBar) adminBar.classList.add('show');
+
+    /* header & body offset */
+    document.body.style.paddingTop = '46px';
+    var hdr = qs('header');
+    if (hdr) hdr.style.top = '46px';
+
+    /* contenteditable 활성화 */
+    ADMIN_SELS.forEach(function (sel) {
+      qsa(sel).forEach(function (el) {
+        el.setAttribute('contenteditable', 'true');
+        el.setAttribute('spellcheck', 'false');
       });
     });
 
-    // 폼 제출 (Web3Forms fetch)
-    var cf = document.getElementById('contactForm');
-    var fs = document.getElementById('formSuccess');
-    var fe = document.getElementById('formError');
-    function showFormError(msg) {
-      if (!fe) return;
-      fe.textContent = msg;
-      fe.classList.add('show');
-      fe.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-    if (cf) {
-      cf.addEventListener('submit', function (e) {
-        e.preventDefault();
-        if (fe) fe.classList.remove('show');
-        var btn = cf.querySelector('button[type="submit"]');
-        btn.disabled = true;
-        btn.textContent = '제출 중...';
-        var data = new FormData(cf);
-        fetch('https://api.web3forms.com/submit', { method: 'POST', body: data })
-          .then(function (r) { return r.json(); })
-          .then(function (res) {
-            if (res.success) {
-              fetch('/notify', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                  name:    data.get('name'),
-                  phone:   data.get('phone'),
-                  company: data.get('company'),
-                  email:   data.get('email'),
-                  media:   data.getAll('media'),
-                  budget:  data.get('budget'),
-                  message: data.get('message'),
-                }),
-              }).catch(function () {});
-              cf.style.display = 'none';
-              if (fs) fs.classList.add('show');
-            } else {
-              btn.disabled = false;
-              btn.textContent = '무료 진단 신청하기 →';
-              showFormError('제출 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
-            }
-          })
-          .catch(function () {
-            btn.disabled = false;
-            btn.textContent = '무료 진단 신청하기 →';
-            showFormError('네트워크 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
-          });
-      });
-    }
-
-    // 스티키 모바일 CTA 바
-    var stickyBar = document.getElementById('stickyBar');
-    var contactSection = document.getElementById('contact');
-    if (stickyBar && contactSection) {
-      function updateStickyBar() {
-        var scrolled = window.scrollY > 400;
-        var rect = contactSection.getBoundingClientRect();
-        var inView = rect.top < window.innerHeight && rect.bottom > 0;
-        stickyBar.classList.toggle('show', scrolled && !inView);
+    /* 저장 */
+    qs('#adminSave').addEventListener('click', function () {
+      var data = {};
+      qsa('[data-ak]').forEach(function (el) { data[el.dataset.ak] = el.innerHTML; });
+      localStorage.setItem(ADMIN_KEY, JSON.stringify(data));
+      if (adminStatus) {
+        adminStatus.textContent = '저장 완료 ✓';
+        setTimeout(function () { adminStatus.textContent = ''; }, 2500);
       }
-      window.addEventListener('scroll', updateStickyBar, { passive: true });
-    }
+    });
 
-    // 스크롤 등장 애니메이션
-    var revealEls = document.querySelectorAll('section .wrap > *');
-    if ('IntersectionObserver' in window) {
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (en) {
-          if (en.isIntersecting) {
-            en.target.classList.add('in');
-            io.unobserve(en.target);
-          }
-        });
-      }, { threshold: 0.08 });
-      revealEls.forEach(function (el) { io.observe(el); });
-    } else {
-      revealEls.forEach(function (el) { el.classList.add('in'); });
-    }
-  })();
+    /* 초기화 */
+    qs('#adminReset').addEventListener('click', function () {
+      if (confirm('저장된 수정 내용을 모두 초기화하시겠습니까?\n원본 텍스트로 되돌아갑니다.')) {
+        localStorage.removeItem(ADMIN_KEY);
+        window.location.reload();
+      }
+    });
+  }
+
+})();
 </script>
 
 </body>
