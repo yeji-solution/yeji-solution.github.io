@@ -1307,6 +1307,200 @@
   .rc-bar-num { font-size: 10.5px; font-weight: 700; color: var(--text); width: 72px; text-align: right; flex-shrink: 0; }
 
   /* =====================================================
+     HIGH-END EFFECTS — 무신사/29cm 급
+  ===================================================== */
+
+  /* ── 1. 페이지 인트로 오버레이 ── */
+  #intro-overlay {
+    position: fixed; inset: 0; z-index: 9999;
+    background: #0F1117;
+    display: flex; align-items: center; justify-content: center;
+    pointer-events: none;
+  }
+  .intro-inner {
+    display: flex; flex-direction: column; align-items: center; gap: 0;
+    overflow: hidden;
+  }
+  .intro-brand {
+    font-size: clamp(28px, 6vw, 52px); font-weight: 900;
+    letter-spacing: -0.02em; color: #fff;
+    opacity: 0; transform: translateY(40px);
+    transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1);
+  }
+  .intro-brand .ib-accent { color: var(--naver); }
+  .intro-sub {
+    font-size: 13px; font-weight: 700; letter-spacing: 0.22em;
+    color: rgba(255,255,255,0.45); text-transform: uppercase;
+    opacity: 0; transform: translateY(16px);
+    transition: opacity 0.6s 0.25s cubic-bezier(0.22,1,0.36,1), transform 0.6s 0.25s cubic-bezier(0.22,1,0.36,1);
+    margin-top: 8px;
+  }
+  .intro-line {
+    width: 0; height: 1px; background: var(--naver);
+    transition: width 0.8s 0.5s cubic-bezier(0.22,1,0.36,1);
+    margin-top: 16px;
+  }
+  #intro-overlay.is-visible .intro-brand { opacity: 1; transform: translateY(0); }
+  #intro-overlay.is-visible .intro-sub   { opacity: 1; transform: translateY(0); }
+  #intro-overlay.is-visible .intro-line  { width: 160px; }
+  #intro-overlay.is-leaving {
+    clip-path: inset(0 0 100% 0);
+    transition: clip-path 0.75s 0.3s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+  #intro-overlay.is-gone { display: none; }
+
+  /* ── 2. 커스텀 커서 (PC hover 기기만) ── */
+  @media (hover: hover) and (pointer: fine) {
+    body { cursor: none; }
+    a, button, [role="button"], label.form-checkbox, .to-top, .chat-fab { cursor: none; }
+  }
+  #cursor-dot {
+    display: none;
+    position: fixed; z-index: 9998;
+    width: 8px; height: 8px;
+    background: var(--text);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s, height 0.2s, background 0.2s, opacity 0.2s;
+    will-change: transform;
+  }
+  #cursor-ring {
+    display: none;
+    position: fixed; z-index: 9997;
+    width: 36px; height: 36px;
+    border: 1.5px solid rgba(26,29,36,0.5);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: width 0.45s cubic-bezier(0.22,1,0.36,1),
+                height 0.45s cubic-bezier(0.22,1,0.36,1),
+                border-color 0.3s, opacity 0.3s;
+    will-change: transform;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    #cursor-dot, #cursor-ring { display: block; }
+  }
+  /* hover 시 커서 변화 */
+  body.cursor-hover #cursor-dot  { width: 6px; height: 6px; background: var(--naver); }
+  body.cursor-hover #cursor-ring { width: 52px; height: 52px; border-color: var(--naver); opacity: 0.7; }
+  body.cursor-link  #cursor-dot  { width: 4px; height: 4px; background: var(--zigzag); }
+  body.cursor-link  #cursor-ring { width: 60px; height: 60px; border-color: var(--zigzag); opacity: 0.6; }
+
+  /* ── 3. Marquee ── */
+  .marquee-section {
+    overflow: hidden; padding: 18px 0;
+    background: var(--text);
+    border-top: none; border-bottom: none;
+  }
+  .marquee-track {
+    display: flex; gap: 0;
+    width: max-content;
+    animation: marquee-scroll 28s linear infinite;
+  }
+  .marquee-track:hover { animation-play-state: paused; }
+  @keyframes marquee-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .marquee-item {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 0 32px; white-space: nowrap;
+    font-size: 13px; font-weight: 700;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 0.04em;
+  }
+  .marquee-item .mi-dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--naver); flex-shrink: 0;
+  }
+  .marquee-item.mi-accent { color: rgba(255,255,255,0.9); }
+  .marquee-item.mi-accent .mi-dot { background: var(--zigzag); }
+
+  /* ── 4. Clip-path 텍스트 reveal ── */
+  .reveal-text {
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 0.9s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+  .reveal-text.revealed { clip-path: inset(0 0% 0 0); }
+
+  .reveal-up {
+    opacity: 0; transform: translateY(56px);
+    transition: opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1);
+  }
+  .reveal-up.revealed { opacity: 1; transform: translateY(0); }
+
+  /* eyebrow reveal */
+  .section-head .eyebrow {
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path 0.7s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+  .section-head .eyebrow.revealed { clip-path: inset(0 0% 0 0); }
+
+  /* h2 line-by-line */
+  .section-head h2 .rl {
+    display: block; overflow: hidden;
+  }
+  .section-head h2 .rl span {
+    display: block;
+    transform: translateY(100%);
+    transition: transform 0.75s cubic-bezier(0.22,1,0.36,1);
+  }
+  .section-head h2 .rl.revealed span { transform: translateY(0); }
+
+  /* ── 5. 히어로 대형 배경 텍스트 ── */
+  .hero-bg-text {
+    position: absolute; bottom: -10px; left: -4px;
+    font-size: clamp(80px, 16vw, 160px);
+    font-weight: 900; letter-spacing: -0.04em;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(0,0,0,0.06);
+    pointer-events: none; z-index: 0;
+    white-space: nowrap; line-height: 1;
+    user-select: none;
+  }
+
+  /* ── 6. 섹션 강렬한 배경 대비 ── */
+  section#philosophy {
+    background: #0F1117;
+  }
+  section#philosophy h2,
+  section#philosophy .section-sub,
+  section#philosophy .story-cell .num,
+  section#philosophy .story-cell h3,
+  section#philosophy .story-cell p { color: #fff; }
+  section#philosophy .story-cell p { color: rgba(255,255,255,0.65); }
+  section#philosophy .story { border-top-color: rgba(255,255,255,0.12); border-bottom-color: rgba(255,255,255,0.12); }
+  section#philosophy .story-cell { border-right-color: rgba(255,255,255,0.1); }
+  section#philosophy .story-cell:hover { background: rgba(255,255,255,0.04); }
+  section#philosophy .eyebrow { color: var(--naver); background: rgba(0,199,60,0.15); }
+  section#philosophy .quote {
+    background: rgba(255,255,255,0.05);
+    border-left-color: var(--naver);
+    color: #fff;
+  }
+  section#philosophy .quote em { color: transparent; }
+  section#philosophy .section-sub { color: rgba(255,255,255,0.6); }
+
+  /* ── 7. 결과 숫자 하이라이트 강화 ── */
+  .rc-after { font-size: 15px; }
+  .rc-delta { font-size: 12.5px; padding: 3px 9px; }
+
+  /* ── 8. 성과 섹션 카드 hover — 이미지 오버레이 느낌 ── */
+  .result-card:hover .rc-bar-fill.af-n { filter: brightness(1.15); }
+  .result-card:hover .rc-bar-fill.af-z { filter: brightness(1.15); }
+  .result-card:hover .rc-bar-fill.af-c { filter: brightness(1.15); }
+  .result-card:hover .rc-bar-fill.af-t { filter: brightness(1.15); }
+  .result-card:hover .rc-title { color: var(--naver-dark); }
+
+  /* ── 9. 네비게이션 활성 섹션 하이라이트 ── */
+  .nav-menu a.active { color: var(--text); font-weight: 700; }
+  .nav-menu a.active::after {
+    content: ''; display: block; height: 2px;
+    background: var(--naver); border-radius: 1px; margin-top: 2px;
+  }
+
+  /* =====================================================
      SPRINT 1 — INTERACTIONS & ANIMATIONS
   ===================================================== */
 
@@ -1561,6 +1755,19 @@
 </head>
 <body>
 
+<!-- 인트로 오버레이 -->
+<div id="intro-overlay">
+  <div class="intro-inner">
+    <div class="intro-brand"><span class="ib-accent">YEJI</span> SOLUTION</div>
+    <div class="intro-sub">Ad Marketing</div>
+    <div class="intro-line"></div>
+  </div>
+</div>
+
+<!-- 커스텀 커서 -->
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+
 <!-- ADMIN BAR (비공개 관리자 모드 — ?admin=1 로 접근) -->
 <div class="admin-bar" id="adminBar">
   <span class="ab-label">ADMIN MODE</span>
@@ -1599,6 +1806,7 @@
 
 <!-- HERO -->
 <section class="hero">
+  <div class="hero-bg-text">MARKETING</div>
   <div class="wrap hero-grid">
     <div class="hero-text">
       <div class="role">광고 마케터 · 네이버·지그재그 7년차</div>
@@ -1633,6 +1841,29 @@
     </div>
   </div>
 </section>
+
+<!-- MARQUEE -->
+<div class="marquee-section" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="marquee-item mi-accent"><span class="mi-dot"></span>네이버 프리미어 파트너사</span>
+    <span class="marquee-item"><span class="mi-dot"></span>지그재그 프리미어 에이전시</span>
+    <span class="marquee-item mi-accent"><span class="mi-dot"></span>검색광고마케터 1급</span>
+    <span class="marquee-item"><span class="mi-dot"></span>구글 GAIQ</span>
+    <span class="marquee-item mi-accent"><span class="mi-dot"></span>SNS광고마케터 1급</span>
+    <span class="marquee-item"><span class="mi-dot"></span>7년차 1:1 전담 운영</span>
+    <span class="marquee-item mi-accent"><span class="mi-dot"></span>관리비·위약금 0원</span>
+    <span class="marquee-item"><span class="mi-dot"></span>쿠팡·오늘의집·J마켓 대행</span>
+    <!-- 복제본 (무한 루프용) -->
+    <span class="marquee-item mi-accent"><span class="mi-dot"></span>네이버 프리미어 파트너사</span>
+    <span class="marquee-item"><span class="mi-dot"></span>지그재그 프리미어 에이전시</span>
+    <span class="marquee-item mi-accent"><span class="mi-dot"></span>검색광고마케터 1급</span>
+    <span class="marquee-item"><span class="mi-dot"></span>구글 GAIQ</span>
+    <span class="marquee-item mi-accent"><span class="mi-dot"></span>SNS광고마케터 1급</span>
+    <span class="marquee-item"><span class="mi-dot"></span>7년차 1:1 전담 운영</span>
+    <span class="marquee-item mi-accent"><span class="mi-dot"></span>관리비·위약금 0원</span>
+    <span class="marquee-item"><span class="mi-dot"></span>쿠팡·오늘의집·J마켓 대행</span>
+  </div>
+</div>
 
 <!-- STATS -->
 <section class="stats">
@@ -2953,9 +3184,90 @@
   'use strict';
   var qs  = function (s, c) { return (c || document).querySelector(s); };
   var qsa = function (s, c) { return (c || document).querySelectorAll(s); };
-  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var hasIO   = 'IntersectionObserver' in window;
-  var hasHover = window.matchMedia('(hover: hover)').matches;
+  var reduced  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasIO    = 'IntersectionObserver' in window;
+  var hasHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  /* =====================================================
+     1. 페이지 인트로
+  ===================================================== */
+  var overlay = qs('#intro-overlay');
+  if (overlay && !reduced) {
+    /* 첫 방문만 (세션 내 반복 제거) */
+    var shownKey = 'ys_intro_shown';
+    if (!sessionStorage.getItem(shownKey)) {
+      sessionStorage.setItem(shownKey, '1');
+      document.body.style.overflow = 'hidden';
+      requestAnimationFrame(function () {
+        overlay.classList.add('is-visible');
+        setTimeout(function () {
+          overlay.classList.add('is-leaving');
+          document.body.style.overflow = '';
+          setTimeout(function () { overlay.classList.add('is-gone'); }, 1100);
+        }, 1600);
+      });
+    } else {
+      overlay.classList.add('is-gone');
+    }
+  } else if (overlay) {
+    overlay.classList.add('is-gone');
+  }
+
+  /* =====================================================
+     2. 커스텀 커서
+  ===================================================== */
+  if (hasHover) {
+    var dot  = qs('#cursor-dot');
+    var ring = qs('#cursor-ring');
+    var mx = 0, my = 0, rx = 0, ry = 0;
+
+    document.addEventListener('mousemove', function (e) {
+      mx = e.clientX; my = e.clientY;
+      dot.style.left  = mx + 'px';
+      dot.style.top   = my + 'px';
+    });
+
+    /* ring은 RAF로 부드럽게 따라옴 */
+    (function loop() {
+      rx += (mx - rx) * 0.14;
+      ry += (my - ry) * 0.14;
+      ring.style.left = rx + 'px';
+      ring.style.top  = ry + 'px';
+      requestAnimationFrame(loop);
+    })();
+
+    /* hover 상태 감지 */
+    var hoverEls = 'a, button, [role="button"], label.form-checkbox, .to-top, .chat-fab, .badge, .result-card, .review-card, .strat-block, .tl';
+    document.addEventListener('mouseover', function (e) {
+      var t = e.target.closest(hoverEls);
+      if (!t) { document.body.classList.remove('cursor-hover', 'cursor-link'); return; }
+      var isLink = t.tagName === 'A' || t.tagName === 'BUTTON' || t.closest('a,button');
+      document.body.classList.toggle('cursor-link',  !!isLink);
+      document.body.classList.toggle('cursor-hover', !isLink);
+    });
+    document.addEventListener('mouseout', function (e) {
+      if (!e.relatedTarget || e.relatedTarget === document.documentElement) {
+        document.body.classList.remove('cursor-hover', 'cursor-link');
+      }
+    });
+  }
+
+  /* =====================================================
+     3. 네비게이션 active 섹션 하이라이트
+  ===================================================== */
+  if (hasIO) {
+    var navLinks = qsa('.nav-menu a[href^="#"]');
+    var sectionIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        var id = en.target.id;
+        navLinks.forEach(function (a) {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+        });
+      });
+    }, { threshold: 0.35 });
+    qsa('section[id]').forEach(function (s) { sectionIO.observe(s); });
+  }
 
   /* ===== 모바일 햄버거 ===== */
   var navToggle = qs('.nav-toggle');
@@ -3057,7 +3369,36 @@
   /* =====================================================
      SPRINT 1 — IntersectionObserver 기반 애니메이션
   ===================================================== */
+  /* =====================================================
+     4. Clip-path 섹션 헤드라인 reveal 준비
+  ===================================================== */
+  /* h2를 line-by-line으로 감싸기 */
+  qsa('.section-head h2').forEach(function (h2) {
+    var lines = h2.innerHTML.split(/<br[^>]*>/i);
+    h2.innerHTML = lines.map(function (line) {
+      return '<span class="rl"><span>' + line.trim() + '</span></span>';
+    }).join('');
+  });
+
   if (hasIO && !reduced) {
+
+    /* Clip-path IO: section-head 전체 */
+    var clipIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        var head = en.target;
+        var eyebrow = qs('.eyebrow', head);
+        var rls = qsa('.rl', head);
+        var sub = qs('.section-sub', head);
+        if (eyebrow) setTimeout(function () { eyebrow.classList.add('revealed'); }, 0);
+        rls.forEach(function (rl, i) {
+          setTimeout(function () { rl.classList.add('revealed'); }, 120 + i * 100);
+        });
+        if (sub) setTimeout(function () { sub.classList.add('reveal-up', 'revealed'); }, 320);
+        clipIO.unobserve(head);
+      });
+    }, { threshold: 0.2 });
+    qsa('.section-head').forEach(function (h) { clipIO.observe(h); });
 
     var GRID_SEL = '.result-grid,.review-grid,.creds,.case-grid,.report-grid,.timeline,.strat-tabs,.fit-grid,.promises-mini,.stats-grid';
 
