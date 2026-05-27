@@ -1312,32 +1312,44 @@
 
   /* 바 차트 width 트랜지션 */
   .rc-bar-fill {
-    transition: width 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: width 1.4s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  /* 그라디언트 모션 (hero strong, stat-num) */
+  /* 그라디언트 모션 */
   @keyframes gradient-x {
     0%   { background-position: 0% 50%; }
     50%  { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
   }
   .hero h1 strong {
-    background-size: 200% auto;
-    animation: gradient-x 5s ease infinite;
+    background: linear-gradient(90deg, #00C73C 0%, #FF3F7E 45%, #00C73C 100%);
+    background-size: 300% auto;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: gradient-x 4s ease infinite;
   }
   .stat-num {
-    background-size: 200% auto;
-    animation: gradient-x 5s ease infinite;
+    background: linear-gradient(90deg, #00C73C 0%, #FF3F7E 45%, #00C73C 100%);
+    background-size: 300% auto;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-x 4s ease infinite;
+  }
+
+  /* 그리드 자체는 reveal에서 제외 — 카드 stagger가 담당 */
+  .js .result-grid, .js .review-grid, .js .creds,
+  .js .case-grid, .js .report-grid, .js .timeline,
+  .js .strat-tabs, .js .fit-grid, .js .promises-mini,
+  .js .stats-grid {
+    opacity: 1 !important; transform: none !important;
   }
 
   /* 섹션 내 그리드 카드 stagger */
   .stagger-child {
-    transition: opacity 0.5s ease var(--sd, 0s), transform 0.5s ease var(--sd, 0s);
+    transition: opacity 0.55s ease var(--sd, 0s), transform 0.55s ease var(--sd, 0s);
   }
   .stagger-child.in { opacity: 1 !important; transform: translateY(0) !important; }
   @media (prefers-reduced-motion: reduce) {
-    .stagger-child { transition: none !important; }
-    .stagger-child.in { opacity: 1 !important; transform: none !important; }
+    .stagger-child { transition: none !important; opacity: 1 !important; transform: none !important; }
   }
 
   /* =====================================================
@@ -1350,21 +1362,21 @@
   .hero::before {
     content: '';
     position: absolute;
-    width: 520px; height: 520px;
-    background: radial-gradient(circle at 50%, rgba(0,199,60,0.11) 0%, transparent 65%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle at 50%, rgba(0,199,60,0.20) 0%, rgba(0,199,60,0.05) 50%, transparent 70%);
     border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
     animation: blob-morph 9s ease-in-out infinite;
-    top: -130px; right: -100px;
+    top: -160px; right: -120px;
     pointer-events: none; z-index: 0;
   }
   .hero::after {
     content: '';
     position: absolute;
-    width: 420px; height: 420px;
-    background: radial-gradient(circle at 50%, rgba(255,63,126,0.09) 0%, transparent 65%);
+    width: 480px; height: 480px;
+    background: radial-gradient(circle at 50%, rgba(255,63,126,0.17) 0%, rgba(255,63,126,0.04) 50%, transparent 70%);
     border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
     animation: blob-morph 11s ease-in-out infinite reverse;
-    bottom: -100px; left: -80px;
+    bottom: -120px; left: -100px;
     pointer-events: none; z-index: 0;
   }
   @keyframes blob-morph {
@@ -1376,11 +1388,14 @@
 
   /* Hero 최초 등장 애니메이션 */
   @keyframes hero-up {
-    from { opacity: 0; transform: translateY(30px); }
+    from { opacity: 0; transform: translateY(42px); }
     to   { opacity: 1; transform: translateY(0); }
   }
-  .hero-text { animation: hero-up 0.75s cubic-bezier(0.22, 1, 0.36, 1) both; }
-  .hero-photo { animation: hero-up 0.75s 0.18s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .hero .role   { animation: hero-up 0.65s 0.05s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .hero h1      { animation: hero-up 0.72s 0.15s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .hero-tagline { animation: hero-up 0.72s 0.25s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .hero-badges  { animation: hero-up 0.72s 0.35s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .hero-photo   { animation: hero-up 0.80s 0.20s cubic-bezier(0.22, 1, 0.36, 1) both; }
 
   /* Stats 섹션 노이즈 텍스처 느낌 (SVG filter) */
   .stats { position: relative; }
@@ -3044,7 +3059,9 @@
   ===================================================== */
   if (hasIO && !reduced) {
 
-    /* 1) 섹션 wrap > * reveal */
+    var GRID_SEL = '.result-grid,.review-grid,.creds,.case-grid,.report-grid,.timeline,.strat-tabs,.fit-grid,.promises-mini,.stats-grid';
+
+    /* 1) 섹션 wrap > * reveal — 그리드는 제외(stagger가 담당) */
     var revealIO = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
         if (!en.isIntersecting) return;
@@ -3052,28 +3069,27 @@
         revealIO.unobserve(en.target);
       });
     }, { threshold: 0.07 });
-    qsa('section .wrap > *').forEach(function (el) { revealIO.observe(el); });
+    qsa('section .wrap > *').forEach(function (el) {
+      if (!el.matches(GRID_SEL)) revealIO.observe(el);
+    });
 
     /* 2) 그리드 stagger */
-    var GRIDS = '.result-grid,.review-grid,.creds,.case-grid,.report-grid,.timeline,.strat-tabs,.fit-grid,.promises-mini,.stats-grid';
     var staggerIO = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
         if (!en.isIntersecting) return;
         var children = Array.from(en.target.children);
         children.forEach(function (child, i) {
-          child.style.setProperty('--sd', (i * 0.075) + 's');
-          setTimeout(function () { child.classList.add('in'); }, 30 + i * 75);
+          child.style.setProperty('--sd', (i * 0.10) + 's');
+          setTimeout(function () { child.classList.add('in'); }, 40 + i * 100);
         });
         staggerIO.unobserve(en.target);
       });
-    }, { threshold: 0.05 });
-    qsa(GRIDS).forEach(function (grid) {
+    }, { threshold: 0.04 });
+    qsa(GRID_SEL).forEach(function (grid) {
       Array.from(grid.children).forEach(function (child) {
-        if (document.documentElement.classList.contains('js')) {
-          child.classList.add('stagger-child');
-          child.style.opacity = '0';
-          child.style.transform = 'translateY(18px)';
-        }
+        child.classList.add('stagger-child');
+        child.style.opacity = '0';
+        child.style.transform = 'translateY(28px)';
       });
       staggerIO.observe(grid);
     });
@@ -3114,8 +3130,8 @@
         var r = card.getBoundingClientRect();
         var x = (e.clientX - r.left) / r.width  - 0.5;
         var y = (e.clientY - r.top)  / r.height - 0.5;
-        card.style.transform  = 'perspective(720px) rotateX(' + (-y * 6) + 'deg) rotateY(' + (x * 6) + 'deg) translateY(-3px)';
-        card.style.boxShadow  = '0 16px 36px rgba(26,29,36,0.14)';
+        card.style.transform  = 'perspective(650px) rotateX(' + (-y * 9) + 'deg) rotateY(' + (x * 9) + 'deg) translateY(-4px) scale(1.02)';
+        card.style.boxShadow  = '0 20px 44px rgba(26,29,36,0.18)';
         card.style.transition = 'transform 0.07s ease, box-shadow 0.07s ease';
       });
       card.addEventListener('mouseleave', function () {
