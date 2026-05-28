@@ -575,11 +575,41 @@
 
   /* ===== FOOTER ===== */
   footer {
-    padding: 40px 0; text-align: center; font-size: 13px; color: var(--text-dim);
-    background: #FAFBFC; border-top: 1px solid var(--line);
+    padding: 56px 0 36px;
+    background: #0F1117;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.5);
+    font-size: 13px;
   }
-  footer .brand-mini { font-weight: 800; color: var(--text); }
-  footer .brand-mini .accent-n { color: var(--naver); }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px;
+    padding-bottom: 36px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    margin-bottom: 24px;
+  }
+  .footer-brand-name { font-weight: 800; font-size: 17px; color: #fff; margin-bottom: 10px; letter-spacing: -0.01em; }
+  .footer-brand-name .accent-n { color: var(--naver); }
+  .footer-tagline { font-size: 13px; line-height: 1.65; color: rgba(255,255,255,0.42); margin-bottom: 18px; }
+  .footer-badge-row { display: flex; flex-wrap: wrap; gap: 6px; }
+  .footer-badge-pill {
+    font-size: 11px; font-weight: 600; padding: 4px 10px;
+    border: 1px solid rgba(255,255,255,0.15); border-radius: 999px;
+    color: rgba(255,255,255,0.48);
+  }
+  .footer-col-ttl {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.3); text-transform: uppercase; margin-bottom: 14px;
+  }
+  .footer-nav-list { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+  .footer-nav-list a { font-size: 13px; color: rgba(255,255,255,0.52); transition: color 0.18s; }
+  .footer-nav-list a:hover { color: #fff; }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; }
+  .footer-copy { font-size: 12px; color: rgba(255,255,255,0.25); }
+  .footer-note { font-size: 12px; color: rgba(255,255,255,0.18); }
+  @media (max-width: 720px) {
+    .footer-grid { grid-template-columns: 1fr; gap: 28px; padding-bottom: 28px; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; gap: 4px; }
+  }
 
   /* ===== ANCHOR OFFSET (sticky header 보정) ===== */
   section[id] { scroll-margin-top: 72px; }
@@ -1647,7 +1677,7 @@
     .ck { background: #1A1E2A; border-color: var(--line); }
     .stats { background: #070A10; }
     .pm { background: #161A24; border-color: var(--line); }
-    footer { background: #070A10; border-top-color: var(--line); }
+    footer { background: #070A10; border-top-color: rgba(255,255,255,0.06); }
     .hero::before { background: radial-gradient(circle at 50%, rgba(0,199,60,0.07) 0%, transparent 65%); }
     .hero::after  { background: radial-gradient(circle at 50%, rgba(255,63,126,0.06) 0%, transparent 65%); }
     .quote { background: var(--bg-soft); border-left-color: var(--naver); }
@@ -1751,9 +1781,33 @@
     .hero-grid { grid-template-columns: 1fr; gap: 0; }
     .hero-photo { display: none; }
   }
+
+  /* ===== SCROLL PROGRESS BAR ===== */
+  #scroll-progress {
+    position: fixed; top: 0; left: 0;
+    height: 2px; width: 0%;
+    background: linear-gradient(90deg, var(--naver) 0%, var(--zigzag) 100%);
+    z-index: 9998; pointer-events: none;
+    transform-origin: left;
+  }
+
+  /* ===== REPORT SECTION — DARK TREATMENT ===== */
+  section#report { background: #13151F; }
+  section#report .section-head .eyebrow { color: rgba(255,255,255,0.4); -webkit-text-fill-color: rgba(255,255,255,0.4); }
+  section#report .section-head h2 { color: #fff; }
+  section#report .section-sub { color: rgba(255,255,255,0.55); }
+  section#report .report-item {
+    background: rgba(255,255,255,0.04);
+    border-color: rgba(255,255,255,0.09);
+  }
+  section#report .report-item h3 { color: #fff; }
+  section#report .report-item p { color: rgba(255,255,255,0.55); }
 </style>
 </head>
 <body>
+
+<!-- 스크롤 진행 표시바 -->
+<div id="scroll-progress"></div>
 
 <!-- 인트로 오버레이 -->
 <div id="intro-overlay">
@@ -1852,7 +1906,7 @@
     <span class="marquee-item mi-accent"><span class="mi-dot"></span>SNS광고마케터 1급</span>
     <span class="marquee-item"><span class="mi-dot"></span>7년차 1:1 전담 운영</span>
     <span class="marquee-item mi-accent"><span class="mi-dot"></span>관리비·위약금 0원</span>
-    <span class="marquee-item"><span class="mi-dot"></span>쿠팡·오늘의집·J마켓 대행</span>
+    <span class="marquee-item"><span class="mi-dot"></span>쿠팡·오늘의집 공식 대행</span>
     <!-- 복제본 (무한 루프용) -->
     <span class="marquee-item mi-accent"><span class="mi-dot"></span>네이버 프리미어 파트너사</span>
     <span class="marquee-item"><span class="mi-dot"></span>지그재그 프리미어 에이전시</span>
@@ -1861,7 +1915,7 @@
     <span class="marquee-item mi-accent"><span class="mi-dot"></span>SNS광고마케터 1급</span>
     <span class="marquee-item"><span class="mi-dot"></span>7년차 1:1 전담 운영</span>
     <span class="marquee-item mi-accent"><span class="mi-dot"></span>관리비·위약금 0원</span>
-    <span class="marquee-item"><span class="mi-dot"></span>쿠팡·오늘의집·J마켓 대행</span>
+    <span class="marquee-item"><span class="mi-dot"></span>쿠팡·오늘의집 공식 대행</span>
   </div>
 </div>
 
@@ -3156,10 +3210,38 @@
 
 <footer>
   <div class="wrap">
-    <span class="brand-mini"><span class="accent-n">YEJI</span> SOLUTION</span>
-    &nbsp;· 이명수 마케터 · 네이버 프리미어 파트너사 · 지그재그 프리미어 에이전시
-    <div style="margin-top: 10px; font-size: 12px; color: var(--text-dim);">
-      © 2026 이명수 · 본 페이지는 광고 마케팅 상담을 위한 마케터 소개 자료입니다.
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-name"><span class="accent-n">YEJI</span> SOLUTION</div>
+        <p class="footer-tagline">네이버·지그재그 광고 전문 마케터.<br>7년차 1:1 전담 운영으로 성과를 만듭니다.</p>
+        <div class="footer-badge-row">
+          <span class="footer-badge-pill">네이버 프리미어 파트너</span>
+          <span class="footer-badge-pill">지그재그 프리미어 에이전시</span>
+          <span class="footer-badge-pill">검색광고마케터 1급</span>
+          <span class="footer-badge-pill">구글 GAIQ</span>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-ttl">바로가기</div>
+        <ul class="footer-nav-list">
+          <li><a href="#credentials">자격·인증</a></li>
+          <li><a href="#results">성과 사례</a></li>
+          <li><a href="#philosophy">왜 다른가</a></li>
+          <li><a href="#cases">진단 사례</a></li>
+          <li><a href="#qa">Q&A</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-ttl">상담 신청</div>
+        <ul class="footer-nav-list">
+          <li><a href="#contact">무료 진단 신청</a></li>
+          <li><a href="https://open.kakao.com/o/sQcLuovi" target="_blank" rel="noopener">카카오 오픈채팅</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 이명수 · YEJI SOLUTION</div>
+      <div class="footer-note">본 페이지는 광고 마케팅 상담을 위한 마케터 소개 자료입니다.</div>
     </div>
   </div>
 </footer>
@@ -3187,6 +3269,18 @@
   var reduced  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var hasIO    = 'IntersectionObserver' in window;
   var hasHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  /* =====================================================
+     0. 스크롤 진행 표시바
+  ===================================================== */
+  var progressBar = qs('#scroll-progress');
+  if (progressBar) {
+    window.addEventListener('scroll', function () {
+      var st = window.scrollY || document.documentElement.scrollTop;
+      var dh = document.documentElement.scrollHeight - window.innerHeight;
+      progressBar.style.width = (dh > 0 ? (st / dh * 100) : 0) + '%';
+    }, { passive: true });
+  }
 
   /* =====================================================
      1. 페이지 인트로
