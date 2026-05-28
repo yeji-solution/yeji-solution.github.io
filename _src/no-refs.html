@@ -1417,35 +1417,6 @@
   body.cursor-link  #cursor-dot  { width: 4px; height: 4px; background: var(--zigzag); }
   body.cursor-link  #cursor-ring { width: 60px; height: 60px; border-color: var(--zigzag); opacity: 0.6; }
 
-  /* ── 3. Marquee ── */
-  .marquee-section {
-    overflow: hidden; padding: 18px 0;
-    background: var(--text);
-    border-top: none; border-bottom: none;
-  }
-  .marquee-track {
-    display: flex; gap: 0;
-    width: max-content;
-    animation: marquee-scroll 28s linear infinite;
-  }
-  .marquee-track:hover { animation-play-state: paused; }
-  @keyframes marquee-scroll {
-    from { transform: translateX(0); }
-    to   { transform: translateX(-50%); }
-  }
-  .marquee-item {
-    display: inline-flex; align-items: center; gap: 10px;
-    padding: 0 32px; white-space: nowrap;
-    font-size: 13px; font-weight: 700;
-    color: rgba(255,255,255,0.55);
-    letter-spacing: 0.04em;
-  }
-  .marquee-item .mi-dot {
-    width: 5px; height: 5px; border-radius: 50%;
-    background: var(--naver); flex-shrink: 0;
-  }
-  .marquee-item.mi-accent { color: rgba(255,255,255,0.9); }
-  .marquee-item.mi-accent .mi-dot { background: var(--zigzag); }
 
   /* ── 4. Clip-path 텍스트 reveal ── */
   .reveal-text {
