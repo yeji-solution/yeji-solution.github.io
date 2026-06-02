@@ -71,6 +71,8 @@
     --naver-dark: #009B2F;
     --zigzag: #FF3F7E;
     --zigzag-dark: #E32869;
+    --brand: #1B2A4E;          /* 딥 네이비 — 데이터 드리븐 신뢰형 메인 */
+    --brand-accent: #2563EB;   /* 액션 블루 — CTA·강조 수치 */
     --dual: linear-gradient(90deg, #00C73C 0%, #FF3F7E 100%);
     --coupang: #E31B23;
     --coupang-dark: #B8000F;
@@ -208,6 +210,39 @@
     background: var(--bg-zigzag);
   }
   .badge .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+  /* Hero CTA */
+  .hero-cta { margin-top: 34px; display: flex; flex-wrap: wrap; gap: 12px; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 15px 26px; border-radius: 12px;
+    background: var(--brand-accent); color: #fff !important;
+    font-size: 16px; font-weight: 800; letter-spacing: -0.01em;
+    box-shadow: 0 8px 22px rgba(37,99,235,0.28);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(37,99,235,0.36); }
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 15px 24px; border-radius: 12px;
+    background: #fff; color: var(--brand) !important;
+    border: 1.5px solid var(--line-strong);
+    font-size: 16px; font-weight: 700;
+    transition: border-color 0.15s, transform 0.15s;
+  }
+  .btn-secondary:hover { border-color: var(--brand); transform: translateY(-2px); }
+
+  /* Hero 성과 strip */
+  .hero-proof {
+    margin-top: 34px; padding-top: 26px; border-top: 1px solid var(--line);
+    display: flex; flex-wrap: wrap; gap: 30px;
+  }
+  .hp-item { display: flex; flex-direction: column; gap: 3px; }
+  .hp-item b {
+    font-size: 30px; font-weight: 800; letter-spacing: -0.03em;
+    color: var(--brand); font-variant-numeric: tabular-nums; line-height: 1;
+  }
+  .hp-item span { font-size: 12.5px; font-weight: 600; color: var(--text-dim); letter-spacing: 0.02em; }
 
   /* 프로필 사진 */
   .hero-photo {
@@ -1000,6 +1035,10 @@
     .hero-badges { gap: 8px; margin-top: 20px; }
     /* 배지 구분선: 모바일에선 자연 흐름으로 */
     .badge-break { display: none; }
+    .hero-cta { margin-top: 26px; }
+    .hero-cta .btn-primary, .hero-cta .btn-secondary { flex: 1; justify-content: center; padding: 14px 18px; }
+    .hero-proof { gap: 18px; margin-top: 26px; padding-top: 22px; }
+    .hp-item b { font-size: 23px; }
 
     /* 히어로 heading 모바일 여백 */
     .hero-text h1 { margin-top: 12px; }
@@ -1702,7 +1741,16 @@
         <span class="badge">SNS광고마케터 1급</span>
       </div>
 
+      <div class="hero-cta">
+        <a href="#contact" class="btn-primary">3일 무료 진단 받기 →</a>
+        <a href="https://open.kakao.com/o/sQcLuovi" target="_blank" rel="noopener" class="btn-secondary"><span aria-hidden="true">💬</span> 카카오 상담</a>
+      </div>
 
+      <div class="hero-proof">
+        <div class="hp-item"><b>+219%</b><span>전환수 (네이버 뷰티)</span></div>
+        <div class="hp-item"><b>1,007%</b><span>ROAS (지그재그 패션)</span></div>
+        <div class="hp-item"><b>+673%</b><span>매출 (쿠팡 건강)</span></div>
+      </div>
     </div>
 
     <!-- 프로필 사진: 같은 폴더에 profile.jpg(세로형 상반신 사진) 업로드 시 자동 표시 -->
