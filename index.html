@@ -200,9 +200,8 @@
     background: var(--brand); box-shadow: 0 0 8px rgba(27,42,78,0.5);
   }
   .hero h1 strong {
-    color: var(--text);
-    background: linear-gradient(180deg, transparent 62%, rgba(27,42,78,0.16) 62%);
-    padding: 0 1px;
+    color: var(--brand-accent);
+    background: none;
   }
   .hero-tagline {
     margin-top: 24px;
@@ -282,7 +281,7 @@
   /* 프로필 사진 */
   .hero-photo {
     position: relative; aspect-ratio: 4 / 5;
-    width: 100%; max-width: 320px; justify-self: center; margin-top: 8px;
+    width: 100%;
     border-radius: 20px; overflow: hidden;
     background: linear-gradient(160deg, #2c3d63 0%, #1B2A4E 100%);
     box-shadow: 0 24px 60px rgba(0,0,0,0.15);
@@ -2035,17 +2034,17 @@
         <span class="badge">SNS광고마케터 1급</span>
       </div>
 
-      <div class="hero-proof">
-        <div class="hp-item"><span class="hp-cat">전환수</span><b>+219%</b><span class="hp-src">네이버 · 뷰티</span></div>
-        <div class="hp-item"><span class="hp-cat">ROAS</span><b>1,007%</b><span class="hp-src">지그재그 · 패션</span></div>
-        <div class="hp-item"><span class="hp-cat">매출</span><b>+673%</b><span class="hp-src">쿠팡 · 건강</span></div>
-      </div>
-
       <div class="hero-cta">
         <a href="#contact" class="btn-primary">3일 무료 진단 받기</a>
         <a href="https://open.kakao.com/o/sQcLuovi" target="_blank" rel="noopener noreferrer" class="btn-ghost-kakao">카카오 1:1 상담</a>
       </div>
       <p class="hero-cta-meta">7일 내 1차 진단 리포트<span class="sep">·</span>관리비·위약금 0원</p>
+
+      <div class="hero-proof">
+        <div class="hp-item"><span class="hp-cat">전환수</span><b>+219%</b><span class="hp-src">네이버 · 뷰티</span></div>
+        <div class="hp-item"><span class="hp-cat">ROAS</span><b>1,007%</b><span class="hp-src">지그재그 · 패션</span></div>
+        <div class="hp-item"><span class="hp-cat">매출</span><b>+673%</b><span class="hp-src">쿠팡 · 건강</span></div>
+      </div>
     </div>
 
     <!-- 프로필 사진: 같은 폴더에 profile.jpg(세로형 상반신 사진) 업로드 시 자동 표시 -->
