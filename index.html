@@ -60,6 +60,7 @@
     color-scheme: light;
     --bg: #FFFFFF;
     --bg-soft: #F7F8FA;
+    --bg-band: #EAEEF6;        /* 네이비끼 도는 밴드색 — 흰 섹션과 교대 리듬용 */
     --bg-naver: #F1FBF4;
     --bg-zigzag: #FEF1F5;
     --line: #E8EAED;
@@ -140,13 +141,14 @@
     font-size: 12px;
     font-weight: 800;
     letter-spacing: 0.18em;
-    color: var(--naver);
+    color: var(--brand);
     padding-left: 14px;
-    border-left: 4px solid var(--naver);
+    border-left: 4px solid var(--brand);
     margin-bottom: 16px;
   }
-  .eyebrow.z { color: var(--zigzag); border-left-color: var(--zigzag); }
-  .eyebrow.dual { color: var(--text); border-left: 4px solid; border-image: var(--dual) 1; }
+  /* 섹션 라벨은 전부 네이비로 통일 — 색은 매체 데이터에만 사용 */
+  .eyebrow.z { color: var(--brand); border-left-color: var(--brand); }
+  .eyebrow.dual { color: var(--brand); border-left: 4px solid var(--brand); border-image: none; }
   h1 {
     font-size: clamp(26px, 6vw, 52px);
     font-weight: 800;
@@ -182,11 +184,12 @@
   }
   .hero .role::before {
     content: ''; width: 6px; height: 6px; border-radius: 50%;
-    background: var(--naver); box-shadow: 0 0 8px rgba(0,199,60,0.6);
+    background: var(--brand); box-shadow: 0 0 8px rgba(27,42,78,0.5);
   }
   .hero h1 strong {
-    background: var(--dual); -webkit-background-clip: text;
-    background-clip: text; color: transparent;
+    color: var(--text);
+    background: linear-gradient(180deg, transparent 62%, rgba(27,42,78,0.16) 62%);
+    padding: 0 1px;
   }
   .hero-tagline {
     margin-top: 24px;
@@ -349,8 +352,9 @@
   }
   .quote em {
     font-style: normal;
-    background: var(--dual);
-    -webkit-background-clip: text; background-clip: text; color: transparent;
+    color: var(--text);
+    background: linear-gradient(180deg, transparent 62%, rgba(27,42,78,0.16) 62%);
+    padding: 0 1px;
   }
   .story {
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
@@ -429,9 +433,9 @@
   }
   .tl::before {
     content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-    background: var(--naver);
+    background: var(--brand);
   }
-  .tl.b::before { background: var(--zigzag); }
+  .tl.b::before { background: var(--brand); }
   .tl .phase {
     font-size: 12px; font-weight: 800; letter-spacing: 0.1em;
     color: var(--text-dim); margin-bottom: 8px;
@@ -444,9 +448,9 @@
   }
   .tl li::before {
     content: '✓'; position: absolute; left: 0;
-    color: var(--naver); font-weight: 800; font-size: 12px;
+    color: var(--brand); font-weight: 800; font-size: 12px;
   }
-  .tl.b li::before { color: var(--zigzag); }
+  .tl.b li::before { color: var(--brand); }
   @media (max-width: 1024px) { .timeline { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 720px) { .timeline { grid-template-columns: 1fr; } }
 
@@ -489,7 +493,7 @@
   }
 
   /* ===== STATS BAND ===== */
-  .stats { padding: 0; border-bottom: none; background: var(--bg-soft); }
+  .stats { padding: 0; border-bottom: none; background: var(--bg-band); }
   .stats-grid {
     display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
     padding: 56px 0 0;
@@ -538,7 +542,11 @@
   .fit-block.bad .fit-list li::before { content: '–'; color: var(--text-dim); }
 
   /* ===== SECTION BG RHYTHM ===== */
-  section.soft { background: var(--bg-soft); }
+  section.soft {
+    background:
+      radial-gradient(130% 75% at 50% 0%, rgba(27,42,78,0.05) 0%, transparent 58%),
+      var(--bg-band);
+  }
 
   /* ===== TO-TOP BUTTON ===== */
   .to-top {
@@ -576,8 +584,9 @@
   }
   .cta h2 { font-size: clamp(28px, 4.2vw, 44px); margin-bottom: 18px; color: #fff; }
   .cta h2 strong {
-    background: var(--dual); -webkit-background-clip: text;
-    background-clip: text; color: transparent;
+    color: #fff;
+    background: linear-gradient(180deg, transparent 62%, rgba(255,255,255,0.22) 62%);
+    padding: 0 1px;
   }
   .cta-sub { font-size: 17px; color: var(--text-sub); max-width: 560px; margin: 0 auto 40px; line-height: 1.6; }
   .cta-checks {
@@ -616,7 +625,7 @@
   .cta-note strong { color: var(--text-sub); font-weight: 700; }
 
   /* 네이비 밴드 위 요소 재색상 (흰 폼 카드는 그대로 두어 떠오르게) */
-  .cta .eyebrow.dual { background: rgba(255,255,255,0.10); color: rgba(255,255,255,0.92); border-left-color: var(--naver); }
+  .cta .eyebrow.dual { background: rgba(255,255,255,0.10); color: rgba(255,255,255,0.92); border-left-color: rgba(255,255,255,0.5); }
   .cta .cta-sub { color: rgba(255,255,255,0.74); }
   .cta .ck {
     background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.16);
@@ -945,7 +954,7 @@
     background: var(--bg-soft);
     border-radius: 16px;
     padding: 32px 36px;
-    border-left: 4px solid var(--naver);
+    border-left: 4px solid var(--brand);
     margin-bottom: 40px;
   }
 
@@ -955,18 +964,17 @@
   }
   .story-cell:hover { background: var(--bg-soft); }
 
-  /* 섹션 eyebrow 개선 */
+  /* 섹션 eyebrow 개선 — 네이비 톤으로 통일 */
   .eyebrow {
-    background: rgba(0,199,60,0.10);
+    background: rgba(27,42,78,0.07);
     border-radius: 4px;
     padding: 4px 14px;
   }
-  .eyebrow.z { background: rgba(255,63,126,0.10); }
-  /* dual eyebrow: border-image 제거해야 border-radius가 작동 */
+  .eyebrow.z { background: rgba(27,42,78,0.07); }
   .eyebrow.dual {
-    background: rgba(26,29,36,0.05);
+    background: rgba(27,42,78,0.07);
     border-image: none;
-    border-left-color: var(--naver);
+    border-left-color: var(--brand);
   }
 
   /* CTA primary 버튼 gradient 강화 */
@@ -995,7 +1003,7 @@
     border-radius: 12px;
     padding: 20px 20px 20px 24px;
     border: 1px solid var(--line);
-    border-left: 4px solid var(--naver);
+    border-left: 4px solid var(--brand);
     border-image: none;
     box-shadow: 0 2px 8px rgba(26,29,36,0.04);
   }
@@ -1023,7 +1031,7 @@
 
   /* Q&A 카드 왼쪽 강조 */
   .qa { border-left: 3px solid var(--line-strong); transition: border-color 0.18s; }
-  .qa:hover { border-left-color: var(--naver); }
+  .qa:hover { border-left-color: var(--brand); }
 
   /* 모바일 quote / eyebrow / pm 조정 */
   @media (max-width: 720px) {
@@ -1512,7 +1520,7 @@
   .nav-menu a.active { color: var(--text); font-weight: 700; }
   .nav-menu a.active::after {
     content: ''; display: block; height: 2px;
-    background: var(--naver); border-radius: 1px; margin-top: 2px;
+    background: var(--brand); border-radius: 1px; margin-top: 2px;
   }
 
   /* =====================================================
@@ -1524,18 +1532,6 @@
     transition: width 1.4s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  /* 그라디언트 모션 */
-  @keyframes gradient-x {
-    0%   { background-position: 0% 50%; }
-    50%  { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-  .hero h1 strong {
-    background: linear-gradient(90deg, #00C73C 0%, #FF3F7E 45%, #00C73C 100%);
-    background-size: 300% auto;
-    -webkit-background-clip: text; background-clip: text; color: transparent;
-    animation: gradient-x 4s ease infinite;
-  }
   .stat-num {
     color: var(--brand);
   }
@@ -1616,11 +1612,6 @@
   /* Results 섹션 배경 노이즈 */
   section.soft { position: relative; }
 
-  @-moz-document url-prefix() {
-    .hero h1 strong,
-    .cta h2 strong,
-    .quote em { background: none !important; -webkit-background-clip: unset !important; background-clip: unset !important; color: var(--naver) !important; animation: none !important; }
-  }
 
   /* aspect-ratio Safari 13 이하 폴백 */
   @supports not (aspect-ratio: 4 / 5) {
@@ -1648,22 +1639,22 @@
     .review-grid { grid-template-columns: 1fr; }
     .case-grid { grid-template-columns: 1fr; }
     .timeline { grid-template-columns: repeat(2, 1fr); }
-    /* 사진을 상단 중앙에 노출 (이 구간에서 사진이 사라지는 사각지대 방지) */
-    .hero-grid { grid-template-columns: 1fr; gap: 28px; }
-    .hero-photo { display: block; order: -1; width: 100%; max-width: 300px; margin: 0 auto; }
+    /* 헤드라인·CTA 먼저 → 사진은 그 아래 중앙 (전환 우선, 사각지대 방지) */
+    .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+    .hero-photo { display: block; order: 0; width: 100%; max-width: 300px; margin: 8px auto 0; }
   }
 
   /* ===== SCROLL PROGRESS BAR ===== */
   #scroll-progress {
     position: fixed; top: 0; left: 0;
     height: 2px; width: 0%;
-    background: linear-gradient(90deg, var(--naver) 0%, var(--zigzag) 100%);
+    background: var(--brand);
     z-index: 9998; pointer-events: none;
     transform-origin: left;
   }
 
   /* ===== REPORT SECTION ===== */
-  section#report { background: var(--bg-soft); }
+  section#report { background: var(--bg-band); }
   section#report .report-item {
     background: #fff;
     border-color: var(--line);
