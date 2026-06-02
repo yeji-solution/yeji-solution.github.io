@@ -220,33 +220,26 @@
   }
   .badge .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
 
-  /* Hero h1 부분 강조 색상 */
-  .hero h1 .h1-dim { color: var(--text-dim); font-weight: 700; }
-  .hero h1 strong .h1-accent { color: var(--brand-accent); }
+  /* Hero h1 앞부분 톤다운 (강조 위계 분리) */
+  .hero h1 .h1-soft { color: var(--text-sub); font-weight: 700; }
 
   /* Hero CTA */
   .hero-cta { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
-  .btn-primary {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 15px 26px; border-radius: 12px;
-    background: var(--brand); color: #fff !important;
+  .hero-cta > a {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    height: 52px; padding: 0 26px; border-radius: 12px;
     font-size: 16px; font-weight: 800; letter-spacing: -0.01em;
+    transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+  }
+  .btn-primary {
+    background: var(--brand); color: #fff !important;
     box-shadow: 0 8px 22px rgba(27,42,78,0.28);
-    transition: transform 0.15s, box-shadow 0.15s;
   }
   .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(27,42,78,0.4); }
-  .btn-primary .btn-ar {
-    display: inline-block; transition: transform 0.2s;
-  }
-  .btn-primary:hover .btn-ar { transform: translateX(3px); }
 
   /* Hero 보조 카카오 버튼 */
   .btn-ghost-kakao {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 15px 22px; border-radius: 12px;
     background: #FEE500; color: #3A1D1D !important;
-    font-size: 15px; font-weight: 800; letter-spacing: -0.01em;
-    transition: transform 0.15s, background 0.15s, box-shadow 0.15s;
     box-shadow: 0 4px 12px rgba(254,229,0,0.35);
   }
   .btn-ghost-kakao:hover { background: #F5DC00; transform: translateY(-2px); box-shadow: 0 8px 18px rgba(254,229,0,0.45); }
@@ -1098,8 +1091,8 @@
     .hero-badges { gap: 8px; margin-top: 20px; }
     /* 배지 구분선: 모바일에선 자연 흐름으로 */
     .badge-break { display: none; }
-    .hero-cta { margin-top: 26px; }
-    .hero-cta .btn-primary { width: 100%; justify-content: center; padding: 15px 18px; }
+    .hero-cta { margin-top: 26px; gap: 8px; }
+    .hero-cta > a { width: 100%; padding: 0 18px; font-size: 15px; height: 50px; }
     .hero-proof { gap: 8px; margin-top: 24px; }
     .hp-item { padding: 13px 11px 12px; border-radius: 12px; }
     .hp-item b { font-size: 22px; }
@@ -1752,7 +1745,7 @@
   <div class="wrap hero-grid">
     <div class="hero-text">
       <div class="role">광고 마케터 · 네이버·지그재그 7년차</div>
-      <h1><span class="h1-dim">결과가 나지 않는 광고엔,</span><br class="br-pc"/><br class="br-m"/> <strong><span class="h1-accent">반드시 이유</span>가 있습니다.</strong></h1>
+      <h1><span class="h1-soft">결과가 나지 않는 광고엔,</span><br class="br-pc"/><br class="br-m"/> <strong>반드시 이유가 있습니다.</strong></h1>
       <p class="hero-tagline">
         지금 운영 중인 광고 구조부터 먼저 진단합니다.<br class="br-pc"/><br class="br-m"/>
         처음 상담부터 운영까지 1:1로 함께합니다.
@@ -1774,7 +1767,7 @@
       </div>
 
       <div class="hero-cta">
-        <a href="#contact" class="btn-primary">3일 무료 진단 받기<span class="btn-ar" aria-hidden="true">→</span></a>
+        <a href="#contact" class="btn-primary">3일 무료 진단 받기</a>
         <a href="https://open.kakao.com/o/sQcLuovi" target="_blank" rel="noopener noreferrer" class="btn-ghost-kakao">카카오 1:1 상담</a>
       </div>
       <p class="hero-cta-meta">7일 내 1차 진단 리포트<span class="sep">·</span>관리비·위약금 0원</p>
