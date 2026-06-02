@@ -1390,43 +1390,6 @@
   }
   #intro-overlay.is-gone { display: none; }
 
-  /* ── 2. 커스텀 커서 (PC hover 기기만) ── */
-  @media (hover: hover) and (pointer: fine) {
-    body { cursor: none; }
-    a, button, [role="button"], label.form-checkbox, .to-top, .chat-fab { cursor: none; }
-  }
-  #cursor-dot {
-    display: none;
-    position: fixed; z-index: 9998;
-    width: 8px; height: 8px;
-    background: var(--text);
-    border-radius: 50%;
-    pointer-events: none;
-    transform: translate(-50%, -50%);
-    transition: width 0.2s, height 0.2s, background 0.2s, opacity 0.2s;
-    will-change: transform;
-  }
-  #cursor-ring {
-    display: none;
-    position: fixed; z-index: 9997;
-    width: 36px; height: 36px;
-    border: 1.5px solid rgba(26,29,36,0.5);
-    border-radius: 50%;
-    pointer-events: none;
-    transform: translate(-50%, -50%);
-    transition: width 0.45s cubic-bezier(0.22,1,0.36,1),
-                height 0.45s cubic-bezier(0.22,1,0.36,1),
-                border-color 0.3s, opacity 0.3s;
-    will-change: transform;
-  }
-  @media (hover: hover) and (pointer: fine) {
-    #cursor-dot, #cursor-ring { display: block; }
-  }
-  /* hover 시 커서 변화 */
-  body.cursor-hover #cursor-dot  { width: 6px; height: 6px; background: var(--naver); }
-  body.cursor-hover #cursor-ring { width: 52px; height: 52px; border-color: var(--naver); opacity: 0.7; }
-  body.cursor-link  #cursor-dot  { width: 4px; height: 4px; background: var(--zigzag); }
-  body.cursor-link  #cursor-ring { width: 60px; height: 60px; border-color: var(--zigzag); opacity: 0.6; }
 
 
   /* ── 4. Clip-path 텍스트 reveal ── */
@@ -1630,62 +1593,6 @@
     .mp-photo-card { height: 0; padding-bottom: 125%; }
   }
 
-  /* =====================================================
-     SPRINT 3 — ADMIN MODE
-  ===================================================== */
-  .admin-bar {
-    display: none;
-    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-    background: #1A1D24; color: #fff;
-    padding: 0 20px;
-    height: 46px;
-    font-size: 13px; font-weight: 700;
-    align-items: center; gap: 10px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-    border-bottom: 2px solid var(--naver);
-  }
-  .admin-bar.show { display: flex; }
-  .admin-bar .ab-label {
-    font-size: 10px; font-weight: 800; letter-spacing: 0.12em;
-    color: var(--naver); text-transform: uppercase;
-  }
-  .ab-divider { width: 1px; height: 18px; background: rgba(255,255,255,0.15); }
-  .admin-hint { font-size: 12px; color: rgba(255,255,255,0.45); font-weight: 500; }
-  .admin-save {
-    padding: 6px 14px; background: var(--naver); color: #fff !important;
-    border: none; border-radius: 7px; font-size: 12px; font-weight: 800;
-    cursor: pointer; font-family: inherit; transition: background 0.15s;
-  }
-  .admin-save:hover { background: var(--naver-dark); }
-  .admin-reset {
-    padding: 6px 12px; background: transparent; color: rgba(255,255,255,0.55);
-    border: 1px solid rgba(255,255,255,0.18); border-radius: 7px;
-    font-size: 12px; cursor: pointer; font-family: inherit;
-    transition: border-color 0.15s;
-  }
-  .admin-reset:hover { border-color: rgba(255,255,255,0.4); }
-  .admin-mode-badge {
-    padding: 4px 10px; border-radius: 5px; font-size: 11px; font-weight: 700; letter-spacing: 0.02em;
-  }
-  .admin-mode-badge.off { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.55); }
-  .admin-mode-badge.on  { background: rgba(59,130,246,0.25); color: #93C5FD; }
-  .admin-switch {
-    padding: 6px 12px; background: rgba(59,130,246,0.15); color: #93C5FD;
-    border: 1px solid rgba(59,130,246,0.4); border-radius: 7px;
-    font-size: 12px; cursor: pointer; font-family: inherit; text-decoration: none;
-    transition: background 0.15s;
-  }
-  .admin-switch:hover { background: rgba(59,130,246,0.28); }
-  .admin-status { margin-left: auto; font-size: 12px; color: var(--naver); font-weight: 700; }
-  [data-ak][contenteditable="true"] {
-    outline: 2px solid #3B82F6 !important;
-    border-radius: 3px;
-    cursor: text;
-  }
-  [data-ak][contenteditable="true"]:focus {
-    outline: 2px solid #60A5FA !important;
-    background: rgba(59,130,246,0.06);
-  }
 
   /* =====================================================
      SPRINT 4 — RESPONSIVE (1024~1279 태블릿 가로)
@@ -1746,22 +1653,7 @@
   </div>
 </div>
 
-<!-- 커스텀 커서 -->
-<div id="cursor-dot"></div>
-<div id="cursor-ring"></div>
 
-<!-- ADMIN BAR (비공개 관리자 모드 — ?admin=1 로 접근) -->
-<div class="admin-bar" id="adminBar">
-  <span class="ab-label">ADMIN MODE</span>
-  <span class="ab-divider"></span>
-  <span class="admin-hint">파란 테두리 항목을 클릭해 편집하세요</span>
-  <span class="admin-mode-badge on">현재: 레퍼런스 ON</span>
-  <a class="admin-switch" href="https://github.com/yeji-solution/yeji-solution.github.io/actions/workflows/switch-mode.yml" target="_blank" rel="noopener">⚡ 모드 전환 (GitHub Actions)</a>
-  <span class="ab-divider"></span>
-  <button class="admin-save" id="adminSave" type="button">저장</button>
-  <button class="admin-reset" id="adminReset" type="button">초기화</button>
-  <span class="admin-status" id="adminStatus"></span>
-</div>
 
 <!-- HEADER -->
 <header>
@@ -3216,44 +3108,6 @@
     overlay.classList.add('is-gone');
   }
 
-  /* =====================================================
-     2. 커스텀 커서
-  ===================================================== */
-  if (hasHover) {
-    var dot  = qs('#cursor-dot');
-    var ring = qs('#cursor-ring');
-    var mx = 0, my = 0, rx = 0, ry = 0;
-
-    document.addEventListener('mousemove', function (e) {
-      mx = e.clientX; my = e.clientY;
-      dot.style.left  = mx + 'px';
-      dot.style.top   = my + 'px';
-    });
-
-    /* ring은 RAF로 부드럽게 따라옴 */
-    (function loop() {
-      rx += (mx - rx) * 0.14;
-      ry += (my - ry) * 0.14;
-      ring.style.left = rx + 'px';
-      ring.style.top  = ry + 'px';
-      requestAnimationFrame(loop);
-    })();
-
-    /* hover 상태 감지 */
-    var hoverEls = 'a, button, [role="button"], label.form-checkbox, .to-top, .chat-fab, .badge, .result-card, .review-card, .strat-block, .tl';
-    document.addEventListener('mouseover', function (e) {
-      var t = e.target.closest(hoverEls);
-      if (!t) { document.body.classList.remove('cursor-hover', 'cursor-link'); return; }
-      var isLink = t.tagName === 'A' || t.tagName === 'BUTTON' || t.closest('a,button');
-      document.body.classList.toggle('cursor-link',  !!isLink);
-      document.body.classList.toggle('cursor-hover', !isLink);
-    });
-    document.addEventListener('mouseout', function (e) {
-      if (!e.relatedTarget || e.relatedTarget === document.documentElement) {
-        document.body.classList.remove('cursor-hover', 'cursor-link');
-      }
-    });
-  }
 
   /* =====================================================
      3. 네비게이션 active 섹션 하이라이트
@@ -3486,80 +3340,6 @@
     });
   }
 
-  /* =====================================================
-     SPRINT 3 — 관리자 모드 (?admin=1)
-  ===================================================== */
-  var ADMIN_KEY = 'ys_admin_v1';
-  var ADMIN_SELS = [
-    '.rv-quote', '.review-text', '.rv-result-txt',
-    '.rc-title', '.rc-cat',
-    'h2', '.section-sub', '.hero h1', '.hero-tagline',
-    '.story-cell h3', '.story-cell p',
-    '.qa .q', '.qa .a',
-    '.pm strong',
-    '.cred-item .label', '.cred-item .desc',
-    '.fit-list li', '.case-card h3'
-  ];
-
-  /* 모든 편집 대상에 고유 키 부여 (admin/일반 공통) */
-  var akIdx = 0;
-  ADMIN_SELS.forEach(function (sel) {
-    qsa(sel).forEach(function (el) {
-      if (!el.dataset.ak) el.dataset.ak = 'ak' + (akIdx++);
-    });
-  });
-
-  /* 저장된 데이터 복원 (일반 방문자 포함, 같은 기기/브라우저) */
-  function loadSaved() {
-    try {
-      var saved = JSON.parse(localStorage.getItem(ADMIN_KEY) || '{}');
-      Object.keys(saved).forEach(function (k) {
-        var el = qs('[data-ak="' + k + '"]');
-        if (el) el.innerHTML = saved[k];
-      });
-    } catch (e) {}
-  }
-  loadSaved();
-
-  var isAdmin = new URLSearchParams(window.location.search).get('admin') === '1';
-  if (isAdmin) {
-    var adminBar    = qs('#adminBar');
-    var adminStatus = qs('#adminStatus');
-    if (adminBar) adminBar.classList.add('show');
-
-    /* header & body offset */
-    document.body.style.paddingTop = '46px';
-    var hdr = qs('header');
-    if (hdr) hdr.style.top = '46px';
-
-    /* contenteditable 활성화 */
-    ADMIN_SELS.forEach(function (sel) {
-      qsa(sel).forEach(function (el) {
-        el.setAttribute('contenteditable', 'true');
-        el.setAttribute('spellcheck', 'false');
-      });
-    });
-
-    /* 저장 */
-    qs('#adminSave').addEventListener('click', function () {
-      var data = {};
-      qsa('[data-ak]').forEach(function (el) { data[el.dataset.ak] = el.innerHTML; });
-      localStorage.setItem(ADMIN_KEY, JSON.stringify(data));
-      if (adminStatus) {
-        adminStatus.textContent = '저장 완료 ✓';
-        setTimeout(function () { adminStatus.textContent = ''; }, 2500);
-      }
-    });
-
-    /* 초기화 */
-    qs('#adminReset').addEventListener('click', function () {
-      if (confirm('저장된 수정 내용을 모두 초기화하시겠습니까?\n원본 텍스트로 되돌아갑니다.')) {
-        localStorage.removeItem(ADMIN_KEY);
-        window.location.reload();
-      }
-    });
-
-  }
 
 })();
 </script>
