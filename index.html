@@ -11,6 +11,8 @@
 </script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="color-scheme" content="light" />
+<meta name="theme-color" content="#FFFFFF" />
 <title>이명수 마케터 · YEJI SOLUTION — 네이버·지그재그 광고 전문</title>
 <meta name="description" content="네이버 프리미어 파트너사 · 지그재그 프리미어 에이전시. 검색광고마케터 1급·구글 GAIQ·SNS광고마케터 1급 자격 보유. 1:1 전담 마케팅." />
 <meta name="author" content="이명수" />
@@ -55,6 +57,7 @@
 <script>document.documentElement.classList.add('js');</script>
 <style>
   :root {
+    color-scheme: light;
     --bg: #FFFFFF;
     --bg-soft: #F7F8FA;
     --bg-naver: #F1FBF4;
@@ -1614,72 +1617,6 @@
   /* Results 섹션 배경 노이즈 */
   section.soft { position: relative; }
 
-  /* =====================================================
-     SPRINT 2 — DARK MODE
-  ===================================================== */
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #0F1117;
-      --bg-soft: #161A24;
-      --bg-naver: #0D2216;
-      --bg-zigzag: #220A14;
-      --bg-coupang: #1F0B0C;
-      --bg-todayhome: #0B0F23;
-      --bg-jmarket: #0A1120;
-      --line: #252A35;
-      --line-strong: #323848;
-      --text: #F0F2F5;
-      --text-sub: #A0AABA;
-      --text-dim: #60697A;
-    }
-    body { background: var(--bg); color: var(--text); }
-    header { background: rgba(15,17,23,0.93) !important; border-bottom-color: var(--line); }
-    .badge { background: #1A1E2A; color: var(--text-sub); border-color: var(--line-strong); }
-    .badge.naver { background: var(--bg-naver); border-color: rgba(0,199,60,0.25); }
-    .badge.zigzag { background: var(--bg-zigzag); border-color: rgba(255,63,126,0.25); }
-    .cred-block, .strat-block, .tl, .report-item,
-    .fit-block.bad, .qa, .result-card, .review-card,
-    .case-card, .form-card { background: #161A24; border-color: var(--line); }
-    .fp-step { background: #1A1E2A; border-color: var(--line); }
-    .fit-block.good { background: var(--bg-naver); border-color: rgba(0,199,60,0.2); }
-    .form-input, .form-textarea, .form-select {
-      background: #1A1E2A; color: var(--text); border-color: var(--line-strong);
-    }
-    .form-checkbox { background: #1A1E2A; border-color: var(--line-strong); }
-    .form-checkbox.checked { background: var(--bg-naver); border-color: var(--naver); }
-    .cta {
-      background:
-        radial-gradient(ellipse at 30% 50%, rgba(0,199,60,0.05), transparent 60%),
-        radial-gradient(ellipse at 70% 50%, rgba(255,63,126,0.05), transparent 60%),
-        var(--bg-soft);
-    }
-    .ck { background: #1A1E2A; border-color: var(--line); }
-    .stats { background: #070A10; }
-    .pm { background: #161A24; border-color: var(--line); }
-    footer { background: #070A10; border-top-color: rgba(255,255,255,0.06); }
-    .hero::before { background: radial-gradient(circle at 50%, rgba(0,199,60,0.07) 0%, transparent 65%); }
-    .hero::after  { background: radial-gradient(circle at 50%, rgba(255,63,126,0.06) 0%, transparent 65%); }
-    .quote { background: var(--bg-soft); border-left-color: var(--naver); }
-    .mobile-menu { background: #161A24; border-top-color: var(--line); }
-    .mobile-menu a { border-bottom-color: var(--line); color: var(--text-sub); }
-    .sticky-bar { background: #161A24; border-top-color: var(--line); }
-    .to-top { background: #161A24; border-color: var(--line-strong); color: var(--text); }
-    .urgency-badge { background: rgba(255,63,126,0.1); }
-    .kakao-qr-row { background: linear-gradient(135deg, #2A2600 0%, #1F1D00 100%); }
-    .case-note { background: #1A1E2A; }
-    .rc-delta { background: rgba(0,199,60,0.13); }
-    .eyebrow { background: rgba(0,199,60,0.12); }
-    .eyebrow.z { background: rgba(255,63,126,0.12); }
-    .eyebrow.dual { background: rgba(255,255,255,0.05); }
-    .hero-photo-fallback { background: none; }
-    .rc-bar-track { background: var(--line-strong); }
-    .rc-chip { background: #1A1E2A; color: var(--text-sub); }
-    .cred-extra { border-top-color: var(--line-strong); }
-    .story { border-top-color: var(--line); border-bottom-color: var(--line); }
-    .story-cell { border-right-color: var(--line); }
-    .story-cell:hover { background: #1A1E2A; }
-    /* Firefox gradient text 폴백 */
-  }
   @-moz-document url-prefix() {
     .hero h1 strong,
     .stat-num,
