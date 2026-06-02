@@ -464,7 +464,7 @@
   .qa .q::before {
     content: 'Q'; flex-shrink: 0;
     width: 26px; height: 26px; border-radius: 50%;
-    background: var(--dual); color: #fff;
+    background: var(--brand); color: #fff;
     display: inline-flex; align-items: center; justify-content: center;
     font-size: 13px; font-weight: 800;
   }
@@ -480,8 +480,7 @@
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
   }
   .pm {
-    padding-left: 16px; border-left: 3px solid;
-    border-image: var(--dual) 1;
+    padding-left: 16px; border-left: 3px solid var(--brand);
     font-size: 13px; color: var(--text-sub); line-height: 1.6;
   }
   .pm strong {
@@ -751,7 +750,7 @@
   .report-item .rnum {
     display: inline-flex; align-items: center; justify-content: center;
     width: 32px; height: 32px; border-radius: 8px;
-    background: var(--dual); color: #fff;
+    background: var(--brand); color: #fff;
     font-size: 13px; font-weight: 800; margin-bottom: 14px;
   }
   .report-item h3 { font-size: 16px; margin-bottom: 6px; }
@@ -971,8 +970,8 @@
 
   /* Cred block 상단 강조선 */
   .cred-block { border-top: 3px solid var(--line-strong); position: relative; overflow: hidden; }
-  .cred-block:first-child { border-top-color: var(--naver); }
-  .cred-block:last-child { border-top-color: var(--zigzag); }
+  .cred-block:first-child { border-top-color: var(--brand); }
+  .cred-block:last-child { border-top-color: var(--brand); }
 
   /* Promise strip 카드 스타일 */
   .pm {
@@ -995,7 +994,7 @@
   .report-item { position: relative; overflow: hidden; }
   .report-item::after {
     content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-    background: var(--dual);
+    background: var(--brand);
   }
 
   /* Nav cta 버튼 개선 */
@@ -1147,7 +1146,7 @@
   .fp-step:last-child { border-right: none; }
   .fp-num {
     width: 22px; height: 22px; border-radius: 50%;
-    background: var(--dual); color: #fff;
+    background: var(--brand); color: #fff;
     display: inline-flex; align-items: center; justify-content: center;
     font-size: 11px; font-weight: 800; flex-shrink: 0;
   }
@@ -1289,8 +1288,7 @@
       background: var(--bg-soft); border-radius: 12px;
       padding: 14px 16px; margin: 0 auto 20px;
       max-width: 100%;
-      border-left: 3px solid transparent;
-      border-image: var(--dual) 1;
+      border-left: 3px solid var(--brand);
     }
     .mp-creds {
       display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
