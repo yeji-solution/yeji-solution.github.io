@@ -564,17 +564,17 @@
     .to-top { right: 16px; bottom: 76px; width: 42px; height: 42px; }
   }
 
-  /* ===== CTA ===== */
+  /* ===== CTA (네이비 스포트라이트 밴드 — 전환 focal climax) ===== */
   .cta {
     text-align: center;
     background:
-      radial-gradient(ellipse at 30% 50%, rgba(0,199,60,0.08), transparent 60%),
-      radial-gradient(ellipse at 70% 50%, rgba(255,63,126,0.08), transparent 60%),
-      var(--bg-soft);
+      radial-gradient(ellipse at 28% 18%, rgba(0,199,60,0.14), transparent 55%),
+      radial-gradient(ellipse at 72% 22%, rgba(255,63,126,0.14), transparent 55%),
+      linear-gradient(180deg, #1B2A4E 0%, #131E38 100%);
     padding: 120px 0;
     border-bottom: none;
   }
-  .cta h2 { font-size: clamp(28px, 4.2vw, 44px); margin-bottom: 18px; }
+  .cta h2 { font-size: clamp(28px, 4.2vw, 44px); margin-bottom: 18px; color: #fff; }
   .cta h2 strong {
     background: var(--dual); -webkit-background-clip: text;
     background-clip: text; color: transparent;
@@ -614,6 +614,22 @@
     margin-top: 28px; font-size: 13px; color: var(--text-dim);
   }
   .cta-note strong { color: var(--text-sub); font-weight: 700; }
+
+  /* 네이비 밴드 위 요소 재색상 (흰 폼 카드는 그대로 두어 떠오르게) */
+  .cta .eyebrow.dual { background: rgba(255,255,255,0.10); color: rgba(255,255,255,0.92); border-left-color: var(--naver); }
+  .cta .cta-sub { color: rgba(255,255,255,0.74); }
+  .cta .ck {
+    background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.16);
+    color: rgba(255,255,255,0.86);
+  }
+  .cta .urgency-badge {
+    background: rgba(255,63,126,0.16); border-color: rgba(255,63,126,0.42);
+    color: #fff;
+  }
+  .cta .form-or { color: rgba(255,255,255,0.6); }
+  .cta .form-or::before, .cta .form-or::after { background: rgba(255,255,255,0.22); }
+  .cta .cta-note { color: rgba(255,255,255,0.55); }
+  .cta .cta-note strong { color: rgba(255,255,255,0.8); }
 
   /* ===== FOOTER ===== */
   footer {
@@ -1632,8 +1648,9 @@
     .review-grid { grid-template-columns: 1fr; }
     .case-grid { grid-template-columns: 1fr; }
     .timeline { grid-template-columns: repeat(2, 1fr); }
-    .hero-grid { grid-template-columns: 1fr; gap: 0; }
-    .hero-photo { display: none; }
+    /* 사진을 상단 중앙에 노출 (이 구간에서 사진이 사라지는 사각지대 방지) */
+    .hero-grid { grid-template-columns: 1fr; gap: 28px; }
+    .hero-photo { display: block; order: -1; width: 100%; max-width: 300px; margin: 0 auto; }
   }
 
   /* ===== SCROLL PROGRESS BAR ===== */
