@@ -84,6 +84,13 @@
     --jmarket: #006CD1;
     --jmarket-dark: #0052A3;
     --bg-jmarket: #EEF5FF;
+    /* Motion tokens — 사이트 전반 일관성 */
+    --dur-fast: 0.18s;
+    --dur-base: 0.30s;
+    --dur-slow: 0.55s;
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
@@ -1910,6 +1917,57 @@
     .sim-toggle span { padding: 10px 8px; font-size: 13px; }
     .sim-check { padding: 11px 12px; font-size: 13px; }
   }
+
+  /* ===== FORM PREFILL CARD (시뮬레이터 → 폼 연동) ===== */
+  .form-prefill {
+    margin-bottom: 22px; padding: 16px 18px;
+    background: linear-gradient(135deg, rgba(27,42,78,0.06) 0%, rgba(37,99,235,0.05) 100%);
+    border: 1px solid rgba(27,42,78,0.18);
+    border-radius: 12px;
+    animation: fp-in var(--dur-slow) var(--ease-out-expo);
+  }
+  @keyframes fp-in {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .fp-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11px; font-weight: 800; color: var(--brand);
+    letter-spacing: 0.06em; margin-bottom: 10px;
+  }
+  .fp-tag::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--naver); box-shadow: 0 0 6px rgba(0,199,60,0.6);
+  }
+  .fp-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px 14px;
+  }
+  .fp-grid > div {
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .fp-grid span {
+    font-size: 11px; color: var(--text-dim); font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  .fp-grid strong {
+    font-size: 14px; color: var(--text); font-weight: 800;
+    letter-spacing: -0.01em; font-variant-numeric: tabular-nums;
+  }
+  .fp-grid strong.fp-loss { color: var(--zigzag-dark); }
+  .fp-grid strong.fp-gain { color: var(--naver-dark); }
+  @media (max-width: 720px) {
+    .form-prefill { padding: 14px; }
+    .fp-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .fp-grid strong { font-size: 13px; }
+  }
+
+  /* 앵커 진입 시 강조 — 진단신청 폼 highlight */
+  @keyframes contact-flash {
+    0%   { box-shadow: 0 12px 36px rgba(26,29,36,0.06), 0 0 0 0 rgba(37,99,235,0); }
+    30%  { box-shadow: 0 12px 36px rgba(26,29,36,0.06), 0 0 0 6px rgba(37,99,235,0.18); }
+    100% { box-shadow: 0 12px 36px rgba(26,29,36,0.06), 0 0 0 0 rgba(37,99,235,0); }
+  }
+  .form-card.is-prefilled { animation: contact-flash 1.6s var(--ease-out-expo); }
 </style>
 </head>
 <body>
@@ -3316,11 +3374,24 @@
       <input type="hidden" name="access_key" value="ed4607f3-052e-494c-9fd6-52534ce2f8e9" />
       <input type="hidden" name="subject" value="무료 광고 진단 신청" />
       <input type="hidden" name="from_name" value="YEJI SOLUTION 포트폴리오" />
+      <input type="hidden" name="sim_summary" id="f-sim-summary" value="" />
       <input type="checkbox" name="botcheck" style="display:none;" />
 
       <h3>무료 진단 신청</h3>
       <p class="form-sub">아래 정보를 남겨주시면, 영업일 기준 3일 안에<br class="br-pc"/> 진단 리포트를 보내드립니다.</p>
       <div class="form-error" id="formError" role="alert"></div>
+
+      <div class="form-prefill" id="formPrefill" hidden>
+        <div class="fp-tag">셀프 진단 결과가 함께 전달됩니다</div>
+        <div class="fp-grid">
+          <div><span>업종</span><strong id="fpIndustry">–</strong></div>
+          <div><span>매체</span><strong id="fpMedium">–</strong></div>
+          <div><span>광고비</span><strong id="fpSpend">–</strong></div>
+          <div><span>추정 ROAS</span><strong id="fpRoas">–</strong></div>
+          <div><span>월 기회손실</span><strong class="fp-loss" id="fpLoss">–</strong></div>
+          <div><span>회복 잠재력</span><strong class="fp-gain" id="fpGain">–</strong></div>
+        </div>
+      </div>
 
       <div class="form-process">
         <div class="fp-step"><span class="fp-num">1</span>접수 확인 (당일)</div>
@@ -3751,9 +3822,9 @@
     zigzag: { beauty: 720, fashion: 760, food: 0,   health: 0,   interior: 0,   etc: 600 },
     both:   { beauty: 660, fashion: 640, food: 420, health: 540, interior: 380, etc: 520 }
   };
-  var PENALTY_PER_ISSUE = 0.07;   // 체크 1개당 -7%
+  var PENALTY_PER_ISSUE = 0.07;
   var MAX_PENALTY       = 0.50;
-  var RECOVERY_RATE     = 0.42;   // 본인 평균 진단 후 회복률
+  var RECOVERY_RATE     = 0.42;
   var PRIORITY_MAP = {
     no_report:     '검색어 정제 + 제외 키워드 구조화',
     low_keywords:  '키워드 확장 (longtail · 카테고리 트리)',
@@ -3761,10 +3832,18 @@
     roas_stagnant: '입찰·예산 재배분 + 비효율 키워드 컷',
     old_creative:  '소재 A/B 테스트 사이클 도입'
   };
+  var INDUSTRY_LABEL = { beauty:'뷰티', fashion:'패션', food:'식품', health:'건강', interior:'인테리어', etc:'기타' };
+  var MEDIUM_LABEL   = { naver:'네이버', zigzag:'지그재그', both:'네이버+지그재그' };
+  var ISSUE_LABEL = {
+    no_report: '검색어 보고서 미확인',
+    low_keywords: '키워드 100개 이하',
+    no_tracking: '전환 추적 미설치',
+    roas_stagnant: 'ROAS 정체·하락',
+    old_creative: '소재 6개월+ 정체'
+  };
 
   function $(id){ return document.getElementById(id); }
 
-  // 만원 단위 숫자 → 한국어 통화 표기
   function fmtKRW(manwon){
     if (!manwon || manwon < 1) return '0원';
     if (manwon >= 10000){
@@ -3774,68 +3853,149 @@
     return Math.round(manwon).toLocaleString() + '만원';
   }
 
-  function calc(){
+  // 숫자 부드러운 트윈 (easeOutCubic)
+  var tween = {};
+  function tweenNumber(id, target, format, durMs){
+    var el = $(id); if (!el) return;
+    if (tween[id] && tween[id].raf) cancelAnimationFrame(tween[id].raf);
+    var from = (tween[id] && typeof tween[id].v === 'number') ? tween[id].v : 0;
+    var start = performance.now();
+    var dur = durMs || 420;
+    function step(now){
+      var t = Math.min(1, (now - start) / dur);
+      var e = 1 - Math.pow(1 - t, 3);
+      var cur = from + (target - from) * e;
+      el.textContent = format(cur);
+      if (t < 1) {
+        tween[id].raf = requestAnimationFrame(step);
+      } else {
+        tween[id].v = target; tween[id].raf = 0;
+      }
+    }
+    tween[id] = { v: from, raf: requestAnimationFrame(step) };
+  }
+
+  function getState(){
     var spend    = parseInt($('simSpend').value, 10);
     var medium   = (document.querySelector('input[name="simMedium"]:checked') || {}).value || 'naver';
     var industry = $('simIndustry').value;
     var issues   = Array.prototype.slice.call(
                      document.querySelectorAll('.sim-check input:checked')
                    ).map(function(el){ return el.dataset.issue; });
+    var baseRoas  = (BASE_ROAS[medium] && BASE_ROAS[medium][industry]) || 0;
+    var penalty   = Math.min(issues.length * PENALTY_PER_ISSUE, MAX_PENALTY);
+    var curRoas   = baseRoas * (1 - penalty);
+    var lossMW    = baseRoas > 0 ? spend * (baseRoas - curRoas) / 100 : 0;
+    var recoverMW = baseRoas > 0 ? spend * baseRoas * RECOVERY_RATE / 100 : 0;
+    return { spend:spend, medium:medium, industry:industry, issues:issues,
+             baseRoas:baseRoas, curRoas:curRoas, penalty:penalty,
+             lossMW:lossMW, recoverMW:recoverMW };
+  }
 
-    $('simSpendValue').textContent = spend.toLocaleString() + '만원';
+  function calc(){
+    var s = getState();
+    $('simSpendValue').textContent = s.spend.toLocaleString() + '만원';
 
-    var baseRoas = (BASE_ROAS[medium] && BASE_ROAS[medium][industry]) || 0;
-
-    // 매체×업종 운영 안 하는 조합
-    if (baseRoas === 0){
+    if (s.baseRoas === 0){
       $('simAvgRoas').textContent = '–';
       $('simCurRoas').textContent = '–';
-      $('simCurBar').style.width = '0%';
-      $('simDelta').textContent = '선택한 매체·업종 조합은 운영하지 않습니다';
-      $('simDelta').className   = 'sim-roas-delta warn';
-      $('simLoss').textContent  = '–';
-      $('simGain').textContent  = '–';
+      $('simCurBar').style.width  = '0%';
+      $('simDelta').textContent   = '선택한 매체·업종 조합은 운영하지 않습니다';
+      $('simDelta').className     = 'sim-roas-delta warn';
+      $('simLoss').textContent    = '–';
+      $('simGain').textContent    = '–';
+      tween['simLoss'] = { v: 0 }; tween['simGain'] = { v: 0 }; tween['simCurRoas'] = { v: 0 };
       $('simPriorities').innerHTML = '<div class="sp-empty">매체 또는 업종을 변경해 주세요.</div>';
       return;
     }
 
-    var penalty   = Math.min(issues.length * PENALTY_PER_ISSUE, MAX_PENALTY);
-    var curRoas   = baseRoas * (1 - penalty);
-    var lossPct   = baseRoas - curRoas;
-    var lossMW    = spend * lossPct / 100;            // 추정 월 손실 매출 (만원)
-    var recoverMW = spend * baseRoas * RECOVERY_RATE / 100; // 회복 잠재력 (만원)
+    $('simAvgRoas').textContent = s.baseRoas + '%';
+    $('simCurBar').style.width  = (s.curRoas / s.baseRoas * 100) + '%';
 
-    $('simAvgRoas').textContent = baseRoas + '%';
-    $('simCurRoas').textContent = Math.round(curRoas) + '%';
-    $('simCurBar').style.width  = (curRoas / baseRoas * 100) + '%';
+    tweenNumber('simCurRoas', s.curRoas, function(v){ return Math.round(v) + '%'; }, 380);
+    tweenNumber('simLoss',    s.lossMW,    function(v){ return fmtKRW(v); }, 460);
+    tweenNumber('simGain',    s.recoverMW, function(v){ return '+' + fmtKRW(v); }, 460);
 
     var deltaEl = $('simDelta');
-    if (issues.length === 0){
+    if (s.issues.length === 0){
       deltaEl.textContent = '평균 대비 정상 운영 추정';
       deltaEl.className   = 'sim-roas-delta neutral';
     } else {
-      deltaEl.textContent = '평균 대비 -' + Math.round(penalty*100) + '% 추정 — 회복 여지 있음';
+      deltaEl.textContent = '평균 대비 -' + Math.round(s.penalty*100) + '% 추정 — 회복 여지 있음';
       deltaEl.className   = 'sim-roas-delta warn';
     }
 
-    $('simLoss').textContent = fmtKRW(lossMW);
-    $('simGain').textContent = '+' + fmtKRW(recoverMW);
-
-    // 체크 라벨 active 클래스
     Array.prototype.forEach.call(document.querySelectorAll('.sim-check'), function(lbl){
       var input = lbl.querySelector('input');
       lbl.classList.toggle('checked', input && input.checked);
     });
 
-    // 우선 진단 영역
     var pri = $('simPriorities');
-    if (issues.length === 0){
+    if (s.issues.length === 0){
       pri.innerHTML = '<div class="sp-empty">체크 항목을 선택하시면 우선 진단 영역이 표시됩니다.</div>';
     } else {
-      var items = issues.slice(0, 3).map(function(k, i){
+      var items = s.issues.slice(0, 3).map(function(k, i){
         return '<div class="sp-item"><span class="sp-num">' + (i+1) + '</span><span>' + PRIORITY_MAP[k] + '</span></div>';
       }).join('');
       pri.innerHTML = '<div class="sp-title">우선 진단 영역</div>' + items;
+    }
+  }
+
+  function spendToBudgetOption(spend){
+    if (spend < 300)   return '300만원 미만';
+    if (spend <= 500)  return '300-500만원';
+    if (spend <= 1000) return '500-1000만원';
+    if (spend <= 3000) return '1000-3000만원';
+    return '3000만원 이상';
+  }
+
+  function prefillForm(){
+    var s = getState();
+    if (s.baseRoas === 0) return;
+
+    // 매체 체크박스
+    var mediaMap = { naver: ['네이버'], zigzag: ['지그재그'], both: ['네이버', '지그재그'] };
+    var targets = mediaMap[s.medium] || [];
+    Array.prototype.forEach.call(document.querySelectorAll('input[name="media"]'), function(cb){
+      var should = targets.indexOf(cb.value) !== -1;
+      cb.checked = should;
+      var label = cb.closest('.form-checkbox');
+      if (label) label.classList.toggle('checked', should);
+    });
+
+    // 광고비 select
+    var budgetSel = $('f-budget');
+    if (budgetSel) budgetSel.value = spendToBudgetOption(s.spend);
+
+    // 요약 hidden field
+    var issueText = s.issues.length ? s.issues.map(function(k){ return ISSUE_LABEL[k]; }).join(' / ') : '체크 항목 없음';
+    var summary = '[셀프 진단 결과]\n'
+      + '업종: ' + INDUSTRY_LABEL[s.industry] + '\n'
+      + '매체: ' + MEDIUM_LABEL[s.medium] + '\n'
+      + '월 광고비: ' + s.spend.toLocaleString() + '만원\n'
+      + '업종 평균 ROAS: ' + s.baseRoas + '%\n'
+      + '추정 현재 ROAS: ' + Math.round(s.curRoas) + '%\n'
+      + '추정 월 기회손실: ' + fmtKRW(s.lossMW) + '\n'
+      + '회복 잠재력: ' + fmtKRW(s.recoverMW) + ' / 월\n'
+      + '체크 항목: ' + issueText;
+    var sumEl = $('f-sim-summary');
+    if (sumEl) sumEl.value = summary;
+
+    // prefill 카드 표시
+    $('fpIndustry').textContent = INDUSTRY_LABEL[s.industry];
+    $('fpMedium').textContent   = MEDIUM_LABEL[s.medium];
+    $('fpSpend').textContent    = s.spend.toLocaleString() + '만원';
+    $('fpRoas').textContent     = Math.round(s.curRoas) + '% / 평균 ' + s.baseRoas + '%';
+    $('fpLoss').textContent     = fmtKRW(s.lossMW);
+    $('fpGain').textContent     = '+' + fmtKRW(s.recoverMW) + '/월';
+    $('formPrefill').hidden     = false;
+
+    // 폼 카드 강조 애니메이션 재시작
+    var fc = document.querySelector('#contact .form-card');
+    if (fc){
+      fc.classList.remove('is-prefilled');
+      void fc.offsetWidth;
+      fc.classList.add('is-prefilled');
     }
   }
 
@@ -3846,7 +4006,7 @@
     el.addEventListener('change', calc);
   });
 
-  // GA4 이벤트 — 인터랙션 1회, CTA 클릭
+  // GA4 인터랙션 (1회만)
   var interacted = false;
   Array.prototype.forEach.call(inputs, function(el){
     el.addEventListener('change', function(){
@@ -3856,16 +4016,19 @@
       }
     });
   });
+
+  // CTA 클릭 — prefill + GA4 (앵커 스크롤은 브라우저 기본동작)
   var ctaBtn = $('simCtaBtn');
   if (ctaBtn){
     ctaBtn.addEventListener('click', function(){
+      prefillForm();
       if (typeof gtag === 'function'){
         gtag('event', 'simulator_cta_click', { event_category: 'conversion' });
       }
     });
   }
 
-  calc(); // 초기 계산
+  calc();
 })();
 </script>
 
