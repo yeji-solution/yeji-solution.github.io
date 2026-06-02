@@ -695,14 +695,23 @@
     background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.16);
     color: rgba(255,255,255,0.86);
   }
-  @keyframes badge-pulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(255,63,126,0); opacity: 1; }
-    50% { box-shadow: 0 0 0 8px rgba(255,63,126,0.18); opacity: 0.82; }
+  @keyframes badge-glow {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.68; }
   }
-  .cta .urgency-badge {
-    background: rgba(255,63,126,0.18); border-color: rgba(255,63,126,0.50);
-    color: #fff;
-    animation: badge-pulse 1.8s ease-in-out infinite;
+  .cta .urgency-badge.slot-available {
+    background: rgba(0,199,60,0.22); border-color: rgba(0,199,60,0.62);
+    color: #5eea7e; animation: badge-glow 1.8s ease-in-out infinite;
+  }
+  .cta .urgency-badge.slot-available::before { background: #5eea7e; }
+  .cta .urgency-badge.slot-limited {
+    background: rgba(255,63,126,0.22); border-color: rgba(255,63,126,0.62);
+    color: #ff8ab8; animation: badge-glow 1.8s ease-in-out infinite;
+  }
+  .cta .urgency-badge.slot-limited::before { background: #ff8ab8; }
+  .cta .urgency-badge.slot-closed {
+    background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.18);
+    color: rgba(255,255,255,0.50); animation: none;
   }
   .cta .form-or { color: rgba(255,255,255,0.6); }
   .cta .form-or::before, .cta .form-or::after { background: rgba(255,255,255,0.22); }
