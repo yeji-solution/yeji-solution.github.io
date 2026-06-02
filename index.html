@@ -180,8 +180,8 @@
       radial-gradient(ellipse at bottom left, rgba(37,99,235,0.05), transparent 60%);
   }
   .hero-grid {
-    display: grid; grid-template-columns: 1fr;
-    gap: 40px;
+    display: grid; grid-template-columns: 1.1fr 0.9fr;
+    gap: 56px; align-items: center;
   }
   .hero .role {
     display: inline-flex; align-items: center; gap: 8px;
@@ -220,8 +220,12 @@
   }
   .badge .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
 
+  /* Hero h1 부분 강조 색상 */
+  .hero h1 .h1-dim { color: var(--text-dim); font-weight: 700; }
+  .hero h1 strong .h1-accent { color: var(--brand-accent); }
+
   /* Hero CTA */
-  .hero-cta { margin-top: 34px; display: flex; flex-wrap: wrap; gap: 12px; }
+  .hero-cta { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
   .btn-primary {
     display: inline-flex; align-items: center; gap: 8px;
     padding: 15px 26px; border-radius: 12px;
@@ -231,6 +235,29 @@
     transition: transform 0.15s, box-shadow 0.15s;
   }
   .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(27,42,78,0.4); }
+  .btn-primary .btn-ar {
+    display: inline-block; transition: transform 0.2s;
+  }
+  .btn-primary:hover .btn-ar { transform: translateX(3px); }
+
+  /* Hero 보조 카카오 버튼 */
+  .btn-ghost-kakao {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 15px 22px; border-radius: 12px;
+    background: #FEE500; color: #3A1D1D !important;
+    font-size: 15px; font-weight: 800; letter-spacing: -0.01em;
+    transition: transform 0.15s, background 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 12px rgba(254,229,0,0.35);
+  }
+  .btn-ghost-kakao:hover { background: #F5DC00; transform: translateY(-2px); box-shadow: 0 8px 18px rgba(254,229,0,0.45); }
+
+  /* CTA 보조 마이크로 카피 */
+  .hero-cta-meta {
+    margin-top: 12px;
+    font-size: 13px; color: var(--text-dim); font-weight: 600;
+    display: flex; align-items: center; flex-wrap: wrap; gap: 8px;
+  }
+  .hero-cta-meta .sep { color: var(--line-strong); }
 
   /* Hero 성과 strip */
   .hero-proof {
@@ -1645,7 +1672,7 @@
     .review-grid { grid-template-columns: repeat(2, 1fr); }
     .timeline { grid-template-columns: repeat(2, 1fr); }
     .case-grid { grid-template-columns: repeat(2, 1fr); }
-    .hero-grid { grid-template-columns: 1fr; gap: 36px; }
+    .hero-grid { grid-template-columns: 1.1fr 0.9fr; gap: 40px; }
     h2 { font-size: clamp(20px, 3.5vw, 34px); }
   }
 
@@ -1725,7 +1752,7 @@
   <div class="wrap hero-grid">
     <div class="hero-text">
       <div class="role">광고 마케터 · 네이버·지그재그 7년차</div>
-      <h1>결과가 나지 않는 광고엔,<br class="br-pc"/><br class="br-m"/> <strong>반드시 이유가 있습니다.</strong></h1>
+      <h1><span class="h1-dim">결과가 나지 않는 광고엔,</span><br class="br-pc"/><br class="br-m"/> <strong><span class="h1-accent">반드시 이유</span>가 있습니다.</strong></h1>
       <p class="hero-tagline">
         지금 운영 중인 광고 구조부터 먼저 진단합니다.<br class="br-pc"/><br class="br-m"/>
         처음 상담부터 운영까지 1:1로 함께합니다.
@@ -1740,15 +1767,17 @@
         <span class="badge">SNS광고마케터 1급</span>
       </div>
 
-      <div class="hero-cta">
-        <a href="#contact" class="btn-primary">3일 무료 진단 받기</a>
-      </div>
-
       <div class="hero-proof">
         <div class="hp-item"><span class="hp-cat">전환수</span><b>+219%</b><span class="hp-src">네이버 · 뷰티</span></div>
         <div class="hp-item"><span class="hp-cat">ROAS</span><b>1,007%</b><span class="hp-src">지그재그 · 패션</span></div>
         <div class="hp-item"><span class="hp-cat">매출</span><b>+673%</b><span class="hp-src">쿠팡 · 건강</span></div>
       </div>
+
+      <div class="hero-cta">
+        <a href="#contact" class="btn-primary">3일 무료 진단 받기<span class="btn-ar" aria-hidden="true">→</span></a>
+        <a href="https://open.kakao.com/o/sQcLuovi" target="_blank" rel="noopener noreferrer" class="btn-ghost-kakao">카카오 1:1 상담</a>
+      </div>
+      <p class="hero-cta-meta">7일 내 1차 진단 리포트<span class="sep">·</span>관리비·위약금 0원</p>
     </div>
 
     <!-- 프로필 사진: 같은 폴더에 profile.jpg(세로형 상반신 사진) 업로드 시 자동 표시 -->
