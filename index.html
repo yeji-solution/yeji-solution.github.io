@@ -1325,15 +1325,28 @@
   }
   .review-card {
     background: #fff; border: 1px solid var(--line); border-radius: 16px;
+    border-left: 3px solid transparent;
     padding: 28px 26px;
     display: flex; flex-direction: column; gap: 14px;
     box-shadow: 0 1px 4px rgba(26,29,36,0.05);
     transition: transform 0.16s ease, box-shadow 0.16s ease;
+    position: relative; overflow: hidden;
+  }
+  .review-card::before {
+    content: '\201C';
+    position: absolute; top: -6px; right: 18px;
+    font-size: 96px; line-height: 1;
+    color: var(--line);
+    font-family: Georgia, 'Times New Roman', serif;
+    pointer-events: none; user-select: none;
   }
   .review-card:hover {
     transform: translateY(-3px);
     box-shadow: 0 10px 28px rgba(26,29,36,0.09);
   }
+  .review-card:has(.rv-badge.rv-n) { border-left-color: var(--naver); }
+  .review-card:has(.rv-badge.rv-z) { border-left-color: var(--zigzag); }
+  .review-card:has(.rv-badge.rv-t) { border-left-color: var(--todayhome); }
   .rv-top {
     display: flex; align-items: center; gap: 10px;
   }
@@ -1348,20 +1361,30 @@
     font-size: 12px; font-weight: 700; color: var(--text-sub);
   }
   .rv-quote {
-    font-size: 17px; font-weight: 800; color: var(--text); line-height: 1.45;
-    letter-spacing: -0.02em;
+    font-size: 19px; font-weight: 800; color: var(--text); line-height: 1.5;
+    letter-spacing: -0.025em;
   }
   .review-text {
-    font-size: 13.5px; color: var(--text-dim); line-height: 1.75;
+    font-size: 13.5px; color: var(--text-dim); line-height: 1.78;
     flex: 1;
   }
   .rv-result {
-    display: flex; align-items: center; gap: 8px;
-    background: var(--bg-soft, #F8F9FB); border: 1px solid var(--line);
-    border-radius: 8px; padding: 10px 14px;
+    display: flex; align-items: flex-start; gap: 8px;
+    border: 1px solid var(--line);
+    border-radius: 10px; padding: 11px 14px;
+    background: var(--bg-soft);
+  }
+  .review-card:has(.rv-badge.rv-n) .rv-result {
+    background: var(--bg-naver); border-color: rgba(0,199,60,0.25);
+  }
+  .review-card:has(.rv-badge.rv-z) .rv-result {
+    background: var(--bg-zigzag); border-color: rgba(255,63,126,0.25);
+  }
+  .review-card:has(.rv-badge.rv-t) .rv-result {
+    background: var(--bg-todayhome); border-color: rgba(61,104,255,0.25);
   }
   .rv-result-icon {
-    font-size: 12px; font-weight: 900; flex-shrink: 0;
+    font-size: 12px; font-weight: 900; flex-shrink: 0; margin-top: 2px;
   }
   .rv-icon-n { color: var(--naver-dark); }
   .rv-icon-z { color: var(--zigzag-dark); }
@@ -2864,6 +2887,7 @@
     <div class="section-head">
       <span class="eyebrow dual">TESTIMONIALS</span>
       <h2>함께한 광고주분들의<br class="br-pc"/><br class="br-m"/> 이야기입니다.</h2>
+      <p class="section-sub">직접 담당하며 운영한 광고주분들이 전해주신 후기입니다.<br class="br-pc"/> 업체명은 광고주 요청에 따라 업종·카테고리로 표기했습니다.</p>
     </div>
 
     <div class="review-grid">
@@ -2917,7 +2941,6 @@
       </div>
     </div>
 
-    <p class="review-notice">* 광고주 요청에 따라 업체명은 업종·카테고리로 대체했습니다.</p>
   </div>
 </section>
 
