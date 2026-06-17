@@ -49,6 +49,64 @@
 }
 </script>
 
+<!-- FAQPage 구조화 데이터 — 구글 검색결과에 Q&A 리치 스니펫 노출용 -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "광고비를 늘리면 매출이 늘어나나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "대부분의 경우 비례하지 않습니다. 매출이 안 나오는 이유는 거의 항상 노출·클릭·전환 중 한 군데에 막혀 있습니다. 막힌 곳을 그대로 두고 예산만 늘리면 ROAS가 더 떨어집니다. 진단이 먼저고, 예산은 마지막입니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "대행사를 바꾸면 효과가 있을까요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "대행사 이름보다 담당자에 따라 달라집니다. 같은 대행사 안에서도 담당자에 따라 결과가 2~3배씩 차이 납니다. 어느 회사인가보다 누가 내 광고를 직접 보고 있는가를 확인하시는 게 가장 정확합니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "ROAS만 잘 나오면 좋은 광고인가요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "ROAS만 보면 매출 성장이 멈춥니다. ROAS는 높이려면 광고비를 줄이면 됩니다. 하지만 그 순간 신규 고객 유입도 같이 줄어듭니다. ROAS·전환수·신규 비율을 함께 봐야 합니다. 좋은 마케터는 세 지표를 동시에 관리합니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "두 매체를 함께 운영해야 하나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "아닙니다. 매체는 상품과 타깃에 맞춰야 합니다. 객단가 5만원 이상 일반 카테고리는 네이버가 압도적이고, 패션·뷰티 2030 여성 타깃은 지그재그가 더 효율적입니다. 둘 다 한다고 매출이 두 배가 되지 않습니다. 한쪽에서 베이스를 쌓고 확장하는 게 정석입니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "계약 기간은 어떻게 되나요? 중간에 해지가 가능한가요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "공식 대행사 구조라 계약 기간 자체가 없습니다. 언제든 해지하실 수 있고, 위약금이나 별도 조건도 없습니다. 광고비 외 추가 청구도 없습니다. 효과가 있으면 자연스럽게 길어지고, 없으면 즉시 정리하실 수 있는 구조입니다."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "수수료는 어떻게 되나요? 대행 비용이 따로 발생하나요?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "별도 대행 비용은 없습니다. 네이버·지그재그 공식 파트너사 구조로 운영되기 때문에 광고주는 광고비만 집행하면 됩니다. 수수료는 매체에서 정산되는 구조라 광고주에게 추가 청구가 발생하지 않습니다. 관리비·세팅비 항목 자체가 없습니다."
+      }
+    }
+  ]
+}
+</script>
+
 <!-- favicon: 별도 파일 없이 동작하는 인라인 SVG -->
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%2300C73C'/><text x='50' y='72' font-size='62' text-anchor='middle' fill='%23ffffff' font-family='Arial,sans-serif' font-weight='bold'>Y</text></svg>" />
 
@@ -1826,6 +1884,7 @@
       <a href="#philosophy">왜 다른가</a>
       <a href="#cases">진단 사례</a>
       <a href="#qa">Q&A</a>
+      <a href="/blog/">인사이트</a>
     </nav>
     <a href="#contact" class="nav-cta">무료 진단 신청</a>
     <button type="button" class="nav-toggle" aria-label="메뉴 열기" aria-expanded="false">
@@ -1838,6 +1897,7 @@
     <a href="#philosophy">왜 다른가</a>
     <a href="#cases">진단 사례</a>
     <a href="#qa">Q&A</a>
+    <a href="/blog/">인사이트</a>
     <a href="#contact">무료 진단 신청</a>
   </nav>
 </header>
@@ -3203,6 +3263,7 @@
           <li><a href="#philosophy">왜 다른가</a></li>
           <li><a href="#cases">진단 사례</a></li>
           <li><a href="#qa">Q&A</a></li>
+          <li><a href="/blog/">마케팅 인사이트</a></li>
         </ul>
       </div>
       <div>
