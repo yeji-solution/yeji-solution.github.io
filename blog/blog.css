@@ -89,6 +89,8 @@ header {
 .post-tag.naver { background: var(--bg-naver); color: var(--naver-dark); }
 .post-tag.zigzag { background: #FEF1F5; color: #E32869; }
 .post-tag.strategy { background: #EEF2FF; color: var(--brand); }
+.post-tag.coupang { background: #FFF0F1; color: #B8000F; }
+.post-tag.ohouse { background: #EEF3FF; color: #2851D4; }
 .post-date { font-size: 12.5px; color: var(--text-dim); font-weight: 600; }
 .post-read { font-size: 12.5px; color: var(--text-dim); margin-left: auto; }
 .post-card h2 { font-size: 20px; font-weight: 800; line-height: 1.4; letter-spacing: -0.01em; }
