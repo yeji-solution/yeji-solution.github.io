@@ -310,7 +310,7 @@
   /* Hero h1 앞부분 — 앞줄도 진하게, 뒷줄 강조로 위계 분리 */
   .hero h1 .h1-soft { color: var(--text); font-weight: 800; }
   .hero h1 strong {
-    background: var(--dual);
+    background: linear-gradient(92deg, var(--brand) 0%, var(--naver-dark) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -380,13 +380,20 @@
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
   }
   .hp-item {
-    background: var(--bg-soft); border: 1px solid var(--line);
-    border-top: 3px solid var(--brand); border-radius: 14px;
-    padding: 16px 16px 15px; display: flex; flex-direction: column; gap: 6px;
+    position: relative; overflow: hidden;
+    background: #fff; border: 1px solid var(--line);
+    border-radius: 16px; box-shadow: var(--shadow-sm);
+    padding: 18px 16px 16px; display: flex; flex-direction: column; gap: 6px;
+    transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
   }
+  .hp-item::before {
+    content: ''; position: absolute; top: 0; left: 0; height: 100%; width: 3px;
+    background: var(--naver);
+  }
+  .hp-item:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
   .hp-cat {
-    font-size: 11px; font-weight: 800; color: var(--brand);
-    letter-spacing: 0.06em; text-transform: uppercase;
+    font-size: 10.5px; font-weight: 800; color: var(--text-dim);
+    letter-spacing: 0.1em; text-transform: uppercase;
   }
   .hp-item b {
     font-size: 34px; font-weight: 800; letter-spacing: -0.03em;
@@ -399,13 +406,18 @@
   .hero-photo {
     position: relative; aspect-ratio: 4 / 5;
     width: 100%;
-    border-radius: 20px; overflow: hidden;
+    border-radius: 24px; overflow: hidden;
     background: linear-gradient(160deg, #2c3d63 0%, #1B2A4E 100%);
-    box-shadow: 0 24px 60px rgba(0,0,0,0.15);
+    box-shadow: var(--shadow-lg);
   }
   .hero-photo img {
     position: relative; z-index: 1;
     width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  .hero-photo::after {
+    content: ''; position: absolute; inset: 0; z-index: 2; border-radius: 24px;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.14);
+    pointer-events: none;
   }
   .hero-photo-fallback {
     position: absolute; inset: 0; z-index: 0;
@@ -1983,9 +1995,9 @@
       <p class="hero-slot-meta" id="heroSlotMeta"></p>
 
       <div class="hero-proof">
-        <div class="hp-item"><span class="hp-cat">ROAS</span><b>1,009%</b><span class="hp-src">네이버 · 생활·건강</span><span class="hp-period">2025 하반기 3개월</span></div>
-        <div class="hp-item"><span class="hp-cat">광고효율</span><b>+77%</b><span class="hp-src">지그재그 · 패션</span><span class="hp-period">ROAS 567% → 1,007%</span></div>
-        <div class="hp-item"><span class="hp-cat">전환매출</span><b>+119%</b><span class="hp-src">에이블리 · 패션</span><span class="hp-period">2025년 전년 대비</span></div>
+        <div class="hp-item"><span class="hp-cat">ROAS</span><b data-target="1009" data-prefix="" data-suffix="%">1,009%</b><span class="hp-src">네이버 · 생활·건강</span><span class="hp-period">2025 하반기 3개월</span></div>
+        <div class="hp-item"><span class="hp-cat">광고효율</span><b data-target="77" data-prefix="+" data-suffix="%">+77%</b><span class="hp-src">지그재그 · 패션</span><span class="hp-period">ROAS 567% → 1,007%</span></div>
+        <div class="hp-item"><span class="hp-cat">전환매출</span><b data-target="119" data-prefix="+" data-suffix="%">+119%</b><span class="hp-src">에이블리 · 패션</span><span class="hp-period">2025년 전년 대비</span></div>
       </div>
     </div>
 
@@ -3540,6 +3552,35 @@
       if (p < 1) requestAnimationFrame(step);
     }
     requestAnimationFrame(step);
+  }
+
+  /* 히어로 성과 카운트업 (시그니처 모멘트) — 실패/reduced 시 최종값 유지 */
+  function heroProofCount() {
+    qsa('.hp-item b[data-target]').forEach(function (el) {
+      var target = parseInt(el.dataset.target, 10);
+      if (isNaN(target)) return;
+      var prefix = el.dataset.prefix || '', suffix = el.dataset.suffix || '';
+      var start = null, dur = 1400;
+      function fmt(n) { return prefix + n.toLocaleString('en-US') + suffix; }
+      function step(ts) {
+        if (!start) start = ts;
+        var p = Math.min((ts - start) / dur, 1);
+        var ease = 1 - Math.pow(1 - p, 3);
+        el.textContent = fmt(Math.round(ease * target));
+        if (p < 1) requestAnimationFrame(step);
+      }
+      el.textContent = fmt(0);
+      requestAnimationFrame(step);
+    });
+  }
+  if (hasIO && !reduced) {
+    var heroProofEl = qs('.hero-proof');
+    if (heroProofEl) {
+      var hpIO = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) { heroProofCount(); hpIO.disconnect(); } });
+      }, { threshold: 0.4 });
+      hpIO.observe(heroProofEl);
+    }
   }
 
   /* =====================================================
