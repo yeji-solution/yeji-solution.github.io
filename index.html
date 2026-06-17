@@ -1612,6 +1612,18 @@
     background: rgba(0,199,60,0.10); color: #00862A;
   }
   .result-note { margin-top: 28px; font-size: 12px; color: var(--text-dim); text-align: center; }
+  /* ===== Phase 3 — KPI 밴드 + 플랫폼 필터 탭 ===== */
+  .kpi-band { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 36px; }
+  .kpi { background: #fff; border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow-sm); padding: 24px 18px; text-align: center; }
+  .kpi-num { display: block; font-size: clamp(26px, 4vw, 38px); font-weight: 800; color: var(--brand); letter-spacing: -0.025em; line-height: 1; font-variant-numeric: tabular-nums; }
+  .kpi-num i { font-style: normal; font-size: 0.5em; font-weight: 700; color: var(--text-dim); margin-left: 2px; }
+  .kpi-lbl { display: block; margin-top: 11px; font-size: 12.5px; font-weight: 600; color: var(--text-dim); letter-spacing: 0.02em; }
+  .result-filter { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+  .rf-tab { font-family: inherit; cursor: pointer; font-size: 13.5px; font-weight: 700; color: var(--text-sub); background: #fff; border: 1px solid var(--line-strong); border-radius: 999px; padding: 9px 18px; transition: color var(--dur-base) var(--ease-out), background var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out); }
+  .rf-tab:hover { border-color: var(--brand); color: var(--brand); }
+  .rf-tab.is-active { background: var(--brand); border-color: var(--brand); color: #fff; }
+  .result-platform-row[hidden] { display: none; }
+  @media (max-width: 720px) { .kpi-band { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 900px) { .result-grid { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 720px) {
     .result-grid { grid-template-columns: 1fr; }
@@ -2153,8 +2165,25 @@
       <p class="section-sub">직접 운영하며 달성한 실측 데이터입니다.<br class="br-pc"/> 각 케이스마다 어떤 접근으로 성과를 끌어올렸는지 함께 담았습니다.</p>
     </div>
 
+    <!-- KPI 밴드 -->
+    <div class="kpi-band">
+      <div class="kpi"><span class="kpi-num">500<i>억+</i></span><span class="kpi-lbl">누적 관리 광고비</span></div>
+      <div class="kpi"><span class="kpi-num">1,000<i>+</i></span><span class="kpi-lbl">누적 운영 브랜드</span></div>
+      <div class="kpi"><span class="kpi-num">12</span><span class="kpi-lbl">공개 성과 케이스</span></div>
+      <div class="kpi"><span class="kpi-num">7<i>년차</i></span><span class="kpi-lbl">1:1 전담 운영</span></div>
+    </div>
+
+    <!-- 플랫폼 필터 탭 -->
+    <div class="result-filter" role="tablist" aria-label="플랫폼별 성과 필터">
+      <button type="button" class="rf-tab is-active" data-filter="all">전체</button>
+      <button type="button" class="rf-tab" data-filter="naver">네이버</button>
+      <button type="button" class="rf-tab" data-filter="zigzag">지그재그·에이블리</button>
+      <button type="button" class="rf-tab" data-filter="coupang">쿠팡</button>
+      <button type="button" class="rf-tab" data-filter="ohouse">오늘의집</button>
+    </div>
+
     <!-- 네이버 -->
-    <div class="result-platform-row">
+    <div class="result-platform-row" data-platform="naver">
       <div class="result-platform-lbl">
         <span class="rc-tag n">NAVER</span>
         <span class="rpl-name">네이버 검색광고</span>
@@ -2286,7 +2315,7 @@
     </div>
 
     <!-- 지그재그·에이블리 -->
-    <div class="result-platform-row">
+    <div class="result-platform-row" data-platform="zigzag">
       <div class="result-platform-lbl">
         <span class="rc-tag z">ZIGZAG</span>
         <span class="rpl-name">지그재그 · 에이블리</span>
@@ -2425,7 +2454,7 @@
     </div>
 
     <!-- 쿠팡 -->
-    <div class="result-platform-row">
+    <div class="result-platform-row" data-platform="coupang">
       <div class="result-platform-lbl">
         <span class="rc-tag c">COUPANG</span>
         <span class="rpl-name">쿠팡 광고</span>
@@ -2571,7 +2600,7 @@
     </div>
 
     <!-- 오늘의집 -->
-    <div class="result-platform-row">
+    <div class="result-platform-row" data-platform="ohouse">
       <div class="result-platform-lbl">
         <span class="rc-tag t">오늘의집</span>
         <span class="rpl-name">오늘의집 광고</span>
@@ -3582,6 +3611,22 @@
       hpIO.observe(heroProofEl);
     }
   }
+
+  /* 성과 플랫폼 필터 탭 */
+  (function () {
+    var tabs = qsa('.rf-tab');
+    var rows = qsa('.result-platform-row');
+    if (!tabs.length || !rows.length) return;
+    tabs.forEach(function (t) {
+      t.addEventListener('click', function () {
+        var f = t.dataset.filter;
+        tabs.forEach(function (x) { x.classList.toggle('is-active', x === t); });
+        rows.forEach(function (r) {
+          r.hidden = !(f === 'all' || r.getAttribute('data-platform') === f);
+        });
+      });
+    });
+  })();
 
   /* =====================================================
      SPRINT 1 — IntersectionObserver 기반 애니메이션
