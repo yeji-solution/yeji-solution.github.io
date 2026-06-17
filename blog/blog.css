@@ -151,6 +151,11 @@ header {
 .article-cta h3 { font-size: 21px; font-weight: 800; line-height: 1.4; }
 .article-cta p { margin-top: 12px; font-size: 14.5px; color: rgba(255,255,255,0.78); line-height: 1.7; }
 .article-cta .cta-row { margin-top: 22px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+/* CTA가 .article-body 안에 있어 본문 글자색·링크 규칙에 덮이는 것 방지 */
+.article-body .article-cta h3 { color: #fff; }
+.article-body .article-cta a { text-decoration: none; color: #fff; }
+.article-body .article-cta .btn-primary,
+.article-body .article-cta .btn-ghost { color: #fff; }
 .btn-primary {
   background: var(--naver); color: #fff; font-weight: 800; font-size: 15px;
   padding: 13px 24px; border-radius: 10px;
