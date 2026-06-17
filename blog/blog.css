@@ -62,14 +62,21 @@ header {
 .nav-menu { display: flex; gap: 22px; align-items: center; }
 .nav-menu a { font-size: 14px; font-weight: 600; color: var(--text-sub); transition: color var(--dur-base) var(--ease-out); }
 .nav-menu a:hover, .nav-menu a.is-current { color: var(--text); }
-.nav-cta {
+/* .nav-menu a 보다 우선순위를 높여 흰색·굵기·배경이 덮이지 않게 */
+.nav-menu a.nav-cta {
   font-size: 13.5px; font-weight: 700; color: #fff;
   background: var(--brand); padding: 9px 16px; border-radius: 8px;
   transition: transform var(--dur-base) var(--ease-out), background var(--dur-base) var(--ease-out);
 }
-.nav-cta:hover { background: #0f1c3a; transform: translateY(-1px); }
+.nav-menu a.nav-cta:hover { background: #0f1c3a; color: #fff; transform: translateY(-1px); }
+/* 좁은 화면: 보조 링크만 숨기고 CTA는 항상 노출(메뉴가 통째로 사라지는 문제 해결) */
 @media (max-width: 720px) {
-  .nav-menu { display: none; }
+  .nav { padding: 0 16px; gap: 12px; }
+  .brand { font-size: 15px; white-space: nowrap; }
+  .brand .sub { display: none; }
+  .nav-menu { gap: 0; flex-shrink: 0; }
+  .nav-menu a:not(.nav-cta) { display: none; }
+  .nav-menu a.nav-cta { white-space: nowrap; font-size: 12.5px; padding: 8px 13px; }
 }
 
 /* ===== 블로그 목록 ===== */
