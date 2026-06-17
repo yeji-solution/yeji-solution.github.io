@@ -1856,6 +1856,34 @@
     background: #fff;
     border-color: var(--line);
   }
+
+  /* ===== HOME: 최신 인사이트 (블로그 노출) ===== */
+  #insights .insight-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 8px; }
+  .insight-card {
+    display: flex; flex-direction: column; gap: 12px;
+    background: #fff; border: 1px solid var(--line); border-radius: 16px;
+    padding: 24px 22px; box-shadow: 0 1px 4px rgba(26,29,36,0.05);
+    transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out);
+  }
+  .insight-card:hover { transform: translateY(-4px); box-shadow: 0 14px 34px rgba(26,29,36,0.11); border-color: var(--line-strong); }
+  .ic-meta { display: flex; align-items: center; gap: 8px; }
+  .ic-tag { font-size: 11px; font-weight: 800; letter-spacing: 0.04em; padding: 3px 9px; border-radius: 5px; }
+  .ic-tag.n { background: var(--bg-naver); color: var(--naver-dark); }
+  .ic-tag.z { background: var(--bg-zigzag); color: var(--zigzag-dark); }
+  .ic-tag.s { background: #EEF2FF; color: var(--brand); }
+  .ic-date { font-size: 12px; color: var(--text-dim); font-weight: 600; }
+  .ic-title { font-size: 17px; font-weight: 800; line-height: 1.45; color: var(--text); letter-spacing: -0.01em; transition: color var(--dur-base) var(--ease-out); }
+  .insight-card:hover .ic-title { color: var(--brand-accent); }
+  .ic-desc { font-size: 13.5px; color: var(--text-sub); line-height: 1.7; flex: 1; }
+  .ic-more { font-size: 13px; font-weight: 700; color: var(--brand-accent); }
+  .insight-all { text-align: center; margin-top: 30px; }
+  .insight-all a {
+    display: inline-block; font-size: 14px; font-weight: 700; color: var(--text);
+    border: 1px solid var(--line-strong); border-radius: 10px; padding: 12px 26px;
+    transition: background var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out);
+  }
+  .insight-all a:hover { background: #fff; transform: translateY(-1px); }
+  @media (max-width: 900px) { #insights .insight-grid { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -3099,6 +3127,38 @@
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- HOME 최신 인사이트 (블로그) -->
+<section id="insights" class="soft">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow dual">MARKETING INSIGHTS</span>
+      <h2>광고비를 쓰기 전에<br class="br-pc"/><br class="br-m"/> 먼저 읽어야 할 것들.</h2>
+      <p class="section-sub">현장에서 검증한 실무 인사이트입니다. 리포트용 이론이 아니라, 실제 계정에서 ROAS를 움직인 방법만 적습니다.</p>
+    </div>
+    <div class="insight-grid">
+      <a class="insight-card" href="/blog/naver-search-ad-roas/">
+        <div class="ic-meta"><span class="ic-tag n">NAVER</span><span class="ic-date">2026.06.10</span></div>
+        <div class="ic-title">네이버 검색광고 ROAS가 떨어지는 5가지 진짜 이유</div>
+        <div class="ic-desc">광고비는 그대로인데 ROAS가 떨어진다면? 1,000개 브랜드를 운영하며 마주친 다섯 가지 원인과, 계정을 열었을 때 가장 먼저 보는 진단 순서.</div>
+        <div class="ic-more">자세히 읽기 →</div>
+      </a>
+      <a class="insight-card" href="/blog/zigzag-ai-ad-optimization/">
+        <div class="ic-meta"><span class="ic-tag z">ZIGZAG</span><span class="ic-date">2026.06.13</span></div>
+        <div class="ic-title">지그재그 AI 광고, 성과가 멈췄을 때 점검할 4가지</div>
+        <div class="ic-desc">"맡겨두면 알아서"가 안 통하는 지그재그 AI 광고. 학습이 굳어버린 계정을 되살리는 썸네일·상품군·예산 부스팅 순서.</div>
+        <div class="ic-more">자세히 읽기 →</div>
+      </a>
+      <a class="insight-card" href="/blog/ad-budget-truth/">
+        <div class="ic-meta"><span class="ic-tag s">전략</span><span class="ic-date">2026.06.16</span></div>
+        <div class="ic-title">광고비를 늘려도 매출이 안 느는 진짜 이유</div>
+        <div class="ic-desc">예산을 두 배 올리면 매출도 두 배? 거의 항상 틀립니다. 노출·클릭·전환 중 막힌 한 곳을 찾는 법.</div>
+        <div class="ic-more">자세히 읽기 →</div>
+      </a>
+    </div>
+    <div class="insight-all"><a href="/blog/">인사이트 전체 보기 →</a></div>
   </div>
 </section>
 
