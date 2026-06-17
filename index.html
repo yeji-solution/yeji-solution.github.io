@@ -180,6 +180,8 @@
   ::-webkit-scrollbar-thumb { background: rgba(27,42,78,0.22); border-radius: 8px; border: 3px solid transparent; background-clip: content-box; }
   ::-webkit-scrollbar-thumb:hover { background: rgba(27,42,78,0.38); border: 3px solid transparent; background-clip: content-box; }
   ::-webkit-scrollbar-track { background: transparent; }
+  .js .hero-photo img { opacity: 0; transition: opacity 0.8s var(--ease-out); }
+  .js .hero-photo img.is-loaded { opacity: 1; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   :focus { outline: none; }
   :focus-visible { outline: 2px solid var(--brand-accent); outline-offset: 2px; border-radius: 3px; }
@@ -3358,7 +3360,7 @@
 
     <div class="cta-buttons">
       <div class="cta-btn-row">
-        <a href="https://open.kakao.com/o/sQcLuovi" target="_blank" rel="noopener" class="btn-kakao"><span aria-hidden="true">💬</span> 카카오 오픈채팅</a>
+        <a href="https://open.kakao.com/o/sQcLuovi" target="_blank" rel="noopener" class="btn-kakao"><span aria-hidden="true" style="display:inline-flex;vertical-align:-3px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3.5C6.8 3.5 2.6 6.9 2.6 11c0 2.6 1.7 4.9 4.3 6.2-.2.6-.6 2.2-.7 2.6 0 .2.1.3.3.2 1-.7 3.3-2.3 3.6-2.5.5.1 1 .1 1.5.1 5.2 0 9.4-3.4 9.4-7.6S17.2 3.5 12 3.5z"/></svg></span> 카카오 오픈채팅</a>
       </div>
       <div class="kakao-qr-row">
         <img src="kakao-qr.png"
@@ -3413,17 +3415,17 @@
 </footer>
 
 <!-- ===== 맨 위로 가기 버튼 ===== -->
-<button type="button" class="to-top" aria-label="맨 위로">↑</button>
+<button type="button" class="to-top" aria-label="맨 위로"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 14l6-6 6 6"/></svg></button>
 
 <!-- ===== 플로팅 카카오 오픈채팅 버튼 (PC 전용 — 모바일은 스티키 바 사용) ===== -->
 <a href="https://open.kakao.com/o/sQcLuovi" target="_blank" rel="noopener" class="chat-fab" aria-label="카카오 오픈채팅">
-  <span class="cf-ico" aria-hidden="true">💬</span><span>카톡 상담</span>
+  <span class="cf-ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3.5C6.8 3.5 2.6 6.9 2.6 11c0 2.6 1.7 4.9 4.3 6.2-.2.6-.6 2.2-.7 2.6 0 .2.1.3.3.2 1-.7 3.3-2.3 3.6-2.5.5.1 1 .1 1.5.1 5.2 0 9.4-3.4 9.4-7.6S17.2 3.5 12 3.5z"/></svg></span><span>카톡 상담</span>
 </a>
 
 <!-- ===== 스티키 모바일 CTA 바 (모바일 전용) ===== -->
 <div class="sticky-bar" id="stickyBar">
   <a href="#contact" class="sticky-bar-cta">무료 진단 신청 →</a>
-  <a href="https://open.kakao.com/o/sQcLuovi" target="_blank" rel="noopener" class="sticky-bar-kakao" aria-label="카카오 오픈채팅"><span aria-hidden="true">💬</span></a>
+  <a href="https://open.kakao.com/o/sQcLuovi" target="_blank" rel="noopener" class="sticky-bar-kakao" aria-label="카카오 오픈채팅"><span aria-hidden="true" style="display:inline-flex;"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3.5C6.8 3.5 2.6 6.9 2.6 11c0 2.6 1.7 4.9 4.3 6.2-.2.6-.6 2.2-.7 2.6 0 .2.1.3.3.2 1-.7 3.3-2.3 3.6-2.5.5.1 1 .1 1.5.1 5.2 0 9.4-3.4 9.4-7.6S17.2 3.5 12 3.5z"/></svg></span></a>
 </div>
 
 
@@ -3632,6 +3634,25 @@
       });
     });
   })();
+
+  /* 마그네틱 CTA (데스크톱·모션 허용) — 절제된 미세 인터랙션 */
+  if (hasHover && !reduced) {
+    qsa('.hero-cta .btn-primary, .form-submit').forEach(function (btn) {
+      btn.style.willChange = 'transform';
+      btn.addEventListener('mousemove', function (e) {
+        var r = btn.getBoundingClientRect();
+        var mx = Math.max(-8, Math.min(8, (e.clientX - (r.left + r.width / 2)) * 0.25));
+        var my = Math.max(-6, Math.min(6, (e.clientY - (r.top + r.height / 2)) * 0.3));
+        btn.style.transform = 'translate(' + mx + 'px,' + my + 'px)';
+      });
+      btn.addEventListener('mouseleave', function () { btn.style.transform = ''; });
+    });
+  }
+  /* 히어로 프로필 이미지 페이드인 */
+  qsa('.hero-photo img').forEach(function (img) {
+    if (img.complete) img.classList.add('is-loaded');
+    else img.addEventListener('load', function () { img.classList.add('is-loaded'); });
+  });
 
   /* =====================================================
      SPRINT 1 — IntersectionObserver 기반 애니메이션
