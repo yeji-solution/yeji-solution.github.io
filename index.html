@@ -217,7 +217,7 @@
     max-width: 1080px; margin: 0 auto; padding: 16px 32px;
     display: flex; align-items: center; justify-content: space-between;
   }
-  .brand { font-weight: 800; font-size: 16px; letter-spacing: -0.01em; }
+  .brand { font-weight: 800; font-size: 16px; letter-spacing: -0.01em; white-space: nowrap; }
   .brand::before {
     content: ''; display: inline-block; vertical-align: -5px;
     width: 22px; height: 22px; border-radius: 6px; margin-right: 9px;
@@ -230,10 +230,14 @@
   .nav-menu a:hover { color: var(--text); }
   .nav-cta {
     padding: 8px 16px; background: var(--text); color: #fff !important;
-    border-radius: 8px; font-size: 13px; font-weight: 700;
+    border-radius: 8px; font-size: 13px; font-weight: 700; white-space: nowrap; flex-shrink: 0;
   }
   @media (max-width: 720px) {
     .nav { padding: 14px 20px; }
+  }
+  /* 태블릿 이하: 빡빡한 데스크톱 메뉴 → 햄버거로 전환(브랜드·CTA 줄바꿈 방지)
+     ※ .nav-toggle 노출은 기본 display:none 규칙(아래쪽) 뒤에서 다시 지정 */
+  @media (max-width: 1000px) {
     .nav-menu { display: none; }
   }
 
@@ -886,8 +890,10 @@
   .mobile-menu a:last-child {
     border-bottom: none; color: var(--naver-dark); font-weight: 800;
   }
-  @media (max-width: 720px) {
+  @media (max-width: 1000px) {
     .nav-toggle { display: flex; }
+  }
+  @media (max-width: 720px) {
     .nav-cta { display: none; }
   }
 
