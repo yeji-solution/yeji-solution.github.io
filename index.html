@@ -50,6 +50,23 @@
 }
 </script>
 
+<!-- ProfessionalService 구조화 데이터 — 서비스·지역·무료진단 오퍼 -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "YEJI SOLUTION — 이명수 마케터",
+  "description": "네이버·지그재그·쿠팡·오늘의집 광고 1:1 전담 운영. 무료 광고 진단 제공.",
+  "url": "https://yeji-solution.github.io/",
+  "image": "https://yeji-solution.github.io/og-image.png",
+  "areaServed": { "@type": "Country", "name": "대한민국" },
+  "serviceType": "온라인 광고 대행 (네이버·지그재그·쿠팡·오늘의집)",
+  "provider": { "@type": "Person", "name": "이명수" },
+  "knowsAbout": ["네이버 검색광고", "지그재그 광고", "쿠팡 광고", "오늘의집 광고", "ROAS 최적화"],
+  "offers": { "@type": "Offer", "name": "무료 광고 진단", "price": "0", "priceCurrency": "KRW" }
+}
+</script>
+
 <!-- FAQPage 구조화 데이터 — 구글 검색결과에 Q&A 리치 스니펫 노출용 -->
 <script type="application/ld+json">
 {
@@ -109,10 +126,10 @@
 </script>
 
 <!-- favicon: 별도 파일 없이 동작하는 인라인 SVG -->
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%2300C73C'/><text x='50' y='72' font-size='62' text-anchor='middle' fill='%23ffffff' font-family='Arial,sans-serif' font-weight='bold'>Y</text></svg>" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%2300C73C'/><rect x='26' y='56' width='13' height='20' rx='3' fill='white'/><rect x='44' y='42' width='13' height='34' rx='3' fill='white'/><rect x='62' y='28' width='13' height='48' rx='3' fill='white'/></svg>" />
 
 <link rel="preconnect" href="https://cdn.jsdelivr.net" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css" />
 <script>document.documentElement.classList.add('js');</script>
 <style>
   :root {
@@ -182,6 +199,7 @@
   ::-webkit-scrollbar-track { background: transparent; }
   .js .hero-photo img { opacity: 0; transition: opacity 0.8s var(--ease-out); }
   .js .hero-photo img.is-loaded { opacity: 1; }
+  .hero-photo picture, .mp-photo-card picture { display: contents; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   :focus { outline: none; }
   :focus-visible { outline: 2px solid var(--brand-accent); outline-offset: 2px; border-radius: 3px; }
@@ -2034,7 +2052,10 @@
         <div class="hpf-role">광고 마케터 · 7년차</div>
         <div class="hpf-sub">YEJI SOLUTION</div>
       </div>
-      <img src="profile.jpg" alt="이명수 마케터 프로필 사진" width="1024" height="1536" loading="eager" fetchpriority="high" onerror="this.remove()" />
+      <picture>
+        <source srcset="profile.webp" type="image/webp" />
+        <img src="profile.jpg" alt="이명수 마케터 프로필 사진" width="1024" height="1536" loading="eager" fetchpriority="high" onerror="this.parentNode.remove()" />
+      </picture>
     </div>
   </div>
 </section>
@@ -2086,7 +2107,10 @@
         <div class="hpf-role">광고 마케터 · 7년차</div>
         <div class="hpf-sub">YEJI SOLUTION</div>
       </div>
-      <img src="profile.jpg" alt="이명수 마케터 프로필" onerror="this.remove()" />
+      <picture>
+        <source srcset="profile.webp" type="image/webp" />
+        <img src="profile.jpg" alt="이명수 마케터 프로필" loading="lazy" onerror="this.parentNode.remove()" />
+      </picture>
     </div>
     <strong class="mp-name">이명수 마케터</strong>
     <p class="mp-role-text">YEJI SOLUTION · 2020년부터 7년째</p>
@@ -3551,6 +3575,9 @@
             }).catch(function () {});
             cf.style.display = 'none';
             if (fs) fs.classList.add('show');
+            if (typeof gtag === 'function') {
+              gtag('event', 'generate_lead', { method: '무료진단폼', budget: (data.get('budget') || '미선택') });
+            }
           } else {
             btn.disabled = false; btn.textContent = '무료 진단 신청하기 →';
             if (fe) { fe.textContent = '제출 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.'; fe.classList.add('show'); fe.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
@@ -3562,6 +3589,13 @@
         });
     });
   }
+
+  /* 카카오 오픈채팅 클릭 → GA4 이벤트 */
+  qsa('a[href*="open.kakao.com"]').forEach(function (a) {
+    a.addEventListener('click', function () {
+      if (typeof gtag === 'function') gtag('event', 'contact_kakao', { method: '카카오오픈채팅' });
+    });
+  });
 
   /* ===== 스티키 모바일 CTA 바 ===== */
   var stickyBar = qs('#stickyBar'), contactSection = qs('#contact');
