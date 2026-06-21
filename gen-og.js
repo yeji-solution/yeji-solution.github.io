@@ -14,6 +14,10 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" v
       <stop offset="0%" style="stop-color:#00C73C;stop-opacity:0.12" />
       <stop offset="100%" style="stop-color:#FF3F7E;stop-opacity:0.08" />
     </linearGradient>
+    <linearGradient id="naverGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00C73C;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#009B2F;stop-opacity:1" />
+    </linearGradient>
   </defs>
 
   <!-- Background -->
@@ -32,6 +36,10 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" v
   <!-- Brand -->
   <text x="72" y="100" font-family="Arial, sans-serif" font-size="22" font-weight="800" letter-spacing="3" fill="#00C73C">YEJI SOLUTION</text>
 
+  <!-- NEW: 우상단 NAVER OFFICIAL CERTIFIED 뱃지 -->
+  <rect x="868" y="70" width="260" height="40" rx="20" fill="url(#naverGrad)"/>
+  <text x="888" y="96" font-family="Arial, sans-serif" font-size="15" font-weight="800" fill="#FFFFFF" letter-spacing="0.4">★ NAVER OFFICIAL CERTIFIED</text>
+
   <!-- Name -->
   <text x="72" y="148" font-family="Arial, sans-serif" font-size="38" font-weight="800" fill="#1A1D24" letter-spacing="-1">이명수 마케터</text>
 
@@ -43,32 +51,27 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" v
   <text x="72" y="308" font-family="Arial, sans-serif" font-size="52" font-weight="800" fill="#1A1D24" letter-spacing="-1.5">반드시 이유가 있습니다.</text>
 
   <!-- Sub -->
-  <text x="72" y="372" font-family="Arial, sans-serif" font-size="26" fill="#4B5563" letter-spacing="-0.5">네이버 · 지그재그 광고 1:1 전담 운영</text>
+  <text x="72" y="372" font-family="Arial, sans-serif" font-size="26" fill="#4B5563" letter-spacing="-0.5">NAVER Ads Expert 공식 인증 마케터 · 1:1 전담 운영</text>
 
-  <!-- Badges row -->
-  <!-- Badge 1: 네이버 프리미어 -->
-  <rect x="72" y="416" width="242" height="42" rx="21" fill="#F1FBF4" stroke="#00C73C" stroke-width="1.5" stroke-opacity="0.6"/>
-  <circle cx="99" cy="437" r="5" fill="#00C73C"/>
-  <text x="114" y="443" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#009B2F">네이버 프리미어 파트너사</text>
+  <!-- NAVER 공식 인증 큰 그린 fill 뱃지 (최상위 위계) -->
+  <rect x="72" y="416" width="556" height="48" rx="24" fill="url(#naverGrad)"/>
+  <text x="92" y="446" font-family="Arial, sans-serif" font-size="16" font-weight="800" fill="#FFFFFF">★</text>
+  <text x="118" y="447" font-family="Arial, sans-serif" font-size="18" font-weight="800" fill="#FFFFFF" letter-spacing="-0.3">NAVER Ads Expert · 검색 · 디스플레이 공식 인증 (2026)</text>
 
-  <!-- Badge 2: 지그재그 -->
-  <rect x="326" y="416" width="250" height="42" rx="21" fill="#FEF1F5" stroke="#FF3F7E" stroke-width="1.5" stroke-opacity="0.6"/>
-  <circle cx="353" cy="437" r="5" fill="#FF3F7E"/>
-  <text x="368" y="443" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#E32869">지그재그 프리미어 에이전시</text>
+  <!-- Badges row 2: 네이버 프리미어 + 지그재그 프리미어 -->
+  <rect x="72" y="478" width="242" height="42" rx="21" fill="#F1FBF4" stroke="#00C73C" stroke-width="1.5" stroke-opacity="0.6"/>
+  <circle cx="99" cy="499" r="5" fill="#00C73C"/>
+  <text x="114" y="505" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#009B2F">네이버 프리미어 파트너사</text>
 
-  <!-- Badge 3: 자격증 -->
-  <rect x="72" y="472" width="168" height="42" rx="21" fill="#F7F8FA" stroke="#D5D8DD" stroke-width="1.5"/>
-  <text x="97" y="498" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#4B5563">검색광고마케터 1급</text>
-
-  <!-- Badge 4: GAIQ -->
-  <rect x="252" y="472" width="110" height="42" rx="21" fill="#F7F8FA" stroke="#D5D8DD" stroke-width="1.5"/>
-  <text x="277" y="498" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#4B5563">구글 GAIQ</text>
+  <rect x="326" y="478" width="250" height="42" rx="21" fill="#FEF1F5" stroke="#FF3F7E" stroke-width="1.5" stroke-opacity="0.6"/>
+  <circle cx="353" cy="499" r="5" fill="#FF3F7E"/>
+  <text x="368" y="505" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#E32869">지그재그 프리미어 에이전시</text>
 
   <!-- CTA bar at bottom -->
   <rect x="0" y="560" width="1200" height="70" fill="#1A1D24"/>
   <text x="72" y="603" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="rgba(255,255,255,0.65)" letter-spacing="0">무료 광고 진단 신청</text>
   <text x="290" y="603" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="rgba(255,255,255,0.3)">  ·  </text>
-  <text x="318" y="603" font-family="Arial, sans-serif" font-size="22" font-weight="600" fill="rgba(255,255,255,0.9)">ye-ji.pages.dev</text>
+  <text x="318" y="603" font-family="Arial, sans-serif" font-size="22" font-weight="600" fill="rgba(255,255,255,0.9)">yeji-solution.github.io</text>
 
   <!-- Right side: stat blocks -->
   <rect x="820" y="200" width="130" height="96" rx="14" fill="white" stroke="#E8EAED" stroke-width="1.5"/>
