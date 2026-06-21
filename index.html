@@ -953,6 +953,7 @@
     .sim-field { margin-bottom: 22px; }
     .sim-amounts { padding: 16px; gap: 8px; }
     .sa-value { font-size: 18px; }
+    .sim-toggle-group { grid-template-columns: repeat(2, 1fr); }
     .sim-toggle span { padding: 10px 8px; font-size: 13px; }
     .sim-check { padding: 11px 12px; font-size: 13px; }
   }
@@ -3720,33 +3721,23 @@
         <div class="sim-field">
           <label class="sim-label">광고 매체</label>
           <div class="sim-toggle-group">
-            <label class="sim-toggle"><input type="radio" name="simMedium" value="naver" checked /><span>네이버</span></label>
+            <label class="sim-toggle"><input type="radio" name="simMedium" value="naver_search" checked /><span>네이버 검색</span></label>
+            <label class="sim-toggle"><input type="radio" name="simMedium" value="naver_gfa" /><span>네이버 GFA</span></label>
             <label class="sim-toggle"><input type="radio" name="simMedium" value="zigzag" /><span>지그재그</span></label>
-            <label class="sim-toggle"><input type="radio" name="simMedium" value="both" /><span>둘 다</span></label>
+            <label class="sim-toggle"><input type="radio" name="simMedium" value="coupang" /><span>쿠팡</span></label>
+            <label class="sim-toggle"><input type="radio" name="simMedium" value="ohouse" /><span>오늘의집</span></label>
+            <label class="sim-toggle"><input type="radio" name="simMedium" value="kakao" /><span>카카오</span></label>
           </div>
         </div>
 
         <div class="sim-field">
           <label class="sim-label" for="simIndustry">업종</label>
-          <select class="sim-select" id="simIndustry">
-            <option value="beauty">뷰티</option>
-            <option value="fashion">패션</option>
-            <option value="food">식품</option>
-            <option value="health">건강</option>
-            <option value="interior">인테리어</option>
-            <option value="etc">기타</option>
-          </select>
+          <select class="sim-select" id="simIndustry"></select>
         </div>
 
         <div class="sim-field">
           <label class="sim-label">현재 운영 상태 <span style="color:var(--text-dim);font-weight:600;text-transform:none;letter-spacing:0;">(해당되는 것 모두)</span></label>
-          <div class="sim-checks">
-            <label class="sim-check"><input type="checkbox" data-issue="no_report" /><span>검색어 보고서를 본 적이 없다</span></label>
-            <label class="sim-check"><input type="checkbox" data-issue="low_keywords" /><span>운영 키워드가 100개 이하</span></label>
-            <label class="sim-check"><input type="checkbox" data-issue="no_tracking" /><span>전환 추적(GA·픽셀)을 설치 안 했다</span></label>
-            <label class="sim-check"><input type="checkbox" data-issue="roas_stagnant" /><span>지난 3개월 ROAS가 정체·하락</span></label>
-            <label class="sim-check"><input type="checkbox" data-issue="old_creative" /><span>광고 소재를 6개월 이상 안 바꿨다</span></label>
-          </div>
+          <div class="sim-checks" id="simChecks"></div>
         </div>
       </div>
 
@@ -4679,31 +4670,186 @@
 (function(){
   if (!document.getElementById('simulator')) return;
 
-  // 본인 운영 케이스 평균 ROAS — 실측 데이터 들어오면 이 상수만 교체
-  var BASE_ROAS = {
-    naver:  { beauty: 580, fashion: 460, food: 420, health: 540, interior: 380, etc: 450 },
-    zigzag: { beauty: 720, fashion: 760, food: 0,   health: 0,   interior: 0,   etc: 600 },
-    both:   { beauty: 660, fashion: 640, food: 420, health: 540, interior: 380, etc: 520 }
+  var MEDIA_CONFIG = {
+    naver_search: {
+      label: '네이버 검색',
+      industries: [
+        { v:'beauty',   l:'뷰티' },
+        { v:'fashion',  l:'패션' },
+        { v:'food',     l:'식품' },
+        { v:'health',   l:'건강' },
+        { v:'interior', l:'인테리어' },
+        { v:'sports',   l:'스포츠' },
+        { v:'pet',      l:'반려동물' },
+        { v:'baby',     l:'유아·육아' },
+        { v:'digital',  l:'디지털·가전' },
+        { v:'edu',      l:'교육' },
+        { v:'etc',      l:'기타' }
+      ],
+      baseRoas: { beauty:580, fashion:460, food:420, health:540, interior:380, sports:520, pet:490, baby:500, digital:420, edu:380, etc:440 },
+      recoveryRate: 0.45,
+      checks: [
+        { issue:'no_report',    label:'검색어 보고서를 주 1회 이상 확인하지 않는다' },
+        { issue:'low_keywords', label:'운영 키워드 수가 100개 이하다' },
+        { issue:'no_negative',  label:'제외 키워드를 한 번도 설정한 적 없다' },
+        { issue:'roas_stagnant',label:'지난 3개월 ROAS가 정체 또는 하락 중이다' },
+        { issue:'old_creative', label:'광고 소재를 6개월 이상 교체하지 않았다' }
+      ],
+      priorityMap: {
+        no_report:    '검색어 정제 + 제외 키워드 구조화',
+        low_keywords: '키워드 확장 (longtail · 카테고리 트리)',
+        no_negative:  '제외 키워드 추가 → 유실 예산 차단',
+        roas_stagnant:'입찰·예산 재배분 + 비효율 키워드 컷',
+        old_creative: '소재 A/B 테스트 사이클 도입'
+      }
+    },
+    naver_gfa: {
+      label: '네이버 GFA',
+      industries: [
+        { v:'beauty',   l:'뷰티' },
+        { v:'fashion',  l:'패션' },
+        { v:'food',     l:'식품' },
+        { v:'health',   l:'건강' },
+        { v:'interior', l:'인테리어' },
+        { v:'sports',   l:'스포츠' },
+        { v:'pet',      l:'반려동물' },
+        { v:'baby',     l:'유아·육아' },
+        { v:'digital',  l:'디지털·가전' },
+        { v:'edu',      l:'교육' },
+        { v:'etc',      l:'기타' }
+      ],
+      baseRoas: { beauty:340, fashion:280, food:260, health:320, interior:240, sports:300, pet:280, baby:310, digital:260, edu:230, etc:270 },
+      recoveryRate: 0.35,
+      checks: [
+        { issue:'no_target',   label:'오디언스 타깃을 세분화 없이 전체 노출로 운영 중이다' },
+        { issue:'no_ab',       label:'소재를 A/B 테스트한 적이 없다' },
+        { issue:'no_pixel',    label:'전환 픽셀(나스타)을 설치하지 않았다' },
+        { issue:'no_retarget', label:'리타겟팅 캠페인을 별도로 운영하지 않는다' },
+        { issue:'low_ctr',     label:'클릭률(CTR)이 0.1% 미만이다' }
+      ],
+      priorityMap: {
+        no_target:   '오디언스 세분화 + 리타겟팅 분리 캠페인 구성',
+        no_ab:       '소재 A/B 테스트 + 클릭률 개선 사이클 도입',
+        no_pixel:    '나스타 픽셀 설치 → 전환 최적화 캠페인 전환',
+        no_retarget: '리타겟팅 전용 캠페인 분리 운영',
+        low_ctr:     '소재 교체 주기 단축 + 카피 최적화'
+      }
+    },
+    zigzag: {
+      label: '지그재그',
+      industries: [
+        { v:'fashion', l:'패션·의류' },
+        { v:'beauty',  l:'뷰티' },
+        { v:'life',    l:'라이프스타일' }
+      ],
+      baseRoas: { fashion:760, beauty:720, life:580 },
+      recoveryRate: 0.30,
+      checks: [
+        { issue:'ai_over',      label:'AI 에이전트에 예산을 전부 위임하고 수동 점검을 하지 않는다' },
+        { issue:'old_thumb',    label:'썸네일 소재를 6개월 이상 바꾸지 않았다' },
+        { issue:'no_target',    label:'타깃 연령·스타일을 세분화 없이 전체 노출로 운영 중이다' },
+        { issue:'no_promo',     label:'지그재그 전용 쿠폰·특가 이벤트를 운영하지 않는다' },
+        { issue:'roas_stagnant',label:'지난 3개월 ROAS가 정체 또는 하락 중이다' }
+      ],
+      priorityMap: {
+        ai_over:      'AI 위임 + 수동 점검 병행 체계 구성',
+        old_thumb:    '썸네일 소재 교체 주기 단축 (월 1회 이상)',
+        no_target:    '연령·스타일별 타깃 세분화 + 예산 분산',
+        no_promo:     '지그재그 전용 쿠폰·딜 이벤트 기획',
+        roas_stagnant:'상품 믹스 재구성 + 비효율 SKU 제외'
+      }
+    },
+    coupang: {
+      label: '쿠팡',
+      industries: [
+        { v:'living',  l:'생활용품' },
+        { v:'food',    l:'식품' },
+        { v:'beauty',  l:'뷰티' },
+        { v:'health',  l:'건강' },
+        { v:'digital', l:'디지털·가전' },
+        { v:'baby',    l:'유아·육아' },
+        { v:'pet',     l:'반려동물' },
+        { v:'sports',  l:'스포츠' },
+        { v:'fashion', l:'패션' },
+        { v:'etc',     l:'기타' }
+      ],
+      baseRoas: { living:380, food:340, beauty:420, health:460, digital:320, baby:490, pet:410, sports:380, fashion:360, etc:360 },
+      recoveryRate: 0.40,
+      checks: [
+        { issue:'no_bid',       label:'입찰가를 초기 설정 그대로 조정한 적 없다' },
+        { issue:'no_cpc',       label:'CPC 대비 전환율을 확인하지 않는다' },
+        { issue:'low_spend',    label:'광고비 소진율이 일 예산의 80% 미만이다' },
+        { issue:'old_detail',   label:'상품 상세 페이지를 3개월 이상 업데이트하지 않았다' },
+        { issue:'roas_stagnant',label:'지난 3개월 ROAS가 정체 또는 하락 중이다' }
+      ],
+      priorityMap: {
+        no_bid:       '입찰가 최적화 + CPC·전환율 기반 재조정',
+        no_cpc:       'CPC 대비 전환 분석 → 고효율 상품 집중 투자',
+        low_spend:    '예산 소진율 개선 + 일 예산·입찰 재설정',
+        old_detail:   '상세 페이지 이미지·리뷰 강화',
+        roas_stagnant:'고마진 상품 집중 + 비효율 SKU 예산 축소'
+      }
+    },
+    ohouse: {
+      label: '오늘의집',
+      industries: [
+        { v:'furniture', l:'가구' },
+        { v:'deco',      l:'소품·데코' },
+        { v:'light',     l:'조명' },
+        { v:'bedding',   l:'침구' },
+        { v:'bath',      l:'욕실' },
+        { v:'kitchen',   l:'주방' },
+        { v:'etc',       l:'기타' }
+      ],
+      baseRoas: { furniture:320, deco:360, light:380, bedding:420, bath:350, kitchen:340, etc:330 },
+      recoveryRate: 0.35,
+      checks: [
+        { issue:'no_style',     label:'소재 이미지를 공간 분위기에 맞게 스타일링하지 않았다' },
+        { issue:'no_content',   label:'집들이·노하우 콘텐츠와 광고를 연계하지 않는다' },
+        { issue:'no_audience',  label:'인테리어 스타일(북유럽·모던 등) 타깃을 지정하지 않았다' },
+        { issue:'no_cpc',       label:'경쟁 상품 대비 CPC를 확인하지 않는다' },
+        { issue:'roas_stagnant',label:'지난 3개월 ROAS가 정체 또는 하락 중이다' }
+      ],
+      priorityMap: {
+        no_style:     '공간 스타일링 소재 제작 + 분위기 소재 A/B 테스트',
+        no_content:   '집들이·노하우 콘텐츠 연계 광고 기획',
+        no_audience:  '인테리어 스타일 타깃 세분화',
+        no_cpc:       'CPC 경쟁 분석 + 입찰가 재조정',
+        roas_stagnant:'고ROAS 상품 집중 + 시즌 기획 연계'
+      }
+    },
+    kakao: {
+      label: '카카오모먼트',
+      industries: [
+        { v:'beauty',  l:'뷰티' },
+        { v:'fashion', l:'패션' },
+        { v:'food',    l:'식품' },
+        { v:'health',  l:'건강' },
+        { v:'edu',     l:'교육' },
+        { v:'finance', l:'금융' },
+        { v:'etc',     l:'기타' }
+      ],
+      baseRoas: { beauty:280, fashion:260, food:240, health:300, edu:220, finance:260, etc:240 },
+      recoveryRate: 0.28,
+      checks: [
+        { issue:'no_pixel',     label:'카카오 픽셀을 설치하지 않아 전환 데이터가 없다' },
+        { issue:'no_creative',  label:'소재를 카카오 피드 스크롤 환경에 맞게 최적화하지 않았다' },
+        { issue:'no_retarget',  label:'리타겟팅 오디언스를 구성하지 않았다' },
+        { issue:'wrong_goal',   label:'캠페인 목표를 클릭 최적화만으로 설정하고 있다' },
+        { issue:'roas_stagnant',label:'지난 3개월 ROAS가 정체 또는 하락 중이다' }
+      ],
+      priorityMap: {
+        no_pixel:     '카카오 픽셀 설치 + 전환 최적화 캠페인 전환',
+        no_creative:  '피드 스크롤 최적화 소재 제작 (세로형·슬라이드)',
+        no_retarget:  '방문자·장바구니 기반 리타겟팅 구성',
+        wrong_goal:   '전환 최적화 목표로 캠페인 재설정',
+        roas_stagnant:'오디언스 세분화 + 타깃별 소재 분리'
+      }
+    }
   };
+
   var PENALTY_PER_ISSUE = 0.07;
   var MAX_PENALTY       = 0.50;
-  var RECOVERY_RATE     = 0.42;
-  var PRIORITY_MAP = {
-    no_report:     '검색어 정제 + 제외 키워드 구조화',
-    low_keywords:  '키워드 확장 (longtail · 카테고리 트리)',
-    no_tracking:   '전환 추적 환경 재구축',
-    roas_stagnant: '입찰·예산 재배분 + 비효율 키워드 컷',
-    old_creative:  '소재 A/B 테스트 사이클 도입'
-  };
-  var INDUSTRY_LABEL = { beauty:'뷰티', fashion:'패션', food:'식품', health:'건강', interior:'인테리어', etc:'기타' };
-  var MEDIUM_LABEL   = { naver:'네이버', zigzag:'지그재그', both:'네이버+지그재그' };
-  var ISSUE_LABEL = {
-    no_report: '검색어 보고서 미확인',
-    low_keywords: '키워드 100개 이하',
-    no_tracking: '전환 추적 미설치',
-    roas_stagnant: 'ROAS 정체·하락',
-    old_creative: '소재 6개월+ 정체'
-  };
 
   function $(id){ return document.getElementById(id); }
 
@@ -4737,20 +4883,48 @@
     tween[id] = { v: from, raf: requestAnimationFrame(step) };
   }
 
+  function getMedium(){
+    var el = document.querySelector('input[name="simMedium"]:checked');
+    return el ? el.value : 'naver_search';
+  }
+
+  function renderMedia(medium){
+    var cfg = MEDIA_CONFIG[medium];
+    if (!cfg) return;
+
+    var sel = $('simIndustry');
+    sel.innerHTML = cfg.industries.map(function(ind){
+      return '<option value="' + ind.v + '">' + ind.l + '</option>';
+    }).join('');
+
+    var checksDiv = $('simChecks');
+    checksDiv.innerHTML = cfg.checks.map(function(c){
+      return '<label class="sim-check"><input type="checkbox" data-issue="' + c.issue + '" /><span>' + c.label + '</span></label>';
+    }).join('');
+
+    Array.prototype.forEach.call(checksDiv.querySelectorAll('input'), function(el){
+      el.addEventListener('change', calc);
+      el.addEventListener('change', trackInteraction);
+    });
+
+    calc();
+  }
+
   function getState(){
+    var medium   = getMedium();
+    var cfg      = MEDIA_CONFIG[medium] || MEDIA_CONFIG['naver_search'];
     var spend    = parseInt($('simSpend').value, 10);
-    var medium   = (document.querySelector('input[name="simMedium"]:checked') || {}).value || 'naver';
     var industry = $('simIndustry').value;
     var issues   = Array.prototype.slice.call(
-                     document.querySelectorAll('.sim-check input:checked')
+                     document.querySelectorAll('#simChecks input:checked')
                    ).map(function(el){ return el.dataset.issue; });
-    var baseRoas  = (BASE_ROAS[medium] && BASE_ROAS[medium][industry]) || 0;
+    var baseRoas  = cfg.baseRoas[industry] || 0;
     var penalty   = Math.min(issues.length * PENALTY_PER_ISSUE, MAX_PENALTY);
     var curRoas   = baseRoas * (1 - penalty);
     var lossMW    = baseRoas > 0 ? spend * (baseRoas - curRoas) / 100 : 0;
-    var recoverMW = baseRoas > 0 ? spend * baseRoas * RECOVERY_RATE / 100 : 0;
+    var recoverMW = baseRoas > 0 ? spend * baseRoas * cfg.recoveryRate / 100 : 0;
     return { spend:spend, medium:medium, industry:industry, issues:issues,
-             baseRoas:baseRoas, curRoas:curRoas, penalty:penalty,
+             cfg:cfg, baseRoas:baseRoas, curRoas:curRoas, penalty:penalty,
              lossMW:lossMW, recoverMW:recoverMW };
   }
 
@@ -4758,25 +4932,12 @@
     var s = getState();
     $('simSpendValue').textContent = s.spend.toLocaleString() + '만원';
 
-    if (s.baseRoas === 0){
-      $('simAvgRoas').textContent = '–';
-      $('simCurRoas').textContent = '–';
-      $('simCurBar').style.width  = '0%';
-      $('simDelta').textContent   = '선택한 매체·업종 조합은 운영하지 않습니다';
-      $('simDelta').className     = 'sim-roas-delta warn';
-      $('simLoss').textContent    = '–';
-      $('simGain').textContent    = '–';
-      tween['simLoss'] = { v: 0 }; tween['simGain'] = { v: 0 }; tween['simCurRoas'] = { v: 0 };
-      $('simPriorities').innerHTML = '<div class="sp-empty">매체 또는 업종을 변경해 주세요.</div>';
-      return;
-    }
-
     $('simAvgRoas').textContent = s.baseRoas + '%';
-    $('simCurBar').style.width  = (s.curRoas / s.baseRoas * 100) + '%';
+    $('simCurBar').style.width  = (s.baseRoas > 0 ? s.curRoas / s.baseRoas * 100 : 0) + '%';
 
-    tweenNumber('simCurRoas', s.curRoas, function(v){ return Math.round(v) + '%'; }, 380);
-    tweenNumber('simLoss',    s.lossMW,    function(v){ return fmtKRW(v); }, 460);
-    tweenNumber('simGain',    s.recoverMW, function(v){ return '+' + fmtKRW(v); }, 460);
+    tweenNumber('simCurRoas', s.curRoas,    function(v){ return Math.round(v) + '%'; }, 380);
+    tweenNumber('simLoss',    s.lossMW,     function(v){ return fmtKRW(v); }, 460);
+    tweenNumber('simGain',    s.recoverMW,  function(v){ return '+' + fmtKRW(v); }, 460);
 
     var deltaEl = $('simDelta');
     if (s.issues.length === 0){
@@ -4797,7 +4958,8 @@
       pri.innerHTML = '<div class="sp-empty">체크 항목을 선택하시면 우선 진단 영역이 표시됩니다.</div>';
     } else {
       var items = s.issues.slice(0, 3).map(function(k, i){
-        return '<div class="sp-item"><span class="sp-num">' + (i+1) + '</span><span>' + PRIORITY_MAP[k] + '</span></div>';
+        var label = (s.cfg.priorityMap && s.cfg.priorityMap[k]) || k;
+        return '<div class="sp-item"><span class="sp-num">' + (i+1) + '</span><span>' + label + '</span></div>';
       }).join('');
       pri.innerHTML = '<div class="sp-title">우선 진단 영역</div>' + items;
     }
@@ -4813,10 +4975,16 @@
 
   function prefillForm(){
     var s = getState();
-    if (s.baseRoas === 0) return;
+    var mediumLabel  = s.cfg.label || s.medium;
+    var industryLabel = '';
+    s.cfg.industries.forEach(function(ind){ if (ind.v === s.industry) industryLabel = ind.l; });
 
-    var mediaMap = { naver: ['네이버'], zigzag: ['지그재그'], both: ['네이버', '지그재그'] };
-    var targets = mediaMap[s.medium] || [];
+    var mediaCheckMap = {
+      naver_search: ['네이버'], naver_gfa: ['네이버'],
+      zigzag: ['지그재그'], coupang: ['쿠팡'],
+      ohouse: ['오늘의집'], kakao: ['카카오']
+    };
+    var targets = mediaCheckMap[s.medium] || [];
     Array.prototype.forEach.call(document.querySelectorAll('input[name="media"]'), function(cb){
       var should = targets.indexOf(cb.value) !== -1;
       cb.checked = should;
@@ -4827,10 +4995,14 @@
     var budgetSel = $('f-budget');
     if (budgetSel) budgetSel.value = spendToBudgetOption(s.spend);
 
-    var issueText = s.issues.length ? s.issues.map(function(k){ return ISSUE_LABEL[k]; }).join(' / ') : '체크 항목 없음';
+    var issueText = s.issues.length ? s.issues.map(function(k){
+      var chk = s.cfg.checks.filter(function(c){ return c.issue === k; })[0];
+      return chk ? chk.label : k;
+    }).join(' / ') : '체크 항목 없음';
+
     var summary = '[셀프 진단 결과]\n'
-      + '업종: ' + INDUSTRY_LABEL[s.industry] + '\n'
-      + '매체: ' + MEDIUM_LABEL[s.medium] + '\n'
+      + '업종: ' + industryLabel + '\n'
+      + '매체: ' + mediumLabel + '\n'
       + '월 광고비: ' + s.spend.toLocaleString() + '만원\n'
       + '업종 평균 ROAS: ' + s.baseRoas + '%\n'
       + '추정 현재 ROAS: ' + Math.round(s.curRoas) + '%\n'
@@ -4842,7 +5014,7 @@
 
     var line = $('fpLine');
     if (line){
-      line.innerHTML = INDUSTRY_LABEL[s.industry] + ' · ' + MEDIUM_LABEL[s.medium] + ' · '
+      line.innerHTML = industryLabel + ' · ' + mediumLabel + ' · '
         + '<strong>' + s.spend.toLocaleString() + '만원</strong>'
         + ' · 추정 ROAS <strong>' + Math.round(s.curRoas) + '%</strong>'
         + ' / 평균 ' + s.baseRoas + '%'
@@ -4852,20 +5024,23 @@
     $('formPrefill').hidden = false;
   }
 
-  var inputs = document.querySelectorAll('#simulator input, #simulator select');
-  Array.prototype.forEach.call(inputs, function(el){
-    el.addEventListener('input', calc);
-    el.addEventListener('change', calc);
-  });
-
   var interacted = false;
-  Array.prototype.forEach.call(inputs, function(el){
-    el.addEventListener('change', function(){
-      if (!interacted && typeof gtag === 'function'){
-        gtag('event', 'simulator_interact', { event_category: 'engagement' });
-        interacted = true;
-      }
-    });
+  function trackInteraction(){
+    if (!interacted && typeof gtag === 'function'){
+      gtag('event', 'simulator_interact', { event_category: 'engagement' });
+      interacted = true;
+    }
+  }
+
+  $('simSpend').addEventListener('input',  calc);
+  $('simSpend').addEventListener('change', calc);
+  $('simSpend').addEventListener('change', trackInteraction);
+  $('simIndustry').addEventListener('change', calc);
+  $('simIndustry').addEventListener('change', trackInteraction);
+
+  Array.prototype.forEach.call(document.querySelectorAll('input[name="simMedium"]'), function(el){
+    el.addEventListener('change', function(){ renderMedia(el.value); });
+    el.addEventListener('change', trackInteraction);
   });
 
   var ctaBtn = $('simCtaBtn');
@@ -4878,7 +5053,7 @@
     });
   }
 
-  calc();
+  renderMedia(getMedium());
 })();
 </script>
 
