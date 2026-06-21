@@ -717,6 +717,276 @@
     .co-sub { font-size: 13px; }
   }
 
+  /* ===== DIAGNOSIS SIMULATOR (NAVER 인증 톤 정합) ===== */
+  section#simulator { background: var(--bg-soft); }
+  section#simulator .section-head h2 strong {
+    color: var(--naver-dark);
+    background: linear-gradient(180deg, transparent 62%, rgba(0,199,60,0.18) 62%);
+    padding: 0 2px;
+  }
+  .sim-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+    align-items: start;
+  }
+  .sim-input, .sim-result-card {
+    background: #fff; border: 1px solid var(--line);
+    border-radius: 18px; padding: 30px;
+    box-shadow: 0 2px 10px rgba(26,29,36,0.05);
+  }
+  .sim-result-card {
+    border-top: 3px solid var(--naver);
+    position: sticky; top: 88px;
+  }
+  .sim-field { margin-bottom: 24px; }
+  .sim-field:last-child { margin-bottom: 0; }
+  .sim-label {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-size: 12px; font-weight: 800; letter-spacing: 0.08em;
+    color: var(--text); text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .sim-value {
+    font-size: 17px; font-weight: 800; color: var(--naver-dark);
+    letter-spacing: -0.01em; text-transform: none;
+    font-variant-numeric: tabular-nums;
+  }
+  .sim-slider {
+    -webkit-appearance: none; appearance: none;
+    width: 100%; height: 6px;
+    background: var(--line); border-radius: 4px;
+    outline: none; cursor: pointer;
+  }
+  .sim-slider::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none;
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--naver); cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,199,60,0.42);
+    transition: transform var(--dur-fast) var(--ease-out);
+  }
+  .sim-slider::-webkit-slider-thumb:hover { transform: scale(1.12); }
+  .sim-slider::-moz-range-thumb {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--naver); border: none; cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,199,60,0.42);
+  }
+  .sim-range-marks {
+    display: flex; justify-content: space-between;
+    margin-top: 8px; font-size: 11px; color: var(--text-dim); font-weight: 600;
+  }
+  .sim-toggle-group {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+  }
+  .sim-toggle { position: relative; cursor: pointer; }
+  .sim-toggle input {
+    position: absolute; opacity: 0; pointer-events: none;
+  }
+  .sim-toggle span {
+    display: block; text-align: center; padding: 11px 12px;
+    border: 1.5px solid var(--line-strong); border-radius: 10px;
+    font-size: 14px; font-weight: 700; color: var(--text-sub);
+    background: #fff;
+    transition: background var(--dur-fast) var(--ease-out),
+                border-color var(--dur-fast) var(--ease-out),
+                color var(--dur-fast) var(--ease-out);
+  }
+  .sim-toggle:hover span { border-color: var(--text-dim); }
+  .sim-toggle input:checked + span {
+    background: var(--naver); border-color: var(--naver); color: #fff;
+    box-shadow: 0 4px 12px rgba(0,199,60,0.25);
+  }
+  .sim-select {
+    width: 100%; padding: 12px 14px;
+    border: 1.5px solid var(--line-strong); border-radius: 10px;
+    font-size: 15px; color: var(--text); background: #fff;
+    font-family: inherit; cursor: pointer;
+    -webkit-appearance: none; appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%23009B2F' d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 14px center;
+    padding-right: 38px;
+  }
+  .sim-select:focus {
+    outline: none; border-color: var(--naver);
+    box-shadow: 0 0 0 3px rgba(0,199,60,0.12);
+  }
+  .sim-checks { display: flex; flex-direction: column; gap: 10px; }
+  .sim-check {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 14px; border: 1.5px solid var(--line);
+    border-radius: 10px; cursor: pointer;
+    font-size: 14px; color: var(--text-sub);
+    transition: background var(--dur-fast) var(--ease-out),
+                border-color var(--dur-fast) var(--ease-out),
+                color var(--dur-fast) var(--ease-out);
+    background: #fff;
+  }
+  .sim-check:hover { border-color: var(--text-dim); }
+  .sim-check input {
+    appearance: none; -webkit-appearance: none;
+    width: 18px; height: 18px; border: 1.5px solid var(--line-strong);
+    border-radius: 5px; cursor: pointer; flex-shrink: 0;
+    transition: all var(--dur-fast) var(--ease-out);
+    position: relative; background: #fff;
+  }
+  .sim-check input:checked {
+    background: var(--naver); border-color: var(--naver);
+  }
+  .sim-check input:checked::after {
+    content: ''; position: absolute;
+    left: 4px; top: 0;
+    width: 5px; height: 10px;
+    border: solid #fff; border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+  .sim-check.checked {
+    background: rgba(0,199,60,0.06);
+    border-color: var(--naver); color: var(--text);
+    font-weight: 700;
+  }
+  .sim-result-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11px; font-weight: 800;
+    letter-spacing: 0.1em; color: var(--naver-dark);
+    background: rgba(0,199,60,0.10);
+    padding: 6px 12px; border-radius: 6px;
+    margin-bottom: 20px;
+  }
+  .sim-result-tag::before {
+    content: ''; width: 5px; height: 5px; border-radius: 50%;
+    background: var(--naver); box-shadow: 0 0 6px rgba(0,199,60,0.6);
+  }
+  .sim-roas { margin-bottom: 22px; }
+  .sim-roas-row {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 6px;
+  }
+  .sim-roas-row + .sim-roas-bar { margin-bottom: 14px; }
+  .sr-label { font-size: 13px; color: var(--text-sub); font-weight: 600; }
+  .sr-value {
+    font-size: 17px; font-weight: 800; color: var(--text);
+    font-variant-numeric: tabular-nums;
+  }
+  .sr-current { color: var(--naver-dark); }
+  .sim-roas-bar {
+    width: 100%; height: 8px; background: var(--line);
+    border-radius: 999px; overflow: hidden;
+  }
+  .srb-fill { height: 100%; border-radius: 999px;
+    transition: width var(--dur-slow) var(--ease-out-expo); }
+  .srb-avg { background: var(--brand); }
+  .srb-cur { background: linear-gradient(90deg, var(--naver), #34DC56); }
+  .sim-roas-delta {
+    font-size: 13px; font-weight: 700; margin-top: 4px;
+    letter-spacing: -0.01em;
+  }
+  .sim-roas-delta.neutral { color: var(--naver-dark); }
+  .sim-roas-delta.warn { color: var(--zigzag-dark); }
+  .sim-amounts {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    padding: 20px; background: var(--bg-soft); border-radius: 12px;
+    margin-bottom: 20px;
+  }
+  .sim-amount { text-align: center; }
+  .sa-label {
+    font-size: 11px; font-weight: 700; color: var(--text-dim);
+    letter-spacing: 0.08em; margin-bottom: 6px;
+  }
+  .sa-value {
+    font-size: 22px; font-weight: 800;
+    letter-spacing: -0.02em; font-variant-numeric: tabular-nums;
+  }
+  .sa-loss { color: var(--zigzag-dark); }
+  .sa-gain { color: var(--naver-dark); }
+  .sim-priorities {
+    margin-bottom: 20px; padding: 18px 20px;
+    background: rgba(0,199,60,0.05); border-radius: 10px;
+    border-left: 3px solid var(--naver);
+  }
+  .sp-empty {
+    font-size: 13px; color: var(--text-dim); line-height: 1.5;
+    text-align: center; padding: 4px 0;
+  }
+  .sp-title {
+    font-size: 11px; font-weight: 800; color: var(--naver-dark);
+    letter-spacing: 0.08em; margin-bottom: 10px;
+  }
+  .sp-item {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 13px; color: var(--text); font-weight: 600;
+    padding: 4px 0;
+  }
+  .sp-num {
+    flex-shrink: 0; width: 20px; height: 20px; border-radius: 5px;
+    background: var(--naver); color: #fff;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 800;
+  }
+  .sim-disclaimer {
+    font-size: 11px; color: var(--text-dim); line-height: 1.55;
+    margin-bottom: 16px; text-align: center;
+  }
+  .sim-disclaimer strong { color: var(--naver-dark); font-weight: 800; }
+  .sim-cta {
+    display: block; text-align: center;
+    padding: 16px 20px; border-radius: 12px;
+    background: linear-gradient(135deg, var(--naver) 0%, var(--naver-dark) 100%);
+    color: #fff !important; font-size: 16px; font-weight: 800;
+    letter-spacing: -0.01em;
+    box-shadow: 0 8px 22px rgba(0,199,60,0.32);
+    transition: transform var(--dur-fast) var(--ease-out),
+                box-shadow var(--dur-fast) var(--ease-out);
+  }
+  .sim-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(0,199,60,0.42);
+  }
+  .sim-cta-meta {
+    text-align: center; margin-top: 10px;
+    font-size: 12px; color: var(--text-dim); font-weight: 600;
+  }
+  @media (max-width: 860px) {
+    .sim-grid { grid-template-columns: 1fr; gap: 18px; }
+    .sim-input, .sim-result-card { padding: 24px; }
+    .sim-result-card { position: static; }
+  }
+  @media (max-width: 720px) {
+    .sim-input, .sim-result-card { padding: 20px; border-radius: 14px; }
+    .sim-field { margin-bottom: 22px; }
+    .sim-amounts { padding: 16px; gap: 8px; }
+    .sa-value { font-size: 18px; }
+    .sim-toggle span { padding: 10px 8px; font-size: 13px; }
+    .sim-check { padding: 11px 12px; font-size: 13px; }
+  }
+
+  /* 폼 prefill 안내 (시뮬레이터 → 폼 연동) */
+  .form-prefill {
+    margin-bottom: 22px; padding: 14px 18px;
+    background: linear-gradient(135deg, rgba(0,199,60,0.10) 0%, rgba(0,199,60,0.04) 100%);
+    border: 1px solid rgba(0,199,60,0.28);
+    border-radius: 12px;
+    animation: fp-in var(--dur-slow) var(--ease-out-expo);
+  }
+  @keyframes fp-in {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .fp-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11px; font-weight: 800; color: var(--naver-dark);
+    letter-spacing: 0.06em; margin-bottom: 8px;
+  }
+  .fp-tag::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--naver); box-shadow: 0 0 6px rgba(0,199,60,0.6);
+  }
+  .fp-line {
+    font-size: 13px; color: var(--text-sub); line-height: 1.55;
+    word-break: keep-all;
+  }
+  .fp-line strong {
+    color: var(--text); font-weight: 800;
+    font-variant-numeric: tabular-nums;
+  }
+
   /* ===== ANNOUNCEMENT BANNER (NAVER 인증 발표) ===== */
   .ann-banner {
     position: relative; z-index: 60;
@@ -2292,6 +2562,7 @@
       <a href="#results">성과</a>
       <a href="#philosophy">왜 다른가</a>
       <a href="#cases">진단 사례</a>
+      <a href="#simulator">셀프 진단</a>
       <a href="#qa">Q&A</a>
       <a href="/blog/">인사이트</a>
     </nav>
@@ -2305,6 +2576,7 @@
     <a href="#results">성과</a>
     <a href="#philosophy">왜 다른가</a>
     <a href="#cases">진단 사례</a>
+    <a href="#simulator">셀프 진단</a>
     <a href="#qa">Q&A</a>
     <a href="/blog/">인사이트</a>
     <a href="#contact">무료 진단 신청</a>
@@ -3423,6 +3695,106 @@
   </div>
 </section>
 
+<!-- DIAGNOSIS SIMULATOR -->
+<section id="simulator">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow dual">DIAGNOSIS SIMULATOR</span>
+      <h2>당신 광고에 새고 있는 매출,<br class="br-pc"/><br class="br-m"/> <strong>30초 안에 확인하세요.</strong></h2>
+      <p class="section-sub">NAVER 공식 인증(2026.06) 마케터의 7년 누적 운영 케이스 평균치 기준으로 손실 가능성과 회복 잠재력을 즉시 추정해드립니다.</p>
+    </div>
+
+    <div class="sim-grid">
+      <div class="sim-input">
+        <div class="sim-field">
+          <label class="sim-label" for="simSpend">
+            월 광고비
+            <strong class="sim-value" id="simSpendValue">500만원</strong>
+          </label>
+          <input type="range" min="50" max="3000" step="50" value="500" class="sim-slider" id="simSpend" />
+          <div class="sim-range-marks">
+            <span>50만</span><span>500만</span><span>1,500만</span><span>3,000만</span>
+          </div>
+        </div>
+
+        <div class="sim-field">
+          <label class="sim-label">광고 매체</label>
+          <div class="sim-toggle-group">
+            <label class="sim-toggle"><input type="radio" name="simMedium" value="naver" checked /><span>네이버</span></label>
+            <label class="sim-toggle"><input type="radio" name="simMedium" value="zigzag" /><span>지그재그</span></label>
+            <label class="sim-toggle"><input type="radio" name="simMedium" value="both" /><span>둘 다</span></label>
+          </div>
+        </div>
+
+        <div class="sim-field">
+          <label class="sim-label" for="simIndustry">업종</label>
+          <select class="sim-select" id="simIndustry">
+            <option value="beauty">뷰티</option>
+            <option value="fashion">패션</option>
+            <option value="food">식품</option>
+            <option value="health">건강</option>
+            <option value="interior">인테리어</option>
+            <option value="etc">기타</option>
+          </select>
+        </div>
+
+        <div class="sim-field">
+          <label class="sim-label">현재 운영 상태 <span style="color:var(--text-dim);font-weight:600;text-transform:none;letter-spacing:0;">(해당되는 것 모두)</span></label>
+          <div class="sim-checks">
+            <label class="sim-check"><input type="checkbox" data-issue="no_report" /><span>검색어 보고서를 본 적이 없다</span></label>
+            <label class="sim-check"><input type="checkbox" data-issue="low_keywords" /><span>운영 키워드가 100개 이하</span></label>
+            <label class="sim-check"><input type="checkbox" data-issue="no_tracking" /><span>전환 추적(GA·픽셀)을 설치 안 했다</span></label>
+            <label class="sim-check"><input type="checkbox" data-issue="roas_stagnant" /><span>지난 3개월 ROAS가 정체·하락</span></label>
+            <label class="sim-check"><input type="checkbox" data-issue="old_creative" /><span>광고 소재를 6개월 이상 안 바꿨다</span></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="sim-result">
+        <div class="sim-result-card">
+          <div class="sim-result-tag">진단 추정 결과</div>
+
+          <div class="sim-roas">
+            <div class="sim-roas-row">
+              <span class="sr-label">업종 평균 ROAS</span>
+              <span class="sr-value" id="simAvgRoas">580%</span>
+            </div>
+            <div class="sim-roas-bar"><div class="srb-fill srb-avg" style="width:100%"></div></div>
+            <div class="sim-roas-row">
+              <span class="sr-label">당신 추정 ROAS</span>
+              <span class="sr-value sr-current" id="simCurRoas">580%</span>
+            </div>
+            <div class="sim-roas-bar"><div class="srb-fill srb-cur" id="simCurBar" style="width:100%"></div></div>
+            <div class="sim-roas-delta neutral" id="simDelta">평균 대비 정상 운영 추정</div>
+          </div>
+
+          <div class="sim-amounts">
+            <div class="sim-amount">
+              <div class="sa-label">추정 월 기회손실</div>
+              <div class="sa-value sa-loss" id="simLoss">0원</div>
+            </div>
+            <div class="sim-amount">
+              <div class="sa-label">회복 잠재력 / 월</div>
+              <div class="sa-value sa-gain" id="simGain">+0원</div>
+            </div>
+          </div>
+
+          <div class="sim-priorities" id="simPriorities">
+            <div class="sp-empty">체크 항목을 선택하시면 우선 진단 영역이 표시됩니다.</div>
+          </div>
+
+          <p class="sim-disclaimer">
+            ※ 본 추정은 <strong>NAVER 공식 인증(2026.06)</strong> 마케터의 7년 누적 운영 케이스 평균치 기준입니다.<br class="br-pc"/> 실제 진단 시 본인 계정 데이터로 재산정됩니다.
+          </p>
+
+          <a href="#contact" class="sim-cta" id="simCtaBtn">이 손실 회복 진단 받기</a>
+          <div class="sim-cta-meta">관리비 · 위약금 0원 · 7일 내 1차 리포트</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <!-- TESTIMONIALS -->
 <section id="testimonials">
@@ -3667,11 +4039,17 @@
       <input type="hidden" name="access_key" value="ed4607f3-052e-494c-9fd6-52534ce2f8e9" />
       <input type="hidden" name="subject" value="무료 광고 진단 신청" />
       <input type="hidden" name="from_name" value="YEJI SOLUTION 포트폴리오" />
+      <input type="hidden" name="sim_summary" id="f-sim-summary" value="" />
       <input type="checkbox" name="botcheck" style="display:none;" />
 
       <h3>무료 진단 신청</h3>
       <p class="form-sub">아래 정보를 남겨주시면, 영업일 기준 3일 안에<br class="br-pc"/> 진단 리포트를 보내드립니다.</p>
       <div class="form-error" id="formError" role="alert"></div>
+
+      <div class="form-prefill" id="formPrefill" hidden>
+        <div class="fp-tag">셀프 진단 결과가 함께 전달됩니다</div>
+        <div class="fp-line" id="fpLine">–</div>
+      </div>
 
 
       <div class="form-process">
@@ -3778,6 +4156,7 @@
           <li><a href="#results">성과 사례</a></li>
           <li><a href="#philosophy">왜 다른가</a></li>
           <li><a href="#cases">진단 사례</a></li>
+          <li><a href="#simulator">셀프 진단</a></li>
           <li><a href="#qa">Q&A</a></li>
           <li><a href="/blog/">마케팅 인사이트</a></li>
         </ul>
@@ -4292,6 +4671,214 @@
   document.addEventListener('keydown', function(e){
     if (e.key === 'Escape' && lb.classList.contains('open')) close();
   });
+})();
+</script>
+
+<!-- DIAGNOSIS SIMULATOR LOGIC -->
+<script>
+(function(){
+  if (!document.getElementById('simulator')) return;
+
+  // 본인 운영 케이스 평균 ROAS — 실측 데이터 들어오면 이 상수만 교체
+  var BASE_ROAS = {
+    naver:  { beauty: 580, fashion: 460, food: 420, health: 540, interior: 380, etc: 450 },
+    zigzag: { beauty: 720, fashion: 760, food: 0,   health: 0,   interior: 0,   etc: 600 },
+    both:   { beauty: 660, fashion: 640, food: 420, health: 540, interior: 380, etc: 520 }
+  };
+  var PENALTY_PER_ISSUE = 0.07;
+  var MAX_PENALTY       = 0.50;
+  var RECOVERY_RATE     = 0.42;
+  var PRIORITY_MAP = {
+    no_report:     '검색어 정제 + 제외 키워드 구조화',
+    low_keywords:  '키워드 확장 (longtail · 카테고리 트리)',
+    no_tracking:   '전환 추적 환경 재구축',
+    roas_stagnant: '입찰·예산 재배분 + 비효율 키워드 컷',
+    old_creative:  '소재 A/B 테스트 사이클 도입'
+  };
+  var INDUSTRY_LABEL = { beauty:'뷰티', fashion:'패션', food:'식품', health:'건강', interior:'인테리어', etc:'기타' };
+  var MEDIUM_LABEL   = { naver:'네이버', zigzag:'지그재그', both:'네이버+지그재그' };
+  var ISSUE_LABEL = {
+    no_report: '검색어 보고서 미확인',
+    low_keywords: '키워드 100개 이하',
+    no_tracking: '전환 추적 미설치',
+    roas_stagnant: 'ROAS 정체·하락',
+    old_creative: '소재 6개월+ 정체'
+  };
+
+  function $(id){ return document.getElementById(id); }
+
+  function fmtKRW(manwon){
+    if (!manwon || manwon < 1) return '0원';
+    if (manwon >= 10000){
+      var eok = manwon / 10000;
+      return (eok >= 10 ? Math.round(eok) : eok.toFixed(1).replace(/\.0$/,'')) + '억원';
+    }
+    return Math.round(manwon).toLocaleString() + '만원';
+  }
+
+  var tween = {};
+  function tweenNumber(id, target, format, durMs){
+    var el = $(id); if (!el) return;
+    if (tween[id] && tween[id].raf) cancelAnimationFrame(tween[id].raf);
+    var from = (tween[id] && typeof tween[id].v === 'number') ? tween[id].v : 0;
+    var start = performance.now();
+    var dur = durMs || 420;
+    function step(now){
+      var t = Math.min(1, (now - start) / dur);
+      var e = 1 - Math.pow(1 - t, 3);
+      var cur = from + (target - from) * e;
+      el.textContent = format(cur);
+      if (t < 1) {
+        tween[id].raf = requestAnimationFrame(step);
+      } else {
+        tween[id].v = target; tween[id].raf = 0;
+      }
+    }
+    tween[id] = { v: from, raf: requestAnimationFrame(step) };
+  }
+
+  function getState(){
+    var spend    = parseInt($('simSpend').value, 10);
+    var medium   = (document.querySelector('input[name="simMedium"]:checked') || {}).value || 'naver';
+    var industry = $('simIndustry').value;
+    var issues   = Array.prototype.slice.call(
+                     document.querySelectorAll('.sim-check input:checked')
+                   ).map(function(el){ return el.dataset.issue; });
+    var baseRoas  = (BASE_ROAS[medium] && BASE_ROAS[medium][industry]) || 0;
+    var penalty   = Math.min(issues.length * PENALTY_PER_ISSUE, MAX_PENALTY);
+    var curRoas   = baseRoas * (1 - penalty);
+    var lossMW    = baseRoas > 0 ? spend * (baseRoas - curRoas) / 100 : 0;
+    var recoverMW = baseRoas > 0 ? spend * baseRoas * RECOVERY_RATE / 100 : 0;
+    return { spend:spend, medium:medium, industry:industry, issues:issues,
+             baseRoas:baseRoas, curRoas:curRoas, penalty:penalty,
+             lossMW:lossMW, recoverMW:recoverMW };
+  }
+
+  function calc(){
+    var s = getState();
+    $('simSpendValue').textContent = s.spend.toLocaleString() + '만원';
+
+    if (s.baseRoas === 0){
+      $('simAvgRoas').textContent = '–';
+      $('simCurRoas').textContent = '–';
+      $('simCurBar').style.width  = '0%';
+      $('simDelta').textContent   = '선택한 매체·업종 조합은 운영하지 않습니다';
+      $('simDelta').className     = 'sim-roas-delta warn';
+      $('simLoss').textContent    = '–';
+      $('simGain').textContent    = '–';
+      tween['simLoss'] = { v: 0 }; tween['simGain'] = { v: 0 }; tween['simCurRoas'] = { v: 0 };
+      $('simPriorities').innerHTML = '<div class="sp-empty">매체 또는 업종을 변경해 주세요.</div>';
+      return;
+    }
+
+    $('simAvgRoas').textContent = s.baseRoas + '%';
+    $('simCurBar').style.width  = (s.curRoas / s.baseRoas * 100) + '%';
+
+    tweenNumber('simCurRoas', s.curRoas, function(v){ return Math.round(v) + '%'; }, 380);
+    tweenNumber('simLoss',    s.lossMW,    function(v){ return fmtKRW(v); }, 460);
+    tweenNumber('simGain',    s.recoverMW, function(v){ return '+' + fmtKRW(v); }, 460);
+
+    var deltaEl = $('simDelta');
+    if (s.issues.length === 0){
+      deltaEl.textContent = '평균 대비 정상 운영 추정';
+      deltaEl.className   = 'sim-roas-delta neutral';
+    } else {
+      deltaEl.textContent = '평균 대비 -' + Math.round(s.penalty*100) + '% 추정 — 회복 여지 있음';
+      deltaEl.className   = 'sim-roas-delta warn';
+    }
+
+    Array.prototype.forEach.call(document.querySelectorAll('.sim-check'), function(lbl){
+      var input = lbl.querySelector('input');
+      lbl.classList.toggle('checked', input && input.checked);
+    });
+
+    var pri = $('simPriorities');
+    if (s.issues.length === 0){
+      pri.innerHTML = '<div class="sp-empty">체크 항목을 선택하시면 우선 진단 영역이 표시됩니다.</div>';
+    } else {
+      var items = s.issues.slice(0, 3).map(function(k, i){
+        return '<div class="sp-item"><span class="sp-num">' + (i+1) + '</span><span>' + PRIORITY_MAP[k] + '</span></div>';
+      }).join('');
+      pri.innerHTML = '<div class="sp-title">우선 진단 영역</div>' + items;
+    }
+  }
+
+  function spendToBudgetOption(spend){
+    if (spend < 300)   return '300만원 미만';
+    if (spend <= 500)  return '300-500만원';
+    if (spend <= 1000) return '500-1000만원';
+    if (spend <= 3000) return '1000-3000만원';
+    return '3000만원 이상';
+  }
+
+  function prefillForm(){
+    var s = getState();
+    if (s.baseRoas === 0) return;
+
+    var mediaMap = { naver: ['네이버'], zigzag: ['지그재그'], both: ['네이버', '지그재그'] };
+    var targets = mediaMap[s.medium] || [];
+    Array.prototype.forEach.call(document.querySelectorAll('input[name="media"]'), function(cb){
+      var should = targets.indexOf(cb.value) !== -1;
+      cb.checked = should;
+      var label = cb.closest('.form-checkbox');
+      if (label) label.classList.toggle('checked', should);
+    });
+
+    var budgetSel = $('f-budget');
+    if (budgetSel) budgetSel.value = spendToBudgetOption(s.spend);
+
+    var issueText = s.issues.length ? s.issues.map(function(k){ return ISSUE_LABEL[k]; }).join(' / ') : '체크 항목 없음';
+    var summary = '[셀프 진단 결과]\n'
+      + '업종: ' + INDUSTRY_LABEL[s.industry] + '\n'
+      + '매체: ' + MEDIUM_LABEL[s.medium] + '\n'
+      + '월 광고비: ' + s.spend.toLocaleString() + '만원\n'
+      + '업종 평균 ROAS: ' + s.baseRoas + '%\n'
+      + '추정 현재 ROAS: ' + Math.round(s.curRoas) + '%\n'
+      + '추정 월 기회손실: ' + fmtKRW(s.lossMW) + '\n'
+      + '회복 잠재력: ' + fmtKRW(s.recoverMW) + ' / 월\n'
+      + '체크 항목: ' + issueText;
+    var sumEl = $('f-sim-summary');
+    if (sumEl) sumEl.value = summary;
+
+    var line = $('fpLine');
+    if (line){
+      line.innerHTML = INDUSTRY_LABEL[s.industry] + ' · ' + MEDIUM_LABEL[s.medium] + ' · '
+        + '<strong>' + s.spend.toLocaleString() + '만원</strong>'
+        + ' · 추정 ROAS <strong>' + Math.round(s.curRoas) + '%</strong>'
+        + ' / 평균 ' + s.baseRoas + '%'
+        + ' · 손실 <strong>' + fmtKRW(s.lossMW) + '</strong>'
+        + ' · 회복 잠재 <strong>+' + fmtKRW(s.recoverMW) + '/월</strong>';
+    }
+    $('formPrefill').hidden = false;
+  }
+
+  var inputs = document.querySelectorAll('#simulator input, #simulator select');
+  Array.prototype.forEach.call(inputs, function(el){
+    el.addEventListener('input', calc);
+    el.addEventListener('change', calc);
+  });
+
+  var interacted = false;
+  Array.prototype.forEach.call(inputs, function(el){
+    el.addEventListener('change', function(){
+      if (!interacted && typeof gtag === 'function'){
+        gtag('event', 'simulator_interact', { event_category: 'engagement' });
+        interacted = true;
+      }
+    });
+  });
+
+  var ctaBtn = $('simCtaBtn');
+  if (ctaBtn){
+    ctaBtn.addEventListener('click', function(){
+      prefillForm();
+      if (typeof gtag === 'function'){
+        gtag('event', 'simulator_cta_click', { event_category: 'conversion' });
+      }
+    });
+  }
+
+  calc();
 })();
 </script>
 
