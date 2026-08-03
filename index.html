@@ -183,7 +183,9 @@
     --line-strong: #D5D8DD;
     --text: #1A1D24;
     --text-sub: #4B5563;
-    --text-dim: #717882;
+    /* #717882은 흰 배경 대비 4.46:1로 WCAG AA(4.5:1) 미달이었다.
+       12~13px 보조 텍스트에 주로 쓰이는 색이라 기준을 넘도록 한 단계 어둡게 조정. */
+    --text-dim: #5F6672;
     --naver: #00C73C;
     --naver-dark: #009B2F;
     --zigzag: #FF3F7E;
@@ -413,12 +415,19 @@
   }
   .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(27,42,78,0.4); }
 
-  /* Hero 보조 카카오 버튼 */
+  /* Hero 보조 카카오 버튼 — 1차 CTA(무료 진단)와 위계를 분리한다.
+     둘 다 솔리드였을 때는 어느 쪽이 권장 경로인지 읽히지 않았다. */
   .btn-ghost-kakao {
-    background: #FEE500; color: #3A1D1D !important;
-    box-shadow: 0 4px 12px rgba(254,229,0,0.35);
+    background: #fff; color: #3A1D1D !important;
+    border: 1.5px solid #E4CE00;
+    box-shadow: none;
+    font-size: 15px;
+    padding-top: 15px; padding-bottom: 15px;
   }
-  .btn-ghost-kakao:hover { background: #F5DC00; transform: translateY(-2px); box-shadow: 0 8px 18px rgba(254,229,0,0.45); }
+  .btn-ghost-kakao:hover {
+    background: #FEE500; border-color: #FEE500;
+    transform: translateY(-2px); box-shadow: 0 8px 18px rgba(254,229,0,0.35);
+  }
 
   /* CTA 보조 마이크로 카피 */
   .hero-cta-meta {
@@ -896,6 +905,8 @@
   }
   .sa-loss { color: var(--zigzag-dark); }
   .sa-gain { color: var(--naver-dark); }
+  /* 체크 전: 금액은 아직 산출되지 않았음을 시각적으로도 명확히 */
+  .sim-result-card.is-idle .sa-value { color: var(--text-dim); font-weight: 700; }
   .sim-priorities {
     margin-bottom: 20px; padding: 18px 20px;
     background: rgba(0,199,60,0.05); border-radius: 10px;
@@ -1034,6 +1045,18 @@
     .ann-banner-inner { gap: 6px; }
     .ann-tag { font-size: 10px; padding: 2px 6px; }
   }
+
+  /* 스킵 링크 — 평소 숨김, Tab 키로 포커스되면 나타남 */
+  .skip-link {
+    position: absolute; left: 50%; top: -100px;
+    transform: translateX(-50%);
+    z-index: 9999; padding: 12px 22px;
+    background: var(--brand); color: #fff;
+    font-size: 14px; font-weight: 700; text-decoration: none;
+    border-radius: 0 0 10px 10px;
+    transition: top 0.2s ease;
+  }
+  .skip-link:focus { top: 0; outline: 2px solid var(--naver); outline-offset: 2px; }
 
   /* ===== CERTIFICATE LIGHTBOX ===== */
   .cert-lightbox {
@@ -1439,6 +1462,13 @@
   .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; }
   .footer-copy { font-size: 12px; color: rgba(255,255,255,0.25); }
   .footer-note { font-size: 12px; color: rgba(255,255,255,0.18); }
+  .footer-privacy {
+    margin-left: 12px; padding-left: 12px;
+    border-left: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.62); font-weight: 600;
+    display: inline-flex; align-items: center; min-height: 44px;
+  }
+  .footer-privacy:hover { color: #fff; }
   @media (max-width: 720px) {
     .footer-grid { grid-template-columns: 1fr; gap: 28px; padding-bottom: 28px; }
     .footer-bottom { flex-direction: column; align-items: flex-start; gap: 4px; }
@@ -1449,7 +1479,7 @@
 
   /* ===== MOBILE NAV (햄버거) ===== */
   .nav-toggle {
-    display: none; width: 42px; height: 42px;
+    display: none; width: 44px; height: 44px;
     border: 1px solid var(--line-strong); border-radius: 9px;
     background: #fff; cursor: pointer;
     flex-direction: column; align-items: center; justify-content: center; gap: 4px;
@@ -1616,6 +1646,38 @@
   .form-help {
     margin-top: 4px; font-size: 12px; color: var(--text-dim);
   }
+  /* 개인정보 수집·이용 동의 (필수) */
+  .form-consent-row {
+    padding: 14px 16px; background: var(--bg-soft);
+    border: 1px solid var(--line); border-radius: 10px;
+  }
+  .form-consent {
+    display: flex; align-items: center; gap: 10px;
+    cursor: pointer; min-height: 44px;
+  }
+  .form-consent input {
+    appearance: none; -webkit-appearance: none;
+    width: 20px; height: 20px; margin: 0; flex-shrink: 0;
+    border: 1.5px solid var(--line-strong); border-radius: 5px;
+    background: #fff; cursor: pointer; position: relative;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .form-consent input:checked { background: var(--brand); border-color: var(--brand); }
+  .form-consent input:checked::after {
+    content: ''; position: absolute; left: 6px; top: 2px;
+    width: 5px; height: 10px; border: solid #fff;
+    border-width: 0 2px 2px 0; transform: rotate(45deg);
+  }
+  .form-consent input:focus-visible {
+    outline: 2px solid var(--brand); outline-offset: 2px;
+  }
+  .fc-text { font-size: 13.5px; line-height: 1.5; color: var(--text-sub); }
+  .fc-text strong { color: var(--brand); font-weight: 800; }
+  .fc-link {
+    color: var(--text-sub); text-decoration: underline;
+    text-underline-offset: 2px; margin-left: 4px; font-weight: 600;
+  }
+  .fc-detail { margin-top: 8px; padding-left: 30px; line-height: 1.6; }
   .form-submit {
     width: 100%; padding: 16px 20px;
     background: var(--text); color: #fff;
@@ -2006,6 +2068,46 @@
     font-size: 12.5px; color: var(--text-dim);
     text-align: center; line-height: 1.6;
     margin-top: 24px;
+  }
+
+  /* 셀프 진단 조기 진입점 */
+  .sim-shortcut {
+    display: flex; align-items: center; gap: 16px;
+    margin: 20px auto 0; max-width: 620px;
+    padding: 18px 22px; min-height: 44px;
+    background: #fff; border: 1.5px solid var(--line-strong);
+    border-radius: 14px; text-decoration: none;
+    transition: border-color var(--dur-base) var(--ease-out),
+                box-shadow var(--dur-base) var(--ease-out),
+                transform var(--dur-base) var(--ease-out);
+  }
+  .sim-shortcut:hover {
+    border-color: var(--naver);
+    box-shadow: 0 10px 26px rgba(0,199,60,0.14);
+    transform: translateY(-2px);
+  }
+  .sim-shortcut:focus-visible { outline: 2px solid var(--naver); outline-offset: 3px; }
+  .ss-icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 42px; height: 42px; flex-shrink: 0;
+    border-radius: 11px; background: rgba(0,199,60,0.10); color: var(--naver-dark);
+  }
+  .ss-text { display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 0; }
+  .ss-text strong {
+    font-size: 15.5px; font-weight: 800; color: var(--text);
+    letter-spacing: -0.02em;
+  }
+  .ss-sub { font-size: 12.5px; color: var(--text-sub); line-height: 1.5; }
+  .ss-arrow {
+    font-size: 18px; color: var(--naver-dark); font-weight: 700; flex-shrink: 0;
+    transition: transform var(--dur-base) var(--ease-out);
+  }
+  .sim-shortcut:hover .ss-arrow { transform: translateX(4px); }
+  @media (max-width: 560px) {
+    .sim-shortcut { padding: 16px 18px; gap: 13px; }
+    .ss-icon { width: 38px; height: 38px; }
+    .ss-text strong { font-size: 14.5px; }
+    .ss-sub { font-size: 12px; }
   }
 
   /* ===== TESTIMONIALS ===== */
@@ -2527,9 +2629,35 @@
   }
   .insight-all a:hover { background: #fff; transform: translateY(-1px); }
   @media (max-width: 900px) { #insights .insight-grid { grid-template-columns: 1fr; } }
+
+  /* ===== 접근성: 터치 타깃 최소 44×44px (WCAG 2.5.5) =====
+     모바일에서 손가락으로 정확히 누르기 어려운 컨트롤들을 일괄 보정한다.
+     시각적 크기는 유지하고 눌리는 영역만 넓히는 방식(패딩·min-height). */
+  @media (max-width: 860px) {
+    .rf-tab { padding: 12px 18px; min-height: 44px; }
+    .sim-toggle span { padding: 13px 12px; min-height: 44px; display: flex; align-items: center; justify-content: center; }
+    .form-checkbox { padding: 12px 18px; min-height: 44px; display: inline-flex; align-items: center; }
+    .co-cert-view { padding: 11px 14px; min-height: 44px; }
+    .footer-nav-list { gap: 4px; }
+    .footer-nav-list a { display: flex; align-items: center; min-height: 44px; }
+    .to-top { width: 46px; height: 46px; }
+  }
+  /* 푸터 링크 대비 개선: 0.52 → 0.68 (어두운 배경 대비 AA 확보) */
+  .footer-nav-list a { color: rgba(255,255,255,0.68); }
+  .footer-tagline, .footer-note { color: rgba(255,255,255,0.62); }
+
+  /* 키보드 포커스 가시성 — 전역 보정 */
+  a:focus-visible, button:focus-visible,
+  input:focus-visible, select:focus-visible, textarea:focus-visible {
+    outline: 2px solid var(--naver);
+    outline-offset: 2px;
+  }
 </style>
 </head>
 <body>
+
+<!-- 키보드 사용자용 본문 바로가기 -->
+<a href="#main" class="skip-link">본문 바로가기</a>
 
 <!-- 스크롤 진행 표시바 -->
 <div id="scroll-progress"></div>
@@ -2585,7 +2713,7 @@
 </header>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero" id="main">
   <div class="hero-bg-text">MARKETING</div>
   <div class="wrap hero-grid">
     <div class="hero-text">
@@ -2670,6 +2798,20 @@
     <div class="stats-note">
       관리비·위약금 0원은 네이버·지그재그 공식 파트너 구조에서 비롯됩니다.<br class="br-pc"/> 광고비 외 별도 청구 없이, 매체 수수료만으로 운영되므로 광고주 입장에서 부담이 가장 적은 형태입니다.
     </div>
+
+    <!-- 셀프 진단 조기 진입점: 시뮬레이터가 페이지 하단에 있어 도달률이 낮았던 문제 보완 -->
+    <a href="#simulator" class="sim-shortcut" id="simShortcut">
+      <span class="ss-icon" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 17l5-5 4 4 7-8"/><path d="M15 8h4v4"/>
+        </svg>
+      </span>
+      <span class="ss-text">
+        <strong>내 광고, 30초 셀프 진단</strong>
+        <span class="ss-sub">월 광고비·매체·운영 상태만 고르면 손실 추정치가 바로 나옵니다</span>
+      </span>
+      <span class="ss-arrow" aria-hidden="true">→</span>
+    </a>
   </div>
 </section>
 
@@ -2830,7 +2972,7 @@
 
     <!-- KPI 밴드 -->
     <div class="kpi-band">
-      <div class="kpi"><span class="kpi-num">500<i>억+</i></span><span class="kpi-lbl">누적 관리 광고비</span></div>
+      <div class="kpi"><span class="kpi-num">50<i>억+</i></span><span class="kpi-lbl">누적 관리 광고비</span></div>
       <div class="kpi"><span class="kpi-num">1,000<i>+</i></span><span class="kpi-lbl">누적 운영 브랜드</span></div>
       <div class="kpi"><span class="kpi-num">12</span><span class="kpi-lbl">공개 성과 케이스</span></div>
       <div class="kpi"><span class="kpi-num">7<i>년차</i></span><span class="kpi-lbl">1:1 전담 운영</span></div>
@@ -3756,17 +3898,17 @@
               <span class="sr-value sr-current" id="simCurRoas">580%</span>
             </div>
             <div class="sim-roas-bar"><div class="srb-fill srb-cur" id="simCurBar" style="width:100%"></div></div>
-            <div class="sim-roas-delta neutral" id="simDelta">평균 대비 정상 운영 추정</div>
+            <div class="sim-roas-delta neutral" id="simDelta">아래 항목을 체크하면 손실 추정치가 계산됩니다</div>
           </div>
 
           <div class="sim-amounts">
             <div class="sim-amount">
               <div class="sa-label">추정 월 기회손실</div>
-              <div class="sa-value sa-loss" id="simLoss">0원</div>
+              <div class="sa-value sa-loss" id="simLoss">—</div>
             </div>
             <div class="sim-amount">
               <div class="sa-label">회복 잠재력 / 월</div>
-              <div class="sa-value sa-gain" id="simGain">+0원</div>
+              <div class="sa-value sa-gain" id="simGain">—</div>
             </div>
           </div>
 
@@ -4034,7 +4176,7 @@
       <input type="checkbox" name="botcheck" style="display:none;" />
 
       <h3>무료 진단 신청</h3>
-      <p class="form-sub">아래 정보를 남겨주시면, 영업일 기준 3일 안에<br class="br-pc"/> 진단 리포트를 보내드립니다.</p>
+      <p class="form-sub">연락처 하나만 남겨주셔도 됩니다. 영업일 기준 3일 안에<br class="br-pc"/> 진단 리포트를 보내드립니다.</p>
       <div class="form-error" id="formError" role="alert"></div>
 
       <div class="form-prefill" id="formPrefill" hidden>
@@ -4051,19 +4193,19 @@
 
       <div class="form-row row2">
         <div>
-          <label class="form-label" for="f-name">성함 <span class="req">*</span></label>
-          <input class="form-input" type="text" id="f-name" name="name" required autocomplete="name" />
+          <label class="form-label" for="f-phone">연락처 <span class="req">*</span></label>
+          <input class="form-input" type="tel" id="f-phone" name="phone" required autocomplete="tel" inputmode="tel" placeholder="010-0000-0000" />
         </div>
         <div>
-          <label class="form-label" for="f-phone">연락처 <span class="req">*</span></label>
-          <input class="form-input" type="tel" id="f-phone" name="phone" required autocomplete="tel" placeholder="010-0000-0000" />
+          <label class="form-label" for="f-name">성함 <span style="color: var(--text-dim); font-weight: 500;">(선택)</span></label>
+          <input class="form-input" type="text" id="f-name" name="name" autocomplete="name" placeholder="어떻게 불러드릴까요?" />
         </div>
       </div>
 
       <div class="form-row row2">
         <div>
-          <label class="form-label" for="f-company">업체명 / 브랜드명 <span class="req">*</span></label>
-          <input class="form-input" type="text" id="f-company" name="company" required />
+          <label class="form-label" for="f-company">업체명 / 브랜드명 <span style="color: var(--text-dim); font-weight: 500;">(선택)</span></label>
+          <input class="form-input" type="text" id="f-company" name="company" autocomplete="organization" placeholder="진단 시 참고합니다" />
         </div>
         <div>
           <label class="form-label" for="f-email">이메일 <span style="color: var(--text-dim); font-weight: 500;">(선택)</span></label>
@@ -4101,10 +4243,23 @@
         <textarea class="form-textarea" id="f-message" name="message" placeholder="예) ROAS가 점점 떨어지고 있는데 원인을 모르겠어요 / 대행사 변경 검토 중입니다 / 신규 매체 진입을 고민 중입니다"></textarea>
       </div>
 
+      <div class="form-row form-consent-row">
+        <label class="form-consent" for="f-privacy">
+          <input type="checkbox" id="f-privacy" name="privacy_consent" value="동의" required />
+          <span class="fc-text">
+            <strong>(필수)</strong> 개인정보 수집·이용에 동의합니다.
+            <a href="privacy.html" target="_blank" rel="noopener" class="fc-link">전문 보기</a>
+          </span>
+        </label>
+        <div class="form-help fc-detail">
+          수집 항목: 성함·연락처·업체명·이메일 · 이용 목적: 광고 진단 상담 · 보유 기간: 상담 종료 후 1년
+        </div>
+      </div>
+
       <button type="submit" class="form-submit">무료 진단 신청하기 →</button>
 
       <div class="form-help" style="margin-top: 14px; text-align: center;">
-        * 입력하신 정보는 진단 상담 목적 외에는 사용되지 않으며, 상담 종료 후 1년 내 파기됩니다.
+        * 동의를 거부하실 수 있으나, 이 경우 진단 상담 신청이 제한됩니다.
       </div>
     </form>
 
@@ -4115,8 +4270,11 @@
         <a href="https://open.kakao.com/o/sQcLuovi" target="_blank" rel="noopener" class="btn-kakao"><span aria-hidden="true" style="display:inline-flex;vertical-align:-3px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3.5C6.8 3.5 2.6 6.9 2.6 11c0 2.6 1.7 4.9 4.3 6.2-.2.6-.6 2.2-.7 2.6 0 .2.1.3.3.2 1-.7 3.3-2.3 3.6-2.5.5.1 1 .1 1.5.1 5.2 0 9.4-3.4 9.4-7.6S17.2 3.5 12 3.5z"/></svg></span> 카카오 오픈채팅</a>
       </div>
       <div class="kakao-qr-row">
-        <img src="kakao-qr.png"
-             alt="카카오 오픈채팅 QR코드" class="kakao-qr-img" width="80" height="80" loading="lazy" />
+        <picture>
+          <source srcset="kakao-qr.webp" type="image/webp" />
+          <img src="kakao-qr.png"
+               alt="카카오 오픈채팅 QR코드" class="kakao-qr-img" width="80" height="80" loading="lazy" />
+        </picture>
         <div class="kakao-qr-text">
           <div class="kakao-qr-title">카카오 오픈채팅 QR</div>
           <div class="kakao-qr-sub">스마트폰 카메라로 스캔하면<br>바로 채팅방으로 연결됩니다</div>
@@ -4161,7 +4319,10 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="footer-copy">© 2026 이명수 · YEJI SOLUTION</div>
+      <div class="footer-copy">
+        © 2026 이명수 · YEJI SOLUTION
+        <a href="privacy.html" class="footer-privacy">개인정보 처리방침</a>
+      </div>
       <div class="footer-note">광고 문의는 카카오 오픈채팅 또는 무료 진단 신청 폼을 이용해 주세요.</div>
     </div>
   </div>
@@ -4292,10 +4453,9 @@
         .then(function (r) { return r.json(); })
         .then(function (res) {
           if (res.success) {
-            fetch('/notify', {
-              method: 'POST', headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ name: data.get('name'), phone: data.get('phone'), company: data.get('company'), email: data.get('email'), media: data.getAll('media'), budget: data.get('budget'), message: data.get('message') })
-            }).catch(function () {});
+            /* 과거 Netlify Functions용 /notify 호출은 GitHub Pages에서 항상 404였고
+               .catch()로 조용히 무시되고 있었으므로 제거했다.
+               실시간 알림이 필요하면 Web3Forms 대시보드의 Webhook을 사용할 것. */
             cf.style.display = 'none';
             if (fs) fs.classList.add('show');
             if (typeof gtag === 'function') {
@@ -4325,7 +4485,10 @@
   if (stickyBar && contactSection) {
     function updateStickyBar() {
       var rect = contactSection.getBoundingClientRect();
-      stickyBar.classList.toggle('show', window.scrollY > 400 && !(rect.top < window.innerHeight && rect.bottom > 0));
+      /* 페이지의 25% 이상 내려간 뒤에만 노출 — 진입 직후 CTA가 4~5개 동시에
+         보이던 선택 과부하를 줄이기 위해 400px 고정값에서 비율 기준으로 변경 */
+      var trigger = Math.max(600, document.body.scrollHeight * 0.25);
+      stickyBar.classList.toggle('show', window.scrollY > trigger && !(rect.top < window.innerHeight && rect.bottom > 0));
     }
     window.addEventListener('scroll', updateStickyBar, { passive: true });
   }
@@ -4359,16 +4522,21 @@
       var target = parseInt(el.dataset.target, 10);
       if (isNaN(target)) return;
       var prefix = el.dataset.prefix || '', suffix = el.dataset.suffix || '';
-      var start = null, dur = 1400;
+      var start = null, dur = 1000;
+      /* 0에서 시작하면 스크롤 중 스크린샷·저사양 기기에서 "ROAS 71%"처럼
+         실제와 다른 값이 그대로 읽힌다. 목표의 70% 지점에서 시작해
+         중간값이 노출되더라도 실제 수치와 크게 어긋나지 않게 한다. */
+      var from = Math.round(target * 0.7);
       function fmt(n) { return prefix + n.toLocaleString('en-US') + suffix; }
       function step(ts) {
         if (!start) start = ts;
         var p = Math.min((ts - start) / dur, 1);
         var ease = 1 - Math.pow(1 - p, 3);
-        el.textContent = fmt(Math.round(ease * target));
+        el.textContent = fmt(Math.round(from + (target - from) * ease));
         if (p < 1) requestAnimationFrame(step);
+        else el.textContent = fmt(target);
       }
-      el.textContent = fmt(0);
+      el.textContent = fmt(from);
       requestAnimationFrame(step);
     });
   }
@@ -4538,34 +4706,33 @@
 })();
 </script>
 
-<!-- 동적 슬롯 카운터 -->
+<!-- 신규 접수 슬롯 표시 -->
 <script>
 (function () {
-  var d = new Date();
-  var day = d.getDate();
-  var year = d.getFullYear();
-  var mon  = d.getMonth(); // 0-11
+  /* ─────────────────────────────────────────────────────────────
+     ⚠️ 수동 관리 항목 — 실제 운영 현황에 맞춰 직접 수정하세요.
+     자동 생성(랜덤/날짜 시드)은 표시광고법상 '거짓·과장 광고'
+     소지가 있어 제거했습니다. 실제 값만 기재합니다.
 
-  // 월·연도 기반 시드 → 새로고침해도 같은 숫자
-  var seed = (year * 100 + mon) % 997;
-  function pick(min, max) { return min + (seed % (max - min + 1)); }
+       OPEN_SLOTS : 이번 달 추가로 받을 수 있는 팀 수 (0이면 마감 표시)
+       확인 주기  : 매월 1일 + 신규 계약 체결 시
+     ───────────────────────────────────────────────────────────── */
+  var OPEN_SLOTS = 3;
 
   var phase, badgeText, heroText;
 
-  if (day >= 25) {
+  if (OPEN_SLOTS <= 0) {
     phase     = 'slot-closed';
     badgeText = '이번 달 접수 마감 · 다음 달 초 운영 시작';
     heroText  = '이번 달은 정원이 가득 찼습니다. 접수·상담은 언제든 가능합니다.';
-  } else if (day >= 15) {
-    var n     = pick(1, 2);
+  } else if (OPEN_SLOTS <= 2) {
     phase     = 'slot-limited';
-    badgeText = '잔여 ' + n + '팀 · 마감 임박';
-    heroText  = '이번 달 잔여 ' + n + '팀 · 지금 신청하시면 이번 달 진행 가능합니다';
+    badgeText = '동시 운영 계정 수 제한 · 잔여 ' + OPEN_SLOTS + '팀';
+    heroText  = '동시 운영 계정 수를 제한합니다 · 이번 달 잔여 ' + OPEN_SLOTS + '팀';
   } else {
-    var n     = pick(3, 5);
     phase     = 'slot-available';
-    badgeText = '신규 접수 중 · 잔여 ' + n + '팀';
-    heroText  = '이번 달 신규 접수 가능 · 잔여 ' + n + '팀';
+    badgeText = '신규 접수 중 · 잔여 ' + OPEN_SLOTS + '팀';
+    heroText  = '동시 운영 계정 수를 제한합니다 · 이번 달 잔여 ' + OPEN_SLOTS + '팀';
   }
 
   // urgency badge (CTA 섹션)
@@ -4633,13 +4800,16 @@
   var title = document.getElementById('certLightboxTitle');
   var closeBtn = document.getElementById('certLightboxClose');
 
+  /* WebP로 교체 (105KB → 30KB, 108KB → 31KB).
+     구형 브라우저를 위해 PNG 폴백을 onerror로 유지한다. */
   var CERT_DATA = {
-    search:  { src: 'cert-naver-search.png',  alt: 'NAVER Ads Expert · 네이버 검색광고 인증서',     label: ' · 네이버 검색광고 인증' },
-    display: { src: 'cert-naver-display.png', alt: 'NAVER Ads Expert · 네이버 디스플레이 광고 인증서', label: ' · 네이버 디스플레이 광고 인증' }
+    search:  { src: 'cert-naver-search.webp',  png: 'cert-naver-search.png',  alt: 'NAVER Ads Expert · 네이버 검색광고 인증서',     label: ' · 네이버 검색광고 인증' },
+    display: { src: 'cert-naver-display.webp', png: 'cert-naver-display.png', alt: 'NAVER Ads Expert · 네이버 디스플레이 광고 인증서', label: ' · 네이버 디스플레이 광고 인증' }
   };
 
   function open(key){
     var d = CERT_DATA[key]; if (!d) return;
+    img.onerror = function(){ img.onerror = null; img.src = d.png; };
     img.src = d.src; img.alt = d.alt;
     title.textContent = d.label;
     lb.classList.add('open');
@@ -4863,9 +5033,22 @@
   }
 
   var tween = {};
+  var noAnim = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   function tweenNumber(id, target, format, durMs){
     var el = $(id); if (!el) return;
     if (tween[id] && tween[id].raf) cancelAnimationFrame(tween[id].raf);
+
+    /* requestAnimationFrame은 탭이 백그라운드일 때 아예 실행되지 않는다.
+       그 상태에서 값이 바뀌면 숫자가 이전 값에 멈춰 있게 되므로,
+       애니메이션이 불가능한 상황에서는 최종값을 즉시 확정한다.
+       (동작 최소화 설정을 켠 사용자에게도 동일하게 적용) */
+    if (noAnim || document.hidden) {
+      tween[id] = { v: target, raf: 0 };
+      el.textContent = format(target);
+      return;
+    }
+
     var from = (tween[id] && typeof tween[id].v === 'number') ? tween[id].v : 0;
     var start = performance.now();
     var dur = durMs || 420;
@@ -4881,6 +5064,14 @@
       }
     }
     tween[id] = { v: from, raf: requestAnimationFrame(step) };
+  }
+
+  /* 진행 중인 tween을 끊고 고정 텍스트로 되돌린다 (idle 상태 표시용) */
+  function setStatic(id, text){
+    var el = $(id); if (!el) return;
+    if (tween[id] && tween[id].raf) cancelAnimationFrame(tween[id].raf);
+    tween[id] = { v: 0, raf: 0 };
+    el.textContent = text;
   }
 
   function getMedium(){
@@ -4922,7 +5113,9 @@
     var penalty   = Math.min(issues.length * PENALTY_PER_ISSUE, MAX_PENALTY);
     var curRoas   = baseRoas * (1 - penalty);
     var lossMW    = baseRoas > 0 ? spend * (baseRoas - curRoas) / 100 : 0;
-    var recoverMW = baseRoas > 0 ? spend * baseRoas * cfg.recoveryRate / 100 : 0;
+    /* 회복 잠재력은 반드시 손실액에 종속된다 — 손실이 0이면 회복액도 0.
+       매체별 recoveryRate는 "손실분 중 실제 회복 가능한 비율"을 뜻한다. */
+    var recoverMW = lossMW * cfg.recoveryRate;
     return { spend:spend, medium:medium, industry:industry, issues:issues,
              cfg:cfg, baseRoas:baseRoas, curRoas:curRoas, penalty:penalty,
              lossMW:lossMW, recoverMW:recoverMW };
@@ -4935,13 +5128,24 @@
     $('simAvgRoas').textContent = s.baseRoas + '%';
     $('simCurBar').style.width  = (s.baseRoas > 0 ? s.curRoas / s.baseRoas * 100 : 0) + '%';
 
-    tweenNumber('simCurRoas', s.curRoas,    function(v){ return Math.round(v) + '%'; }, 380);
-    tweenNumber('simLoss',    s.lossMW,     function(v){ return fmtKRW(v); }, 460);
-    tweenNumber('simGain',    s.recoverMW,  function(v){ return '+' + fmtKRW(v); }, 460);
+    /* 체크 전(idle)에는 손실·회복 금액을 숫자로 확정해 보여주지 않는다.
+       "손실 0원인데 회복 잠재력은 있다"는 모순을 원천 차단하기 위함. */
+    var card = document.querySelector('.sim-result-card');
+    if (card) card.classList.toggle('is-idle', s.issues.length === 0);
+
+    tweenNumber('simCurRoas', s.curRoas, function(v){ return Math.round(v) + '%'; }, 380);
+
+    if (s.issues.length === 0){
+      setStatic('simLoss', '—');
+      setStatic('simGain', '—');
+    } else {
+      tweenNumber('simLoss', s.lossMW,    function(v){ return fmtKRW(v); }, 460);
+      tweenNumber('simGain', s.recoverMW, function(v){ return '+' + fmtKRW(v); }, 460);
+    }
 
     var deltaEl = $('simDelta');
     if (s.issues.length === 0){
-      deltaEl.textContent = '평균 대비 정상 운영 추정';
+      deltaEl.textContent = '아래 항목을 체크하면 손실 추정치가 계산됩니다';
       deltaEl.className   = 'sim-roas-delta neutral';
     } else {
       deltaEl.textContent = '평균 대비 -' + Math.round(s.penalty*100) + '% 추정 — 회복 여지 있음';
