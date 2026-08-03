@@ -25,6 +25,7 @@ const TOPICS = {
   coupang:  { title: '쿠팡 광고 가이드',        desc: '쿠팡 광고 시작부터 ROAS 개선까지 이어서 읽어보세요.' },
   ohouse:   { title: '오늘의집 광고 가이드',    desc: '가구·인테리어 카테고리 광고 운영 자료입니다.' },
   strategy: { title: '광고 전략 가이드',        desc: '매체를 가리지 않고 통하는 운영 원칙들입니다.' },
+  kakao:    { title: '카카오모먼트 가이드',      desc: '비즈보드·피드 광고 등 카카오 광고 운영 자료입니다.' },
 };
 
 const MARK_START = '<!-- topic-cluster:start -->';

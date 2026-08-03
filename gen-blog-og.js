@@ -29,6 +29,7 @@ const ACCENTS = {
   coupang:  { color: '#D63A2E', dark: '#B32B21', label: 'COUPANG' },
   ohouse:   { color: '#3A8DDE', dark: '#2A6FB3', label: 'OHOUSE'  },
   strategy: { color: '#1B2A4E', dark: '#111C36', label: 'STRATEGY'},
+  kakao:    { color: '#B38F00', dark: '#5C4A00', label: 'KAKAO'   },
 };
 
 /* HTML 속성에서 읽은 값이라 &#x27; 같은 엔티티가 섞여 있다.

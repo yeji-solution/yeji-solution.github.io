@@ -2070,10 +2070,11 @@
     margin-top: 24px;
   }
 
-  /* 셀프 진단 조기 진입점 */
+  /* 셀프 진단 조기 진입점 — 독립 섹션(위아래 여백은 섹션 padding이 담당) */
+  .sim-shortcut-section { padding: 8px 0 48px; }
   .sim-shortcut {
     display: flex; align-items: center; gap: 16px;
-    margin: 20px auto 0; max-width: 620px;
+    margin: 0 auto; max-width: 620px;
     padding: 18px 22px; min-height: 44px;
     background: #fff; border: 1.5px solid var(--line-strong);
     border-radius: 14px; text-decoration: none;
@@ -2743,7 +2744,7 @@
 
       <div class="hero-proof">
         <div class="hp-item"><span class="hp-cat">ROAS</span><b data-target="1009" data-prefix="" data-suffix="%">1,009%</b><span class="hp-src">네이버 · 생활·건강</span><span class="hp-period">2025 하반기 3개월</span></div>
-        <div class="hp-item"><span class="hp-cat">광고효율</span><b data-target="77" data-prefix="+" data-suffix="%">+77%</b><span class="hp-src">지그재그 · 패션</span><span class="hp-period">ROAS 567% → 1,007%</span></div>
+        <div class="hp-item"><span class="hp-cat">ROAS 상승률</span><b data-target="77" data-prefix="+" data-suffix="%">+77%</b><span class="hp-src">지그재그 · 패션</span><span class="hp-period">ROAS 567% → 1,007%</span></div>
         <div class="hp-item"><span class="hp-cat">전환매출</span><b data-target="119" data-prefix="+" data-suffix="%">+119%</b><span class="hp-src">에이블리 · 패션</span><span class="hp-period">2025년 전년 대비</span></div>
       </div>
     </div>
@@ -2798,8 +2799,13 @@
     <div class="stats-note">
       관리비·위약금 0원은 네이버·지그재그 공식 파트너 구조에서 비롯됩니다.<br class="br-pc"/> 광고비 외 별도 청구 없이, 매체 수수료만으로 운영되므로 광고주 입장에서 부담이 가장 적은 형태입니다.
     </div>
+  </div>
+</section>
 
-    <!-- 셀프 진단 조기 진입점: 시뮬레이터가 페이지 하단에 있어 도달률이 낮았던 문제 보완 -->
+<!-- 셀프 진단 조기 진입점: 시뮬레이터가 페이지 하단에 있어 도달률이 낮았던 문제 보완.
+     stats-note 설명 문구에 바로 이어 붙이면 주제가 갑자기 튀어 보여서 독립 섹션으로 분리했다. -->
+<section class="sim-shortcut-section">
+  <div class="wrap">
     <a href="#simulator" class="sim-shortcut" id="simShortcut">
       <span class="ss-icon" aria-hidden="true">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -4099,16 +4105,16 @@
       <p class="section-sub">현장에서 검증한 실무 인사이트입니다. 리포트용 이론이 아니라, 실제 계정에서 ROAS를 움직인 방법만 적습니다.</p>
     </div>
     <div class="insight-grid">
-      <a class="insight-card" href="/blog/naver-search-ad-roas/">
-        <div class="ic-meta"><span class="ic-tag n">NAVER</span><span class="ic-date">2026.06.10</span></div>
-        <div class="ic-title">네이버 검색광고 ROAS가 떨어지는 5가지 진짜 이유</div>
-        <div class="ic-desc">광고비는 그대로인데 ROAS가 떨어진다면? 1,000개 브랜드를 운영하며 마주친 다섯 가지 원인과, 계정을 열었을 때 가장 먼저 보는 진단 순서.</div>
+      <a class="insight-card" href="/blog/kakao-moment-ad-start/">
+        <div class="ic-meta"><span class="ic-tag" style="background:#FFF7DB;color:#7A5F00;">KAKAO</span><span class="ic-date">2026.08.03</span></div>
+        <div class="ic-title">카카오모먼트 광고, 시작 전에 알아야 할 것들</div>
+        <div class="ic-desc">검색광고와는 완전히 다른 매체입니다. 비즈보드부터 시작해야 하는 이유와, 처음 시작할 때 흔한 실수 5가지.</div>
         <div class="ic-more">자세히 읽기 →</div>
       </a>
-      <a class="insight-card" href="/blog/zigzag-ai-ad-optimization/">
-        <div class="ic-meta"><span class="ic-tag z">ZIGZAG</span><span class="ic-date">2026.06.13</span></div>
-        <div class="ic-title">지그재그 AI 광고, 성과가 멈췄을 때 점검할 4가지</div>
-        <div class="ic-desc">"맡겨두면 알아서"가 안 통하는 지그재그 AI 광고. 학습이 굳어버린 계정을 되살리는 썸네일·상품군·예산 부스팅 순서.</div>
+      <a class="insight-card" href="/blog/marketer-certification-hierarchy/">
+        <div class="ic-meta"><span class="ic-tag s">전략</span><span class="ic-date">2026.06.21</span></div>
+        <div class="ic-title">협회 자격 vs 매체사 공식 인증 — 마케터를 검증하는 진짜 위계</div>
+        <div class="ic-desc">광고 마케터 자격증, 다 같은 자격증이 아닙니다. 협회 시험과 매체사 공식 인증의 차이, 광고주가 봐야 할 검증 위계.</div>
         <div class="ic-more">자세히 읽기 →</div>
       </a>
       <a class="insight-card" href="/blog/ad-budget-truth/">
@@ -4194,7 +4200,9 @@
       <div class="form-row row2">
         <div>
           <label class="form-label" for="f-phone">연락처 <span class="req">*</span></label>
-          <input class="form-input" type="tel" id="f-phone" name="phone" required autocomplete="tel" inputmode="tel" placeholder="010-0000-0000" />
+          <input class="form-input" type="tel" id="f-phone" name="phone" required autocomplete="tel" inputmode="tel"
+                 pattern="0\d{1,3}-?\d{3,4}-?\d{4}" title="휴대폰 또는 유선 전화번호를 입력해주세요 (예: 010-1234-5678)"
+                 placeholder="010-0000-0000" />
         </div>
         <div>
           <label class="form-label" for="f-name">성함 <span style="color: var(--text-dim); font-weight: 500;">(선택)</span></label>
@@ -4727,12 +4735,12 @@
     heroText  = '이번 달은 정원이 가득 찼습니다. 접수·상담은 언제든 가능합니다.';
   } else if (OPEN_SLOTS <= 2) {
     phase     = 'slot-limited';
-    badgeText = '동시 운영 계정 수 제한 · 잔여 ' + OPEN_SLOTS + '팀';
-    heroText  = '동시 운영 계정 수를 제한합니다 · 이번 달 잔여 ' + OPEN_SLOTS + '팀';
+    badgeText = '잔여 ' + OPEN_SLOTS + '팀 · 마감 임박';
+    heroText  = '이번 달 잔여 ' + OPEN_SLOTS + '팀 · 마감이 머지않았습니다';
   } else {
     phase     = 'slot-available';
     badgeText = '신규 접수 중 · 잔여 ' + OPEN_SLOTS + '팀';
-    heroText  = '동시 운영 계정 수를 제한합니다 · 이번 달 잔여 ' + OPEN_SLOTS + '팀';
+    heroText  = '이번 달 신규 상담 가능 · 잔여 ' + OPEN_SLOTS + '팀';
   }
 
   // urgency badge (CTA 섹션)
