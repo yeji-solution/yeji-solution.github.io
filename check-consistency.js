@@ -65,6 +65,52 @@ function checkBrands(html) {
   }
 }
 
+/* ── 2b. ROAS 전/후/증감률 삼각 검산 ─────────────────────────────────
+   배경: 히어로의 "지그재그 패션 567%→1,007%" 카드가 +77%로 표기돼 있었는데
+   같은 페이지 성과(RESULTS) 섹션에는 같은 사례가 +78%(정확한 값)로 이미
+   존재했다. 같은 숫자 쌍인데 등장하는 곳마다 증감률이 달랐던 것 — 발견하기
+   전까지 아무도 계산을 검산하지 않았다. 전체 rc-before/after/delta 트리플을
+   자동으로 재계산해서 어긋나는 곳을 찾는다. */
+function checkRoasDeltas(html) {
+  const blocks = [...html.matchAll(/rc-before">([\d,]+)%<\/span>[\s\S]*?rc-after">([\d,]+)%<\/span>[\s\S]*?rc-delta">\+(\d+)%/g)];
+  let bad = 0;
+  for (const [, before, after, delta] of blocks) {
+    const b = Number(before.replace(/,/g, ''));
+    const a = Number(after.replace(/,/g, ''));
+    const d = Number(delta);
+    const calc = Math.round((a - b) / b * 100);
+    if (calc !== d) {
+      console.error(`✗ ROAS ${before}%→${after}% 표기 증감률 +${d}% ≠ 실제 계산 +${calc}%`);
+      bad++;
+    }
+  }
+  if (bad) failed += bad;
+  else console.log(`✓ ROAS 전/후/증감률 ${blocks.length}건 전수 검산 통과`);
+}
+
+/* ── 2c. 히어로 성과 카드가 실제 케이스 데이터에서 나온 숫자인지 ────────
+   히어로의 큰 숫자(1,009% / +78% / +119%)는 손으로 옮겨 적은 값이라, 성과
+   섹션 원본이 바뀌어도 히어로 쪽은 그대로 남아 어긋나기 쉽다. 히어로에 적힌
+   숫자가 문서 어딘가(성과 섹션)에 실제로 존재하는지만 확인한다 — 존재하지
+   않으면 손으로 옮겨 적다 오타가 났거나 원본이 바뀐 뒤 갱신을 놓친 것이다. */
+function checkHeroProofGrounded(html) {
+  const heroNums = [...html.matchAll(/hp-item">.*?data-target="(\d+)" data-prefix="([^"]*)"/g)]
+    .map(([, target, prefix]) => `${prefix}${target}`);
+  const bodyWithoutHero = html.replace(/<div class="hero-proof">[\s\S]*?<\/div>\s*<\/div>\s*<\/div>/, '');
+  // 천 단위 콤마(1,009 vs 1009)는 표기 차이일 뿐이므로 숫자만 비교한다
+  const bodyDigitsOnly = bodyWithoutHero.replace(/(\d),(\d{3})/g, '$1$2');
+  let bad = 0;
+  for (const num of heroNums) {
+    const escaped = num.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    if (!new RegExp(escaped + '%').test(bodyDigitsOnly)) {
+      console.error(`✗ 히어로 성과 카드의 "${num}%"가 성과(RESULTS) 섹션 어디에도 없습니다 — 옮겨 적다 틀렸을 수 있습니다.`);
+      bad++;
+    }
+  }
+  if (bad) failed += bad;
+  else console.log(`✓ 히어로 성과 카드 ${heroNums.length}건 모두 성과 섹션 원본에서 확인됨`);
+}
+
 /* ── 3. 시뮬레이터: 회복 잠재력이 손실액에 종속되는지 ─────────────────── */
 function checkSimulator(html) {
   if (/recoverMW\s*=\s*lossMW\s*\*/.test(html)) {
@@ -150,6 +196,8 @@ console.log('── YEJI SOLUTION 배포 전 정합성 검사 ──\n');
 const html = readIndex();
 checkAdSpend(html);
 checkBrands(html);
+checkRoasDeltas(html);
+checkHeroProofGrounded(html);
 checkSimulator(html);
 checkPrivacy(html);
 checkDeadEndpoints(html);
