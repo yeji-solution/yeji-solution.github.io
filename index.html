@@ -1654,6 +1654,29 @@
   .form-help {
     margin-top: 4px; font-size: 12px; color: var(--text-dim);
   }
+  /* 선택 필드 접기 — 연락처 1개만 필수인데 화면엔 필드 7개가 한꺼번에
+     보이면 실제 입력 부담과 무관하게 "많다"는 인상을 줘 폼 이탈로 이어진다.
+     기본은 접어두고, 원하는 사람만 펼쳐 보게 한다. */
+  .form-more { margin: 4px 0 18px; }
+  .form-more summary {
+    cursor: pointer; list-style: none;
+    display: flex; align-items: center; gap: 8px;
+    padding: 13px 16px; min-height: 44px;
+    background: var(--bg-soft); border: 1px dashed var(--line-strong);
+    border-radius: 10px;
+    font-size: 13.5px; font-weight: 600; color: var(--text-sub);
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .form-more summary::-webkit-details-marker { display: none; }
+  .form-more summary::before {
+    content: '+'; font-size: 16px; font-weight: 800; color: var(--naver-dark);
+    flex-shrink: 0; width: 18px; text-align: center;
+    transition: transform 0.2s var(--ease-out);
+  }
+  .form-more[open] summary::before { content: '−'; }
+  .form-more summary:hover { border-color: var(--naver); background: var(--bg-naver); }
+  .form-more summary:focus-visible { outline: 2px solid var(--naver); outline-offset: 2px; }
+  .form-more-body { padding-top: 18px; }
   /* 개인정보 수집·이용 동의 (필수) */
   .form-consent-row {
     padding: 14px 16px; background: var(--bg-soft);
@@ -3592,6 +3615,10 @@
         <p>영업과 운영이 분리된 구조가 아닙니다. 처음 연락부터 매월 리뷰까지 이명수가 직접 담당합니다. 중간에 담당자가 바뀌어 인수인계로 운영 흐름이 끊기는 일이 없습니다.</p>
       </div>
     </div>
+
+    <div style="margin-top: 36px; text-align: center;">
+      <a href="#contact" class="btn-report-cta">이 세 가지 차이, 제 계정에도 적용되는지 확인하기 →</a>
+    </div>
   </div>
 </section>
 
@@ -3695,6 +3722,10 @@
           <li>담당자와 소통 없이 맡겨두기만 원하시는 경우</li>
         </ul>
       </div>
+    </div>
+
+    <div style="margin-top: 36px; text-align: center;">
+      <a href="#contact" class="btn-report-cta">내 상황이 어느 쪽인지 무료 진단으로 확인하기 →</a>
     </div>
   </div>
 </section>
@@ -3848,6 +3879,10 @@
 
     <div class="case-note">
       <strong>본 사례는 7년간 누적된 진단 패턴을 정리한 것</strong>으로, 특정 광고주의 정보가 노출되지 않도록 카테고리·수치를 일반화하여 작성했습니다. 실제 진단은 광고주별 데이터를 기반으로 다르게 진행됩니다.
+    </div>
+
+    <div style="margin-top: 36px; text-align: center;">
+      <a href="#contact" class="btn-report-cta">우리 얘기 같다면 — 무료 진단 신청하기 →</a>
     </div>
   </div>
 </section>
@@ -4101,6 +4136,10 @@
         </div>
       </div>
     </div>
+
+    <div style="margin-top: 36px; text-align: center;">
+      <a href="#contact" class="btn-report-cta">더 궁금한 점은 무료 진단 상담에서 직접 여쭤보세요 →</a>
+    </div>
   </div>
 </section>
 
@@ -4218,46 +4257,51 @@
         </div>
       </div>
 
-      <div class="form-row row2">
-        <div>
-          <label class="form-label" for="f-company">업체명 / 브랜드명 <span style="color: var(--text-dim); font-weight: 500;">(선택)</span></label>
-          <input class="form-input" type="text" id="f-company" name="company" autocomplete="organization" placeholder="진단 시 참고합니다" />
-        </div>
-        <div>
-          <label class="form-label" for="f-email">이메일 <span style="color: var(--text-dim); font-weight: 500;">(선택)</span></label>
-          <input class="form-input" type="email" id="f-email" name="email" autocomplete="email" placeholder="리포트 받을 메일" />
-        </div>
-      </div>
+      <details class="form-more" id="formMore">
+        <summary>업체명·매체·예산 등 추가로 알려주시면 진단이 더 정확해집니다 (선택)</summary>
+        <div class="form-more-body">
+          <div class="form-row row2">
+            <div>
+              <label class="form-label" for="f-company">업체명 / 브랜드명 <span style="color: var(--text-dim); font-weight: 500;">(선택)</span></label>
+              <input class="form-input" type="text" id="f-company" name="company" autocomplete="organization" placeholder="진단 시 참고합니다" />
+            </div>
+            <div>
+              <label class="form-label" for="f-email">이메일 <span style="color: var(--text-dim); font-weight: 500;">(선택)</span></label>
+              <input class="form-input" type="email" id="f-email" name="email" autocomplete="email" placeholder="리포트 받을 메일" />
+            </div>
+          </div>
 
-      <div class="form-row">
-        <label class="form-label">운영 중인 매체 <span style="color: var(--text-dim); font-weight: 500;">(중복 선택)</span></label>
-        <div class="form-checkbox-group">
-          <label class="form-checkbox"><input type="checkbox" name="media" value="네이버" />네이버</label>
-          <label class="form-checkbox"><input type="checkbox" name="media" value="지그재그" />지그재그</label>
-          <label class="form-checkbox"><input type="checkbox" name="media" value="카카오" />카카오</label>
-          <label class="form-checkbox"><input type="checkbox" name="media" value="쿠팡" />쿠팡</label>
-          <label class="form-checkbox"><input type="checkbox" name="media" value="오늘의집" />오늘의집</label>
-          <label class="form-checkbox"><input type="checkbox" name="media" value="기타" />기타 / 아직 미운영</label>
+          <div class="form-row">
+            <label class="form-label">운영 중인 매체 <span style="color: var(--text-dim); font-weight: 500;">(중복 선택)</span></label>
+            <div class="form-checkbox-group">
+              <label class="form-checkbox"><input type="checkbox" name="media" value="네이버" />네이버</label>
+              <label class="form-checkbox"><input type="checkbox" name="media" value="지그재그" />지그재그</label>
+              <label class="form-checkbox"><input type="checkbox" name="media" value="카카오" />카카오</label>
+              <label class="form-checkbox"><input type="checkbox" name="media" value="쿠팡" />쿠팡</label>
+              <label class="form-checkbox"><input type="checkbox" name="media" value="오늘의집" />오늘의집</label>
+              <label class="form-checkbox"><input type="checkbox" name="media" value="기타" />기타 / 아직 미운영</label>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="f-budget">월 광고비 <span style="color: var(--text-dim); font-weight: 500;">(선택)</span></label>
+            <select class="form-select" id="f-budget" name="budget">
+              <option value="">선택하지 않음</option>
+              <option value="300만원 미만">300만원 미만</option>
+              <option value="300-500만원">300 ~ 500만원</option>
+              <option value="500-1000만원">500 ~ 1,000만원</option>
+              <option value="1000-3000만원">1,000 ~ 3,000만원</option>
+              <option value="3000만원 이상">3,000만원 이상</option>
+            </select>
+            <div class="form-help">진단 우선순위 산정에만 사용됩니다. 외부에 공유되지 않습니다.</div>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="f-message">고민 / 문의 내용</label>
+            <textarea class="form-textarea" id="f-message" name="message" placeholder="예) ROAS가 점점 떨어지고 있는데 원인을 모르겠어요 / 대행사 변경 검토 중입니다 / 신규 매체 진입을 고민 중입니다"></textarea>
+          </div>
         </div>
-      </div>
-
-      <div class="form-row">
-        <label class="form-label" for="f-budget">월 광고비 <span style="color: var(--text-dim); font-weight: 500;">(선택)</span></label>
-        <select class="form-select" id="f-budget" name="budget">
-          <option value="">선택하지 않음</option>
-          <option value="300만원 미만">300만원 미만</option>
-          <option value="300-500만원">300 ~ 500만원</option>
-          <option value="500-1000만원">500 ~ 1,000만원</option>
-          <option value="1000-3000만원">1,000 ~ 3,000만원</option>
-          <option value="3000만원 이상">3,000만원 이상</option>
-        </select>
-        <div class="form-help">진단 우선순위 산정에만 사용됩니다. 외부에 공유되지 않습니다.</div>
-      </div>
-
-      <div class="form-row">
-        <label class="form-label" for="f-message">고민 / 문의 내용</label>
-        <textarea class="form-textarea" id="f-message" name="message" placeholder="예) ROAS가 점점 떨어지고 있는데 원인을 모르겠어요 / 대행사 변경 검토 중입니다 / 신규 매체 진입을 고민 중입니다"></textarea>
-      </div>
+      </details>
 
       <div class="form-row form-consent-row">
         <label class="form-consent" for="f-privacy">
@@ -5242,6 +5286,11 @@
         + ' · 회복 잠재 <strong>+' + fmtKRW(s.recoverMW) + '/월</strong>';
     }
     $('formPrefill').hidden = false;
+
+    /* 매체·예산이 자동으로 채워지는 영역은 기본적으로 접혀 있으므로,
+       자동 입력이 눈에 안 보이는 채로 남지 않도록 펼쳐서 보여준다. */
+    var more = $('formMore');
+    if (more) more.open = true;
   }
 
   var interacted = false;
