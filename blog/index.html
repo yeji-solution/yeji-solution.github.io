@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-BG8T024P56"></script>
+<!-- Google Analytics: 콘텐츠 렌더링 뒤 유휴 시간에 로드 -->
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-BG8T024P56');
+  (function(){
+    function load(){ if(window.__ysGaLoaded) return; window.__ysGaLoaded=true; var s=document.createElement('script'); s.async=true; s.src='https://www.googletagmanager.com/gtag/js?id=G-BG8T024P56'; document.head.appendChild(s); }
+    ['pointerdown','keydown','scroll'].forEach(function(e){ window.addEventListener(e,load,{once:true,passive:true}); });
+    window.addEventListener('load',function(){ setTimeout(load,10000); },{once:true});
+  })();
 </script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -27,8 +31,6 @@
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:image" content="https://yeji-solution.github.io/og-image.png" />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%2300C73C'/><rect x='26' y='56' width='13' height='20' rx='3' fill='white'/><rect x='44' y='42' width='13' height='34' rx='3' fill='white'/><rect x='62' y='28' width='13' height='48' rx='3' fill='white'/></svg>" />
-<link rel="preconnect" href="https://cdn.jsdelivr.net" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css" />
 <link rel="stylesheet" href="/blog/blog.css" />
 <script type="application/ld+json">
 {
@@ -60,6 +62,21 @@
     <span class="eyebrow">Marketing Insights</span>
     <h1>광고비를 쓰기 전에<br>먼저 읽어야 할 것들.</h1>
     <p>네이버·지그재그·쿠팡·오늘의집 광고 7년차 마케터가 현장에서 검증한 실무 인사이트입니다.<br>리포트용 이론이 아니라, 실제 계정에서 ROAS를 움직인 방법만 적습니다.</p>
+  </section>
+
+  <section class="blog-tools" aria-label="인사이트 검색 및 분류">
+    <label class="blog-search">
+      <span class="sr-only">인사이트 검색</span>
+      <input type="search" id="postSearch" placeholder="제목이나 주제로 검색" autocomplete="off" />
+    </label>
+    <div class="blog-filters" role="group" aria-label="카테고리 필터">
+      <button type="button" class="blog-filter is-active" data-category="all" aria-pressed="true">전체</button>
+      <button type="button" class="blog-filter" data-category="naver" aria-pressed="false">네이버</button>
+      <button type="button" class="blog-filter" data-category="zigzag" aria-pressed="false">지그재그</button>
+      <button type="button" class="blog-filter" data-category="commerce" aria-pressed="false">커머스</button>
+      <button type="button" class="blog-filter" data-category="strategy" aria-pressed="false">전략</button>
+    </div>
+    <p class="blog-count" id="postCount" aria-live="polite">전체 20개의 글</p>
   </section>
 
   <section class="post-list">
@@ -302,6 +319,42 @@
     <div class="footer-copy">© 2026 이명수 · YEJI SOLUTION</div>
   </div>
 </footer>
+
+<script>
+(function(){
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.post-card'));
+  var search = document.getElementById('postSearch');
+  var filters = Array.prototype.slice.call(document.querySelectorAll('.blog-filter'));
+  var count = document.getElementById('postCount');
+  var category = 'all';
+  cards.forEach(function(card){
+    var tag = card.querySelector('.post-tag');
+    var key = tag && tag.classList.contains('naver') ? 'naver' :
+      tag && tag.classList.contains('zigzag') ? 'zigzag' :
+      tag && (tag.classList.contains('coupang') || tag.classList.contains('ohouse') || tag.classList.contains('kakao')) ? 'commerce' : 'strategy';
+    card.dataset.category = key;
+  });
+  function update(){
+    var query = (search.value || '').trim().toLocaleLowerCase('ko-KR');
+    var visible = 0;
+    cards.forEach(function(card){
+      var matchCategory = category === 'all' || card.dataset.category === category;
+      var matchQuery = !query || card.textContent.toLocaleLowerCase('ko-KR').indexOf(query) !== -1;
+      card.hidden = !(matchCategory && matchQuery);
+      if (!card.hidden) visible++;
+    });
+    count.textContent = visible ? visible + '개의 글을 찾았습니다' : '검색 결과가 없습니다';
+  }
+  filters.forEach(function(button){
+    button.addEventListener('click', function(){
+      category = button.dataset.category;
+      filters.forEach(function(item){ var active=item===button; item.classList.toggle('is-active',active); item.setAttribute('aria-pressed',active?'true':'false'); });
+      update();
+    });
+  });
+  search.addEventListener('input', update);
+})();
+</script>
 
 </body>
 </html>
