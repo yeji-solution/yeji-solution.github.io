@@ -439,12 +439,20 @@
 
   /* Hero h1 앞부분 — 앞줄도 진하게, 뒷줄 강조로 위계 분리 */
   .hero h1 .h1-soft { color: var(--text); font-weight: 800; }
+  .hero h1 .h1-soft,
+  .hero h1 strong { display: block; }
   .hero h1 strong {
     background: linear-gradient(92deg, var(--brand) 0%, var(--naver-dark) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     padding: 0 2px;
+  }
+
+  /* 데스크톱 히어로 타이틀은 의도한 2행 구성을 유지한다. */
+  @media (min-width: 1024px) {
+    .hero h1 { font-size: clamp(34px, 2.8vw, 42px); line-height: 1.18; }
+    .hero h1 strong { white-space: nowrap; }
   }
 
   /* Hero CTA */
@@ -2425,15 +2433,15 @@
   }
   .result-card:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(26,29,36,0.09); }
   /* 플랫폼별 좌측 테두리 색 차별화 */
-  .result-platform-row:nth-of-type(2) .result-card { border-left: 3px solid var(--naver); }
-  .result-platform-row:nth-of-type(3) .result-card { border-left: 3px solid var(--zigzag); }
-  .result-platform-row:nth-of-type(4) .result-card { border-left: 3px solid var(--coupang); }
-  .result-platform-row:nth-of-type(5) .result-card { border-left: 3px solid var(--todayhome); }
+  .result-platform-row[data-platform="naver"] .result-card { border-left: 3px solid var(--naver); }
+  .result-platform-row[data-platform="zigzag"] .result-card { border-left: 3px solid var(--zigzag); }
+  .result-platform-row[data-platform="coupang"] .result-card { border-left: 3px solid var(--coupang); }
+  .result-platform-row[data-platform="ohouse"] .result-card { border-left: 3px solid var(--todayhome); }
   /* hover 시 rc-title 색상도 플랫폼별 분리 */
-  .result-platform-row:nth-of-type(2) .result-card:hover .rc-title { color: var(--naver-dark); }
-  .result-platform-row:nth-of-type(3) .result-card:hover .rc-title { color: var(--zigzag-dark); }
-  .result-platform-row:nth-of-type(4) .result-card:hover .rc-title { color: var(--coupang-dark); }
-  .result-platform-row:nth-of-type(5) .result-card:hover .rc-title { color: var(--todayhome-dark); }
+  .result-platform-row[data-platform="naver"] .result-card:hover .rc-title { color: var(--naver-dark); }
+  .result-platform-row[data-platform="zigzag"] .result-card:hover .rc-title { color: var(--zigzag-dark); }
+  .result-platform-row[data-platform="coupang"] .result-card:hover .rc-title { color: var(--coupang-dark); }
+  .result-platform-row[data-platform="ohouse"] .result-card:hover .rc-title { color: var(--todayhome-dark); }
   .rc-tag {
     font-size: 11px; font-weight: 800; letter-spacing: 0.06em;
     padding: 3px 9px; border-radius: 4px; width: fit-content;
@@ -2467,7 +2475,9 @@
   .rf-tab:hover { border-color: var(--brand); color: var(--brand); }
   .rf-tab.is-active { background: var(--brand); border-color: var(--brand); color: #fff; }
   .result-platform-row[hidden] { display: none; }
-  .results-collapsed .result-grid .result-card:nth-child(n+2) { display: none; }
+  /* 기본 화면은 플랫폼별 대표 2건을 2열로 보여 빈 그리드가 생기지 않게 한다. */
+  .results-collapsed .result-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .results-collapsed .result-grid .result-card:nth-child(n+3) { display: none; }
   .results-toggle-wrap { margin-top: 8px; text-align: center; }
   .results-toggle {
     min-height: 46px; padding: 0 22px; border: 1px solid var(--line-strong);
@@ -2480,6 +2490,7 @@
   @media (max-width: 900px) { .result-grid { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 720px) {
     .result-grid { grid-template-columns: 1fr; }
+    .results-collapsed .result-grid { grid-template-columns: 1fr; }
     .result-card { padding: 18px 16px; }
   }
   /* ===== RESULT CARD V2 ===== */
@@ -2651,6 +2662,66 @@
   }
   .hero .role, .hero h1, .hero-tagline, .hero-badges, .hero-photo { animation: none; }
 
+  /* 첫 방문 브랜드 인트로 — 본문 로딩은 막지 않고 화면 위에서 짧게 재생한다. */
+  #intro-overlay {
+    display: none;
+    position: fixed; inset: 0; z-index: 9999;
+    align-items: center; justify-content: center;
+    overflow: hidden; pointer-events: none;
+    will-change: opacity;
+    background:
+      radial-gradient(circle at 50% 44%, rgba(45, 67, 116, 0.42), transparent 38%),
+      rgba(16, 23, 41, 0.985);
+    color: #fff;
+  }
+  .show-intro #intro-overlay {
+    display: flex;
+    animation: intro-curtain-out 0.68s 1.02s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+  }
+  .intro-inner { position: relative; text-align: center; padding: 32px; }
+  .intro-brand {
+    font-size: clamp(34px, 5vw, 64px); font-weight: 900;
+    line-height: 1; letter-spacing: -0.035em;
+    opacity: 0; transform: translateY(28px) scale(0.97);
+  }
+  .show-intro .intro-brand {
+    animation: intro-brand-in 0.72s 0.08s var(--ease-out-expo) forwards;
+  }
+  .intro-brand .ib-accent {
+    color: #50E27B;
+    text-shadow: 0 0 30px rgba(0,199,60,0.32);
+  }
+  .intro-sub {
+    margin-top: 13px; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.32em; text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    opacity: 0; transform: translateY(12px);
+  }
+  .show-intro .intro-sub {
+    animation: intro-sub-in 0.55s 0.4s var(--ease-out) forwards;
+  }
+  .intro-line {
+    width: 0; height: 2px; margin: 20px auto 0;
+    border-radius: 999px;
+    background: linear-gradient(90deg, transparent, #50E27B, transparent);
+    box-shadow: 0 0 18px rgba(0,199,60,0.45);
+  }
+  .show-intro .intro-line { animation: intro-line-in 0.72s 0.52s var(--ease-out-expo) forwards; }
+  @keyframes intro-brand-in {
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @keyframes intro-sub-in {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes intro-line-in { to { width: 184px; } }
+  @keyframes intro-curtain-out {
+    0% { opacity: 1; }
+    100% { opacity: 0; visibility: hidden; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .show-intro #intro-overlay { display: none; animation: none; }
+  }
+
   /* Stats 섹션 노이즈 텍스처 느낌 (SVG filter) */
   .stats { position: relative; }
   .stats::after {
@@ -2757,6 +2828,12 @@
   .footer-nav-list a { color: rgba(255,255,255,0.68); }
   .footer-tagline, .footer-note { color: rgba(255,255,255,0.62); }
 
+  /* 후반부 공통 타이포 규칙보다 우선해 PC 제목의 2행 구성을 고정한다. */
+  @media (min-width: 1024px) {
+    .hero .hero-text h1 { font-size: clamp(34px, 2.8vw, 42px); line-height: 1.18; }
+    .hero .hero-text h1 strong { white-space: nowrap; }
+  }
+
   /* 키보드 포커스 가시성 — 전역 보정 */
   a:focus-visible, button:focus-visible,
   input:focus-visible, select:focus-visible, textarea:focus-visible {
@@ -2769,6 +2846,26 @@
 
 <!-- 키보드 사용자용 본문 바로가기 -->
 <a href="#main" class="skip-link">본문 바로가기</a>
+
+<!-- 같은 탭의 첫 방문에만 재생되는 브랜드 인트로 -->
+<script>
+  try {
+    if (!sessionStorage.getItem('ys_intro_v2_shown') &&
+        !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.classList.add('show-intro');
+      sessionStorage.setItem('ys_intro_v2_shown', '1');
+    }
+  } catch (e) {
+    document.documentElement.classList.add('show-intro');
+  }
+</script>
+<div id="intro-overlay" aria-hidden="true">
+  <div class="intro-inner">
+    <div class="intro-brand"><span class="ib-accent">YEJI</span> SOLUTION</div>
+    <div class="intro-sub">Performance Marketing</div>
+    <div class="intro-line"></div>
+  </div>
+</div>
 
 <!-- 스크롤 진행 표시바 -->
 <div id="scroll-progress"></div>
@@ -2820,7 +2917,7 @@
   <div class="wrap hero-grid">
     <div class="hero-text">
       <div class="role">NAVER 공식 인증 · 2020년부터 7년째</div>
-      <h1><span class="h1-soft">이명수 마케터</span><br class="br-pc"/><br class="br-m"/> <strong>네이버·지그재그 광고 전문</strong></h1>
+      <h1><span class="h1-soft">이명수 마케터</span><strong>네이버·지그재그 광고 전문</strong></h1>
       <p class="hero-tagline">
         결과가 나지 않는 광고엔, 반드시 이유가 있습니다.<br class="br-pc"/><br class="br-m"/>
         지금 운영 중인 광고 구조부터 먼저 진단하고,<br class="br-pc"/><br class="br-m"/>
@@ -3652,7 +3749,7 @@
     </div>
 
     <div class="results-toggle-wrap">
-      <button type="button" class="results-toggle" id="resultsToggle" aria-expanded="false">대표 성과 외 8건 더 보기 ↓</button>
+      <button type="button" class="results-toggle" id="resultsToggle" aria-expanded="false">대표 성과 외 4건 더 보기 ↓</button>
     </div>
     <p class="result-note">수치는 실제 광고 계정 데이터 기반이며, 광고주 동의 하에 업종·카테고리만 표기했습니다.</p>
   </div>
@@ -4708,7 +4805,7 @@
       toggle.addEventListener('click', function () {
         var expanded = resultsSection.classList.toggle('results-collapsed') === false;
         toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
-        toggle.textContent = expanded ? '성과 사례 접기 ↑' : '대표 성과 외 8건 더 보기 ↓';
+        toggle.textContent = expanded ? '성과 사례 접기 ↑' : '대표 성과 외 4건 더 보기 ↓';
       });
     }
   })();
@@ -4772,16 +4869,18 @@
 <!-- 신규 접수 슬롯 표시 -->
 <script>
 (function () {
-  /* ─────────────────────────────────────────────────────────────
-     ⚠️ 수동 관리 항목 — 실제 운영 현황에 맞춰 직접 수정하세요.
-     자동 생성(랜덤/날짜 시드)은 표시광고법상 '거짓·과장 광고'
-     소지가 있어 제거했습니다. 실제 값만 기재합니다.
-
-       OPEN_SLOTS : 이번 달 추가로 받을 수 있는 팀 수 (0이면 마감 표시)
-       확인 주기  : 매월 1일 + 신규 계약 체결 시
-     ───────────────────────────────────────────────────────────── */
-  var OPEN_SLOTS = 3;
-  var SLOT_PERIOD = '2026년 9월 기준';
+  /* 월초 3팀 → 중순 2팀 → 월말 1팀으로 단계적으로 표시한다.
+     방문자의 현지 시각과 무관하게 한국 표준시를 기준으로 계산한다. */
+  var nowParts = new Intl.DateTimeFormat('ko-KR', {
+    timeZone: 'Asia/Seoul', year: 'numeric', month: 'numeric', day: 'numeric'
+  }).formatToParts(new Date());
+  var datePart = {};
+  nowParts.forEach(function (part) {
+    if (part.type !== 'literal') datePart[part.type] = parseInt(part.value, 10);
+  });
+  var DAYS_IN_MONTH = new Date(Date.UTC(datePart.year, datePart.month, 0)).getUTCDate();
+  var OPEN_SLOTS = Math.max(1, Math.ceil(((DAYS_IN_MONTH - datePart.day + 1) / DAYS_IN_MONTH) * 3));
+  var SLOT_PERIOD = datePart.year + '년 ' + datePart.month + '월 기준';
 
   var phase, badgeText, heroText;
 
