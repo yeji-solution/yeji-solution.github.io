@@ -120,6 +120,8 @@ header {
 .article-head .lead { margin-top: 18px; font-size: 17px; color: var(--text-sub); line-height: 1.75; }
 .article-head .byline { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 13px; color: var(--text-dim); }
 .article-head .byline b { color: var(--text-sub); font-weight: 700; }
+.article-head .byline .author-link { color: var(--text-sub); font-weight: 700; text-decoration: underline; text-decoration-color: rgba(0, 199, 60, .35); text-underline-offset: 3px; }
+.article-head .byline .author-link:hover { color: var(--naver); text-decoration-color: currentColor; }
 
 .article-body { padding: 8px 0 56px; font-size: 16.5px; line-height: 1.85; color: #20242c; }
 .article-body h2 {
