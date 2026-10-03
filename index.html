@@ -986,8 +986,8 @@
     font-size: 11px; font-weight: 800;
   }
   .sim-disclaimer {
-    font-size: 11px; color: var(--text-dim); line-height: 1.55;
-    margin-bottom: 16px; text-align: center;
+    font-size: 12px; color: var(--text-sub); line-height: 1.65;
+    margin-bottom: 16px; text-align: left;
   }
   .sim-disclaimer strong { color: var(--naver-dark); font-weight: 800; }
   .sim-cta {
@@ -2502,6 +2502,7 @@
   @media (max-width: 720px) {
     .result-grid { grid-template-columns: 1fr; }
     .results-collapsed .result-grid { grid-template-columns: 1fr; }
+    .results-collapsed .result-grid .result-card:nth-child(n+2) { display: none; }
     .result-card { padding: 18px 16px; }
   }
   /* ===== RESULT CARD V2 ===== */
@@ -2851,6 +2852,18 @@
     outline: 2px solid var(--naver);
     outline-offset: 2px;
   }
+  .mobile-overview { display: none; }
+  @media (max-width: 720px) {
+    .mobile-overview { display: block; padding: 26px 0 30px; background: #f4f7fc; }
+    .mobile-overview h2 { font-size: 20px; line-height: 1.4; margin-bottom: 18px; }
+    .mobile-overview ol { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+    .mobile-overview li { display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; background: #fff; border: 1px solid var(--line); border-radius: 12px; }
+    .mobile-overview li strong { font-size: 13px; color: var(--brand); }
+    .mobile-overview li span { font-size: 13px; line-height: 1.5; color: var(--text-sub); }
+    .mobile-overview-links { display: flex; gap: 10px; margin-top: 16px; }
+    .mobile-overview-links a { flex: 1; min-height: 44px; display: flex; align-items: center; justify-content: center; padding: 8px; border: 1px solid var(--brand); border-radius: 9px; font-size: 12px; font-weight: 800; color: var(--brand); text-align: center; }
+    .mobile-overview-links a:last-child { background: var(--brand); color: #fff; }
+  }
 </style>
 </head>
 <body>
@@ -3003,12 +3016,25 @@
       </div>
       <div class="stat">
         <div class="stat-num">1,000<span>+</span></div>
-        <div class="stat-label">누적 운영 브랜드</div>
+        <div class="stat-label">2020년부터 누적 운영 브랜드</div>
       </div>
     </div>
     <div class="stats-note">
-      관리비·위약금 0원은 네이버·지그재그 공식 파트너 구조에서 비롯됩니다.<br class="br-pc"/> 광고비 외 별도 청구 없이, 매체 수수료만으로 운영되므로 광고주 입장에서 부담이 가장 적은 형태입니다.
+      누적 운영 브랜드는 2020년부터의 전체 이력이며, 월 4팀은 현재 신규 운영 접수 기준입니다.<br class="br-pc"/>
+      관리비·위약금 0원은 네이버·지그재그 공식 파트너 구조에서 비롯됩니다. 광고비 외 별도 청구 없이 매체 수수료만으로 운영합니다.
     </div>
+  </div>
+</section>
+
+<section class="mobile-overview" aria-label="무료 진단과 운영 진행 요약">
+  <div class="wrap">
+    <h2>상담부터 운영까지, 이렇게 진행합니다</h2>
+    <ol>
+      <li><strong>무료 진단 신청</strong><span>3영업일 내 연락해 현황과 진단 방향을 안내합니다.</span></li>
+      <li><strong>계정 점검</strong><span>분석이 필요하면 공식 사용자 초대 방식으로 권한을 받습니다.</span></li>
+      <li><strong>운영 시작</strong><span>계정 인계 후 7일 내 1차 운영 리포트를 공유합니다.</span></li>
+    </ol>
+    <div class="mobile-overview-links"><a href="#results">대표 성과 보기</a><a href="#contact">무료 진단 신청하기 →</a></div>
   </div>
 </section>
 
@@ -3024,7 +3050,7 @@
       </span>
       <span class="ss-text">
         <strong>내 광고, 30초 셀프 진단</strong>
-        <span class="ss-sub">월 광고비·매체·운영 상태만 고르면 손실 추정치가 바로 나옵니다</span>
+        <span class="ss-sub">월 광고비·매체·운영 상태를 고르면 점검 우선순위와 가정상 매출 차이를 볼 수 있습니다</span>
       </span>
       <span class="ss-arrow" aria-hidden="true">→</span>
     </a>
@@ -3189,7 +3215,7 @@
     <!-- KPI 밴드 -->
     <div class="kpi-band">
       <div class="kpi"><span class="kpi-num">50<i>억+</i></span><span class="kpi-lbl">누적 관리 광고비</span></div>
-      <div class="kpi"><span class="kpi-num">1,000<i>+</i></span><span class="kpi-lbl">누적 운영 브랜드</span></div>
+      <div class="kpi"><span class="kpi-num">1,000<i>+</i></span><span class="kpi-lbl">2020년부터 누적 운영 브랜드</span></div>
       <div class="kpi"><span class="kpi-num">12</span><span class="kpi-lbl">공개 성과 케이스</span></div>
       <div class="kpi"><span class="kpi-num">7<i>년차</i></span><span class="kpi-lbl">1:1 전담 운영</span></div>
     </div>
@@ -3760,7 +3786,7 @@
     </div>
 
     <div class="results-toggle-wrap">
-      <button type="button" class="results-toggle" id="resultsToggle" aria-expanded="false">대표 성과 외 4건 더 보기 ↓</button>
+      <button type="button" class="results-toggle" id="resultsToggle" aria-expanded="false">성과 사례 더 보기 ↓</button>
     </div>
     <p class="result-note">수치는 실제 광고 계정 데이터 기반이며, 광고주 동의 하에 업종·카테고리만 표기했습니다.</p>
   </div>
@@ -3918,7 +3944,7 @@
     <div class="section-head">
       <span class="eyebrow z">HOW I WORK</span>
       <h2>광고를 맡기시면,<br class="br-pc"/><br class="br-m"/> 이 순서로 진행합니다.</h2>
-      <p class="section-sub">매일·매주 어떤 작업이 어떻게 진행되는지, 실제 운영의 흐름을 그대로 보여드립니다.<br class="br-pc"/> 시작 후 7일 안에 1차 진단 리포트를 받게 됩니다.</p>
+      <p class="section-sub">매일·매주 어떤 작업이 어떻게 진행되는지, 실제 운영의 흐름을 그대로 보여드립니다.<br class="br-pc"/> 계정 인계 후 7일 안에 1차 운영 리포트를 받게 됩니다.</p>
     </div>
 
     <div class="timeline">
@@ -4074,8 +4100,8 @@
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow dual">DIAGNOSIS SIMULATOR</span>
-      <h2>당신 광고에 새고 있는 매출,<br class="br-pc"/><br class="br-m"/> <strong>30초 안에 확인하세요.</strong></h2>
-      <p class="section-sub">NAVER 공식 인증(2026.06) 마케터의 7년 누적 운영 케이스 평균치 기준으로 손실 가능성과 회복 잠재력을 즉시 추정해드립니다.</p>
+      <h2>내 광고의 점검 우선순위,<br class="br-pc"/><br class="br-m"/> <strong>30초 안에 살펴보세요.</strong></h2>
+      <p class="section-sub">입력한 조건과 미리 설정된 계산 가정으로 개선 가능성을 가늠합니다. 실제 손실액이나 예상 성과를 확정하는 진단은 아닙니다.</p>
     </div>
 
     <div class="sim-grid">
@@ -4120,25 +4146,25 @@
 
           <div class="sim-roas">
             <div class="sim-roas-row">
-              <span class="sr-label">업종 평균 ROAS</span>
+              <span class="sr-label">계산에 사용한 기준 ROAS</span>
               <span class="sr-value" id="simAvgRoas">580%</span>
             </div>
             <div class="sim-roas-bar"><div class="srb-fill srb-avg" style="width:100%"></div></div>
             <div class="sim-roas-row">
-              <span class="sr-label">당신 추정 ROAS</span>
+              <span class="sr-label">가정상 현재 ROAS</span>
               <span class="sr-value sr-current" id="simCurRoas">580%</span>
             </div>
             <div class="sim-roas-bar"><div class="srb-fill srb-cur" id="simCurBar" style="width:100%"></div></div>
-            <div class="sim-roas-delta neutral" id="simDelta">아래 항목을 체크하면 손실 추정치가 계산됩니다</div>
+            <div class="sim-roas-delta neutral" id="simDelta">아래 항목을 체크하면 가정상 매출 차이가 계산됩니다</div>
           </div>
 
           <div class="sim-amounts">
             <div class="sim-amount">
-              <div class="sa-label">추정 월 기회손실</div>
+              <div class="sa-label">가정상 월 매출 차이</div>
               <div class="sa-value sa-loss" id="simLoss">—</div>
             </div>
             <div class="sim-amount">
-              <div class="sa-label">회복 잠재력 / 월</div>
+              <div class="sa-label">가정상 회복 가능 매출 / 월</div>
               <div class="sa-value sa-gain" id="simGain">—</div>
             </div>
           </div>
@@ -4148,11 +4174,11 @@
           </div>
 
           <p class="sim-disclaimer">
-            ※ 본 추정은 <strong>NAVER 공식 인증(2026.06)</strong> 마케터의 7년 누적 운영 케이스 평균치 기준입니다.<br class="br-pc"/> 실제 진단 시 본인 계정 데이터로 재산정됩니다.
+            <strong>계산 가정:</strong> 체크한 문제 1개당 기준 ROAS를 7% 낮춰 계산합니다(최대 50%). 회복 가능 매출은 그 차이의 28~45%로 가정합니다. 실제 광고 계정 데이터는 반영되지 않았으며, 결과는 참고용입니다.
           </p>
 
-          <a href="#contact" class="sim-cta" id="simCtaBtn">이 손실 회복 진단 받기</a>
-          <div class="sim-cta-meta">관리비 · 위약금 0원 · 7일 내 1차 리포트</div>
+          <a href="#contact" class="sim-cta" id="simCtaBtn">내 계정 상황 무료 상담받기</a>
+          <div class="sim-cta-meta">신청 후 3영업일 내 연락 · 운영 시작 후 7일 내 1차 리포트</div>
         </div>
       </div>
     </div>
@@ -4229,7 +4255,7 @@
     <div class="section-head">
       <span class="eyebrow dual">COMMON ISSUES</span>
       <h2>무료 진단에서 가장<br class="br-pc"/><br class="br-m"/> 자주 발견되는 6가지.</h2>
-      <p class="section-sub">2020년부터 1,000개+ 브랜드를 운영하며 공통적으로 마주친 '돈이 새는 지점'입니다.<br class="br-pc"/> 하나라도 해당된다면, 지금 광고비의 일부가 그냥 버려지고 있을 가능성이 큽니다.</p>
+      <p class="section-sub">2020년부터 누적 운영한 1,000개+ 브랜드에서 자주 마주친 점검 항목입니다.<br class="br-pc"/> 해당 항목이 있다면 실제 계정 데이터를 함께 확인해보세요.</p>
     </div>
 
     <div class="report-grid">
@@ -4362,7 +4388,7 @@
   <div class="wrap">
     <div class="promises-mini">
       <div class="pm">
-        <strong>7일 내 1차 진단 리포트</strong>
+        <strong>운영 시작 후 7일 내 1차 리포트</strong>
         계정 인계 후 7일 안에 구조·입찰·소재 분석 리포트를 드립니다.
       </div>
       <div class="pm">
@@ -4382,20 +4408,20 @@
   <div class="wrap">
     <div class="urgency-badge" id="urgencyBadge"><span class="slot-cap">매월 신규 운영은 4팀까지만 맡습니다</span><span class="slot-status">접수 일정 확인 중</span></div>
     <span class="eyebrow dual" style="margin-bottom: 20px;">FREE DIAGNOSIS</span>
-    <h2>지금 운영 중인 광고,<br class="br-pc"/><br class="br-m"/> <strong>3영업일 내 무료 진단</strong> 받아보세요.</h2>
+    <h2>지금 운영 중인 광고,<br class="br-pc"/><br class="br-m"/> <strong>무료 진단 상담</strong> 신청하세요.</h2>
     <p class="cta-sub">
-      현재 광고 계정의 성과·입찰·소재 구조를 분석해<br class="br-pc"/><br class="br-m"/>
-      문제점과 개선 포인트를 정리해 드립니다.
+      3영업일 내 연락해 광고 현황과 고민을 듣고 진단 방향을 안내합니다.<br class="br-pc"/><br class="br-m"/>
+      계정 분석은 공식 사용자 초대로 권한을 받은 뒤 진행합니다.
     </p>
 
     <div class="cta-checks">
-      <span class="ck">계정 구조·입찰·소재 분석</span>
+      <span class="ck">현황 확인 후 진단 방향 안내</span>
       <span class="ck">계약 부담 없음</span>
-      <span class="ck">문제점 + 개선방향</span>
-      <span class="ck">3영업일 내 리포트 공유</span>
+      <span class="ck">계정 권한은 공식 초대 방식</span>
+      <span class="ck">3영업일 내 직접 연락</span>
     </div>
 
-    <!-- 진단 신청 폼 (Netlify Forms) -->
+    <!-- 무료 진단 신청 폼 (Web3Forms) -->
     <div class="form-success" id="formSuccess">
       <div class="fs-ico">✓</div>
       <h3>접수가 완료되었습니다</h3>
@@ -4411,7 +4437,7 @@
       <input type="checkbox" name="botcheck" style="display:none;" />
 
       <h3>무료 진단 신청</h3>
-      <p class="form-sub">연락처 하나만 남겨주셔도 됩니다. 영업일 기준 3일 안에<br class="br-pc"/> 진단 리포트를 보내드립니다.</p>
+      <p class="form-sub">연락처를 남겨주시면 3영업일 내 연락해 현황을 듣고<br class="br-pc"/> 무료 진단 방향을 안내드립니다.</p>
       <div class="form-error" id="formError" role="alert"></div>
 
       <div class="form-prefill" id="formPrefill" hidden>
@@ -4422,8 +4448,8 @@
 
       <div class="form-process">
         <div class="fp-step"><span class="fp-num">1</span>접수 확인 (당일)</div>
-        <div class="fp-step"><span class="fp-num">2</span>계정 분석 (1~3일)</div>
-        <div class="fp-step"><span class="fp-num">3</span>리포트 전달</div>
+        <div class="fp-step"><span class="fp-num">2</span>현황 확인·권한 안내</div>
+        <div class="fp-step"><span class="fp-num">3</span>진단 방향 안내 (3영업일 내 연락)</div>
       </div>
       <p class="form-help" style="margin: -4px 0 24px; text-align: center;">
         접수 단계에서는 광고 계정 비밀번호를 요구하지 않습니다. 분석이 필요한 경우에만 매체의 공식 사용자 초대 방식으로 열람 권한을 안내합니다.
@@ -4816,7 +4842,7 @@
       toggle.addEventListener('click', function () {
         var expanded = resultsSection.classList.toggle('results-collapsed') === false;
         toggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
-        toggle.textContent = expanded ? '성과 사례 접기 ↑' : '대표 성과 외 4건 더 보기 ↓';
+        toggle.textContent = expanded ? '성과 사례 접기 ↑' : '성과 사례 더 보기 ↓';
       });
     }
   })();
@@ -5315,10 +5341,10 @@
 
     var deltaEl = $('simDelta');
     if (s.issues.length === 0){
-      deltaEl.textContent = '아래 항목을 체크하면 손실 추정치가 계산됩니다';
+      deltaEl.textContent = '아래 항목을 체크하면 가정상 매출 차이가 계산됩니다';
       deltaEl.className   = 'sim-roas-delta neutral';
     } else {
-      deltaEl.textContent = '평균 대비 -' + Math.round(s.penalty*100) + '% 추정 — 회복 여지 있음';
+      deltaEl.textContent = '기준 ROAS 대비 -' + Math.round(s.penalty*100) + '% 가정';
       deltaEl.className   = 'sim-roas-delta warn';
     }
 
@@ -5385,10 +5411,10 @@
       + '업종: ' + industryLabel + '\n'
       + '매체: ' + mediumLabel + '\n'
       + '월 광고비: ' + s.spend.toLocaleString() + '만원\n'
-      + '업종 평균 ROAS: ' + s.baseRoas + '%\n'
-      + '추정 현재 ROAS: ' + Math.round(s.curRoas) + '%\n'
-      + '추정 월 기회손실: ' + fmtKRW(s.lossMW) + '\n'
-      + '회복 잠재력: ' + fmtKRW(s.recoverMW) + ' / 월\n'
+      + '계산 기준 ROAS: ' + s.baseRoas + '%\n'
+      + '가정상 현재 ROAS: ' + Math.round(s.curRoas) + '%\n'
+      + '가정상 월 매출 차이: ' + fmtKRW(s.lossMW) + '\n'
+      + '가정상 회복 가능 매출: ' + fmtKRW(s.recoverMW) + ' / 월\n'
       + '체크 항목: ' + issueText;
     var sumEl = $('f-sim-summary');
     if (sumEl) sumEl.value = summary;
@@ -5397,10 +5423,10 @@
     if (line){
       line.innerHTML = industryLabel + ' · ' + mediumLabel + ' · '
         + '<strong>' + s.spend.toLocaleString() + '만원</strong>'
-        + ' · 추정 ROAS <strong>' + Math.round(s.curRoas) + '%</strong>'
-        + ' / 평균 ' + s.baseRoas + '%'
-        + ' · 손실 <strong>' + fmtKRW(s.lossMW) + '</strong>'
-        + ' · 회복 잠재 <strong>+' + fmtKRW(s.recoverMW) + '/월</strong>';
+        + ' · 가정상 ROAS <strong>' + Math.round(s.curRoas) + '%</strong>'
+        + ' / 계산 기준 ' + s.baseRoas + '%'
+        + ' · 월 매출 차이 <strong>' + fmtKRW(s.lossMW) + '</strong>'
+        + ' · 가정상 회복 가능 <strong>+' + fmtKRW(s.recoverMW) + '/월</strong>';
     }
     $('formPrefill').hidden = false;
 
