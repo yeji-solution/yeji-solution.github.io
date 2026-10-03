@@ -1199,6 +1199,11 @@
     .story-cell { border-right: none; border-bottom: 1px solid var(--line); }
     .story-cell:last-child { border-bottom: none; }
   }
+  @media (min-width: 721px) and (max-width: 900px) {
+    .story { grid-template-columns: 1fr; }
+    .story-cell { border-right: none; border-bottom: 1px solid var(--line); }
+    .story-cell:last-child { border-bottom: none; }
+  }
 
   /* ===== STRATEGY (Platform Methods) ===== */
   .strat-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
@@ -1637,6 +1642,9 @@
   }
   .report-item h3 { font-size: 16px; margin-bottom: 6px; }
   .report-item p { font-size: 13px; color: var(--text-sub); line-height: 1.6; }
+  @media (min-width: 721px) and (max-width: 1023px) {
+    .report-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
   @media (max-width: 720px) { .report-grid { grid-template-columns: 1fr; } }
 
   /* ===== CONTACT FORM (Netlify Forms) ===== */
@@ -3112,7 +3120,7 @@
       </div>
     </div>
     <div class="stats-note">
-      <p>2020년부터 누적 브랜드 1,000개+ 운영 · 신규 접수 월 4팀</p>
+      <p>2020년부터 1,000곳 이상 운영 · 신규 접수 월 4팀</p>
       <p>네이버·지그재그는 공식 파트너 구조로 운영하며, 관리비·위약금은 0원입니다. 광고비 외 비용은 청구하지 않습니다.</p>
     </div>
   </div>
@@ -3122,9 +3130,9 @@
   <div class="wrap">
     <h2>상담부터 운영까지, 이렇게 진행합니다</h2>
     <ol>
-      <li><strong>무료 진단 신청</strong><span>3영업일 내 연락해 현황과 진단 방향을 안내합니다.</span></li>
+      <li><strong>무료 진단 신청</strong><span>3영업일 내 연락해 진단 방향을 안내합니다.</span></li>
       <li><strong>계정 점검</strong><span>필요하면 공식 초대로 계정 권한을 받습니다.</span></li>
-      <li><strong>운영 시작</strong><span>계정 인계 후 7일 내 1차 운영 리포트를 공유합니다.</span></li>
+      <li><strong>운영 시작</strong><span>계정 인계 후 7일 내 첫 리포트를 공유합니다.</span></li>
     </ol>
     <div class="mobile-overview-links"><a href="#results">대표 성과 보기</a><a href="#contact">무료 진단 신청하기 →</a></div>
   </div>
@@ -3194,7 +3202,7 @@
         NAVER <strong>공식 인증 마케터</strong>
       </div>
       <p class="co-sub">
-        매체사가 매년 운영 역량을 검증합니다. 예지솔루션 최초로 검색·디스플레이 두 영역을 통과했습니다.
+        매체사가 매년 운영 역량을 검증합니다. 예지솔루션 최초로 검색광고와 디스플레이 광고 인증을 모두 받았습니다.
       </p>
 
       <div class="co-grid">
@@ -4014,18 +4022,18 @@
       <div class="fit-block good">
         <div class="fit-title">이런 분께 잘 맞습니다</div>
         <ul class="fit-list">
-          <li>객단가가 있는 상품의 네이버 판매자</li>
+          <li>객단가가 있는 네이버 판매자</li>
           <li>2030 여성 타깃 패션·뷰티 상품</li>
-          <li>한 명이 꾸준히 함께해주길 원하는 분</li>
+          <li>한 명과 꾸준히 일하고 싶은 분</li>
           <li>리포트만 받는 운영이 답답하신 분</li>
         </ul>
       </div>
       <div class="fit-block bad">
         <div class="fit-title">이런 경우엔 덜 맞습니다</div>
         <ul class="fit-list">
-          <li>한 달 만에 매출 급증을 기대하시는 경우</li>
-          <li>매일 최저가 경쟁만 반복하는 초저가 상품</li>
-          <li>담당자와 소통하지 않고 맡기려는 경우</li>
+          <li>한 달 내 매출 급증을 기대하는 경우</li>
+          <li>최저가 경쟁만 하는 초저가 상품</li>
+          <li>담당자와 소통 없이 맡기는 경우</li>
         </ul>
       </div>
     </div>
@@ -4041,7 +4049,7 @@
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow z">HOW I WORK</span>
-      <h2>광고를 맡기시면, 이 순서로 진행합니다.</h2>
+      <h2>광고 운영은 이렇게 진행합니다.</h2>
       <p class="section-sub">매일·매주 어떤 작업이 어떻게 진행되는지, 실제 운영의 흐름을 그대로 보여드립니다. 계정 인계 후 7일 안에 1차 운영 리포트를 받게 됩니다.</p>
     </div>
 
@@ -4112,10 +4120,10 @@
         <div class="case-block found">
           <div class="blk-title found">진단 시 발견된 문제</div>
           <ul>
-            <li>키워드 80개 중 5개에 광고비 70% 집중</li>
-            <li>다른 키워드는 클릭만 있고 전환은 거의 없음</li>
+            <li>키워드 5개에 광고비 70% 집중</li>
+            <li>나머지 키워드는 클릭만 발생</li>
             <li>동일 상품군 캠페인이 3개로 중복 운영</li>
-            <li>대표 키워드 1위 입찰 고집으로 CPC만 상승</li>
+            <li>1위 입찰 고집으로 CPC 상승</li>
           </ul>
         </div>
 
@@ -4123,8 +4131,8 @@
           <div class="blk-title fix">접근 방향</div>
           <ul>
             <li>장기 무전환 키워드 정리 → 예산 회수</li>
-            <li>핵심 키워드 입찰 골든존 재탐색 (1위 X)</li>
-            <li>중복 캠페인 통합 → 품질지수 데이터 집중</li>
+            <li>핵심 키워드 입찰가 재조정</li>
+            <li>중복 캠페인 통합 → 데이터 집중</li>
             <li>구매 의도 세부 키워드로 구조 재설계</li>
           </ul>
         </div>
@@ -4138,10 +4146,10 @@
         <div class="case-block found">
           <div class="blk-title found">진단 시 발견된 문제</div>
           <ul>
-            <li>썸네일 6개월간 미교체 → CTR 지속 하락</li>
+            <li>썸네일 6개월 미교체 → CTR 하락</li>
             <li>저효율 캠페인이 많아 학습 데이터 분산</li>
-            <li>기획전 일정에 대응 없이 일반 노출만 진행</li>
-            <li>부진 상품을 그대로 둔 채 신규 상품만 추가</li>
+            <li>기획전 대응 없이 일반 노출만 진행</li>
+            <li>부진 상품을 두고 새 상품만 추가</li>
           </ul>
         </div>
 
@@ -4149,9 +4157,9 @@
           <div class="blk-title fix">접근 방향</div>
           <ul>
             <li>썸네일 A/B 테스트로 클릭률 회복</li>
-            <li>저효율 캠페인 종료 → 머신러닝 신호 집중</li>
-            <li>다음 기획전 사전 진입 신청 (파트너 우선권)</li>
-            <li>부진 상품 그룹을 다시 설정해 학습 유도</li>
+            <li>저효율 캠페인 종료 → 학습 신호 집중</li>
+            <li>다음 기획전 사전 진입 신청</li>
+            <li>부진 상품 그룹 재설정</li>
           </ul>
         </div>
       </div>
@@ -4164,19 +4172,19 @@
         <div class="case-block found">
           <div class="blk-title found">진단 시 발견된 문제</div>
           <ul>
-            <li>같은 상품을 두 매체에서 같은 가격으로 운영</li>
-            <li>모바일 비중 80%인데 PC 기준 소재만 사용</li>
+            <li>두 매체에 같은 상품·가격 적용</li>
+            <li>모바일 80%인데 PC 소재만 사용</li>
             <li>구매가 몰리는 저녁에도 입찰가가 동일</li>
-            <li>매체별 ROAS 비교 없이 예산만 절반씩 분배</li>
+            <li>ROAS 비교 없이 예산 반씩 배분</li>
           </ul>
         </div>
 
         <div class="case-block fix">
           <div class="blk-title fix">접근 방향</div>
           <ul>
-            <li>객단가·타깃에 따라 매체별 상품군 분리</li>
-            <li>모바일 전용 소재 추가, 디바이스별 입찰 차등</li>
-            <li>시간대 입찰 계수로 전환 시간에 노출 집중</li>
+            <li>객단가·타깃별 상품군 분리</li>
+            <li>모바일 소재와 기기별 입찰 적용</li>
+            <li>전환 시간대에 노출 집중</li>
             <li>주간 ROAS에 따라 예산 비율 조정</li>
           </ul>
         </div>
@@ -4272,7 +4280,7 @@
           </div>
 
           <p class="sim-disclaimer">
-            <strong>계산 가정:</strong> 체크한 문제 1개당 기준 ROAS를 7% 낮춰 계산합니다(최대 50%). 회복 가능 매출은 그 차이의 28~45%로 가정합니다. 실제 광고 계정 데이터는 반영되지 않았으며, 결과는 참고용입니다.
+            <strong>계산 가정:</strong> 체크한 문제마다 기준 ROAS를 7%씩 낮춰 계산하며, 최대 감소 폭은 50%입니다. 회복 가능 매출은 차이의 28~45%로 가정합니다. 실제 계정 데이터는 반영하지 않은 참고용 결과입니다.
           </p>
 
           <a href="#contact" class="sim-cta" id="simCtaBtn">내 계정 상황 무료 상담받기</a>
@@ -4353,7 +4361,7 @@
     <div class="section-head">
       <span class="eyebrow dual">COMMON ISSUES</span>
       <h2>무료 진단에서 가장 자주 발견되는 6가지.</h2>
-      <p class="section-sub">2020년부터 누적 운영한 1,000개+ 브랜드에서 자주 마주친 점검 항목입니다. 해당 항목이 있다면 실제 계정 데이터를 함께 확인해보세요.</p>
+      <p class="section-sub">누적 1,000곳 이상에서 발견한 주요 점검 항목입니다. 실제 계정 데이터를 바탕으로 확인합니다.</p>
     </div>
 
     <div class="report-grid">
@@ -4380,7 +4388,7 @@
       <div class="report-item">
         <div class="rnum">05</div>
         <h3>방치된 옛 캠페인</h3>
-        <p>예전에 만들고 끄지 않은 캠페인·광고그룹이 예산과 AI 학습 데이터를 분산시킵니다.</p>
+        <p>과거 캠페인과 광고그룹을 방치하면 예산과 AI 학습 데이터가 분산됩니다.</p>
       </div>
       <div class="report-item">
         <div class="rnum">06</div>
@@ -4729,7 +4737,7 @@
   if (heroRefreshCopy) {
     var heroCopyOptions = [
       '검색어는 고객을 데려오고, 상품은 고객을 멈춰 세웁니다.',
-      '광고가 보여 준 상품과 실제로 팔린 상품, 그 차이에서 조정을 시작합니다.',
+      '노출된 상품과 팔린 상품을 비교합니다.',
       '클릭이 주문으로 이어지지 않는다면, 광고 밖의 과정까지 살펴봅니다.'
     ];
     try {
