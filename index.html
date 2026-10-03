@@ -2887,10 +2887,16 @@
     border-top: 4px solid #75d7a0;
     box-shadow: 0 12px 28px rgba(5, 15, 34, 0.2);
   }
+  .stat-featured {
+    background: linear-gradient(145deg, #fff 0%, #eafbf2 100%);
+    border-top-color: #31bb77;
+  }
   .stat-num { font-size: 42px; }
   .stat-num span { font-size: 18px; }
   .stat-label { font-size: 14px; font-weight: 700; color: #47536b; }
-  .stats-note { color: rgba(255,255,255,0.8); margin-top: 18px; }
+  .stats-note { color: rgba(255,255,255,0.82); margin-top: 22px; padding: 18px 0 0; border-top: 1px solid rgba(255,255,255,0.18); }
+  .stats-note p { color: inherit; font-size: 12px; line-height: 1.6; }
+  .stats-note p + p { margin-top: 5px; }
 
   @media (max-width: 720px) {
     .stats { padding: 38px 0 28px; }
@@ -2900,12 +2906,23 @@
     .stat-num { font-size: 33px; }
     .stat-num span { font-size: 15px; }
     .stat-label { font-size: 12px; line-height: 1.4; }
-    .stats-note { text-align: left; font-size: 11.5px; }
+    .hp-item b { font-size: clamp(17px, 5vw, 21px); white-space: nowrap; letter-spacing: -0.05em; }
+    .hp-period { display: none; }
+    .stats-note { text-align: left; }
+    .stats-note p { font-size: 11.5px; }
+    .cta-checks { width: min(100%, 370px); gap: 8px; margin: 30px auto 34px; }
+    .cta .ck { display: flex; align-items: center; justify-content: center; min-height: 42px; padding: 8px 7px; font-size: 12px; white-space: nowrap; }
+    .ck::before { flex-shrink: 0; margin-right: 5px; }
+    .fp-step { padding: 11px 3px; min-width: 0; white-space: nowrap; }
 
-    /* 푸터 링크를 두 열로 묶어 긴 단일 목록의 세로 길이를 줄인다. */
-    .footer-grid { gap: 22px; }
-    .footer-nav-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 10px; }
-    .footer-nav-list a { min-height: 44px; line-height: 1.35; }
+    .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 14px; }
+    .footer-grid > :first-child { grid-column: 1 / -1; }
+    .footer-nav-list { gap: 0; }
+    .footer-nav-list a { min-height: 44px; line-height: 1.3; white-space: nowrap; }
+    .footer-col-ttl { margin-bottom: 6px; }
+    .footer-badge-pill { color: rgba(255,255,255,0.68); }
+    .footer-copy { display: flex; align-items: center; flex-wrap: wrap; column-gap: 12px; }
+    .footer-privacy { margin-left: 0; padding-left: 0; border-left: 0; }
   }
 </style>
 </head>
@@ -2986,9 +3003,8 @@
       <div class="role">NAVER 공식 인증 · 2020년부터 7년째</div>
       <h1><span class="h1-soft">이명수 마케터</span><strong>네이버·지그재그 광고 전문</strong></h1>
       <p class="hero-tagline">
-        결과가 나지 않는 광고엔, 반드시 이유가 있습니다.<br class="br-pc"/><br class="br-m"/>
-        지금 운영 중인 광고 구조부터 먼저 진단하고,<br class="br-pc"/><br class="br-m"/>
-        처음 상담부터 운영까지 1:1로 함께합니다.
+        광고 성과가 막혔다면, 원인부터 함께 찾겠습니다.<br class="br-pc"/>
+        첫 상담부터 운영까지 제가 1:1로 맡습니다.
       </p>
 
       <div class="hero-badges">
@@ -3037,36 +3053,36 @@
 <!-- STATS -->
 <section class="stats">
   <div class="wrap">
-    <h2 class="stats-heading">숫자로 보는 운영 경험</h2>
+    <h2 class="stats-heading">숫자로 확인하는 운영 경험</h2>
     <div class="stats-grid">
-      <div class="stat">
+      <div class="stat stat-featured">
         <div class="stat-num" data-count="7" data-suffix="년차">7<span>년차</span></div>
-        <div class="stat-label">광고 마케팅 경력</div>
+        <div class="stat-label">마케팅 경력</div>
+      </div>
+      <div class="stat stat-featured">
+        <div class="stat-num">50<span>억+</span></div>
+        <div class="stat-label">누적 관리 광고비</div>
+      </div>
+      <div class="stat stat-featured">
+        <div class="stat-num">1,000<span>+</span></div>
+        <div class="stat-label">누적 운영 브랜드</div>
       </div>
       <div class="stat">
         <div class="stat-num">1:1</div>
-        <div class="stat-label">1:1 전담 운영</div>
+        <div class="stat-label">전담 운영</div>
       </div>
       <div class="stat">
         <div class="stat-num" data-count="7" data-suffix="일">7<span>일</span></div>
-        <div class="stat-label">이관 후 1차 리포트</div>
+        <div class="stat-label">이관 후 첫 리포트</div>
       </div>
       <div class="stat">
         <div class="stat-num" data-count="0" data-suffix="원">0<span>원</span></div>
         <div class="stat-label">관리비 · 위약금</div>
       </div>
-      <div class="stat">
-        <div class="stat-num">50<span>억+</span></div>
-        <div class="stat-label">누적 관리 광고비</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">1,000<span>+</span></div>
-        <div class="stat-label">2020년부터 누적 운영 브랜드</div>
-      </div>
     </div>
     <div class="stats-note">
-      누적 운영 브랜드는 2020년부터의 전체 이력이며, 월 4팀은 현재 신규 운영 접수 기준입니다.<br class="br-pc"/>
-      관리비·위약금 0원은 네이버·지그재그 공식 파트너 구조에서 비롯됩니다. 광고비 외 별도 청구 없이 매체 수수료만으로 운영합니다.
+      <p>누적 운영 브랜드는 2020년부터의 전체 이력이며, 월 4팀은 현재 신규 운영 접수 기준입니다.</p>
+      <p>네이버·지그재그는 공식 파트너 구조로 관리비·위약금이 0원입니다. 광고비 외 별도 청구 없이 매체 수수료로 운영합니다.</p>
     </div>
   </div>
 </section>
@@ -4467,10 +4483,10 @@
     </p>
 
     <div class="cta-checks">
-      <span class="ck">현황 확인 후 진단 방향 안내</span>
+      <span class="ck">진단 방향 안내</span>
       <span class="ck">계약 부담 없음</span>
-      <span class="ck">계정 권한은 공식 초대 방식</span>
-      <span class="ck">3영업일 내 직접 연락</span>
+      <span class="ck">공식 계정 초대</span>
+      <span class="ck">3영업일 내 연락</span>
     </div>
 
     <!-- 무료 진단 신청 폼 (Web3Forms) -->
@@ -4499,9 +4515,9 @@
 
 
       <div class="form-process">
-        <div class="fp-step"><span class="fp-num">1</span>접수 확인 (당일)</div>
-        <div class="fp-step"><span class="fp-num">2</span>현황 확인·권한 안내</div>
-        <div class="fp-step"><span class="fp-num">3</span>진단 방향 안내 (3영업일 내 연락)</div>
+        <div class="fp-step"><span class="fp-num">1</span>접수</div>
+        <div class="fp-step"><span class="fp-num">2</span>현황 확인</div>
+        <div class="fp-step"><span class="fp-num">3</span>진단 안내</div>
       </div>
       <p class="form-help" style="margin: -4px 0 24px; text-align: center;">
         접수 단계에서는 광고 계정 비밀번호를 요구하지 않습니다. 분석이 필요한 경우에만 매체의 공식 사용자 초대 방식으로 열람 권한을 안내합니다.
@@ -4596,7 +4612,7 @@
         <picture>
           <source srcset="kakao-qr.webp" type="image/webp" />
           <img src="kakao-qr.png"
-               alt="카카오 오픈채팅 QR코드" class="kakao-qr-img" width="80" height="80" loading="lazy" />
+               alt="카카오 오픈채팅 QR코드" class="kakao-qr-img" width="96" height="96" loading="eager" />
         </picture>
         <div class="kakao-qr-text">
           <div class="kakao-qr-title">카카오 오픈채팅 QR</div>
@@ -4641,7 +4657,7 @@
         <ul class="footer-nav-list">
           <li><a href="#contact">무료 진단 신청</a></li>
           <li><a href="https://open.kakao.com/o/sPhekaQi" target="_blank" rel="noopener">카카오 오픈채팅</a></li>
-          <li><a href="https://www.ye-ji.com/" target="_blank" rel="noopener">예지솔루션 공식 홈페이지</a></li>
+          <li><a href="https://www.ye-ji.com/" target="_blank" rel="noopener">회사 홈페이지</a></li>
         </ul>
       </div>
     </div>
