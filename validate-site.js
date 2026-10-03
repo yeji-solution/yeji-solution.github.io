@@ -70,7 +70,8 @@ const home = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
   ['role="tab" aria-selected=', '접근 가능한 성과 탭'],
   ['aria-controls="qa-answer-1"', '접근 가능한 Q&A'],
   ["timeZone: 'Asia/Seoul'", '한국시간 기준 접수 가능 시점'],
-  ["var text = '매월 신규 운영 최대 4팀 · '", '월간 신규 운영 한도 표시'],
+  ["'월 신규 운영 ' + openSlots + '팀 접수 가능'", '월간 신규 운영 접수 표시'],
+  ["'월 신규 운영 접수 마감 · '", '월말 신규 운영 마감 표시'],
 ].forEach(([needle, label]) => { if (!home.includes(needle)) fail(path.join(root, 'index.html'), `${label} 누락`); });
 
 const sharedBlogScript = path.join(root, 'blog', 'blog.js');

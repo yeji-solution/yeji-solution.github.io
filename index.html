@@ -4870,7 +4870,7 @@
 <script>
 (function () {
   /* 매월 신규 운영은 최대 4팀. 1~7일 4팀, 8~14일 3팀,
-     15~21일 2팀, 22일~월말 1팀으로 시작 가능 규모를 표시한다. */
+     15~21일 2팀, 22~28일 1팀, 29일~월말 당월 접수 마감. */
   var dateFormatter = new Intl.DateTimeFormat('ko-KR', {
     timeZone: 'Asia/Seoul', year: 'numeric', month: 'numeric', day: 'numeric'
   });
@@ -4880,10 +4880,13 @@
     dateFormatter.formatToParts(new Date()).forEach(function (part) {
       if (part.type !== 'literal') datePart[part.type] = parseInt(part.value, 10);
     });
-    var openSlots = Math.max(1, 4 - Math.floor((datePart.day - 1) / 7));
+    var openSlots = Math.max(0, 4 - Math.floor((datePart.day - 1) / 7));
     var dateLabel = datePart.year + '.' + String(datePart.month).padStart(2, '0') + '.' + String(datePart.day).padStart(2, '0');
-    var text = '매월 신규 운영 최대 4팀 · ' + dateLabel + ' 기준 ' + openSlots + '팀 가능';
-    var phase = openSlots <= 2 ? 'slot-limited' : 'slot-available';
+    var nextMonth = datePart.month === 12 ? 1 : datePart.month + 1;
+    var text = openSlots
+      ? dateLabel + ' 기준 · ' + datePart.month + '월 신규 운영 ' + openSlots + '팀 접수 가능'
+      : dateLabel + ' 기준 · ' + datePart.month + '월 신규 운영 접수 마감 · ' + nextMonth + '월 시작 일정 상담 가능';
+    var phase = openSlots === 0 ? 'slot-closed' : openSlots <= 2 ? 'slot-limited' : 'slot-available';
 
     ['urgencyBadge', 'heroSlotMeta'].forEach(function (id) {
       var element = document.getElementById(id);
