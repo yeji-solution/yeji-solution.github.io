@@ -386,15 +386,6 @@
     display: grid; grid-template-columns: 1.1fr 0.9fr;
     gap: 56px; align-items: center;
   }
-  .hero .role {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-size: 13px; color: var(--text-dim); font-weight: 600;
-    letter-spacing: 0.04em; margin-bottom: 24px;
-  }
-  .hero .role::before {
-    content: ''; width: 6px; height: 6px; border-radius: 50%;
-    background: var(--brand); box-shadow: 0 0 8px rgba(27,42,78,0.5);
-  }
   .hero-tagline {
     margin-top: 24px;
     font-size: 18px; color: var(--text-sub); line-height: 1.6;
@@ -1857,12 +1848,11 @@
   .hero h1 { font-size: clamp(30px, 5.2vw, 52px); }
   @media (max-width: 720px) { .hero h1 { font-size: clamp(28px, 7vw, 36px); } }
 
-  /* Hero role 도트 pulse 애니메이션 */
+  /* 상태 표시 도트 pulse 애니메이션 */
   @keyframes pulse-dot {
     0%, 100% { box-shadow: 0 0 0 0 rgba(27,42,78,0.5); }
     50% { box-shadow: 0 0 0 6px rgba(27,42,78,0); }
   }
-  .hero .role::before { animation: pulse-dot 2.2s ease-in-out infinite; }
 
   /* Hero 배지 hover 효과 */
   .badge { transition: transform 0.15s, box-shadow 0.15s; cursor: default; }
@@ -2012,10 +2002,6 @@
   .kpi { border-top: 3px solid var(--brand); }
   .stat-num,
   .kpi-num { color: var(--brand); }
-
-  @media (prefers-reduced-motion: reduce) {
-    .hero .role::before { animation: none; }
-  }
 
   /* 모바일 quote / eyebrow / pm 조정 */
   @media (max-width: 720px) {
@@ -2671,7 +2657,7 @@
     from { opacity: 0; transform: translateY(42px); }
     to   { opacity: 1; transform: translateY(0); }
   }
-  .hero .role, .hero h1, .hero-tagline, .hero-badges, .hero-photo { animation: none; }
+  .hero h1, .hero-tagline, .hero-badges, .hero-photo { animation: none; }
 
   /* 첫 방문 브랜드 인트로 — 본문 로딩은 막지 않고 화면 위에서 짧게 재생한다. */
   #intro-overlay {
@@ -2949,12 +2935,21 @@
   .hero-tagline, .section-sub, .stats-note p, .ss-sub, .co-sub, .co-note,
   .cred-item .desc, .cred-extra, .story-cell p, .strat-block > p, .mp-quote,
   .result-note, .review-text, .report-item p, .sim-disclaimer,
+  .rc-title, .principle .pdesc, .qa .a, .qa .q,
   .cta-sub, .form-sub, .form-help, .footer-tagline, .footer-note {
     text-wrap: balance;
   }
+  @media (max-width: 720px) {
+    .result-grid, .results-collapsed .result-grid { grid-template-columns: minmax(0, 1fr); }
+    .result-card { min-width: 0; }
+    .btn-report-cta { max-width: 100%; justify-content: center; text-align: center; }
+  }
   @media (max-width: 360px) {
-    .review-card { padding: 24px 18px; }
-    .review-text { font-size: 13px; }
+    .brand-person { display: none; }
+    .nav-toggle { flex-shrink: 0; }
+    .review-card { padding: 22px 14px; }
+    .review-text { font-size: 12.5px; }
+    .rc-row { flex-wrap: wrap; }
   }
 </style>
 </head>
@@ -2998,7 +2993,7 @@
 <!-- HEADER -->
 <header>
   <div class="nav">
-    <div class="brand"><span class="accent-n">YEJI</span> SOLUTION <span style="color: var(--text-dim); font-weight: 500;">· 이명수 마케터</span></div>
+    <div class="brand"><span class="accent-n">YEJI</span> SOLUTION <span class="brand-person" style="color: var(--text-dim); font-weight: 500;">· 이명수 마케터</span></div>
     <nav class="nav-menu" aria-label="주요 메뉴">
       <a href="#credentials">자격·인증</a>
       <a href="#results">성과</a>
@@ -3032,10 +3027,9 @@
   <div class="hero-bg-text">MARKETING</div>
   <div class="wrap hero-grid">
     <div class="hero-text">
-      <div class="role">NAVER 공식 인증 · 2020년부터 7년째</div>
       <h1><span class="h1-soft">이명수 마케터</span><strong>네이버·지그재그 광고 전문</strong></h1>
       <p class="hero-tagline">
-        광고 성과가 막혔다면, 원인부터 함께 찾겠습니다. 첫 상담부터 운영까지 제가 1:1로 맡습니다.
+        예산을 늘리기 전에 성과가 막힌 지점을 먼저 찾습니다. 클릭·전환 데이터를 확인해 개선 우선순위를 제안합니다.
       </p>
 
       <div class="hero-badges">
@@ -3168,7 +3162,7 @@
     </div>
     <strong class="mp-name">이명수 마케터</strong>
     <p class="mp-role-text">YEJI SOLUTION · 2020년부터 7년째</p>
-    <p class="mp-quote">"광고 성과가 답답할 때, 원인부터 함께 찾겠습니다. 첫 상담부터 운영까지 제가 직접 맡겠습니다."</p>
+    <p class="mp-quote">"성과 수치만 전달하고 끝내지 않겠습니다. 변화의 이유와 다음 조치를 함께 설명하겠습니다."</p>
     <div class="mp-creds">
       <span class="mp-cred">검색광고마케터 1급</span>
       <span class="mp-cred">구글 GAIQ</span>
@@ -3925,7 +3919,7 @@
     </div>
 
     <div style="margin-top: 36px; text-align: center;">
-      <a href="#contact" class="btn-report-cta">이 세 가지 차이, 제 계정에도 적용되는지 확인하기 →</a>
+      <a href="#contact" class="btn-report-cta">내 계정도 점검받기 →</a>
     </div>
   </div>
 </section>
@@ -4033,7 +4027,7 @@
     </div>
 
     <div style="margin-top: 36px; text-align: center;">
-      <a href="#contact" class="btn-report-cta">내 상황이 어느 쪽인지 무료 진단으로 확인하기 →</a>
+      <a href="#contact" class="btn-report-cta">내 광고에 맞는 운영 상담 →</a>
     </div>
   </div>
 </section>
@@ -4190,7 +4184,7 @@
     </div>
 
     <div style="margin-top: 36px; text-align: center;">
-      <a href="#contact" class="btn-report-cta">우리 얘기 같다면 — 무료 진단 신청하기 →</a>
+      <a href="#contact" class="btn-report-cta">비슷한 고민 상담하기 →</a>
     </div>
   </div>
 </section>
@@ -4278,7 +4272,7 @@
           </p>
 
           <a href="#contact" class="sim-cta" id="simCtaBtn">내 계정 상황 무료 상담받기</a>
-          <div class="sim-cta-meta">신청 후 3영업일 내 연락 · 운영 시작 후 7일 내 1차 리포트</div>
+          <div class="sim-cta-meta">3영업일 내 연락 · 운영 시작 7일 내 첫 리포트</div>
         </div>
       </div>
     </div>
@@ -4392,7 +4386,7 @@
     </div>
 
     <div style="margin-top: 36px; text-align: center;">
-      <a href="#contact" class="btn-report-cta">이 중 하나라도 해당된다면 — 무료 진단 신청하기 →</a>
+      <a href="#contact" class="btn-report-cta">6가지 항목 무료 점검받기 →</a>
     </div>
   </div>
 </section>
@@ -4410,7 +4404,7 @@
       <div class="qa">
         <button type="button" class="q" aria-expanded="true" aria-controls="qa-answer-1">광고비를 늘리면 매출이 늘어나나요?</button>
         <div class="a" id="qa-answer-1">
-          <strong>대부분의 경우 비례하지 않습니다.</strong> 매출이 안 나오는 이유는 거의 항상 노출·클릭·전환 중 한 군데에 막혀 있습니다. 막힌 곳을 그대로 두고 예산만 늘리면 ROAS가 더 떨어집니다. 진단이 먼저고, 예산은 마지막입니다.
+          <strong>대부분 비례하지 않습니다.</strong> 노출·클릭·전환 중 어디에서 매출이 막히는지 먼저 찾아야 합니다. 원인을 그대로 둔 채 예산만 늘리면 ROAS가 떨어질 수 있습니다.
         </div>
       </div>
       <div class="qa">
@@ -4446,7 +4440,7 @@
     </div>
 
     <div style="margin-top: 36px; text-align: center;">
-      <a href="#contact" class="btn-report-cta">더 궁금한 점은 무료 진단 상담에서 직접 여쭤보세요 →</a>
+      <a href="#contact" class="btn-report-cta">궁금한 점 직접 상담하기 →</a>
     </div>
   </div>
 </section>
@@ -4568,7 +4562,7 @@
       </div>
 
       <details class="form-more" id="formMore">
-        <summary>업체명·매체·예산 등 추가로 알려주시면 진단이 더 정확해집니다 (선택)</summary>
+        <summary>상담 정보 추가하기 (선택)</summary>
         <div class="form-more-body">
           <div class="form-row row2">
             <div>
