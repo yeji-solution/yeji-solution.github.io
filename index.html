@@ -2945,6 +2945,17 @@
   @media (min-width: 721px) {
     .hero-slot-meta { width: min(100%, 540px); box-sizing: border-box; }
   }
+  /* Keep short copy blocks evenly wrapped across narrow cards and wide sections. */
+  .hero-tagline, .section-sub, .stats-note p, .ss-sub, .co-sub, .co-note,
+  .cred-item .desc, .cred-extra, .story-cell p, .strat-block > p, .mp-quote,
+  .result-note, .review-text, .report-item p, .sim-disclaimer,
+  .cta-sub, .form-sub, .form-help, .footer-tagline, .footer-note {
+    text-wrap: balance;
+  }
+  @media (max-width: 360px) {
+    .review-card { padding: 24px 18px; }
+    .review-text { font-size: 13px; }
+  }
 </style>
 </head>
 <body>
@@ -3046,9 +3057,9 @@
       <p class="hero-slot-meta" id="heroSlotMeta"><span class="slot-cap">매월 신규 운영은 4팀까지만 맡습니다</span><span class="slot-status">접수 일정 확인 중</span></p>
 
       <div class="hero-proof">
-        <div class="hp-item"><span class="hp-cat">ROAS</span><b data-target="1009" data-prefix="" data-suffix="%">1,009%</b><span class="hp-src">네이버 · 생활·건강</span><span class="hp-period">2025 하반기 3개월</span></div>
-        <div class="hp-item"><span class="hp-cat">성장률</span><b data-target="78" data-prefix="+" data-suffix="%">+78%</b><span class="hp-src">지그재그 · 패션</span><span class="hp-period">ROAS 567% → 1,007%</span></div>
-        <div class="hp-item"><span class="hp-cat">전환매출</span><b data-target="119" data-prefix="+" data-suffix="%">+119%</b><span class="hp-src">에이블리 · 패션</span><span class="hp-period">2025년 전년 대비</span></div>
+        <div class="hp-item"><span class="hp-cat">ROAS</span><b data-target="1009" data-prefix="" data-suffix="%">1,009%</b><span class="hp-src">네이버</span><span class="hp-period">2025 하반기 3개월</span></div>
+        <div class="hp-item"><span class="hp-cat">성장률</span><b data-target="78" data-prefix="+" data-suffix="%">+78%</b><span class="hp-src">지그재그</span><span class="hp-period">ROAS 567% → 1,007%</span></div>
+        <div class="hp-item"><span class="hp-cat">전환매출</span><b data-target="119" data-prefix="+" data-suffix="%">+119%</b><span class="hp-src">에이블리</span><span class="hp-period">2025년 전년 대비</span></div>
       </div>
     </div>
 
@@ -3099,12 +3110,12 @@
       </div>
       <div class="stat">
         <div class="stat-num" data-count="0" data-suffix="원">0<span>원</span></div>
-        <div class="stat-label">관리비 · 위약금</div>
+        <div class="stat-label">관리비 0원</div>
       </div>
     </div>
     <div class="stats-note">
-      <p>누적 운영 브랜드는 2020년부터의 전체 이력이며, 월 4팀은 현재 신규 운영 접수 기준입니다.</p>
-      <p>네이버·지그재그는 공식 파트너 구조로 관리비·위약금이 0원입니다. 광고비 외 별도 청구 없이 매체 수수료로 운영합니다.</p>
+      <p>누적 운영 브랜드는 2020년부터의 전체 이력입니다. 월 4팀은 현재 신규 접수 기준입니다.</p>
+      <p>네이버·지그재그는 공식 파트너 구조로 운영하며, 관리비·위약금은 0원입니다. 광고비 외 비용은 청구하지 않습니다.</p>
     </div>
   </div>
 </section>
@@ -3133,7 +3144,7 @@
       </span>
       <span class="ss-text">
         <strong>내 광고, 30초 셀프 진단</strong>
-        <span class="ss-sub">월 광고비·매체·운영 상태를 고르면 점검 우선순위와 가정상 매출 차이를 볼 수 있습니다</span>
+        <span class="ss-sub">광고비와 운영 상태를 입력해 점검 우선순위와 가정상 매출 차이를 확인하세요</span>
       </span>
       <span class="ss-arrow" aria-hidden="true">→</span>
     </a>
@@ -3157,7 +3168,7 @@
     </div>
     <strong class="mp-name">이명수 마케터</strong>
     <p class="mp-role-text">YEJI SOLUTION · 2020년부터 7년째</p>
-    <p class="mp-quote">"광고 숫자 앞에서 혼자 답답하셨던 순간이 있으셨나요. 제대로 된 사람이 제대로 들여다보면 반드시 달라집니다. 그 자리에 제가 함께 있겠습니다."</p>
+    <p class="mp-quote">"광고 성과가 답답할 때, 원인부터 함께 찾겠습니다. 첫 상담부터 운영까지 제가 직접 맡겠습니다."</p>
     <div class="mp-creds">
       <span class="mp-cred">검색광고마케터 1급</span>
       <span class="mp-cred">구글 GAIQ</span>
@@ -3172,7 +3183,7 @@
     <div class="section-head">
       <span class="eyebrow dual">CREDENTIALS</span>
       <h2>자격증과 공식 파트너십으로 먼저 검증합니다.</h2>
-      <p class="section-sub">광고 대행은 맡겨보기 전까지 실력을 판단하기 어려운 영역입니다. 그래서 객관적으로 검증된 자격과 공식 파트너십을 먼저 보여드립니다. 광고를 맡기기 전에 마케터를 검증할 수 있는 가장 빠른 방법입니다.</p>
+      <p class="section-sub">광고 대행은 맡겨보기 전까지 실력을 판단하기 어렵습니다. 객관적으로 검증된 자격과 공식 파트너십을 먼저 확인해 보세요.</p>
     </div>
 
     <!-- NAVER OFFICIAL CERTIFICATION (위계 최상위) -->
@@ -3182,10 +3193,10 @@
         <span class="co-fresh">2026.06.21 NEW · 예지솔루션 최초</span>
       </div>
       <div class="co-headline">
-        매체사 NAVER가 직접 보증한 <strong>공식 인증 마케터</strong>
+        NAVER <strong>공식 인증 마케터</strong>
       </div>
       <p class="co-sub">
-        협회 자격을 넘어, 매체사가 매년 재인증을 통해 운영 역량을 직접 검증하는 최상위 인증입니다. 예지솔루션 마케터 중 처음으로 검색·디스플레이 두 영역 모두 통과했습니다.
+        매체사가 매년 운영 역량을 재검증하는 인증입니다. 예지솔루션 마케터 중 처음으로 검색·디스플레이 두 영역을 모두 통과했습니다.
       </p>
 
       <div class="co-grid">
@@ -3221,7 +3232,7 @@
       </div>
 
       <div class="co-note">
-        ※ <strong>인증번호로 검증 가능</strong>합니다. 네이버 광고 인증 페이지에서 위 인증번호로 직접 조회하실 수 있습니다.
+        ※ 네이버 광고 인증 페이지에서 <strong>인증번호를 직접 조회</strong>할 수 있습니다.
       </div>
     </div>
 
@@ -3233,21 +3244,21 @@
             <div class="ico cert">1급</div>
             <div>
               <div class="label">검색광고마케터 1급</div>
-              <div class="desc">한국정보통신진흥협회 · 검색 광고 기획·운영 자격</div>
+              <div class="desc">한국정보통신진흥협회 · 검색광고 자격</div>
             </div>
           </div>
           <div class="cred-item">
             <div class="ico cert">GA</div>
             <div>
               <div class="label">구글 GAIQ</div>
-              <div class="desc">Google 애널리틱스 기반 데이터 분석 · 성과 측정 자격</div>
+              <div class="desc">Google 애널리틱스 데이터 분석 자격</div>
             </div>
           </div>
           <div class="cred-item">
             <div class="ico cert">S1</div>
             <div>
               <div class="label">SNS 광고 마케터 1급</div>
-              <div class="desc">한국정보통신진흥협회 · 소셜 광고 기획·운영 최상위 자격</div>
+              <div class="desc">한국정보통신진흥협회 · 소셜광고 자격</div>
             </div>
           </div>
         </div>
@@ -3260,33 +3271,33 @@
             <div class="ico partner">N</div>
             <div>
               <div class="label">네이버 프리미어 파트너사</div>
-              <div class="desc">정책 변경·베타 기능 사전 공지 · 계정 직접 운영 권한</div>
+              <div class="desc">정책·베타 기능 사전 공지 · 직접 운영</div>
             </div>
           </div>
           <div class="cred-item">
             <div class="ico partner">Z</div>
             <div>
               <div class="label">지그재그 프리미어 에이전시</div>
-              <div class="desc">기획전 일정 사전 공유 · 우선 노출 카테고리 배치</div>
+              <div class="desc">기획전 일정 공유 · 카테고리 배치</div>
             </div>
           </div>
           <div class="cred-item">
             <div class="ico partner">A</div>
             <div>
               <div class="label">에이블리 우수대행사</div>
-              <div class="desc">에이블리 광고 계정 운영 · 성과 분석 및 개선</div>
+              <div class="desc">광고 계정 운영 · 성과 분석 및 개선</div>
             </div>
           </div>
           <div class="cred-item">
             <div class="ico partner">+</div>
             <div>
               <div class="label">기타 매체 공식 대행 운영</div>
-              <div class="desc">네이버 디스플레이 광고(GFA) · 카카오 · 쿠팡 등 주요 매체 공식 대행 — 통합 운영 가능</div>
+              <div class="desc">네이버 GFA·카카오·쿠팡 등 통합 운영</div>
             </div>
           </div>
         </div>
         <div class="cred-extra">
-          <strong>광고주가 다른 매체로 확장</strong>을 원하실 경우, 별도 대행사를 알아보지 않고 한 곳에서 통합 운영하실 수 있습니다.
+          <strong>다른 매체로 확장</strong>할 때도 한 곳에서 통합 운영할 수 있습니다.
         </div>
       </div>
     </div>
@@ -3299,7 +3310,7 @@
     <div class="section-head">
       <span class="eyebrow dual">RESULTS</span>
       <h2>숫자만이 아닙니다. 어떻게 만들었는지도 공개합니다.</h2>
-      <p class="section-sub">직접 운영하며 달성한 실측 데이터입니다. 각 케이스마다 어떤 접근으로 성과를 끌어올렸는지 함께 담았습니다.</p>
+      <p class="section-sub">직접 운영하며 달성한 실측 데이터와 각 사례에서 적용한 개선 방법을 담았습니다.</p>
     </div>
 
     <!-- KPI 밴드 -->
@@ -3878,7 +3889,7 @@
     <div class="results-toggle-wrap">
       <button type="button" class="results-toggle" id="resultsToggle" aria-expanded="false">성과 사례 더 보기 ↓</button>
     </div>
-    <p class="result-note">수치는 실제 광고 계정 데이터 기반이며, 광고주 동의 하에 업종·카테고리만 표기했습니다.</p>
+    <p class="result-note">실제 광고 계정 데이터이며, 광고주 동의 하에 업종·카테고리만 표기했습니다.</p>
   </div>
 </section>
 
@@ -3904,12 +3915,12 @@
       <div class="story-cell">
         <div class="num">차이 02</div>
         <h3>성과 변화를 빠르게 파악합니다</h3>
-        <p>동시에 운영하는 계정 수를 제한합니다. 주간 리포트 외에도 ROAS·CTR·전환수에 의미 있는 변화가 보이면 메신저로 먼저 공유드리고, 그 자리에서 다음 액션을 함께 결정합니다.</p>
+        <p>동시에 운영하는 계정 수를 제한합니다. 주간 리포트 외에도 ROAS·CTR·전환수에 변화가 보이면 먼저 공유하고 다음 조치를 함께 결정합니다.</p>
       </div>
       <div class="story-cell">
         <div class="num">차이 03</div>
         <h3>상담한 사람이 끝까지 운영합니다</h3>
-        <p>영업과 운영이 분리된 구조가 아닙니다. 처음 연락부터 매월 리뷰까지 이명수가 직접 담당합니다. 중간에 담당자가 바뀌어 인수인계로 운영 흐름이 끊기는 일이 없습니다.</p>
+        <p>첫 상담부터 매월 리뷰까지 이명수가 직접 담당합니다. 담당자 변경이나 인수인계로 운영 흐름이 끊기지 않습니다.</p>
       </div>
     </div>
 
@@ -3932,7 +3943,7 @@
       <div class="strat-block">
         <span class="strat-tag">NAVER · 네이버 광고</span>
         <h3>성과를 만드는 3가지 원칙</h3>
-        <p>"같은 키워드 안에서 누가 노출되느냐"의 싸움. 구조와 품질지수가 입찰가보다 먼저입니다.</p>
+        <p>네이버 검색광고는 키워드 구조와 품질지수가 성과를 좌우합니다.</p>
 
         <div class="strat-principles">
           <div class="principle">
@@ -3962,7 +3973,7 @@
       <div class="strat-block z">
         <span class="strat-tag">ZIGZAG · 지그재그 AI</span>
         <h3>성과를 만드는 3가지 원칙</h3>
-        <p>AI가 반응으로 노출을 결정하는 구조. 예산보다 데이터 신호의 정교함이 더 중요합니다.</p>
+        <p>지그재그 AI는 상품 반응을 바탕으로 노출을 조정합니다. 학습 신호를 정교하게 관리합니다.</p>
 
         <div class="strat-principles">
           <div class="principle">
@@ -4294,7 +4305,7 @@
         <p class="review-text">네이버 광고는 셋팅해두면 알아서 굴러가는 구조가 아니에요. 전에 쓰던 곳은 거의 손을 안 댔는데, 여기는 키워드 구조나 입찰가를 주기적으로 점검하고 직접 바꿔줬어요. 전환이 떨어지는 구간마다 원인을 짚어줬고, 그 덕에 저는 다른 업무에 집중할 수 있었습니다.</p>
         <div class="rv-result">
           <span class="rv-result-icon rv-icon-n">✓</span>
-          <span class="rv-result-txt">운영 결과<br><strong>ROAS 596% → 1,009%</strong> · 헬스·스포츠용품</span>
+          <span class="rv-result-txt">운영 결과<br><strong>ROAS 596% → 1,009%</strong></span>
         </div>
         <div class="rv-foot">
           <span class="review-stars">★★★★★</span>
@@ -4310,7 +4321,7 @@
         <p class="review-text">처음엔 그냥 광고 켜두면 되는 줄 알았는데, 소재 단위로 성과를 뜯어보고 타겟을 좁히는 작업을 꾸준히 해줬어요. 반응이 낮은 소재는 빠르게 교체해줬고, 클릭 대비 구매 전환이 약한 구간은 입찰 구조를 다시 잡아줬습니다. 예산은 그대로인데 효율이 눈에 띄게 달라졌어요.</p>
         <div class="rv-result">
           <span class="rv-result-icon rv-icon-z">✓</span>
-          <span class="rv-result-txt">운영 결과<br><strong>ROAS 567% → 1,007%</strong> · 패션 잡화</span>
+          <span class="rv-result-txt">운영 결과<br><strong>ROAS 567% → 1,007%</strong></span>
         </div>
         <div class="rv-foot">
           <span class="review-stars">★★★★★</span>
@@ -4326,7 +4337,7 @@
         <p class="review-text">봄마다 타이밍 놓쳐서 항상 속상했는데, 이번엔 시즌 한 달 전부터 예산 구조 잡고 입찰 세팅을 다 준비해줬어요. 노출 피크 구간에 예산이 끊기지 않도록 하루 단위로 조정해줬다고 하더라고요. 시즌 지나고 결과 보니 전환이 확실히 달라져 있었어요.</p>
         <div class="rv-result">
           <span class="rv-result-icon rv-icon-t">✓</span>
-          <span class="rv-result-txt">운영 결과<br><strong>전환매출 8,782만 → 1.60억</strong> · +82%</span>
+          <span class="rv-result-txt">운영 결과<br><strong>전환매출 8,782만 → 1.60억</strong></span>
         </div>
         <div class="rv-foot">
           <span class="review-stars">★★★★★</span>
@@ -4351,22 +4362,22 @@
       <div class="report-item">
         <div class="rnum">01</div>
         <h3>전환 0건 키워드</h3>
-        <p>클릭은 꾸준히 나는데 한 번도 구매로 이어지지 않은 키워드. 이런 키워드가 광고비를 조용히 갉아먹습니다.</p>
+        <p>클릭은 있지만 구매로 이어지지 않는 키워드는 광고비를 낭비합니다.</p>
       </div>
       <div class="report-item">
         <div class="rnum">02</div>
         <h3>1위에 집착하는 입찰</h3>
-        <p>1위와 3~4위의 전환율 차이는 생각보다 작지만, 클릭 단가 차이는 큽니다. 순위 욕심이 곧 비용입니다.</p>
+        <p>1위와 3~4위의 전환율 차이보다 클릭 단가 차이가 더 클 수 있습니다.</p>
       </div>
       <div class="report-item">
         <div class="rnum">03</div>
         <h3>오래 방치된 광고 소재</h3>
-        <p>같은 썸네일·문구를 몇 달째 쓰면 클릭률이 떨어지고, 떨어진 클릭률은 그대로 단가 상승으로 돌아옵니다.</p>
+        <p>오래된 썸네일과 문구는 클릭률을 낮추고 비용을 높일 수 있습니다.</p>
       </div>
       <div class="report-item">
         <div class="rnum">04</div>
         <h3>잘못 잡힌 전환 추적</h3>
-        <p>전환 측정이 어긋나 있으면 '어떤 광고가 매출을 냈는지' 모른 채 감으로만 운영하게 됩니다.</p>
+        <p>전환 측정이 어긋나면 매출을 만든 광고를 확인할 수 없습니다.</p>
       </div>
       <div class="report-item">
         <div class="rnum">05</div>
@@ -4376,7 +4387,7 @@
       <div class="report-item">
         <div class="rnum">06</div>
         <h3>시간대·시즌 무시한 예산</h3>
-        <p>매출이 몰리는 시간과 시즌을 고려하지 않은 평평한 예산 분배는, 정작 팔릴 때 광고를 약하게 만듭니다.</p>
+        <p>매출이 몰리는 시간과 시즌에 예산을 집중하지 못하면 기회를 놓칩니다.</p>
       </div>
     </div>
 
@@ -4651,7 +4662,7 @@
     <div class="footer-grid">
       <div>
         <div class="footer-brand-name"><span class="accent-n">YEJI</span> SOLUTION</div>
-        <p class="footer-tagline">이명수 마케터 · 네이버·지그재그 광고 전문. 7년차 1:1 전담 운영으로 성과를 만듭니다.</p>
+        <p class="footer-tagline">이명수 마케터 · 네이버·지그재그 광고 전문. 7년차 1:1 전담 운영.</p>
         <div class="footer-badge-row">
           <span class="footer-badge-pill">네이버 프리미어 파트너</span>
           <span class="footer-badge-pill">지그재그 프리미어 에이전시</span>
@@ -4686,7 +4697,7 @@
         © 2026 이명수 · YEJI SOLUTION
         <a href="privacy.html" class="footer-privacy">개인정보 처리방침</a>
       </div>
-      <div class="footer-note">광고 문의는 카카오 오픈채팅 또는 무료 진단 신청 폼을 이용해 주세요.</div>
+      <div class="footer-note">광고 문의: 카카오 오픈채팅 · 무료 진단 신청</div>
     </div>
   </div>
 </footer>
