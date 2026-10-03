@@ -4869,48 +4869,36 @@
 <!-- 신규 접수 슬롯 표시 -->
 <script>
 (function () {
-  /* 월초 3팀 → 중순 2팀 → 월말 1팀으로 단계적으로 표시한다.
-     방문자의 현지 시각과 무관하게 한국 표준시를 기준으로 계산한다. */
-  var nowParts = new Intl.DateTimeFormat('ko-KR', {
+  /* 매월 신규 운영은 최대 4팀. 1~7일 4팀, 8~14일 3팀,
+     15~21일 2팀, 22일~월말 1팀으로 시작 가능 규모를 표시한다. */
+  var dateFormatter = new Intl.DateTimeFormat('ko-KR', {
     timeZone: 'Asia/Seoul', year: 'numeric', month: 'numeric', day: 'numeric'
-  }).formatToParts(new Date());
-  var datePart = {};
-  nowParts.forEach(function (part) {
-    if (part.type !== 'literal') datePart[part.type] = parseInt(part.value, 10);
   });
-  var DAYS_IN_MONTH = new Date(Date.UTC(datePart.year, datePart.month, 0)).getUTCDate();
-  var OPEN_SLOTS = Math.max(1, Math.ceil(((DAYS_IN_MONTH - datePart.day + 1) / DAYS_IN_MONTH) * 3));
-  var SLOT_PERIOD = datePart.year + '년 ' + datePart.month + '월 기준';
 
-  var phase, badgeText, heroText;
+  function updateSlots() {
+    var datePart = {};
+    dateFormatter.formatToParts(new Date()).forEach(function (part) {
+      if (part.type !== 'literal') datePart[part.type] = parseInt(part.value, 10);
+    });
+    var openSlots = Math.max(1, 4 - Math.floor((datePart.day - 1) / 7));
+    var dateLabel = datePart.year + '.' + String(datePart.month).padStart(2, '0') + '.' + String(datePart.day).padStart(2, '0');
+    var text = '매월 신규 운영 최대 4팀 · ' + dateLabel + ' 기준 ' + openSlots + '팀 가능';
+    var phase = openSlots <= 2 ? 'slot-limited' : 'slot-available';
 
-  if (OPEN_SLOTS <= 0) {
-    phase     = 'slot-closed';
-    badgeText = SLOT_PERIOD + ' · 접수 마감';
-    heroText  = SLOT_PERIOD + ' · 정원이 가득 찼습니다. 접수·상담은 언제든 가능합니다.';
-  } else if (OPEN_SLOTS <= 2) {
-    phase     = 'slot-limited';
-    badgeText = SLOT_PERIOD + ' · 잔여 ' + OPEN_SLOTS + '팀';
-    heroText  = SLOT_PERIOD + ' · 잔여 ' + OPEN_SLOTS + '팀';
-  } else {
-    phase     = 'slot-available';
-    badgeText = SLOT_PERIOD + ' · 신규 접수 ' + OPEN_SLOTS + '팀';
-    heroText  = SLOT_PERIOD + ' · 신규 상담 가능 ' + OPEN_SLOTS + '팀';
+    ['urgencyBadge', 'heroSlotMeta'].forEach(function (id) {
+      var element = document.getElementById(id);
+      if (!element) return;
+      element.textContent = text;
+      element.classList.remove('slot-available', 'slot-limited', 'slot-closed');
+      element.classList.add(phase);
+    });
+
+    // 페이지를 계속 열어 둔 경우에도 한국 시간 자정에 표시를 갱신한다.
+    var nextMidnight = Date.UTC(datePart.year, datePart.month - 1, datePart.day + 1, -9);
+    setTimeout(updateSlots, Math.max(1000, nextMidnight - Date.now()));
   }
 
-  // urgency badge (CTA 섹션)
-  var badge = document.getElementById('urgencyBadge');
-  if (badge) {
-    badge.textContent = badgeText;
-    badge.classList.add(phase);
-  }
-
-  // hero 슬롯 메타
-  var heroMeta = document.getElementById('heroSlotMeta');
-  if (heroMeta) {
-    heroMeta.textContent = heroText;
-    heroMeta.classList.add(phase);
-  }
+  updateSlots();
 })();
 </script>
 
