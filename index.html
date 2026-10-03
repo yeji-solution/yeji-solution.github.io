@@ -1753,7 +1753,7 @@
   .fc-text strong { color: var(--brand); font-weight: 800; }
   .fc-link {
     color: var(--text-sub); text-decoration: underline;
-    text-underline-offset: 2px; margin-left: 4px; font-weight: 600;
+    text-underline-offset: 2px; margin-left: 4px; font-weight: 600; white-space: nowrap;
   }
   .fc-detail { margin-top: 8px; padding-left: 30px; line-height: 1.6; }
   .form-submit {
@@ -2880,7 +2880,7 @@
     width: 112px; height: 112px; border-radius: 50%;
     border: 19px solid rgba(0,199,60,0.07); pointer-events: none;
   }
-  .stat-num { position: relative; z-index: 1; font-size: 46px; color: #8ee2b3; letter-spacing: -0.055em; }
+  .stat-num { position: relative; z-index: 1; font-size: 46px; color: #8ee2b3; letter-spacing: -0.055em; white-space: nowrap; }
   .stat-featured .stat-num { color: #087e4b; }
   .stat-num span { font-size: 18px; letter-spacing: -0.025em; }
   .stat-label { position: relative; z-index: 1; margin-top: 10px; font-size: 14px; font-weight: 700; color: rgba(255,255,255,0.8); }
@@ -2950,6 +2950,9 @@
     .review-card { padding: 22px 14px; }
     .review-text { font-size: 12.5px; }
     .rc-row { flex-wrap: wrap; }
+    .stats-grid .stat:not(:first-child) { padding: 16px 14px; }
+    .stats-grid .stat:not(:first-child) .stat-num { font-size: 30px; }
+    .stats-grid .stat:not(:first-child) .stat-num span { font-size: 13px; }
   }
 </style>
 </head>
@@ -3029,7 +3032,7 @@
     <div class="hero-text">
       <h1><span class="h1-soft">이명수 마케터</span><strong>네이버·지그재그 광고 전문</strong></h1>
       <p class="hero-tagline">
-        예산을 늘리기 전에 성과가 막힌 지점을 먼저 찾습니다. 클릭·전환 데이터를 확인해 개선 우선순위를 제안합니다.
+        광고비는 나가는데 주문이 늘지 않나요? 검색어와 상품별 성과를 직접 확인해, 지금 손봐야 할 곳부터 말씀드리겠습니다.
       </p>
 
       <div class="hero-badges">
@@ -3936,7 +3939,7 @@
     <div class="strat-tabs">
       <div class="strat-block">
         <span class="strat-tag">NAVER · 네이버 광고</span>
-        <h3>성과를 만드는 3가지 원칙</h3>
+        <h3>검색어부터 입찰가까지</h3>
         <p>네이버 검색광고는 키워드 구조와 품질지수가 성과를 좌우합니다.</p>
 
         <div class="strat-principles">
@@ -3957,7 +3960,7 @@
           <div class="principle">
             <div class="pnum">3</div>
             <div>
-              <div class="ptitle">유입 단가를 낮추는 품질지수 관리</div>
+              <div class="ptitle">품질지수 개선</div>
               <div class="pdesc">클릭률이 확보되는 확장 소재·썸네일 테스트를 꾸준히 진행해 품질지수를 개선하고, 클릭 단가를 안정적인 구간에서 관리합니다.</div>
             </div>
           </div>
@@ -3966,7 +3969,7 @@
 
       <div class="strat-block z">
         <span class="strat-tag">ZIGZAG · 지그재그 AI</span>
-        <h3>성과를 만드는 3가지 원칙</h3>
+        <h3>상품 반응과 AI 학습</h3>
         <p>지그재그 AI는 상품 반응을 바탕으로 노출을 조정합니다. 학습 신호를 정교하게 관리합니다.</p>
 
         <div class="strat-principles">
@@ -4103,7 +4106,7 @@
       <!-- CASE 01 — 네이버 -->
       <div class="case-card">
         <div class="case-tag"><span class="case-num">CASE 01</span> · 네이버 · 여성 의류</div>
-        <h3>광고비는 늘었는데 매출은 그대로</h3>
+        <h3>광고비만 늘고 매출은 그대로</h3>
 
         <div class="case-block found">
           <div class="blk-title found">진단 시 발견된 문제</div>
@@ -4254,11 +4257,11 @@
 
           <div class="sim-amounts">
             <div class="sim-amount">
-              <div class="sa-label">가정상 월 매출 차이</div>
+              <div class="sa-label">월 매출 차이</div>
               <div class="sa-value sa-loss" id="simLoss">—</div>
             </div>
             <div class="sim-amount">
-              <div class="sa-label">가정상 회복 가능 매출 / 월</div>
+              <div class="sa-label">월 회복 가능액</div>
               <div class="sa-value sa-gain" id="simGain">—</div>
             </div>
           </div>
@@ -4295,7 +4298,7 @@
           <span class="rv-badge rv-n">NAVER</span>
           <span class="rv-biz">헬스·스포츠용품 셀러</span>
         </div>
-        <p class="rv-quote">"숫자가 달라지는 게 느껴졌어요."</p>
+        <p class="rv-quote">"달라진 숫자가 보였어요."</p>
         <p class="review-text">네이버 광고는 셋팅해두면 알아서 굴러가는 구조가 아니에요. 전에 쓰던 곳은 거의 손을 안 댔는데, 여기는 키워드 구조나 입찰가를 주기적으로 점검하고 직접 바꿔줬어요. 전환이 떨어지는 구간마다 원인을 짚어줬고, 그 덕에 저는 다른 업무에 집중할 수 있었습니다.</p>
         <div class="rv-result">
           <span class="rv-result-icon rv-icon-n">✓</span>
@@ -4611,8 +4614,8 @@
         <label class="form-consent" for="f-privacy">
           <input type="checkbox" id="f-privacy" name="privacy_consent" value="동의" required />
           <span class="fc-text">
-            <strong>(필수)</strong> 개인정보 수집·이용에 동의합니다.
-            <a href="privacy.html" target="_blank" rel="noopener" class="fc-link">전문 보기</a>
+            <strong>(필수)</strong> 개인정보 수집·이용 동의
+            <a href="privacy.html" target="_blank" rel="noopener" class="fc-link">내용 보기</a>
           </span>
         </label>
         <div class="form-help fc-detail">
