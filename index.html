@@ -4458,8 +4458,8 @@
       <div class="form-row row2">
         <div>
           <label class="form-label" for="f-phone">연락처 <span class="req">*</span></label>
-          <input class="form-input" type="tel" id="f-phone" name="phone" required autocomplete="tel" inputmode="tel"
-                 pattern="0\d{1,3}-?\d{3,4}-?\d{4}" title="휴대폰 또는 유선 전화번호를 입력해주세요 (예: 010-1234-5678)"
+          <input class="form-input" type="tel" id="f-phone" name="phone" required autocomplete="tel" inputmode="numeric" maxlength="13"
+                 pattern="010-\d{4}-\d{4}" title="010 뒤에 숫자 8자리를 입력해주세요 (예: 010-1234-5678)"
                  value="010-" placeholder="010-0000-0000" />
         </div>
         <div>
@@ -4704,6 +4704,36 @@
   /* ===== 폼 제출 ===== */
   var cf = qs('#contactForm'), fs = qs('#formSuccess'), fe = qs('#formError');
   if (cf) {
+    var phone = cf.querySelector('#f-phone');
+    if (phone) {
+      function formatPhone(value) {
+        var digits = value.replace(/\D/g, '');
+        var number = (digits.slice(0, 3) === '010' ? digits.slice(3) : digits).slice(0, 8);
+        return '010-' + number.slice(0, 4) + (number.length >= 4 ? '-' + number.slice(4) : '');
+      }
+      function deletePhoneSeparator(e) {
+        if (phone.selectionStart !== phone.selectionEnd) return;
+        var cursor = phone.selectionStart;
+        if (phone.value.charAt(cursor - 1) !== '-') return;
+        e.preventDefault();
+        if (cursor <= 4) return;
+        phone.value = formatPhone(phone.value.slice(0, cursor - 2) + phone.value.slice(cursor));
+        phone.setSelectionRange(cursor - 2, cursor - 2);
+      }
+      phone.addEventListener('keydown', function (e) {
+        if (e.key === 'Backspace') deletePhoneSeparator(e);
+      });
+      phone.addEventListener('beforeinput', function (e) {
+        if (e.inputType === 'deleteContentBackward') deletePhoneSeparator(e);
+      });
+      phone.addEventListener('input', function () {
+        var cursor = phone.selectionStart;
+        var typedDigits = Math.max(0, phone.value.slice(0, cursor).replace(/\D/g, '').length - 3);
+        phone.value = formatPhone(phone.value);
+        var nextCursor = Math.min(phone.value.length, 4 + typedDigits + (typedDigits >= 4 ? 1 : 0));
+        phone.setSelectionRange(nextCursor, nextCursor);
+      });
+    }
     cf.addEventListener('submit', function (e) {
       e.preventDefault();
       if (fe) fe.classList.remove('show');
