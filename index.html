@@ -2155,6 +2155,17 @@
     background: rgba(139,146,160,0.12); border-color: rgba(139,146,160,0.3); color: var(--text-sub);
   }
   .urgency-badge.slot-closed::before { background: var(--text-dim); animation: none; }
+  .hero-slot-meta, .urgency-badge {
+    display: grid; grid-template-columns: 7px minmax(0, 1fr);
+    column-gap: 9px; row-gap: 2px; align-items: center;
+    max-width: 100%; border-radius: 14px; text-align: left;
+  }
+  .hero-slot-meta::before, .urgency-badge::before {
+    grid-column: 1; grid-row: 1 / 3;
+  }
+  .slot-cap, .slot-status { grid-column: 2; }
+  .slot-cap { font-weight: 800; line-height: 1.35; }
+  .slot-status { font-size: 12px; font-weight: 600; line-height: 1.45; }
   .form-process {
     display: flex; gap: 0; margin-bottom: 20px;
     border: 1px solid var(--line); border-radius: 12px; overflow: hidden;
@@ -2939,7 +2950,7 @@
         <a href="https://open.kakao.com/o/sPhekaQi" target="_blank" rel="noopener noreferrer" class="btn-ghost-kakao">카카오 1:1 상담</a>
       </div>
       <p class="hero-cta-meta">관리비·위약금 0원<span class="sep">·</span>계약 부담 없음</p>
-      <p class="hero-slot-meta" id="heroSlotMeta"></p>
+      <p class="hero-slot-meta" id="heroSlotMeta"><span class="slot-cap">매월 신규 운영은 4팀까지만 맡습니다</span><span class="slot-status">접수 일정 확인 중</span></p>
 
       <div class="hero-proof">
         <div class="hp-item"><span class="hp-cat">ROAS</span><b data-target="1009" data-prefix="" data-suffix="%">1,009%</b><span class="hp-src">네이버 · 생활·건강</span><span class="hp-period">2025 하반기 3개월</span></div>
@@ -4369,7 +4380,7 @@
 <!-- CTA -->
 <section class="cta" id="contact">
   <div class="wrap">
-    <div class="urgency-badge" id="urgencyBadge">무료 진단 현재 접수 중</div>
+    <div class="urgency-badge" id="urgencyBadge"><span class="slot-cap">매월 신규 운영은 4팀까지만 맡습니다</span><span class="slot-status">접수 일정 확인 중</span></div>
     <span class="eyebrow dual" style="margin-bottom: 20px;">FREE DIAGNOSIS</span>
     <h2>지금 운영 중인 광고,<br class="br-pc"/><br class="br-m"/> <strong>3영업일 내 무료 진단</strong> 받아보세요.</h2>
     <p class="cta-sub">
@@ -4884,14 +4895,14 @@
     var dateLabel = datePart.year + '.' + String(datePart.month).padStart(2, '0') + '.' + String(datePart.day).padStart(2, '0');
     var nextMonth = datePart.month === 12 ? 1 : datePart.month + 1;
     var text = openSlots
-      ? dateLabel + ' 기준 · ' + datePart.month + '월 신규 운영 ' + openSlots + '팀 접수 가능'
-      : dateLabel + ' 기준 · ' + datePart.month + '월 신규 운영 접수 마감 · ' + nextMonth + '월 시작 일정 상담 가능';
+      ? datePart.month + '월 접수 가능 ' + openSlots + '팀 · ' + dateLabel + ' 기준'
+      : datePart.month + '월 모집 마감 · ' + nextMonth + '월 시작 일정 상담 가능 · ' + dateLabel + ' 기준';
     var phase = openSlots === 0 ? 'slot-closed' : openSlots <= 2 ? 'slot-limited' : 'slot-available';
 
     ['urgencyBadge', 'heroSlotMeta'].forEach(function (id) {
       var element = document.getElementById(id);
       if (!element) return;
-      element.textContent = text;
+      element.querySelector('.slot-status').textContent = text;
       element.classList.remove('slot-available', 'slot-limited', 'slot-closed');
       element.classList.add(phase);
     });
