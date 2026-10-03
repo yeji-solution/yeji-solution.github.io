@@ -111,12 +111,14 @@ function checkHeroProofGrounded(html) {
   else console.log(`✓ 히어로 성과 카드 ${heroNums.length}건 모두 성과 섹션 원본에서 확인됨`);
 }
 
-/* ── 3. 시뮬레이터: 회복 잠재력이 손실액에 종속되는지 ─────────────────── */
+/* ── 3. 셀프 점검: 근거 없는 매출 추정이 제거되고 점검 순서가 남았는지 ── */
 function checkSimulator(html) {
-  if (/recoverMW\s*=\s*lossMW\s*\*/.test(html)) {
-    console.log('✓ 시뮬레이터 회복 잠재력이 손실액에 종속됨 (손실 0 → 회복 0)');
+  const hasPriorities = /id="simPriorities"/.test(html) && /PRIORITY_RANK/.test(html) && /id="simMetrics"/.test(html);
+  const hasForecast = /id="simGain"|id="simLoss"|recoveryRate|baseRoas|recoverMW|lossMW/.test(html);
+  if (hasPriorities && !hasForecast) {
+    console.log('✓ 셀프 점검은 확인 데이터와 조치 순서를 표시하고 추정 매출을 계산하지 않음');
   } else {
-    console.error('✗ 시뮬레이터 회복 잠재력이 손실액과 무관하게 계산됩니다. "손실 0원인데 회복 잠재력 있음" 모순이 재발합니다.');
+    console.error('✗ 셀프 점검 결과에 필요한 확인 데이터·조치 순서가 없거나 추정 매출 계산이 남아 있습니다.');
     failed++;
   }
 }

@@ -907,6 +907,14 @@
     content: ''; width: 5px; height: 5px; border-radius: 50%;
     background: var(--naver); box-shadow: 0 0 6px rgba(0,199,60,0.6);
   }
+  .sim-result-heading { font-size: 21px; line-height: 1.35; color: var(--text); margin: 0 0 8px; }
+  .sim-result-lead { font-size: 13px; line-height: 1.6; color: var(--text-sub); margin: 0 0 20px; }
+  .sim-data-check {
+    display: grid; gap: 7px; padding: 17px 18px; margin-bottom: 16px;
+    background: var(--bg-soft); border: 1px solid var(--line); border-radius: 10px;
+  }
+  .sim-data-check span { font-size: 11px; font-weight: 800; color: var(--text-dim); }
+  .sim-data-check strong { font-size: 14px; line-height: 1.5; color: var(--brand); text-wrap: pretty; }
   .sim-roas { margin-bottom: 22px; }
   .sim-roas-row {
     display: flex; justify-content: space-between; align-items: baseline;
@@ -2349,9 +2357,7 @@
     border-top: 1px dashed var(--line-strong); padding-top: 12px;
     margin-top: 2px;
   }
-  .review-stars {
-    color: #F59E0B; font-size: 13px; letter-spacing: 1px;
-  }
+  .review-source { color: var(--text-sub); font-size: 11px; font-weight: 700; }
   .rv-period {
     font-size: 11px; color: var(--text-dim);
   }
@@ -2468,6 +2474,12 @@
     font-size: 12px; font-weight: 800; white-space: nowrap;
     background: rgba(0,199,60,0.10); color: #006B21;
   }
+  .result-method {
+    margin: 0 0 25px; padding: 15px 18px; border-left: 3px solid var(--brand);
+    border-radius: 0 10px 10px 0; background: #fff;
+    color: var(--text-sub); font-size: 12.5px; line-height: 1.7; text-wrap: pretty;
+  }
+  .result-method strong { display: block; color: var(--brand); font-size: 13px; margin-bottom: 3px; }
   .result-note { margin-top: 28px; font-size: 12px; color: var(--text-dim); text-align: center; }
   /* ===== Phase 3 — KPI 밴드 + 플랫폼 필터 탭 ===== */
   .kpi-band { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 36px; }
@@ -3061,7 +3073,7 @@
         <a href="#contact" class="btn-primary">무료 진단 신청하기</a>
         <a href="https://open.kakao.com/o/sPhekaQi" target="_blank" rel="noopener noreferrer" class="btn-ghost-kakao">카카오 1:1 상담</a>
       </div>
-      <p class="hero-cta-meta">관리비·위약금 0원<span class="sep">·</span>계약 부담 없음</p>
+      <p class="hero-cta-meta">네이버·지그재그 공식 대행: 관리비·위약금 0원</p>
       <p class="hero-slot-meta" id="heroSlotMeta"><span class="slot-cap">매월 신규 운영은 4팀까지만 맡습니다</span><span class="slot-status">접수 일정 확인 중</span></p>
 
       <div class="hero-proof">
@@ -3128,18 +3140,6 @@
   </div>
 </section>
 
-<section class="mobile-overview" aria-label="무료 진단과 운영 진행 요약">
-  <div class="wrap">
-    <h2>상담부터 운영까지, 이렇게 진행합니다</h2>
-    <ol>
-      <li><strong>무료 진단 신청</strong><span>3영업일 내 직접 연락드립니다.</span></li>
-      <li><strong>계정 점검</strong><span>필요하면 공식 초대로 계정 권한을 받습니다.</span></li>
-      <li><strong>운영 시작</strong><span>계정 인계 후 7일 내 첫 리포트를 공유합니다.</span></li>
-    </ol>
-    <div class="mobile-overview-links"><a href="#results">대표 성과 보기</a><a href="#contact">무료 진단 신청하기 →</a></div>
-  </div>
-</section>
-
 <!-- 셀프 진단 조기 진입점: 시뮬레이터가 페이지 하단에 있어 도달률이 낮았던 문제 보완.
      stats-note 설명 문구에 바로 이어 붙이면 주제가 갑자기 튀어 보여서 독립 섹션으로 분리했다. -->
 <section class="sim-shortcut-section">
@@ -3152,7 +3152,7 @@
       </span>
       <span class="ss-text">
         <strong>내 광고, 30초 셀프 진단</strong>
-        <span class="ss-sub">광고비와 운영 상태를 입력해 점검 우선순위와 가정상 매출 차이를 확인하세요</span>
+        <span class="ss-sub">매체와 운영 상태를 선택해 먼저 확인할 항목을 살펴보세요</span>
       </span>
       <span class="ss-arrow" aria-hidden="true">→</span>
     </a>
@@ -3321,13 +3321,7 @@
       <p class="section-sub">직접 운영한 계정의 수치와 개선 과정을 담았습니다.</p>
     </div>
 
-    <!-- KPI 밴드 -->
-    <div class="kpi-band">
-      <div class="kpi"><span class="kpi-num">50<i>억+</i></span><span class="kpi-lbl">누적 관리 광고비</span></div>
-      <div class="kpi"><span class="kpi-num">1,000<i>+</i></span><span class="kpi-lbl">누적 운영 브랜드</span></div>
-      <div class="kpi"><span class="kpi-num">12</span><span class="kpi-lbl">공개 성과 케이스</span></div>
-      <div class="kpi"><span class="kpi-num">7<i>년차</i></span><span class="kpi-lbl">1:1 전담 운영</span></div>
-    </div>
+    <p class="result-method"><strong>성과 읽는 법</strong> ROAS는 광고 매체에 기록된 전환매출을 광고비로 나눈 값입니다. 각 카드에는 변경 전·후 수치와 업종·운영 시기를 표기했습니다. 일부 사례의 동일 예산 여부를 제외하면 전후 집계 기간과 세부 광고비는 공개되지 않았습니다. 사례 간 수치를 직접 비교하거나 결과 보장으로 해석하지 마세요.</p>
 
     <!-- 플랫폼 필터 탭 -->
     <div class="result-filter" role="tablist" aria-label="플랫폼별 성과 필터">
@@ -3897,7 +3891,7 @@
     <div class="results-toggle-wrap">
       <button type="button" class="results-toggle" id="resultsToggle" aria-expanded="false">성과 사례 더 보기 ↓</button>
     </div>
-    <p class="result-note">실제 광고 계정 데이터이며, 광고주 동의 하에 업종·카테고리만 표기했습니다.</p>
+    <p class="result-note">실제 광고 계정 데이터이며, 광고주 동의 하에 업종·카테고리만 표기했습니다. 세부 광고비와 광고주 식별 정보는 공개하지 않습니다.</p>
   </div>
 </section>
 
@@ -4209,22 +4203,11 @@
     <div class="section-head">
       <span class="eyebrow dual">DIAGNOSIS SIMULATOR</span>
       <h2>내 광고의 점검 우선순위, <strong>30초 안에 살펴보세요.</strong></h2>
-      <p class="section-sub"><span class="sentence">입력값으로 점검 우선순위를 살펴봅니다.</span> <span class="sentence">실제 손실액이나 예상 성과를 뜻하지 않습니다.</span></p>
+      <p class="section-sub"><span class="sentence">매체와 현재 운영 상태를 선택해 보세요.</span> <span class="sentence">계정에서 먼저 확인할 데이터와 조치 순서를 안내합니다.</span></p>
     </div>
 
     <div class="sim-grid">
       <div class="sim-input">
-        <div class="sim-field">
-          <label class="sim-label" for="simSpend">
-            월 광고비
-            <strong class="sim-value" id="simSpendValue">500만원</strong>
-          </label>
-          <input type="range" min="50" max="3000" step="50" value="500" class="sim-slider" id="simSpend" />
-          <div class="sim-range-marks">
-            <span>50만</span><span>500만</span><span>1,500만</span><span>3,000만</span>
-          </div>
-        </div>
-
         <div class="sim-field">
           <label class="sim-label">광고 매체</label>
           <div class="sim-toggle-group">
@@ -4250,31 +4233,13 @@
 
       <div class="sim-result">
         <div class="sim-result-card">
-          <div class="sim-result-tag">진단 추정 결과</div>
+          <div class="sim-result-tag">셀프 점검 결과</div>
+          <h3 class="sim-result-heading" id="simResultHeading">운영 상태를 선택해 주세요</h3>
+          <p class="sim-result-lead" id="simResultLead">해당되는 항목을 고르면 확인 순서를 정리해 드립니다.</p>
 
-          <div class="sim-roas">
-            <div class="sim-roas-row">
-              <span class="sr-label">계산에 사용한 기준 ROAS</span>
-              <span class="sr-value" id="simAvgRoas">580%</span>
-            </div>
-            <div class="sim-roas-bar"><div class="srb-fill srb-avg" style="width:100%"></div></div>
-            <div class="sim-roas-row">
-              <span class="sr-label">가정상 현재 ROAS</span>
-              <span class="sr-value sr-current" id="simCurRoas">580%</span>
-            </div>
-            <div class="sim-roas-bar"><div class="srb-fill srb-cur" id="simCurBar" style="width:100%"></div></div>
-            <div class="sim-roas-delta neutral" id="simDelta">항목 선택 후 매출 차이를 확인하세요</div>
-          </div>
-
-          <div class="sim-amounts">
-            <div class="sim-amount">
-              <div class="sa-label">월 매출 차이</div>
-              <div class="sa-value sa-loss" id="simLoss">—</div>
-            </div>
-            <div class="sim-amount">
-              <div class="sa-label">월 회복 가능액</div>
-              <div class="sa-value sa-gain" id="simGain">—</div>
-            </div>
+          <div class="sim-data-check">
+            <span>계정에서 확인할 데이터</span>
+            <strong id="simMetrics">검색어별 광고비 · 전환수 · 전환매출</strong>
           </div>
 
           <div class="sim-priorities" id="simPriorities">
@@ -4282,7 +4247,7 @@
           </div>
 
           <p class="sim-disclaimer">
-            <strong>계산 가정:</strong> 체크한 문제마다 기준 ROAS를 7%씩 낮춰 계산하며, 최대 감소 폭은 50%입니다. 회복 가능 매출은 차이의 28~45%로 가정합니다. 실제 계정 데이터는 반영하지 않은 참고용 결과입니다.
+            <strong>안내:</strong> 선택한 항목만으로 정리한 일반적인 점검 순서입니다. 실제 우선순위와 성과는 계정 데이터 확인 후 달라질 수 있습니다.
           </p>
 
           <a href="#contact" class="sim-cta" id="simCtaBtn">내 계정 상황 무료 상담받기</a>
@@ -4316,7 +4281,7 @@
           <span class="rv-result-txt">운영 결과<br><strong>ROAS 596% → 1,009%</strong></span>
         </div>
         <div class="rv-foot">
-          <span class="review-stars">★★★★★</span>
+          <span class="review-source">익명 광고주 후기</span>
           <span class="rv-period">네이버 검색광고 · 2025년 하반기</span>
         </div>
       </div>
@@ -4332,7 +4297,7 @@
           <span class="rv-result-txt">운영 결과<br><strong>ROAS 567% → 1,007%</strong></span>
         </div>
         <div class="rv-foot">
-          <span class="review-stars">★★★★★</span>
+          <span class="review-source">익명 광고주 후기</span>
           <span class="rv-period">지그재그 AI 광고 · 2025년 상반기</span>
         </div>
       </div>
@@ -4348,60 +4313,12 @@
           <span class="rv-result-txt">운영 결과<br><strong>전환매출 8,782만 → 1.60억</strong></span>
         </div>
         <div class="rv-foot">
-          <span class="review-stars">★★★★★</span>
+          <span class="review-source">익명 광고주 후기</span>
           <span class="rv-period">오늘의집 광고 · 2025년 봄</span>
         </div>
       </div>
     </div>
 
-  </div>
-</section>
-
-<!-- DIAGNOSIS REPORT -->
-<section id="report" class="soft">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow dual">COMMON ISSUES</span>
-      <h2>무료 진단에서 가장 자주 발견되는 6가지.</h2>
-      <p class="section-sub"><span class="sentence">누적 1,000곳 이상에서 자주 본 점검 항목입니다.</span> <span class="sentence">실제 계정 데이터를 바탕으로 확인합니다.</span></p>
-    </div>
-
-    <div class="report-grid">
-      <div class="report-item">
-        <div class="rnum">01</div>
-        <h3>전환 0건 키워드</h3>
-        <p>클릭은 있지만 구매로 이어지지 않는 키워드는 광고비를 낭비합니다.</p>
-      </div>
-      <div class="report-item">
-        <div class="rnum">02</div>
-        <h3>1위에 집착하는 입찰</h3>
-        <p>1위보다 3~4위가 더 효율적일 수 있습니다.</p>
-      </div>
-      <div class="report-item">
-        <div class="rnum">03</div>
-        <h3>오래 방치된 광고 소재</h3>
-        <p>오래된 썸네일과 문구는 클릭률을 낮춥니다.</p>
-      </div>
-      <div class="report-item">
-        <div class="rnum">04</div>
-        <h3>잘못 잡힌 전환 추적</h3>
-        <p>전환 측정이 어긋나면 매출을 만든 광고를 확인할 수 없습니다.</p>
-      </div>
-      <div class="report-item">
-        <div class="rnum">05</div>
-        <h3>방치된 옛 캠페인</h3>
-        <p>과거 캠페인과 광고그룹을 방치하면 예산과 AI 학습 데이터가 분산됩니다.</p>
-      </div>
-      <div class="report-item">
-        <div class="rnum">06</div>
-        <h3>시간대·시즌 무시한 예산</h3>
-        <p>매출이 몰리는 시간과 시즌에 예산을 집중하지 못하면 기회를 놓칩니다.</p>
-      </div>
-    </div>
-
-    <div style="margin-top: 36px; text-align: center;">
-      <a href="#contact" class="btn-report-cta">6가지 항목 무료 점검받기 →</a>
-    </div>
   </div>
 </section>
 
@@ -4488,26 +4405,6 @@
       </a>
     </div>
     <div class="insight-all"><a href="/blog/">인사이트 전체 보기 →</a></div>
-  </div>
-</section>
-
-<!-- PROMISE STRIP -->
-<section class="promise-strip">
-  <div class="wrap">
-    <div class="promises-mini">
-      <div class="pm">
-        <strong>운영 시작 후 7일 내 1차 리포트</strong>
-        계정 인계 후 7일 안에 구조·입찰·소재 분석 리포트를 드립니다.
-      </div>
-      <div class="pm">
-        <strong>매주 운영 리뷰</strong>
-        주 1회 정기 리뷰로 무엇이 좋아지고 무엇이 막혔는지 직접 설명드립니다.
-      </div>
-      <div class="pm">
-        <strong>광고비 외 청구 없음</strong>
-        공식 대행 매체(네이버·지그재그)는 관리비·위약금이 모두 0원입니다.
-      </div>
-    </div>
   </div>
 </section>
 
@@ -5207,8 +5104,6 @@
         { v:'edu',      l:'교육' },
         { v:'etc',      l:'기타' }
       ],
-      baseRoas: { beauty:580, fashion:460, food:420, health:540, interior:380, sports:520, pet:490, baby:500, digital:420, edu:380, etc:440 },
-      recoveryRate: 0.45,
       checks: [
         { issue:'no_report',    label:'검색어 보고서를 주 1회 이상 확인하지 않는다' },
         { issue:'low_keywords', label:'운영 키워드 수가 100개 이하다' },
@@ -5239,8 +5134,6 @@
         { v:'edu',      l:'교육' },
         { v:'etc',      l:'기타' }
       ],
-      baseRoas: { beauty:340, fashion:280, food:260, health:320, interior:240, sports:300, pet:280, baby:310, digital:260, edu:230, etc:270 },
-      recoveryRate: 0.35,
       checks: [
         { issue:'no_target',   label:'오디언스 타깃을 세분화 없이 전체 노출로 운영 중이다' },
         { issue:'no_ab',       label:'소재를 A/B 테스트한 적이 없다' },
@@ -5263,8 +5156,6 @@
         { v:'beauty',  l:'뷰티' },
         { v:'life',    l:'라이프스타일' }
       ],
-      baseRoas: { fashion:760, beauty:720, life:580 },
-      recoveryRate: 0.30,
       checks: [
         { issue:'ai_over',      label:'AI 에이전트에 예산을 전부 위임하고 수동 점검을 하지 않는다' },
         { issue:'old_thumb',    label:'썸네일 소재를 6개월 이상 바꾸지 않았다' },
@@ -5294,8 +5185,6 @@
         { v:'fashion', l:'패션' },
         { v:'etc',     l:'기타' }
       ],
-      baseRoas: { living:380, food:340, beauty:420, health:460, digital:320, baby:490, pet:410, sports:380, fashion:360, etc:360 },
-      recoveryRate: 0.40,
       checks: [
         { issue:'no_bid',       label:'입찰가를 초기 설정 그대로 조정한 적 없다' },
         { issue:'no_cpc',       label:'CPC 대비 전환율을 확인하지 않는다' },
@@ -5322,8 +5211,6 @@
         { v:'kitchen',   l:'주방' },
         { v:'etc',       l:'기타' }
       ],
-      baseRoas: { furniture:320, deco:360, light:380, bedding:420, bath:350, kitchen:340, etc:330 },
-      recoveryRate: 0.35,
       checks: [
         { issue:'no_style',     label:'소재 이미지를 공간 분위기에 맞게 스타일링하지 않았다' },
         { issue:'no_content',   label:'집들이·노하우 콘텐츠와 광고를 연계하지 않는다' },
@@ -5350,8 +5237,6 @@
         { v:'finance', l:'금융' },
         { v:'etc',     l:'기타' }
       ],
-      baseRoas: { beauty:280, fashion:260, food:240, health:300, edu:220, finance:260, etc:240 },
-      recoveryRate: 0.28,
       checks: [
         { issue:'no_pixel',     label:'카카오 픽셀을 설치하지 않아 전환 데이터가 없다' },
         { issue:'no_creative',  label:'소재를 카카오 피드 스크롤 환경에 맞게 최적화하지 않았다' },
@@ -5369,61 +5254,26 @@
     }
   };
 
-  var PENALTY_PER_ISSUE = 0.07;
-  var MAX_PENALTY       = 0.50;
+  var METRICS = {
+    naver_search: '검색어별 광고비 · 전환수 · 전환매출',
+    naver_gfa: '소재별 클릭률 · 전환 추적 · 타깃별 전환',
+    zigzag: '상품별 주문수 · 소재 클릭률 · 캠페인별 광고비',
+    coupang: '상품별 광고비 · 클릭당 비용 · 주문 전환',
+    ohouse: '상품별 전환 · 소재 클릭률 · 입찰 단가',
+    kakao: '픽셀 전환 · 소재 클릭률 · 오디언스별 광고비'
+  };
+  /* 측정 기반이 없으면 다른 조정 효과도 판단하기 어렵다. 나머지는 비용 누수,
+     성과 변화, 소재·타깃 순으로 안내하며 실제 계정에서는 재정렬한다. */
+  var PRIORITY_RANK = {
+    no_pixel: 0, no_report: 0, no_cpc: 0,
+    no_negative: 1, low_spend: 1, no_bid: 1, ai_over: 1,
+    roas_stagnant: 2, low_ctr: 2, low_keywords: 2,
+    no_ab: 3, old_creative: 3, old_thumb: 3, no_creative: 3,
+    no_target: 4, no_audience: 4, no_retarget: 4, wrong_goal: 4,
+    no_promo: 5, no_content: 5, no_style: 5, old_detail: 5
+  };
 
   function $(id){ return document.getElementById(id); }
-
-  function fmtKRW(manwon){
-    if (!manwon || manwon < 1) return '0원';
-    if (manwon >= 10000){
-      var eok = manwon / 10000;
-      return (eok >= 10 ? Math.round(eok) : eok.toFixed(1).replace(/\.0$/,'')) + '억원';
-    }
-    return Math.round(manwon).toLocaleString() + '만원';
-  }
-
-  var tween = {};
-  var noAnim = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  function tweenNumber(id, target, format, durMs){
-    var el = $(id); if (!el) return;
-    if (tween[id] && tween[id].raf) cancelAnimationFrame(tween[id].raf);
-
-    /* requestAnimationFrame은 탭이 백그라운드일 때 아예 실행되지 않는다.
-       그 상태에서 값이 바뀌면 숫자가 이전 값에 멈춰 있게 되므로,
-       애니메이션이 불가능한 상황에서는 최종값을 즉시 확정한다.
-       (동작 최소화 설정을 켠 사용자에게도 동일하게 적용) */
-    if (noAnim || document.hidden) {
-      tween[id] = { v: target, raf: 0 };
-      el.textContent = format(target);
-      return;
-    }
-
-    var from = (tween[id] && typeof tween[id].v === 'number') ? tween[id].v : 0;
-    var start = performance.now();
-    var dur = durMs || 420;
-    function step(now){
-      var t = Math.min(1, (now - start) / dur);
-      var e = 1 - Math.pow(1 - t, 3);
-      var cur = from + (target - from) * e;
-      el.textContent = format(cur);
-      if (t < 1) {
-        tween[id].raf = requestAnimationFrame(step);
-      } else {
-        tween[id].v = target; tween[id].raf = 0;
-      }
-    }
-    tween[id] = { v: from, raf: requestAnimationFrame(step) };
-  }
-
-  /* 진행 중인 tween을 끊고 고정 텍스트로 되돌린다 (idle 상태 표시용) */
-  function setStatic(id, text){
-    var el = $(id); if (!el) return;
-    if (tween[id] && tween[id].raf) cancelAnimationFrame(tween[id].raf);
-    tween[id] = { v: 0, raf: 0 };
-    el.textContent = text;
-  }
 
   function getMedium(){
     var el = document.querySelector('input[name="simMedium"]:checked');
@@ -5455,53 +5305,26 @@
   function getState(){
     var medium   = getMedium();
     var cfg      = MEDIA_CONFIG[medium] || MEDIA_CONFIG['naver_search'];
-    var spend    = parseInt($('simSpend').value, 10);
     var industry = $('simIndustry').value;
     var issues   = Array.prototype.slice.call(
                      document.querySelectorAll('#simChecks input:checked')
                    ).map(function(el){ return el.dataset.issue; });
-    var baseRoas  = cfg.baseRoas[industry] || 0;
-    var penalty   = Math.min(issues.length * PENALTY_PER_ISSUE, MAX_PENALTY);
-    var curRoas   = baseRoas * (1 - penalty);
-    var lossMW    = baseRoas > 0 ? spend * (baseRoas - curRoas) / 100 : 0;
-    /* 회복 잠재력은 반드시 손실액에 종속된다 — 손실이 0이면 회복액도 0.
-       매체별 recoveryRate는 "손실분 중 실제 회복 가능한 비율"을 뜻한다. */
-    var recoverMW = lossMW * cfg.recoveryRate;
-    return { spend:spend, medium:medium, industry:industry, issues:issues,
-             cfg:cfg, baseRoas:baseRoas, curRoas:curRoas, penalty:penalty,
-             lossMW:lossMW, recoverMW:recoverMW };
+    issues.sort(function(a, b){
+      return (PRIORITY_RANK[a] === undefined ? 9 : PRIORITY_RANK[a])
+           - (PRIORITY_RANK[b] === undefined ? 9 : PRIORITY_RANK[b]);
+    });
+    return { medium:medium, industry:industry, issues:issues, cfg:cfg };
   }
 
   function calc(){
     var s = getState();
-    $('simSpendValue').textContent = s.spend.toLocaleString() + '만원';
-
-    $('simAvgRoas').textContent = s.baseRoas + '%';
-    $('simCurBar').style.width  = (s.baseRoas > 0 ? s.curRoas / s.baseRoas * 100 : 0) + '%';
-
-    /* 체크 전(idle)에는 손실·회복 금액을 숫자로 확정해 보여주지 않는다.
-       "손실 0원인데 회복 잠재력은 있다"는 모순을 원천 차단하기 위함. */
-    var card = document.querySelector('.sim-result-card');
-    if (card) card.classList.toggle('is-idle', s.issues.length === 0);
-
-    tweenNumber('simCurRoas', s.curRoas, function(v){ return Math.round(v) + '%'; }, 380);
-
-    if (s.issues.length === 0){
-      setStatic('simLoss', '—');
-      setStatic('simGain', '—');
-    } else {
-      tweenNumber('simLoss', s.lossMW,    function(v){ return fmtKRW(v); }, 460);
-      tweenNumber('simGain', s.recoverMW, function(v){ return '+' + fmtKRW(v); }, 460);
-    }
-
-    var deltaEl = $('simDelta');
-    if (s.issues.length === 0){
-      deltaEl.textContent = '항목 선택 후 매출 차이를 확인하세요';
-      deltaEl.className   = 'sim-roas-delta neutral';
-    } else {
-      deltaEl.textContent = '기준 ROAS 대비 -' + Math.round(s.penalty*100) + '% 가정';
-      deltaEl.className   = 'sim-roas-delta warn';
-    }
+    $('simMetrics').textContent = METRICS[s.medium];
+    $('simResultHeading').textContent = s.issues.length
+      ? '먼저 확인할 항목 ' + s.issues.length + '개'
+      : '운영 상태를 선택해 주세요';
+    $('simResultLead').textContent = s.issues.length
+      ? '선택한 상태를 확인 순서대로 정리했습니다.'
+      : '해당되는 항목을 고르면 확인 순서를 정리해 드립니다.';
 
     Array.prototype.forEach.call(document.querySelectorAll('.sim-check'), function(lbl){
       var input = lbl.querySelector('input');
@@ -5512,31 +5335,16 @@
     if (s.issues.length === 0){
       pri.innerHTML = '<div class="sp-empty">우선 진단 항목을 선택해 주세요.</div>';
     } else {
-      var items = s.issues.slice(0, 3).map(function(k, i){
+      var items = s.issues.map(function(k, i){
         var label = (s.cfg.priorityMap && s.cfg.priorityMap[k]) || k;
         return '<div class="sp-item"><span class="sp-num">' + (i+1) + '</span><span>' + label + '</span></div>';
       }).join('');
-      pri.innerHTML = '<div class="sp-title">우선 진단 영역</div>' + items;
+      pri.innerHTML = '<div class="sp-title">확인 및 조치 순서</div>' + items;
     }
-  }
-
-  function spendToBudgetOption(spend){
-    if (spend < 300)   return '300만원 미만';
-    if (spend <= 500)  return '300-500만원';
-    if (spend <= 1000) return '500-1000만원';
-    if (spend <= 3000) return '1000-3000만원';
-    return '3000만원 이상';
   }
 
   function prefillForm(){
     var s = getState();
-    /* CTA 클릭 순간 화면·전달값을 같은 스냅샷으로 확정한다. */
-    ['simCurRoas', 'simLoss', 'simGain'].forEach(function(id){
-      if (tween[id] && tween[id].raf) cancelAnimationFrame(tween[id].raf);
-    });
-    $('simCurRoas').textContent = Math.round(s.curRoas) + '%';
-    $('simLoss').textContent = s.issues.length ? fmtKRW(s.lossMW) : '—';
-    $('simGain').textContent = s.issues.length ? '+' + fmtKRW(s.recoverMW) : '—';
     var mediumLabel  = s.cfg.label || s.medium;
     var industryLabel = '';
     s.cfg.industries.forEach(function(ind){ if (ind.v === s.industry) industryLabel = ind.l; });
@@ -5554,39 +5362,30 @@
       if (label) label.classList.toggle('checked', should);
     });
 
-    var budgetSel = $('f-budget');
-    if (budgetSel) budgetSel.value = spendToBudgetOption(s.spend);
-
     var issueText = s.issues.length ? s.issues.map(function(k){
       var chk = s.cfg.checks.filter(function(c){ return c.issue === k; })[0];
       return chk ? chk.label : k;
     }).join(' / ') : '체크 항목 없음';
+    var actions = s.issues.length ? s.issues.map(function(k){
+      return s.cfg.priorityMap[k] || k;
+    }).join(' / ') : '선택된 조치 없음';
 
     var summary = '[셀프 진단 결과]\n'
       + '업종: ' + industryLabel + '\n'
       + '매체: ' + mediumLabel + '\n'
-      + '월 광고비: ' + s.spend.toLocaleString() + '만원\n'
-      + '계산 기준 ROAS: ' + s.baseRoas + '%\n'
-      + '가정상 현재 ROAS: ' + Math.round(s.curRoas) + '%\n'
-      + '가정상 월 매출 차이: ' + fmtKRW(s.lossMW) + '\n'
-      + '가정상 회복 가능 매출: ' + fmtKRW(s.recoverMW) + ' / 월\n'
-      + '체크 항목: ' + issueText;
+      + '체크 항목: ' + issueText + '\n'
+      + '확인할 데이터: ' + METRICS[s.medium] + '\n'
+      + '확인 및 조치 순서: ' + actions;
     var sumEl = $('f-sim-summary');
     if (sumEl) sumEl.value = summary;
 
     var line = $('fpLine');
     if (line){
-      line.innerHTML = industryLabel + ' · ' + mediumLabel + ' · '
-        + '<strong>' + s.spend.toLocaleString() + '만원</strong>'
-        + ' · 가정상 ROAS <strong>' + Math.round(s.curRoas) + '%</strong>'
-        + ' / 계산 기준 ' + s.baseRoas + '%'
-        + ' · 월 매출 차이 <strong>' + fmtKRW(s.lossMW) + '</strong>'
-        + ' · 가정상 회복 가능 <strong>+' + fmtKRW(s.recoverMW) + '/월</strong>';
+      line.textContent = industryLabel + ' · ' + mediumLabel + ' · 점검 항목 ' + s.issues.length + '개';
     }
     $('formPrefill').hidden = false;
 
-    /* 매체·예산이 자동으로 채워지는 영역은 기본적으로 접혀 있으므로,
-       자동 입력이 눈에 안 보이는 채로 남지 않도록 펼쳐서 보여준다. */
+    /* 매체 선택이 자동으로 채워지는 영역을 보여준다. */
     var more = $('formMore');
     if (more) more.open = true;
   }
@@ -5599,9 +5398,6 @@
     }
   }
 
-  $('simSpend').addEventListener('input',  calc);
-  $('simSpend').addEventListener('change', calc);
-  $('simSpend').addEventListener('change', trackInteraction);
   $('simIndustry').addEventListener('change', calc);
   $('simIndustry').addEventListener('change', trackInteraction);
 
