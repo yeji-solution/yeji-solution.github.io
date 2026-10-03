@@ -3033,8 +3033,7 @@
     <div class="hero-text">
       <h1><span class="h1-soft">이명수 마케터</span><strong>네이버·지그재그 광고 전문</strong></h1>
       <p class="hero-tagline">
-        <span id="heroDailyLead">광고비는 나가는데 주문이 늘지 않나요?</span>
-        <span id="heroDailyFocus">검색어와 상품별 성과를 확인해, 먼저 손볼 곳을 짚어드립니다.</span>
+        <span id="heroRefreshCopy">검색어는 고객을 데려오고, 상품은 고객을 멈춰 세웁니다.</span>
       </p>
 
       <div class="hero-badges">
@@ -4725,26 +4724,23 @@
   var hasIO    = 'IntersectionObserver' in window;
   var hasHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-  /* 한국 시간 기준 요일별 히어로 점검 포인트. JavaScript가 꺼져 있으면 기본 문구를 표시한다. */
-  var dailyLead = qs('#heroDailyLead');
-  var dailyFocus = qs('#heroDailyFocus');
-  if (dailyLead && dailyFocus) {
-    var heroCopyByDay = [
-      ['지난주 광고비, 어디에 쓰였나요?', '지출과 주문을 나란히 보고 다음 조정 순서를 정합니다.'],
-      ['검색어는 늘었는데 주문은 그대로인가요?', '주문으로 이어진 검색어를 찾고, 불필요한 지출을 짚어드립니다.'],
-      ['노출은 되는데 클릭이 적나요?', '상품명과 썸네일이 고객 눈에 어떻게 보이는지 살펴봅니다.'],
-      ['클릭은 되는데 주문이 안 나오나요?', '유입 경로와 상품 페이지에서 놓친 지점을 찾아봅니다.'],
-      ['광고비가 너무 빨리 소진되나요?', '시간대와 입찰가를 살펴, 새는 예산을 찾습니다.'],
-      ['잘 팔리는 상품에 예산이 가고 있나요?', '상품별 지출과 매출을 비교해 우선순위를 정합니다.'],
-      ['주말 성과가 평일과 다른가요?', '요일별 주문 흐름을 비교해 운영 방식에 반영합니다.']
+  /* 같은 탭에서 새로고침할 때마다 다음 문구를 표시한다. 저장소를 사용할 수 없으면 첫 문구를 유지한다. */
+  var heroRefreshCopy = qs('#heroRefreshCopy');
+  if (heroRefreshCopy) {
+    var heroCopyOptions = [
+      '검색어는 고객을 데려오고, 상품은 고객을 멈춰 세웁니다.',
+      '광고가 보여 준 상품과 실제로 팔린 상품, 그 차이에서 조정을 시작합니다.',
+      '클릭이 주문으로 이어지지 않는다면, 광고 밖의 과정까지 살펴봅니다.'
     ];
-    var updateDailyFocus = function () {
-      var koreaDay = new Date(Date.now() + 9 * 60 * 60 * 1000).getUTCDay();
-      dailyLead.textContent = heroCopyByDay[koreaDay][0];
-      dailyFocus.textContent = heroCopyByDay[koreaDay][1];
-    };
-    updateDailyFocus();
-    window.setInterval(updateDailyFocus, 60 * 1000);
+    try {
+      var previousHeroCopy = window.sessionStorage.getItem('heroCopyIndex');
+      var nextHeroCopy = previousHeroCopy === null
+        ? 0 : (Number(previousHeroCopy) + 1) % heroCopyOptions.length;
+      heroRefreshCopy.textContent = heroCopyOptions[nextHeroCopy];
+      window.sessionStorage.setItem('heroCopyIndex', String(nextHeroCopy));
+    } catch (e) {
+      heroRefreshCopy.textContent = heroCopyOptions[0];
+    }
   }
 
   /* =====================================================
