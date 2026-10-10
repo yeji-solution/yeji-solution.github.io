@@ -2476,7 +2476,7 @@
   .kpi-num i { font-style: normal; font-size: 0.5em; font-weight: 700; color: var(--text-dim); margin-left: 2px; }
   .kpi-lbl { display: block; margin-top: 11px; font-size: 12.5px; font-weight: 600; color: var(--text-dim); letter-spacing: 0.02em; }
   .result-filter { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
-  .result-filter-break { display: none; }
+  .result-filter-select { display: none; }
   .rf-tab { font-family: inherit; cursor: pointer; font-size: 13.5px; font-weight: 700; color: var(--text-sub); background: #fff; border: 1px solid var(--line-strong); border-radius: 999px; padding: 9px 18px; transition: color var(--dur-base) var(--ease-out), background var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out); }
   .rf-tab:hover { border-color: var(--brand); color: var(--brand); }
   .rf-tab.is-active { background: var(--brand); border-color: var(--brand); color: #fff; }
@@ -3001,12 +3001,21 @@
     #credentials .cred-extra { margin-top: 12px; padding-top: 12px; }
     .stats-support .stat-label, .stats-note p { font-size: 12px; }
     .result-method { font-size: 13px; line-height: 1.6; }
-    .result-filter {
-      flex-wrap: wrap; justify-content: center;
-      margin-right: 0; padding-right: 0;
+    .result-filter { display: none; }
+    .result-filter-select { display: block; position: relative; margin-bottom: 24px; }
+    .result-filter-select::after {
+      content: '⌄'; position: absolute; right: 17px; top: 50%;
+      transform: translateY(-55%); pointer-events: none;
+      color: var(--brand); font-size: 23px; line-height: 1;
     }
-    .result-filter-break { display: block; flex-basis: 100%; height: 0; }
-    .rf-tab { flex: 0 0 auto; padding-inline: 12px; font-size: 12px; white-space: nowrap; }
+    .result-filter-select select {
+      appearance: none; width: 100%; min-height: 48px;
+      padding: 10px 44px 10px 16px;
+      border: 1px solid var(--line-strong); border-radius: 12px;
+      background: #fff; color: var(--text); font: inherit;
+      font-size: 14px; font-weight: 700; cursor: pointer;
+    }
+    .result-filter-select select:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
     .result-card { gap: 10px; padding: 18px; }
     .rc-cat, .rc-period, .rc-label, .rc-detail { font-size: 12px; }
     .rc-title { font-size: 15px; line-height: 1.5; }
@@ -3370,9 +3379,17 @@
       <button type="button" class="rf-tab is-active" role="tab" aria-selected="true" tabindex="0" data-filter="all">전체</button>
       <button type="button" class="rf-tab" role="tab" aria-selected="false" tabindex="-1" data-filter="naver">네이버</button>
       <button type="button" class="rf-tab" role="tab" aria-selected="false" tabindex="-1" data-filter="zigzag">지그재그·에이블리</button>
-      <span class="result-filter-break" aria-hidden="true"></span>
       <button type="button" class="rf-tab" role="tab" aria-selected="false" tabindex="-1" data-filter="coupang">쿠팡</button>
       <button type="button" class="rf-tab" role="tab" aria-selected="false" tabindex="-1" data-filter="ohouse">오늘의집</button>
+    </div>
+    <div class="result-filter-select">
+      <select id="resultPlatformSelect" aria-label="성과 매체 선택">
+        <option value="all">전체 매체</option>
+        <option value="naver">네이버</option>
+        <option value="zigzag">지그재그·에이블리</option>
+        <option value="coupang">쿠팡</option>
+        <option value="ohouse">오늘의집</option>
+      </select>
     </div>
 
     <!-- 네이버 -->
@@ -4675,30 +4692,31 @@
     var rows = qsa('.result-platform-row');
     var resultsSection = qs('#results');
     var toggle = qs('#resultsToggle');
+    var select = qs('#resultPlatformSelect');
     if (!tabs.length || !rows.length) return;
-    function activateTab(t) {
-        var f = t.dataset.filter;
-        t.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+    function activateFilter(f) {
         tabs.forEach(function (x) {
-          var active = x === t;
+          var active = x.dataset.filter === f;
           x.classList.toggle('is-active', active);
           x.setAttribute('aria-selected', active ? 'true' : 'false');
           x.tabIndex = active ? 0 : -1;
         });
+        if (select) select.value = f;
         rows.forEach(function (r) {
           r.hidden = !(f === 'all' || r.getAttribute('data-platform') === f);
         });
     }
     tabs.forEach(function (t, index) {
-      t.addEventListener('click', function () { activateTab(t); });
+      t.addEventListener('click', function () { activateFilter(t.dataset.filter); });
       t.addEventListener('keydown', function (e) {
         if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft' && e.key !== 'Home' && e.key !== 'End') return;
         e.preventDefault();
         var next = e.key === 'Home' ? 0 : e.key === 'End' ? tabs.length - 1 :
           (index + (e.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
-        tabs[next].focus(); activateTab(tabs[next]);
+        tabs[next].focus(); activateFilter(tabs[next].dataset.filter);
       });
     });
+    if (select) select.addEventListener('change', function () { activateFilter(select.value); });
     if (toggle && resultsSection) {
       toggle.addEventListener('click', function () {
         var expanded = resultsSection.classList.toggle('results-collapsed') === false;
