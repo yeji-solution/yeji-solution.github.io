@@ -512,7 +512,7 @@
   /* Hero 성과 strip */
   .hero-proof {
     margin-top: 30px;
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px;
   }
   .hp-item {
     position: relative; overflow: hidden;
@@ -2044,7 +2044,9 @@
     .badge-break { display: none; }
     .hero-cta { margin-top: 26px; gap: 8px; }
     .hero-cta > a { width: 100%; padding: 0 18px; font-size: 15px; height: 50px; }
-    .hero-proof { gap: 8px; margin-top: 24px; }
+    .hero-proof { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 24px; }
+    .hero-proof .hp-item:first-child { grid-column: 1 / -1; }
+    .hero-text { min-width: 0; }
     .hp-item { padding: 13px 11px 12px; border-radius: 12px; }
     .hp-item b { font-size: 22px; }
     .hp-cat { font-size: 10px; }
@@ -2931,7 +2933,7 @@
     .stats-support .stat-num span { font-size: 12px; }
     .stats-support .stat-label { font-size: 11px; white-space: normal; word-break: keep-all; }
     .hp-item b { font-size: clamp(17px, 5vw, 21px); white-space: nowrap; letter-spacing: -0.05em; }
-    .hp-period { display: none; }
+    .hp-period { font-size: 10px; }
     .stats-note { text-align: left; }
     .stats-note p { font-size: 11.5px; }
     .cta-checks { width: min(100%, 370px); gap: 8px; margin: 30px auto 34px; }
@@ -3077,9 +3079,9 @@
       <p class="hero-slot-meta" id="heroSlotMeta"><span class="slot-cap">매월 신규 운영은 4팀까지만 맡습니다</span><span class="slot-status">접수 일정 확인 중</span></p>
 
       <div class="hero-proof">
-        <div class="hp-item"><span class="hp-cat">ROAS</span><b data-target="1009" data-prefix="" data-suffix="%">1,009%</b><span class="hp-src">네이버</span><span class="hp-period">2025 하반기 3개월</span></div>
-        <div class="hp-item"><span class="hp-cat">성장률</span><b data-target="78" data-prefix="+" data-suffix="%">+78%</b><span class="hp-src">지그재그</span><span class="hp-period">ROAS 567% → 1,007%</span></div>
-        <div class="hp-item"><span class="hp-cat">전환매출</span><b data-target="119" data-prefix="+" data-suffix="%">+119%</b><span class="hp-src">에이블리</span><span class="hp-period">2025년 전년 대비</span></div>
+        <div class="hp-item"><span class="hp-cat">네이버 · ROAS</span><b data-target="1009" data-prefix="" data-suffix="%">1,009%</b><span class="hp-src">광고 그룹 구조 재설계</span><span class="hp-period">596% → 1,009%</span></div>
+        <div class="hp-item"><span class="hp-cat">지그재그 · 전환매출</span><b>약 2배</b><span class="hp-src">타깃 세분화 후 성장</span><span class="hp-period">4.40억 → 8.46억</span></div>
+        <div class="hp-item"><span class="hp-cat">에이블리 · 전환매출</span><b>2.2배</b><span class="hp-src">신규 타깃 확장 후 성장</span><span class="hp-period">8,842만 → 1.94억</span></div>
       </div>
     </div>
 

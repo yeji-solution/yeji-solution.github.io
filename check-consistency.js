@@ -89,21 +89,22 @@ function checkRoasDeltas(html) {
 }
 
 /* ── 2c. 히어로 성과 카드가 실제 케이스 데이터에서 나온 숫자인지 ────────
-   히어로의 큰 숫자(1,009% / +78% / +119%)는 손으로 옮겨 적은 값이라, 성과
-   섹션 원본이 바뀌어도 히어로 쪽은 그대로 남아 어긋나기 쉽다. 히어로에 적힌
-   숫자가 문서 어딘가(성과 섹션)에 실제로 존재하는지만 확인한다 — 존재하지
-   않으면 손으로 옮겨 적다 오타가 났거나 원본이 바뀐 뒤 갱신을 놓친 것이다. */
+   큰 숫자가 백분율과 배수를 섞어 표시하므로 화면에 보이는 값 자체를
+   RESULTS 섹션의 사례 값과 비교한다. */
 function checkHeroProofGrounded(html) {
-  const heroNums = [...html.matchAll(/hp-item">.*?data-target="(\d+)" data-prefix="([^"]*)"/g)]
-    .map(([, target, prefix]) => `${prefix}${target}`);
-  const bodyWithoutHero = html.replace(/<div class="hero-proof">[\s\S]*?<\/div>\s*<\/div>\s*<\/div>/, '');
-  // 천 단위 콤마(1,009 vs 1009)는 표기 차이일 뿐이므로 숫자만 비교한다
-  const bodyDigitsOnly = bodyWithoutHero.replace(/(\d),(\d{3})/g, '$1$2');
+  const hero = html.match(/<div class="hero-proof">([\s\S]*?)<\/div>\s*<\/div>\s*<\/div>/)?.[1] || '';
+  const heroNums = [...hero.matchAll(/<b(?:\s[^>]*)?>([^<]+)<\/b>/g)].map(([, value]) => value);
+  const results = html.match(/<section id="results"[\s\S]*?<\/section>/)?.[0] || '';
+  const normalizedResults = results.replace(/(\d),(\d{3})/g, '$1$2');
   let bad = 0;
+  if (heroNums.length !== 3) {
+    console.error(`✗ 히어로 성과 카드는 3개여야 합니다: ${heroNums.length}개 발견`);
+    bad++;
+  }
   for (const num of heroNums) {
-    const escaped = num.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    if (!new RegExp(escaped + '%').test(bodyDigitsOnly)) {
-      console.error(`✗ 히어로 성과 카드의 "${num}%"가 성과(RESULTS) 섹션 어디에도 없습니다 — 옮겨 적다 틀렸을 수 있습니다.`);
+    const normalizedNum = num.replace(/(\d),(\d{3})/g, '$1$2');
+    if (!normalizedResults.includes(normalizedNum)) {
+      console.error(`✗ 히어로 성과 카드의 "${num}"가 성과(RESULTS) 섹션 어디에도 없습니다.`);
       bad++;
     }
   }
