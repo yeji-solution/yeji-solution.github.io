@@ -3000,6 +3000,14 @@
     #credentials .cred-extra { margin-top: 12px; padding-top: 12px; }
     .stats-support .stat-label, .stats-note p { font-size: 12px; }
     .result-method { font-size: 13px; line-height: 1.6; }
+    .result-filter {
+      flex-wrap: nowrap; overflow-x: auto; overflow-y: hidden;
+      white-space: nowrap; scroll-snap-type: x proximity;
+      scrollbar-width: none; -webkit-overflow-scrolling: touch;
+      margin-right: -20px; padding-right: 20px;
+    }
+    .result-filter::-webkit-scrollbar { display: none; }
+    .rf-tab { flex: 0 0 auto; scroll-snap-align: start; padding-inline: 22px; }
     .result-card { gap: 10px; padding: 18px; }
     .rc-cat, .rc-period, .rc-label, .rc-detail { font-size: 12px; }
     .rc-title { font-size: 15px; line-height: 1.5; }
@@ -4670,6 +4678,7 @@
     if (!tabs.length || !rows.length) return;
     function activateTab(t) {
         var f = t.dataset.filter;
+        t.scrollIntoView({ block: 'nearest', inline: 'nearest' });
         tabs.forEach(function (x) {
           var active = x === t;
           x.classList.toggle('is-active', active);
