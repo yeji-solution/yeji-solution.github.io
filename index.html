@@ -2949,6 +2949,47 @@
     .stats-grid .stat:not(:first-child) .stat-num { font-size: 30px; }
     .stats-grid .stat:not(:first-child) .stat-num span { font-size: 13px; }
   }
+
+  /* Mobile reading pass: keep the established copy and make the first screen useful. */
+  @media (max-width: 720px) {
+    .hero { padding: 34px 0 40px; }
+    .hero-person { margin-bottom: 8px; font-size: 13px; }
+    .hero-text h1 { margin-top: 0; line-height: 1.35; }
+    .hero-tagline { margin-top: 14px; font-size: 14px; line-height: 1.55; }
+    .hero-tagline span + span { margin-top: 4px; }
+    .hero-badges { margin-top: 16px; gap: 6px; }
+    .hero-badges .badge { padding: 6px 9px; font-size: 11px; }
+    .hero-cta { display: grid; grid-template-columns: 1fr 1fr; margin-top: 18px; gap: 8px; }
+    .hero-cta > a { width: auto; min-width: 0; height: 46px; padding: 0 8px; font-size: 13px; }
+    .hero-cta-meta { margin-top: 10px; font-size: 11px; }
+    .hero-slot-meta { margin-top: 10px; padding: 9px 12px; font-size: 11px; }
+    .hero-proof { margin-top: 18px; gap: 7px; }
+    .hp-item { padding: 11px 12px; gap: 3px; }
+    .hp-cat { font-size: 11px; letter-spacing: 0.03em; }
+    .hp-src, .hp-period { font-size: 11px; line-height: 1.35; }
+    .hp-item b { font-size: 22px; }
+    .mobile-menu { max-height: calc(100dvh - 62px); overflow-y: auto; }
+    .mobile-menu.open { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .mobile-menu a { min-height: 46px; display: flex; align-items: center; padding: 10px 16px; font-size: 13px; }
+    .mobile-menu a:last-child { grid-column: 1 / -1; justify-content: center; background: var(--bg-naver); }
+    .mobile-profile { padding: 32px 0; }
+    .mp-photo-card { width: 156px; height: 195px; margin-bottom: 14px; }
+    .mp-role-text { margin-bottom: 12px; }
+    .mp-quote { margin-bottom: 14px; padding: 12px 14px; font-size: 13px; }
+    .stats-support .stat-label, .stats-note p { font-size: 12px; }
+    .result-method { font-size: 13px; line-height: 1.6; }
+    .result-card { gap: 10px; padding: 18px; }
+    .rc-cat, .rc-period, .rc-label, .rc-detail { font-size: 12px; }
+    .rc-title { font-size: 15px; line-height: 1.5; }
+    .rc-chip { font-size: 11px; padding: 4px 7px; }
+    .rc-row { font-size: 13px; flex-wrap: wrap; }
+    .rc-after { font-size: 16px; }
+    .sticky-bar { padding: 8px 14px calc(8px + env(safe-area-inset-bottom)); gap: 8px; }
+    .sticky-bar-cta { min-height: 44px; padding: 11px 0; font-size: 14px; }
+    .sticky-bar-kakao { width: 44px; height: 44px; }
+    body { padding-bottom: calc(70px + env(safe-area-inset-bottom)); }
+    .to-top { bottom: calc(78px + env(safe-area-inset-bottom)); }
+  }
 </style>
 </head>
 <body>
