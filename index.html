@@ -2753,9 +2753,18 @@
     .review-grid { grid-template-columns: 1fr; }
     .case-grid { grid-template-columns: 1fr; }
     .timeline { grid-template-columns: repeat(2, 1fr); }
-    /* 헤드라인·CTA 먼저 → 사진은 그 아래 중앙 (전환 우선, 사각지대 방지) */
-    .hero-grid { grid-template-columns: 1fr; gap: 32px; }
-    .hero-photo { display: block; order: 0; width: 100%; max-width: 300px; margin: 8px auto 0; }
+    /* 태블릿에서는 사진을 옆에 두어 첫 화면의 길이를 줄인다. */
+    .hero { padding: 56px 0; }
+    .hero-grid { grid-template-columns: minmax(0, 1fr) 220px; gap: 24px; align-items: center; }
+    .hero-text { min-width: 0; }
+    .hero h1 { font-size: clamp(27px, 3.7vw, 36px); }
+    .hero-tagline { margin-top: 16px; font-size: 15px; }
+    .hero-badges { margin-top: 20px; gap: 7px; }
+    .hero-badges .badge { padding: 7px 10px; font-size: 11px; }
+    .hero-cta { margin-top: 20px; }
+    .hero-proof { margin-top: 22px; gap: 8px; }
+    .hp-item { padding: 13px 11px; }
+    .hero-photo { display: block; width: 100%; max-width: 220px; margin: 0; }
   }
 
   /* ===== SCROLL PROGRESS BAR ===== */
@@ -2974,6 +2983,21 @@
     .mobile-profile { padding: 32px 0; }
     .mp-photo-card { width: min(230px, 68vw); height: auto; aspect-ratio: 4 / 5; margin-bottom: 18px; }
     .mp-role-text { margin-bottom: 12px; }
+    #credentials { padding: 48px 0; }
+    #credentials .section-head { margin-bottom: 22px; }
+    #credentials .section-head h2 { margin-bottom: 7px; }
+    #credentials .cred-official { padding: 18px; margin-bottom: 12px; }
+    #credentials .co-header { gap: 8px; margin-bottom: 14px; }
+    #credentials .co-sub { margin-bottom: 14px; }
+    #credentials .co-cert { padding: 13px; }
+    #credentials .co-cert-logo { width: 40px; height: 40px; font-size: 21px; }
+    #credentials .co-cert-meta { margin-bottom: 8px; }
+    #credentials .co-note { margin-top: 10px; padding: 9px 10px; }
+    #credentials .creds { gap: 10px; }
+    #credentials .cred-block { padding: 18px; }
+    #credentials .cred-block .title { margin-bottom: 13px; }
+    #credentials .cred-list { gap: 11px; }
+    #credentials .cred-extra { margin-top: 12px; padding-top: 12px; }
     .stats-support .stat-label, .stats-note p { font-size: 12px; }
     .result-method { font-size: 13px; line-height: 1.6; }
     .result-card { gap: 10px; padding: 18px; }
@@ -2988,6 +3012,9 @@
     body { padding-bottom: calc(70px + env(safe-area-inset-bottom)); }
     .to-top { bottom: calc(78px + env(safe-area-inset-bottom)); }
   }
+  .credentials-next { margin-top: 20px; text-align: right; }
+  .credentials-next a { color: var(--brand); font-size: 14px; font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
+  @media (max-width: 720px) { .credentials-next { margin-top: 16px; } }
 </style>
 </head>
 <body>
@@ -3315,6 +3342,7 @@
         </div>
       </div>
     </div>
+    <div class="credentials-next"><a href="#results">광고 운영 성과 보기 →</a></div>
   </div>
 </section>
 
