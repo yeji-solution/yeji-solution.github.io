@@ -2042,8 +2042,6 @@
     /* 배지: 모바일에서 한 줄씩 쌓이는 문제 개선 */
     .badge { padding: 7px 11px; font-size: 12px; gap: 6px; }
     .hero-badges { gap: 8px; margin-top: 20px; }
-    /* 배지 구분선: 모바일에선 자연 흐름으로 */
-    .badge-break { display: none; }
     .hero-cta { margin-top: 26px; gap: 8px; }
     .hero-cta > a { width: 100%; padding: 0 18px; font-size: 15px; height: 50px; }
     .hero-proof { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 24px; }
@@ -2089,8 +2087,6 @@
   /* ===== LINE BREAK PREVENTION ===== */
   /* 배지 내부 줄바꿈 방지 */
   .badge { white-space: nowrap; }
-  /* 배지 그룹 구분선 (파트너십 / 자격증 분리) */
-  .badge-break { flex-basis: 100%; height: 0; }
   /* 네비게이션 항목 줄바꿈 방지 */
   .nav-menu a { white-space: nowrap; }
   /* 제목 요소 단어 단위 줄바꿈 강제 */
@@ -2282,7 +2278,7 @@
     .ss-sub { font-size: 12px; }
   }
 
-  /* ===== TESTIMONIALS ===== */
+  /* ===== 운영 사례 요약 ===== */
   .review-grid {
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
   }
@@ -2294,14 +2290,6 @@
     box-shadow: 0 1px 4px rgba(26,29,36,0.05);
     transition: transform 0.16s ease, box-shadow 0.16s ease;
     position: relative; overflow: hidden;
-  }
-  .review-card::before {
-    content: '\201C';
-    position: absolute; top: -6px; right: 18px;
-    font-size: 96px; line-height: 1;
-    color: var(--line);
-    font-family: Georgia, 'Times New Roman', serif;
-    pointer-events: none; user-select: none;
   }
   .review-card:hover {
     transform: translateY(-3px);
@@ -2323,7 +2311,7 @@
   .rv-biz {
     font-size: 12px; font-weight: 700; color: var(--text-sub);
   }
-  .rv-quote {
+  .rv-heading {
     font-size: 19px; font-weight: 800; color: var(--text); line-height: 1.5;
     letter-spacing: -0.025em;
   }
@@ -2364,10 +2352,6 @@
   .review-source { color: var(--text-sub); font-size: 11px; font-weight: 700; }
   .rv-period {
     font-size: 11px; color: var(--text-dim);
-  }
-  .review-notice {
-    margin-top: 20px; font-size: 12px; color: var(--text-dim);
-    text-align: center;
   }
   @media (max-width: 900px) {
     .review-grid { grid-template-columns: 1fr; }
@@ -3066,11 +3050,6 @@
         <span class="badge badge-official"><span class="dot"></span>NAVER 공식 인증 Expert</span>
         <span class="badge naver"><span class="dot"></span>네이버 프리미어 파트너사</span>
         <span class="badge zigzag"><span class="dot"></span>지그재그 프리미어 에이전시</span>
-        <span class="badge ably"><span class="dot"></span>에이블리 우수대행사</span>
-        <span class="badge-break"></span>
-        <span class="badge">검색광고마케터 1급</span>
-        <span class="badge">구글 GAIQ</span>
-        <span class="badge">SNS광고마케터 1급</span>
       </div>
 
       <div class="hero-cta">
@@ -3325,7 +3304,7 @@
       <p class="section-sub">직접 운영한 계정의 수치와 개선 과정을 담았습니다.</p>
     </div>
 
-    <p class="result-method"><strong>성과 읽는 법</strong> ROAS는 광고 매체에 기록된 전환매출을 광고비로 나눈 값입니다. 각 카드에는 변경 전·후 수치와 업종·운영 시기를 표기했습니다. 일부 사례의 동일 예산 여부를 제외하면 전후 집계 기간과 세부 광고비는 공개되지 않았습니다. 사례 간 수치를 직접 비교하거나 결과 보장으로 해석하지 마세요.</p>
+    <p class="result-method"><strong>성과 읽는 법</strong> ROAS는 광고 매체에 기록된 전환매출을 광고비로 나눈 값입니다. 각 카드에서 변경 전·후 수치와 운영 시기를 확인할 수 있습니다.</p>
 
     <!-- 플랫폼 필터 탭 -->
     <div class="result-filter" role="tablist" aria-label="플랫폼별 성과 필터">
@@ -3895,7 +3874,7 @@
     <div class="results-toggle-wrap">
       <button type="button" class="results-toggle" id="resultsToggle" aria-expanded="false">성과 사례 더 보기 ↓</button>
     </div>
-    <p class="result-note"><span class="sentence">실제 광고 계정 데이터이며, 광고주 동의 하에 업종·카테고리만 표기했습니다.</span><span class="sentence">세부 광고비와 광고주 식별 정보는 공개하지 않습니다.</span></p>
+    <p class="result-note"><span class="sentence">실제 광고 계정 데이터이며, 광고주 동의 하에 업종·카테고리만 표기했습니다.</span><span class="sentence">일부 사례에는 동일 예산 여부를 표기했습니다. 전후 집계 기간과 세부 광고비는 공개하지 않습니다.</span><span class="sentence">사례 간 수치를 직접 비교하거나 결과 보장으로 해석하지 마세요.</span></p>
   </div>
 </section>
 
@@ -4264,13 +4243,13 @@
 </section>
 
 
-<!-- TESTIMONIALS -->
+<!-- 운영 사례 요약 -->
 <section id="testimonials">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow dual">TESTIMONIALS</span>
-      <h2>함께한 광고주분들의 이야기입니다.</h2>
-      <p class="section-sub">네이버·지그재그·오늘의집 광고주가 경험한 운영 과정과 결과를 담았습니다.</p>
+      <span class="eyebrow dual">CASE NOTES</span>
+      <h2>계정에서 바꾼 항목과 결과</h2>
+      <p class="section-sub">세 매체에서 실제로 조정한 항목을 성과 수치와 함께 정리했습니다.</p>
     </div>
 
     <div class="review-grid">
@@ -4279,47 +4258,47 @@
           <span class="rv-badge rv-n">NAVER</span>
           <span class="rv-biz">헬스·스포츠용품 셀러</span>
         </div>
-        <p class="rv-quote">"달라진 숫자가 보였어요."</p>
-        <p class="review-text">네이버 광고는 셋팅해두면 알아서 굴러가는 구조가 아니에요. 전에 쓰던 곳은 거의 손을 안 댔는데, 여기는 키워드 구조나 입찰가를 주기적으로 점검하고 직접 바꿔줬어요. 전환이 떨어지는 구간마다 원인을 짚어줬고, 그 덕에 저는 다른 업무에 집중할 수 있었습니다.</p>
+        <h3 class="rv-heading">광고 그룹 구조를 다시 짰습니다.</h3>
+        <p class="review-text">광고 그룹을 재설계하고 전환이 높은 상품에 예산을 집중했습니다. 입찰 구간도 함께 조정했습니다.</p>
         <div class="rv-result">
           <span class="rv-result-icon rv-icon-n">✓</span>
           <span class="rv-result-txt">운영 결과<br><strong>ROAS 596% → 1,009%</strong></span>
         </div>
         <div class="rv-foot">
-          <span class="review-source">익명 광고주 후기</span>
+          <span class="review-source">광고 계정 운영 사례</span>
           <span class="rv-period">네이버 검색광고 · 2025년 하반기</span>
         </div>
       </div>
       <div class="review-card">
         <div class="rv-top">
           <span class="rv-badge rv-z">ZIGZAG</span>
-          <span class="rv-biz">여성 캐주얼 브랜드</span>
+          <span class="rv-biz">패션 잡화 브랜드</span>
         </div>
-        <p class="rv-quote">"바꾸고 나서 다시 살아났어요."</p>
-        <p class="review-text">처음엔 그냥 광고 켜두면 되는 줄 알았는데, 소재 단위로 성과를 뜯어보고 타겟을 좁히는 작업을 꾸준히 해줬어요. 반응이 낮은 소재는 빠르게 교체해줬고, 클릭 대비 구매 전환이 약한 구간은 입찰 구조를 다시 잡아줬습니다. 예산은 그대로인데 효율이 눈에 띄게 달라졌어요.</p>
+        <h3 class="rv-heading">카테고리별 입찰을 분리했습니다.</h3>
+        <p class="review-text">카테고리별로 입찰과 ROAS 목표를 나누고 소재 품질을 개선했습니다.</p>
         <div class="rv-result">
           <span class="rv-result-icon rv-icon-z">✓</span>
           <span class="rv-result-txt">운영 결과<br><strong>ROAS 567% → 1,007%</strong></span>
         </div>
         <div class="rv-foot">
-          <span class="review-source">익명 광고주 후기</span>
-          <span class="rv-period">지그재그 AI 광고 · 2025년 상반기</span>
+          <span class="review-source">광고 계정 운영 사례</span>
+          <span class="rv-period">지그재그 광고 · 2025년 상반기</span>
         </div>
       </div>
       <div class="review-card">
         <div class="rv-top">
           <span class="rv-badge rv-t">오늘의집</span>
-          <span class="rv-biz">인테리어 소품 셀러</span>
+          <span class="rv-biz">가구·수납함 셀러</span>
         </div>
-        <p class="rv-quote">"올해는 좀 달랐다 싶었어요."</p>
-        <p class="review-text">봄마다 타이밍 놓쳐서 항상 속상했는데, 이번엔 시즌 한 달 전부터 예산 구조 잡고 입찰 세팅을 다 준비해줬어요. 노출 피크 구간에 예산이 끊기지 않도록 하루 단위로 조정해줬다고 하더라고요. 시즌 지나고 결과 보니 전환이 확실히 달라져 있었어요.</p>
+        <h3 class="rv-heading">새 타깃을 찾고 소재를 바꿨습니다.</h3>
+        <p class="review-text">새 타깃층을 발굴하고 소재를 개선한 뒤 예산을 점진적으로 늘렸습니다.</p>
         <div class="rv-result">
           <span class="rv-result-icon rv-icon-t">✓</span>
           <span class="rv-result-txt">운영 결과<br><strong>전환매출 8,782만 → 1.60억</strong></span>
         </div>
         <div class="rv-foot">
-          <span class="review-source">익명 광고주 후기</span>
-          <span class="rv-period">오늘의집 광고 · 2025년 봄</span>
+          <span class="review-source">광고 계정 운영 사례</span>
+          <span class="rv-period">오늘의집 광고 · 2025년</span>
         </div>
       </div>
     </div>
