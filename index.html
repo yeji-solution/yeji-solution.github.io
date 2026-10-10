@@ -2476,6 +2476,7 @@
   .kpi-num i { font-style: normal; font-size: 0.5em; font-weight: 700; color: var(--text-dim); margin-left: 2px; }
   .kpi-lbl { display: block; margin-top: 11px; font-size: 12.5px; font-weight: 600; color: var(--text-dim); letter-spacing: 0.02em; }
   .result-filter { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+  .result-filter-break { display: none; }
   .rf-tab { font-family: inherit; cursor: pointer; font-size: 13.5px; font-weight: 700; color: var(--text-sub); background: #fff; border: 1px solid var(--line-strong); border-radius: 999px; padding: 9px 18px; transition: color var(--dur-base) var(--ease-out), background var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out); }
   .rf-tab:hover { border-color: var(--brand); color: var(--brand); }
   .rf-tab.is-active { background: var(--brand); border-color: var(--brand); color: #fff; }
@@ -3001,13 +3002,11 @@
     .stats-support .stat-label, .stats-note p { font-size: 12px; }
     .result-method { font-size: 13px; line-height: 1.6; }
     .result-filter {
-      flex-wrap: nowrap; overflow-x: auto; overflow-y: hidden;
-      white-space: nowrap; scroll-snap-type: x proximity;
-      scrollbar-width: none; -webkit-overflow-scrolling: touch;
-      margin-right: -20px; padding-right: 20px;
+      flex-wrap: wrap; justify-content: center;
+      margin-right: 0; padding-right: 0;
     }
-    .result-filter::-webkit-scrollbar { display: none; }
-    .rf-tab { flex: 0 0 auto; scroll-snap-align: start; padding-inline: 22px; }
+    .result-filter-break { display: block; flex-basis: 100%; height: 0; }
+    .rf-tab { flex: 0 0 auto; padding-inline: 12px; font-size: 12px; white-space: nowrap; }
     .result-card { gap: 10px; padding: 18px; }
     .rc-cat, .rc-period, .rc-label, .rc-detail { font-size: 12px; }
     .rc-title { font-size: 15px; line-height: 1.5; }
@@ -3371,6 +3370,7 @@
       <button type="button" class="rf-tab is-active" role="tab" aria-selected="true" tabindex="0" data-filter="all">전체</button>
       <button type="button" class="rf-tab" role="tab" aria-selected="false" tabindex="-1" data-filter="naver">네이버</button>
       <button type="button" class="rf-tab" role="tab" aria-selected="false" tabindex="-1" data-filter="zigzag">지그재그·에이블리</button>
+      <span class="result-filter-break" aria-hidden="true"></span>
       <button type="button" class="rf-tab" role="tab" aria-selected="false" tabindex="-1" data-filter="coupang">쿠팡</button>
       <button type="button" class="rf-tab" role="tab" aria-selected="false" tabindex="-1" data-filter="ohouse">오늘의집</button>
     </div>
