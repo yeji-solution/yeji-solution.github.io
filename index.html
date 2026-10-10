@@ -2666,66 +2666,6 @@
   }
   .hero h1, .hero-tagline, .hero-badges, .hero-photo { animation: none; }
 
-  /* 첫 방문 브랜드 인트로 — 본문 로딩은 막지 않고 화면 위에서 짧게 재생한다. */
-  #intro-overlay {
-    display: none;
-    position: fixed; inset: 0; z-index: 9999;
-    align-items: center; justify-content: center;
-    overflow: hidden; pointer-events: none;
-    will-change: opacity;
-    background:
-      radial-gradient(circle at 50% 44%, rgba(45, 67, 116, 0.42), transparent 38%),
-      rgba(16, 23, 41, 0.985);
-    color: #fff;
-  }
-  .show-intro #intro-overlay {
-    display: flex;
-    animation: intro-curtain-out 0.68s 1.02s cubic-bezier(0.76, 0, 0.24, 1) forwards;
-  }
-  .intro-inner { position: relative; text-align: center; padding: 32px; }
-  .intro-brand {
-    font-size: clamp(34px, 5vw, 64px); font-weight: 900;
-    line-height: 1; letter-spacing: -0.035em;
-    opacity: 0; transform: translateY(28px) scale(0.97);
-  }
-  .show-intro .intro-brand {
-    animation: intro-brand-in 0.72s 0.08s var(--ease-out-expo) forwards;
-  }
-  .intro-brand .ib-accent {
-    color: #50E27B;
-    text-shadow: 0 0 30px rgba(0,199,60,0.32);
-  }
-  .intro-sub {
-    margin-top: 13px; font-size: 11px; font-weight: 700;
-    letter-spacing: 0.32em; text-transform: uppercase;
-    color: rgba(255,255,255,0.55);
-    opacity: 0; transform: translateY(12px);
-  }
-  .show-intro .intro-sub {
-    animation: intro-sub-in 0.55s 0.4s var(--ease-out) forwards;
-  }
-  .intro-line {
-    width: 0; height: 2px; margin: 20px auto 0;
-    border-radius: 999px;
-    background: linear-gradient(90deg, transparent, #50E27B, transparent);
-    box-shadow: 0 0 18px rgba(0,199,60,0.45);
-  }
-  .show-intro .intro-line { animation: intro-line-in 0.72s 0.52s var(--ease-out-expo) forwards; }
-  @keyframes intro-brand-in {
-    to { opacity: 1; transform: translateY(0) scale(1); }
-  }
-  @keyframes intro-sub-in {
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes intro-line-in { to { width: 184px; } }
-  @keyframes intro-curtain-out {
-    0% { opacity: 1; }
-    100% { opacity: 0; visibility: hidden; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .show-intro #intro-overlay { display: none; animation: none; }
-  }
-
   /* Stats 섹션 노이즈 텍스처 느낌 (SVG filter) */
   .stats { position: relative; }
   .stats::after {
@@ -2968,26 +2908,6 @@
 
 <!-- 키보드 사용자용 본문 바로가기 -->
 <a href="#main" class="skip-link">본문 바로가기</a>
-
-<!-- 같은 탭의 첫 방문에만 재생되는 브랜드 인트로 -->
-<script>
-  try {
-    if (!sessionStorage.getItem('ys_intro_v2_shown') &&
-        !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      document.documentElement.classList.add('show-intro');
-      sessionStorage.setItem('ys_intro_v2_shown', '1');
-    }
-  } catch (e) {
-    document.documentElement.classList.add('show-intro');
-  }
-</script>
-<div id="intro-overlay" aria-hidden="true">
-  <div class="intro-inner">
-    <div class="intro-brand"><span class="ib-accent">YEJI</span> SOLUTION</div>
-    <div class="intro-sub">Performance Marketing</div>
-    <div class="intro-line"></div>
-  </div>
-</div>
 
 <!-- 스크롤 진행 표시바 -->
 <div id="scroll-progress"></div>
