@@ -158,7 +158,7 @@
       "name": "광고비를 늘리면 매출이 늘어나나요?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "대부분의 경우 비례하지 않습니다. 매출이 안 나오는 이유는 거의 항상 노출·클릭·전환 중 한 군데에 막혀 있습니다. 막힌 곳을 그대로 두고 예산만 늘리면 ROAS가 더 떨어집니다. 진단이 먼저고, 예산은 마지막입니다."
+        "text": "노출·클릭·전환 중 어디에서 매출이 막히는지 먼저 확인해야 합니다. 원인을 그대로 둔 채 예산만 늘리면 ROAS가 떨어질 수 있습니다."
       }
     },
     {
@@ -174,7 +174,7 @@
       "name": "ROAS만 잘 나오면 좋은 광고인가요?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "ROAS만 보면 매출 성장이 멈춥니다. ROAS는 높이려면 광고비를 줄이면 됩니다. 하지만 그 순간 신규 고객 유입도 같이 줄어듭니다. ROAS·전환수·신규 비율을 함께 봐야 합니다. 좋은 마케터는 세 지표를 동시에 관리합니다."
+        "text": "ROAS와 매출 규모를 함께 봐야 합니다. 광고비를 줄여 ROAS가 올라가더라도 전환수나 매출이 줄 수 있습니다. 전환매출·광고비·신규 고객 비중을 함께 확인한 뒤 예산을 결정합니다."
       }
     },
     {
@@ -2502,6 +2502,7 @@
   .rc-cat { font-size: 11.5px; font-weight: 700; color: var(--text-sub); }
   .rc-period { margin-left: auto; font-size: 10.5px; font-weight: 600; color: var(--text-dim); letter-spacing: 0.02em; }
   .rc-title { font-size: 13px; font-weight: 800; color: var(--text); line-height: 1.45; }
+  .rc-detail { margin: 0; font-size: 11.5px; color: var(--text-sub); line-height: 1.55; }
   .rc-approach { display: flex; gap: 5px; flex-wrap: wrap; }
   .rc-chip {
     font-size: 10.5px; background: var(--bg-soft); color: var(--text-sub);
@@ -3281,7 +3282,7 @@
       <p class="section-sub">직접 운영한 계정의 조정 항목과 전후 성과를 정리했습니다.</p>
     </div>
 
-    <p class="result-method"><strong>성과 읽는 법</strong> ROAS는 광고 매체에 기록된 전환매출을 광고비로 나눈 값입니다. 카드에는 운영 연도와 변경 전·후 수치를 표기했습니다. 전후 집계 기간은 공개하지 않습니다.</p>
+    <p class="result-method"><strong>성과 읽는 법</strong> ROAS는 매체에 기록된 전환매출을 광고비로 나눈 값입니다. 전환매출은 광고 기여 매출이며 전체 매출과 다릅니다. 카드의 연도는 운영 시기이고, 변경 전·후 수치의 집계 기간은 공개하지 않습니다. 여러 조정을 함께 진행한 사례이므로 특정 조치 하나의 효과로 단정할 수 없습니다.</p>
 
     <!-- 플랫폼 필터 탭 -->
     <div class="result-filter" role="tablist" aria-label="플랫폼별 성과 필터">
@@ -3307,6 +3308,7 @@
             <span class="rc-period">2025 하반기</span>
           </div>
           <div class="rc-title">광고 그룹을 재설계하고 전환이 높은 상품에 예산을 배분했습니다.</div>
+          <p class="rc-detail">상품별 성과를 볼 수 있도록 그룹 구조를 정리하고, 전환이 확인된 상품에 예산을 옮긴 사례입니다.</p>
           <div class="rc-approach">
             <span class="rc-chip">광고 그룹 구조 재설계</span>
             <span class="rc-chip">고전환 상품 집중 배분</span>
@@ -3331,6 +3333,7 @@
             <span class="rc-period">2025년</span>
           </div>
           <div class="rc-title">고전환 키워드에 예산을 모으고 광고 소재를 테스트했습니다.</div>
+          <p class="rc-detail">키워드별 전환 성과를 기준으로 예산을 다시 배분하고, 소재 반응을 비교했습니다.</p>
           <div class="rc-approach">
             <span class="rc-chip">고전환 키워드 집중 배분</span>
             <span class="rc-chip">소재 A/B 테스트</span>
@@ -3362,6 +3365,7 @@
             <span class="rc-period">2025년</span>
           </div>
           <div class="rc-title">전환 키워드와 시간대에 맞춰 입찰을 조정했습니다.</div>
+          <p class="rc-detail">어떤 검색어와 시간대에서 전환이 발생하는지 나눠 보고 입찰을 조정했습니다.</p>
           <div class="rc-approach">
             <span class="rc-chip">전환 집중 키워드 재배분</span>
             <span class="rc-chip">시간대별 입찰 조정</span>
@@ -3397,6 +3401,7 @@
             <span class="rc-period">2025년</span>
           </div>
           <div class="rc-title">타깃을 세분화하고 소재와 예산 배분을 조정했습니다.</div>
+          <p class="rc-detail">타깃별 반응을 나눠 확인하고 소재와 예산을 조정한 뒤, 전환매출이 4.40억 원에서 8.46억 원으로 증가했습니다.</p>
           <div class="rc-approach">
             <span class="rc-chip">타깃 세그먼트 세분화</span>
             <span class="rc-chip">소재 다변화</span>
@@ -3428,6 +3433,7 @@
             <span class="rc-period">2025 상반기</span>
           </div>
           <div class="rc-title">카테고리마다 입찰과 ROAS 목표를 따로 설정했습니다.</div>
+          <p class="rc-detail">서로 다른 상품군에 같은 목표를 적용하지 않도록 카테고리별 운영 기준을 분리했습니다.</p>
           <div class="rc-approach">
             <span class="rc-chip">카테고리별 입찰 분리</span>
             <span class="rc-chip">ROAS 목표 세분화</span>
@@ -3452,6 +3458,7 @@
             <span class="rc-period">2025년</span>
           </div>
           <div class="rc-title">신규 고객 타깃을 확장하고 시즌 상품에 맞춰 소재를 바꿨습니다.</div>
+          <p class="rc-detail">새 고객층으로 노출 범위를 넓히면서 시즌 상품 소재를 교체한 뒤, 전환매출이 8,842만 원에서 1.94억 원으로 증가했습니다.</p>
           <div class="rc-approach">
             <span class="rc-chip">시즌 컬렉션 연동</span>
             <span class="rc-chip">신규 유저 타깃 확장</span>
@@ -3494,6 +3501,7 @@
             <span class="rc-period">2025년</span>
           </div>
           <div class="rc-title">스폰서 광고와 판매 상품의 연동을 조정했습니다.</div>
+          <p class="rc-detail">광고에 노출할 상품과 판매 상황을 함께 확인하며 운영 대상을 조정했습니다.</p>
           <div class="rc-approach">
             <span class="rc-chip">스폰서 광고 연동 최적화</span>
             <span class="rc-chip">매출 스케일업 전략</span>
@@ -3525,6 +3533,7 @@
             <span class="rc-period">2025년</span>
           </div>
           <div class="rc-title">아이템 위너 상품에 집중하고 CPC 입찰을 조정했습니다.</div>
+          <p class="rc-detail">판매 경쟁력이 있는 상품을 우선 운영하고, 클릭당 입찰가를 조정했습니다.</p>
           <div class="rc-approach">
             <span class="rc-chip">아이템 위너 진입 전략</span>
             <span class="rc-chip">상품 집중화</span>
@@ -3556,6 +3565,7 @@
             <span class="rc-period">2025년</span>
           </div>
           <div class="rc-title">경쟁 상품을 분석하고 주력 상품의 노출을 조정했습니다.</div>
+          <p class="rc-detail">경쟁 상품의 노출과 가격을 살펴본 뒤 주력 상품에 예산을 배분했습니다.</p>
           <div class="rc-approach">
             <span class="rc-chip">경쟁사 입찰 분석</span>
             <span class="rc-chip">아이템 위너 점유 확대</span>
@@ -3598,6 +3608,7 @@
             <span class="rc-period">2025년</span>
           </div>
           <div class="rc-title">새 타깃을 찾고 반응에 맞춰 소재를 개선했습니다.</div>
+          <p class="rc-detail">기존 타깃 밖의 반응을 확인하고, 반응이 확인된 소재에 맞춰 운영을 조정했습니다.</p>
           <div class="rc-approach">
             <span class="rc-chip">신규 타깃층 발굴</span>
             <span class="rc-chip">소재 개선</span>
@@ -3629,6 +3640,7 @@
             <span class="rc-period">2025년</span>
           </div>
           <div class="rc-title">관심사 타깃을 다시 설정하고 소재를 바꿨습니다.</div>
+          <p class="rc-detail">관심사 설정과 소재를 함께 바꿔 어떤 조합에서 전환이 발생하는지 확인했습니다.</p>
           <div class="rc-approach">
             <span class="rc-chip">관심사 타깃 재설정</span>
             <span class="rc-chip">소재 A/B 테스트</span>
@@ -3653,6 +3665,7 @@
             <span class="rc-period">2025년</span>
           </div>
           <div class="rc-title">프리미엄 상품 소재와 가격대별 메시지를 조정했습니다.</div>
+          <p class="rc-detail">가격대에 따라 광고에서 강조할 내용을 달리하고, 프리미엄 상품 소재를 조정했습니다.</p>
           <div class="rc-approach">
             <span class="rc-chip">프리미엄 라인 소재 강화</span>
             <span class="rc-chip">고단가 전략</span>
@@ -3683,7 +3696,7 @@
     <div class="results-toggle-wrap">
       <button type="button" class="results-toggle" id="resultsToggle" aria-expanded="false">성과 사례 더 보기 ↓</button>
     </div>
-    <p class="result-note"><span class="sentence">실제 광고 계정 데이터이며, 광고주 동의 하에 업종·카테고리만 표기했습니다.</span><span class="sentence">일부 사례에는 동일 예산 여부를 표기했습니다. 전후 집계 기간과 세부 광고비는 공개하지 않습니다.</span><span class="sentence">사례 간 수치를 직접 비교하거나 결과 보장으로 해석하지 마세요.</span></p>
+    <p class="result-note"><span class="sentence">광고주 식별 정보는 싣지 않고 업종·카테고리만 표기했습니다.</span><span class="sentence">전후 집계 기간과 세부 광고비는 공개하지 않습니다.</span><span class="sentence">사례 간 수치를 직접 비교하거나 결과 보장으로 해석하지 마세요.</span></p>
   </div>
 </section>
 
