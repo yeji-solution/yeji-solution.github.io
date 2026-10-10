@@ -3055,9 +3055,9 @@
   <div class="hero-bg-text">MARKETING</div>
   <div class="wrap hero-grid">
     <div class="hero-text">
-      <h1><span class="h1-soft">네이버·지그재그 광고</span><strong>7년차 마케터가 직접 운영</strong></h1>
+      <h1><span class="h1-soft">이명수 · 네이버·지그재그</span><strong>광고 운영</strong></h1>
       <p class="hero-tagline">
-        <span id="heroRefreshCopy">1위 입찰을 고집하지 않고, 주문당&nbsp;비용이 낮은 구간을 찾습니다.</span>
+        <span>상담부터 계정 운영, 성과 보고까지 직접 맡습니다.</span>
       </p>
 
       <div class="hero-badges">
@@ -4630,25 +4630,6 @@
   var reduced  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var hasIO    = 'IntersectionObserver' in window;
   var hasHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-
-  /* 같은 탭에서 새로고침할 때마다 다음 문구를 표시한다. 저장소를 사용할 수 없으면 첫 문구를 유지한다. */
-  var heroRefreshCopy = qs('#heroRefreshCopy');
-  if (heroRefreshCopy) {
-    var heroCopyOptions = [
-      '1위 입찰을 고집하지 않고, 주문당\u00a0비용이 낮은 구간을 찾습니다.',
-      '지그재그에서 주문이 붙으면, 그 상품에 예산을 옮깁니다.',
-      '클릭 후 이탈이 많다면, 광고 문구와 상품 페이지의 차이를 짚습니다.'
-    ];
-    try {
-      var previousHeroCopy = window.sessionStorage.getItem('heroCopyIndex');
-      var nextHeroCopy = previousHeroCopy === null
-        ? 0 : (Number(previousHeroCopy) + 1) % heroCopyOptions.length;
-      heroRefreshCopy.textContent = heroCopyOptions[nextHeroCopy];
-      window.sessionStorage.setItem('heroCopyIndex', String(nextHeroCopy));
-    } catch (e) {
-      heroRefreshCopy.textContent = heroCopyOptions[0];
-    }
-  }
 
   /* =====================================================
      0. 스크롤 진행 표시바
