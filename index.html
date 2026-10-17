@@ -3122,6 +3122,65 @@
   }
 
 </style>
+<style>
+
+/* Contact: approachable inquiry and accessible form */
+#contact.contact-redesign{background:radial-gradient(ellipse at 8% 0%,#e4edff 0,transparent 55%),#f2f5fa;padding:96px 0;text-align:left;border-top:1px solid #dce4ef;color:#172745}
+#contact .contact-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:70px;align-items:start}
+#contact .contact-intro{padding:14px 0}
+#contact .contact-eyebrow{display:inline-flex;gap:9px;align-items:center;color:#31518a;font-size:13px;font-weight:700;letter-spacing:.04em;margin-bottom:23px}
+#contact .contact-eyebrow>span{width:8px;height:8px;border-radius:50%;background:#4269a9;box-shadow:0 0 0 5px #dbe5f7}
+#contact h2{font-size:clamp(32px,3.6vw,48px);line-height:1.3;letter-spacing:-.055em;margin:0 0 23px;color:#172745;word-break:keep-all}
+#contact .contact-lead{font-size:16px;line-height:1.85;color:#52617a;margin:0 0 30px}
+#contact .contact-benefits{display:grid;gap:20px;margin-bottom:30px}
+#contact .contact-benefits>div{display:flex;gap:14px;align-items:flex-start}
+#contact .contact-benefit-num{font-size:11px;font-weight:800;background:#fff;border:1px solid #d7e0ee;border-radius:11px;width:34px;height:34px;display:grid;place-items:center;flex-shrink:0;color:#31518a}
+#contact .contact-benefits p{margin:0;line-height:1.6}
+#contact .contact-benefits strong{display:block;font-size:15px;color:#20324f}
+#contact .contact-benefits p>span{display:block;font-size:13px;color:#52617a;margin-top:3px}
+#contact .contact-chat{display:flex;gap:14px;align-items:center;max-width:420px;padding:20px;background:#fff3b4;border:1px solid #e6d68c;border-radius:16px;color:#382e17;transition:background .15s}
+#contact .contact-chat:hover{background:#ffe991}
+#contact .contact-chat-icon{display:grid;place-items:center;width:42px;height:42px;background:#f9df65;border-radius:13px;font-size:24px;flex-shrink:0}
+#contact .contact-chat strong{display:block;font-size:12px;font-weight:500;margin-bottom:4px;color:#66532a}
+#contact .contact-chat span>span{font-size:16px;font-weight:800}
+#contact .contact-owner{font-size:12px;color:#52617a;margin:16px 0 0;line-height:1.7}
+#contact .form-card{max-width:none;margin:0;padding:32px;background:#fff;border:1px solid #d8e1ef;border-radius:24px;box-shadow:0 16px 50px #233d6810;text-align:left;border-top:4px solid #243e6a}
+#contact .contact-form-label{font-size:10px;letter-spacing:.13em;color:#526a93;font-weight:800;margin-bottom:10px}
+#contact .form-card h3{font-size:23px;line-height:1.5;letter-spacing:-.04em;margin-bottom:7px;word-break:keep-all}
+#contact .form-card .form-sub{font-size:13px;color:#52617a;line-height:1.7;margin-bottom:26px}
+#contact .contact-phone-row{display:block}
+#contact .form-label{font-size:14px;margin-bottom:9px}
+#contact .form-label .req{font-size:11px;color:#52617a;background:#edf1f7;padding:3px 6px;border-radius:5px;margin-left:5px}
+#contact .form-input,#contact .form-select,#contact .form-textarea{font-size:16px;min-height:52px;border-color:#9caec7;border-radius:11px;color:#20324f}
+#contact #f-phone{font-size:20px;letter-spacing:.025em;background:#f8fafd}
+#contact .form-help{font-size:12px;line-height:1.75;color:#5a677d;margin-top:7px}
+#contact .form-more{border:1px solid #dce4ef;border-radius:12px;margin:22px 0;background:#fff}
+#contact .form-more>summary{min-height:52px;display:list-item;padding:15px 13px;cursor:pointer;font-size:13px;color:#344765;line-height:1.7}
+#contact .optional-label{font-size:11px;color:#61708a;margin-left:4px;font-weight:400}
+#contact .form-more-body{padding:8px 16px 16px}
+#contact .form-consent{min-height:44px;align-items:flex-start;font-size:12px;line-height:1.8}
+#contact .form-consent input{flex-shrink:0;width:22px;height:22px;margin-top:2px;accent-color:#243e6a}
+#contact .fc-link{display:inline-block;min-height:30px;padding:0 5px;color:#31518a;text-decoration:underline;text-underline-offset:3px}
+#contact .fc-detail{padding-left:30px;font-size:11px;color:#5a677d}
+#contact .form-submit{min-height:56px;font-size:16px;border-radius:12px;transform:none!important}
+#contact .form-submit:disabled{opacity:.65;cursor:wait}
+#contact .contact-safe{text-align:center;font-size:11px;line-height:1.7;color:#52617a;margin:14px 0 7px}
+#contact .contact-access{text-align:center;font-size:11px;color:#52617a;line-height:1.8}
+#contact .contact-access summary{display:list-item;list-style-position:inside;cursor:pointer;min-height:32px;padding:5px 0;text-decoration:underline;text-underline-offset:3px}
+#contact .contact-access p{text-align:left;background:#f5f7fb;padding:12px;border-radius:8px;margin-top:5px}
+#contact .contact-capacity{font-size:11px;line-height:1.8;text-align:center;color:#5a677d;margin:16px 0 0}
+#contact :is(a,button,input,select,textarea,summary):focus-visible{outline:3px solid #2563eb;outline-offset:4px}
+#contact .form-success{max-width:none;margin:0;background:#fff;border:1px solid #b7d7cc;border-radius:24px;padding:36px;text-align:center}
+#contact .form-success p{line-height:1.9}
+#contact .form-success a{display:inline-block;margin-top:20px;text-decoration:underline;line-height:1.8;font-size:13px;color:#31518a}
+#contact .form-prefill{background:#eef4ff;color:#243e6a}
+@media(max-width:1000px){#contact .contact-grid{gap:32px}#contact .form-card{padding:25px}}
+@media(max-width:760px){#contact.contact-redesign{padding:52px 0}#contact .contact-grid{display:flex;flex-direction:column;gap:22px}#contact .contact-intro{display:contents}#contact .contact-eyebrow{order:0;margin:0}#contact h2{order:1;font-size:34px;margin:0}#contact .contact-desktop-break{display:none}#contact .contact-lead{order:2;margin:0;font-size:14px}#contact .contact-form-column{order:3;width:100%}#contact .contact-chat{order:4;width:100%;max-width:none;padding:17px}#contact .contact-benefits{order:5;margin:4px 0 0;gap:16px}#contact .contact-owner{order:6;margin:0}#contact .form-card{padding:24px 20px;border-radius:20px}#contact .form-card h3{font-size:21px}#contact .form-card .form-sub{margin-bottom:22px}#contact .form-row.row2{grid-template-columns:1fr}#contact .form-consent{gap:9px}#contact .form-more>summary{font-size:12px}#contact .contact-capacity{font-size:11px}}
+@media(prefers-reduced-motion:reduce){#contact *{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+#contact .form-more>summary::before{color:#31518a}
+@media(max-width:760px){#contact .contact-chat{order:3}#contact .contact-form-column{order:4}}
+</style>
 </head>
 <body>
 
@@ -3214,7 +3273,7 @@
         <a href="https://open.kakao.com/o/sPhekaQi" target="_blank" rel="noopener noreferrer" class="btn-ghost-kakao">카카오 1:1 상담</a>
       </div>
       <p class="hero-cta-meta">네이버·지그재그 공식 대행: 관리비·위약금 0원</p>
-      <p class="hero-slot-meta" id="heroSlotMeta"><span class="slot-cap">매월 신규 운영은 4팀까지만 맡습니다</span><span class="slot-status">접수 일정 확인 중</span></p>
+      <p class="hero-slot-meta" id="heroSlotMeta"><span class="slot-cap">매월 신규 운영은 4팀까지만 맡습니다</span><span class="slot-status">운영 시작 일정은 상담 시 안내</span></p>
 
       <div class="hero-proof">
         <div class="hp-item"><span class="hp-cat">네이버 · ROAS</span><b data-target="1009" data-prefix="" data-suffix="%">1,009%</b><span class="hp-src">광고 그룹 구조 재설계</span><span class="hp-period">596% → 1,009%</span></div>
@@ -4325,28 +4384,24 @@
 
 
 <!-- CTA -->
-<section class="cta" id="contact">
+<section class="cta contact-redesign" id="contact" aria-labelledby="contactTitle">
   <div class="wrap">
-    <div class="urgency-badge" id="urgencyBadge"><span class="slot-cap">매월 신규 운영은 4팀까지만 맡습니다</span><span class="slot-status">접수 일정 확인 중</span></div>
-    <span class="eyebrow dual" style="margin-bottom: 20px;">FREE DIAGNOSIS</span>
-    <h2>광고 계정, <strong>무엇부터 바꿀지 확인하세요.</strong></h2>
-    <p class="cta-sub"><span class="sentence">3영업일 내 직접 연락드립니다.</span> <span class="sentence">공식 초대 후 입찰·소재를 점검합니다.</span> <span class="sentence">먼저 바꿀 항목을 알려드립니다.</span></p>
-
-    <div class="cta-checks">
-      <span class="ck">우선 개선 항목 제안</span>
-      <span class="ck">계약 부담 없음</span>
-      <span class="ck">공식 계정 초대</span>
-      <span class="ck">3영업일 내 연락</span>
-    </div>
-
-    <!-- 무료 진단 신청 폼 (Web3Forms) -->
-    <div class="form-success" id="formSuccess">
-      <div class="fs-ico">✓</div>
-      <h3>접수가 완료되었습니다</h3>
-      <p>3영업일 이내에 이명수 마케터가 직접 연락드리겠습니다.</p>
-    </div>
-
-    <form class="form-card" id="contactForm" name="diagnosis" method="POST"
+    <div class="contact-grid">
+      <div class="contact-intro">
+        <span class="contact-eyebrow"><span aria-hidden="true"></span> 내 광고의 다음 단계</span>
+        <h2 id="contactTitle">광고 고민,<br>혼자 풀지<br class="contact-desktop-break"> 않으셔도 됩니다.</h2>
+        <p class="contact-lead">무엇을 바꿔야 할지 막막하다면,<br>지금 운영 중인 광고부터 함께 살펴볼게요.</p>
+        <div class="contact-benefits" aria-label="무료 진단 안내">
+          <div><span class="contact-benefit-num">01</span><p><strong>현재 상태부터 확인</strong><span>광고 현황과 지금 겪고 있는 고민을 듣습니다.</span></p></div>
+          <div><span class="contact-benefit-num">02</span><p><strong>먼저 바꿀 항목 안내</strong><span>계정 확인 후 개선 우선순위를 제안합니다.</span></p></div>
+          <div><span class="contact-benefit-num">03</span><p><strong>운영 결정은 상담 후에</strong><span>진단 신청만으로 운영 계약이 진행되지 않습니다.</span></p></div>
+        </div>
+        <a class="contact-chat" href="https://open.kakao.com/o/sPhekaQi" target="_blank" rel="noopener" aria-label="카카오로 먼저 문의하기 (새 창)"><span class="contact-chat-icon" aria-hidden="true">↗</span><span><strong>먼저 가볍게 질문하고 싶다면</strong><span>카카오로 문의하기 <span aria-hidden="true">→</span></span></span></a>
+        <p class="contact-owner">상담부터 진단까지, 이명수 마케터가 직접 확인합니다.</p>
+      </div>
+      <div class="contact-form-column">
+        <div class="form-success" id="formSuccess" role="status" tabindex="-1"><div class="fs-ico" aria-hidden="true">✓</div><h3>신청이 잘 전달되었습니다.</h3><p>3영업일 내 이명수 마케터가 직접 연락드립니다.<br>통화 시 현재 광고 상황을 함께 확인하겠습니다.</p><a href="https://open.kakao.com/o/sPhekaQi" target="_blank" rel="noopener">추가로 남길 말씀이 있다면 카카오로 문의하기 ↗</a></div>
+            <form class="form-card" id="contactForm" name="diagnosis" method="POST"
           action="https://api.web3forms.com/submit">
       <input type="hidden" name="access_key" value="de89a769-2315-4cfb-8542-1e59c7f7950d" />
       <input type="hidden" name="subject" value="예지솔루션 상담 신청" />
@@ -4354,9 +4409,9 @@
       <input type="hidden" name="sim_summary" id="f-sim-summary" value="" />
       <input type="checkbox" name="botcheck" style="display:none;" />
 
-      <h3>무료 진단 신청</h3>
-      <p class="form-sub">신청 후 3영업일 내 직접 연락드립니다.</p>
-      <div class="form-error" id="formError" role="alert"></div>
+      <div class="contact-form-label">FREE ACCOUNT CHECK</div><h3>어디부터 바꿀지, 함께 확인해요.</h3>
+      <p class="form-sub">연락처를 남겨주시면 3영업일 내 직접 연락드립니다.</p>
+      <div class="form-error" id="formError" role="alert" tabindex="-1"></div>
 
       <div class="form-prefill" id="formPrefill" hidden>
         <div class="fp-tag">셀프 진단 결과가 함께 전달됩니다</div>
@@ -4364,32 +4419,23 @@
       </div>
 
 
-      <div class="form-process">
-        <div class="fp-step"><span class="fp-num">1</span>접수</div>
-        <div class="fp-step"><span class="fp-num">2</span>현황 확인</div>
-        <div class="fp-step"><span class="fp-num">3</span>진단 안내</div>
-      </div>
-      <p class="form-help" style="margin: -4px 0 24px; text-align: center;">
-        <span class="sentence">접수 단계에서는 광고 계정 비밀번호를 요구하지 않습니다.</span>
-        <span class="sentence">분석이 필요한 경우에만 매체의 공식 사용자 초대 방식으로 열람 권한을 안내합니다.</span>
-      </p>
-
-      <div class="form-row row2">
+      <div class="form-row contact-phone-row">
         <div>
-          <label class="form-label" for="f-phone">연락처 <span class="req">*</span></label>
+          <label class="form-label" for="f-phone">연락받을 휴대폰 번호 <span class="req">필수</span></label>
           <input class="form-input" type="tel" id="f-phone" name="phone" required autocomplete="tel" inputmode="numeric" maxlength="13"
                  pattern="010-\d{4}-\d{4}" title="010 뒤에 숫자 8자리를 입력해주세요 (예: 010-1234-5678)"
-                 value="010-" placeholder="010-0000-0000" />
+                 aria-describedby="phoneHint" value="010-" placeholder="010-0000-0000" /><p class="form-help" id="phoneHint">진단 상담을 위해 연락드릴 번호를 입력해 주세요.</p>
         </div>
-        <div>
-          <label class="form-label" for="f-name">성함 <span style="color: var(--text-dim); font-weight: 500;">(선택)</span></label>
-          <input class="form-input" type="text" id="f-name" name="name" autocomplete="name" placeholder="어떻게 불러드릴까요?" />
-        </div>
+
       </div>
 
       <details class="form-more" id="formMore">
-        <summary>상담 정보 추가하기 (선택)</summary>
+        <summary>상담 내용을 미리 알려주고 싶어요 <span class="optional-label">선택</span></summary>
         <div class="form-more-body">
+<div class="form-row">        <div>
+          <label class="form-label" for="f-name">성함 <span style="color: var(--text-dim); font-weight: 500;">(선택)</span></label>
+          <input class="form-input" type="text" id="f-name" name="name" autocomplete="name" placeholder="어떻게 불러드릴까요?" />
+        </div></div>
           <div class="form-row row2">
             <div>
               <label class="form-label" for="f-company">업체명 / 브랜드명 <span style="color: var(--text-dim); font-weight: 500;">(선택)</span></label>
@@ -4423,7 +4469,7 @@
               <option value="1000-3000만원">1,000 ~ 3,000만원</option>
               <option value="3000만원 이상">3,000만원 이상</option>
             </select>
-            <div class="form-help"><span class="sentence">진단 우선순위 산정에만 사용됩니다.</span><span class="sentence">외부에 공유되지 않습니다.</span></div>
+            <div class="form-help"><span class="sentence">현재 예산에 맞는 개선 방향을 검토할 때 참고합니다.</span><span class="sentence">외부에 공유되지 않습니다.</span></div>
           </div>
 
           <div class="form-row">
@@ -4446,32 +4492,13 @@
         </div>
       </div>
 
-      <button type="submit" class="form-submit">무료 진단 신청하기 →</button>
+      <button type="submit" class="form-submit">내 광고 무료 진단받기 →</button>
 
-      <div class="form-help" style="margin-top: 14px; text-align: center;">
-        * 동의를 거부하실 수 있으나, 이 경우 진단 상담 신청이 제한됩니다.
-      </div>
+<p class="contact-safe">신청 단계에서 계정 비밀번호를 요구하지 않습니다.</p><details class="contact-access"><summary>계정 확인은 어떻게 진행하나요?</summary><p>현황을 먼저 확인한 뒤, 분석에 필요한 경우에만 매체의 공식 사용자 초대로 열람 권한을 안내합니다. 동의를 거부하시면 진단 상담 신청이 제한됩니다.</p></details>
     </form>
-
-    <div class="form-or">또는 바로 연락하기</div>
-
-    <div class="cta-buttons">
-      <div class="cta-btn-row">
-        <a href="https://open.kakao.com/o/sPhekaQi" target="_blank" rel="noopener" class="btn-kakao"><span aria-hidden="true" style="display:inline-flex;vertical-align:-3px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3.5C6.8 3.5 2.6 6.9 2.6 11c0 2.6 1.7 4.9 4.3 6.2-.2.6-.6 2.2-.7 2.6 0 .2.1.3.3.2 1-.7 3.3-2.3 3.6-2.5.5.1 1 .1 1.5.1 5.2 0 9.4-3.4 9.4-7.6S17.2 3.5 12 3.5z"/></svg></span> 카카오 오픈채팅</a>
-      </div>
-      <div class="kakao-qr-row">
-        <picture>
-          <source srcset="kakao-qr.webp" type="image/webp" />
-          <img src="kakao-qr.png"
-               alt="카카오 오픈채팅 QR코드" class="kakao-qr-img" width="96" height="96" loading="eager" />
-        </picture>
-        <div class="kakao-qr-text">
-          <div class="kakao-qr-title">오픈채팅 QR</div>
-          <div class="kakao-qr-sub">스마트폰 카메라로 스캔하면<br>바로 채팅방으로 연결됩니다</div>
-        </div>
+        <p class="contact-capacity">직접 운영을 위해 신규 운영은 월 최대 4팀으로 제한합니다.<br>운영 시작 가능 일정은 상담 시 안내드립니다.</p>
       </div>
     </div>
-
   </div>
 </section>
 
@@ -4690,7 +4717,9 @@
       e.preventDefault();
       if (fe) fe.classList.remove('show');
       var btn = cf.querySelector('button[type="submit"]');
-      btn.disabled = true; btn.textContent = '제출 중...';
+      var idleLabel = btn.textContent;
+      btn.disabled = true; btn.textContent = '신청 내용을 전달하고 있습니다…';
+      cf.setAttribute('aria-busy', 'true');
       var data = new FormData(cf);
       fetch('https://api.web3forms.com/submit', { method: 'POST', body: data })
         .then(function (r) { return r.json(); })
@@ -4700,18 +4729,19 @@
                .catch()로 조용히 무시되고 있었으므로 제거했다.
                실시간 알림이 필요하면 Web3Forms 대시보드의 Webhook을 사용할 것. */
             cf.style.display = 'none';
-            if (fs) fs.classList.add('show');
+            cf.removeAttribute('aria-busy');
+            if (fs) { fs.classList.add('show'); fs.focus(); }
             if (typeof gtag === 'function') {
               gtag('event', 'generate_lead', { method: '무료진단폼', budget: (data.get('budget') || '미선택') });
             }
           } else {
-            btn.disabled = false; btn.textContent = '무료 진단 신청하기 →';
-            if (fe) { fe.textContent = '제출 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.'; fe.classList.add('show'); fe.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
+            cf.removeAttribute('aria-busy'); btn.disabled = false; btn.textContent = idleLabel;
+            if (fe) { fe.textContent = '제출 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.'; fe.classList.add('show'); fe.focus(); }
           }
         })
         .catch(function () {
-          btn.disabled = false; btn.textContent = '무료 진단 신청하기 →';
-          if (fe) { fe.textContent = '네트워크 오류가 발생했습니다. 잠시 후 다시 시도해주세요.'; fe.classList.add('show'); }
+          cf.removeAttribute('aria-busy'); btn.disabled = false; btn.textContent = idleLabel;
+          if (fe) { fe.textContent = '연결이 원활하지 않습니다. 입력하신 내용은 유지됩니다. 다시 신청하시거나 카카오로 문의해 주세요.'; fe.classList.add('show'); fe.focus(); }
         });
     });
   }
@@ -4886,44 +4916,7 @@
 })();
 </script>
 
-<!-- 신규 접수 슬롯 표시 -->
-<script>
-(function () {
-  /* 매월 신규 운영은 최대 4팀. 1~7일 4팀, 8~14일 3팀,
-     15~21일 2팀, 22~28일 1팀, 29일~월말 당월 접수 마감. */
-  var dateFormatter = new Intl.DateTimeFormat('ko-KR', {
-    timeZone: 'Asia/Seoul', year: 'numeric', month: 'numeric', day: 'numeric'
-  });
 
-  function updateSlots() {
-    var datePart = {};
-    dateFormatter.formatToParts(new Date()).forEach(function (part) {
-      if (part.type !== 'literal') datePart[part.type] = parseInt(part.value, 10);
-    });
-    var openSlots = Math.max(0, 4 - Math.floor((datePart.day - 1) / 7));
-    var dateLabel = datePart.year + '.' + String(datePart.month).padStart(2, '0') + '.' + String(datePart.day).padStart(2, '0');
-    var nextMonth = datePart.month === 12 ? 1 : datePart.month + 1;
-    var text = openSlots
-      ? datePart.month + '월 접수 가능 ' + openSlots + '팀 · ' + dateLabel + ' 기준'
-      : datePart.month + '월 모집 마감 · ' + nextMonth + '월 시작 일정 상담 가능 · ' + dateLabel + ' 기준';
-    var phase = openSlots === 0 ? 'slot-closed' : openSlots <= 2 ? 'slot-limited' : 'slot-available';
-
-    ['urgencyBadge', 'heroSlotMeta'].forEach(function (id) {
-      var element = document.getElementById(id);
-      if (!element) return;
-      element.querySelector('.slot-status').textContent = text;
-      element.classList.remove('slot-available', 'slot-limited', 'slot-closed');
-      element.classList.add(phase);
-    });
-
-    // 페이지를 계속 열어 둔 경우에도 한국 시간 자정에 표시를 갱신한다.
-    var nextMidnight = Date.UTC(datePart.year, datePart.month - 1, datePart.day + 1, -9);
-    setTimeout(updateSlots, Math.max(1000, nextMidnight - Date.now()));
-  }
-
-  updateSlots();
-})();
-</script>
 
 <!-- ANNOUNCEMENT BANNER LOGIC (만료일·닫기 상태 관리) -->
 <script>
@@ -5318,7 +5311,7 @@
 
     /* 매체 선택이 자동으로 채워지는 영역을 보여준다. */
     var more = $('formMore');
-    if (more) more.open = true;
+    if (more) more.open = false;
   }
 
   var interacted = false;
