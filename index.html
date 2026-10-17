@@ -3213,6 +3213,11 @@
 #insights{background:#fff;border-top:1px solid #e3e9f2;border-bottom:1px solid #e3e9f2}
 #insights .insight-card{background:#f8fafd}
 </style>
+<style>
+/* Keep the hero explanation together by meaning on desktop. */
+.hero-desktop-break{display:none}
+@media(min-width:1024px){.hero-desktop-break{display:block}}
+</style>
 </head>
 <body>
 
@@ -3290,7 +3295,7 @@
       <h1><strong>광고 진단부터 운영까지,<br>이명수가 직접 맡습니다.</strong></h1>
       <p class="hero-tagline">
         <span>성과가 안 나오는 광고에는 이유가 있습니다.</span>
-        <span>계정을 직접 분석하고, 무엇을 먼저 바꿔야 할지 말씀드리겠습니다.</span>
+        <span>계정을 직접 분석하고,<br class="hero-desktop-break"> 무엇을 먼저 바꿔야 할지 말씀드리겠습니다.</span>
       </p>
 
       <div class="hero-badges">
