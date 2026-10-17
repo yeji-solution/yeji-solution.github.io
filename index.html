@@ -1480,12 +1480,12 @@
   }
   .cta .urgency-badge.slot-available {
     background: rgba(0,199,60,0.22); border-color: rgba(0,199,60,0.62);
-    color: #5eea7e; animation: badge-glow 1.8s ease-in-out infinite;
+    color: #5eea7e; animation: none;
   }
   .cta .urgency-badge.slot-available::before { background: #5eea7e; }
   .cta .urgency-badge.slot-limited {
     background: rgba(255,63,126,0.22); border-color: rgba(255,63,126,0.62);
-    color: #ff8ab8; animation: badge-glow 1.8s ease-in-out infinite;
+    color: #ff8ab8; animation: none;
   }
   .cta .urgency-badge.slot-limited::before { background: #ff8ab8; }
   .cta .urgency-badge.slot-closed {
@@ -3206,6 +3206,13 @@
 #contact #urgencyBadge{width:100%;margin:0 0 22px;padding:11px 14px;border-radius:9px}
 @media(max-width:760px){#heroSlotMeta{width:100%;padding:11px 13px}#heroSlotMeta .slot-cap,#contact #urgencyBadge .slot-cap{font-size:11px}#heroSlotMeta .slot-status,#contact #urgencyBadge .slot-status{font-size:12px}#contact #urgencyBadge{padding:10px 12px;margin-bottom:20px}}
 </style>
+<style>
+/* One static capacity notice style; reading content precedes the final inquiry. */
+#heroSlotMeta,#contact #urgencyBadge,
+#heroSlotMeta::before,#contact #urgencyBadge::before{animation:none;transition:none;opacity:1}
+#insights{background:#fff;border-top:1px solid #e3e9f2;border-bottom:1px solid #e3e9f2}
+#insights .insight-card{background:#f8fafd}
+</style>
 </head>
 <body>
 
@@ -4351,6 +4358,37 @@
 </section>
 
 
+<section id="insights" class="soft">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow dual">MARKETING INSIGHTS</span>
+      <h2>광고비를 쓰기 전에 먼저 읽어야 할 것들.</h2>
+      <p class="section-sub">매체 선택과 계정 운영에 필요한 판단 기준을 정리했습니다.</p>
+    </div>
+    <div class="insight-grid">
+      <a class="insight-card" href="/blog/read-ad-results/">
+        <div class="ic-meta"><span class="ic-tag s">계정 운영</span><span class="ic-date">2026.10.10</span></div>
+        <div class="ic-title">광고 성과가 정체됐을 때, 계정에서 확인하는 순서</div>
+        <div class="ic-desc">광고 그룹, 타깃, 상품별 예산을 점검하는 순서를 운영 사례로 설명합니다.</div>
+        <div class="ic-more">자세히 읽기 →</div>
+      </a>
+      <a class="insight-card" href="/blog/zigzag-ai-ad-optimization/">
+        <div class="ic-meta"><span class="ic-tag z">지그재그</span><span class="ic-date">2026.06.13</span></div>
+        <div class="ic-title">지그재그 AI 광고, 성과가 멈췄을 때 점검할 4가지</div>
+        <div class="ic-desc">타깃·소재·상품 구성·기획전 운영을 점검하는 순서를 정리했습니다.</div>
+        <div class="ic-more">자세히 읽기 →</div>
+      </a>
+      <a class="insight-card" href="/blog/naver-keyword-structure/">
+        <div class="ic-meta"><span class="ic-tag n">네이버</span><span class="ic-date">2026.04.05</span></div>
+        <div class="ic-title">네이버 검색광고, 광고 그룹·키워드 구조부터 다시 짜야 하는 이유</div>
+        <div class="ic-desc">검색 의도가 다른 키워드를 분리하고 전환 성과를 확인하는 기준을 정리했습니다.</div>
+        <div class="ic-more">자세히 읽기 →</div>
+      </a>
+    </div>
+    <div class="insight-all"><a href="/blog/">인사이트 전체 보기 →</a></div>
+  </div>
+</section>
+
 <!-- Q&A -->
 <section id="qa">
   <div class="wrap">
@@ -4527,36 +4565,7 @@
   </div>
 </section>
 
-<section id="insights" class="soft">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow dual">MARKETING INSIGHTS</span>
-      <h2>광고비를 쓰기 전에 먼저 읽어야 할 것들.</h2>
-      <p class="section-sub">매체 선택과 계정 운영에 필요한 판단 기준을 정리했습니다.</p>
-    </div>
-    <div class="insight-grid">
-      <a class="insight-card" href="/blog/read-ad-results/">
-        <div class="ic-meta"><span class="ic-tag s">계정 운영</span><span class="ic-date">2026.10.10</span></div>
-        <div class="ic-title">광고 성과가 정체됐을 때, 계정에서 확인하는 순서</div>
-        <div class="ic-desc">광고 그룹, 타깃, 상품별 예산을 점검하는 순서를 운영 사례로 설명합니다.</div>
-        <div class="ic-more">자세히 읽기 →</div>
-      </a>
-      <a class="insight-card" href="/blog/zigzag-ai-ad-optimization/">
-        <div class="ic-meta"><span class="ic-tag z">지그재그</span><span class="ic-date">2026.06.13</span></div>
-        <div class="ic-title">지그재그 AI 광고, 성과가 멈췄을 때 점검할 4가지</div>
-        <div class="ic-desc">타깃·소재·상품 구성·기획전 운영을 점검하는 순서를 정리했습니다.</div>
-        <div class="ic-more">자세히 읽기 →</div>
-      </a>
-      <a class="insight-card" href="/blog/naver-keyword-structure/">
-        <div class="ic-meta"><span class="ic-tag n">네이버</span><span class="ic-date">2026.04.05</span></div>
-        <div class="ic-title">네이버 검색광고, 광고 그룹·키워드 구조부터 다시 짜야 하는 이유</div>
-        <div class="ic-desc">검색 의도가 다른 키워드를 분리하고 전환 성과를 확인하는 기준을 정리했습니다.</div>
-        <div class="ic-more">자세히 읽기 →</div>
-      </a>
-    </div>
-    <div class="insight-all"><a href="/blog/">인사이트 전체 보기 →</a></div>
-  </div>
-</section>
+
 
 </main>
 
