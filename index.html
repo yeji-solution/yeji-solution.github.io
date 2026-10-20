@@ -3138,6 +3138,15 @@
 #contact .contact-benefits p{margin:0;line-height:1.6}
 #contact .contact-benefits strong{display:block;font-size:15px;color:#20324f}
 #contact .contact-benefits p>span{display:block;font-size:13px;color:#52617a;margin-top:3px}
+#contact .contact-question{display:flex;gap:14px;max-width:420px;padding:22px;margin:0 0 16px;background:#fff;border:1px solid #c9d7ea;border-radius:16px;box-shadow:0 5px 20px #233d6808}
+#contact .contact-question[hidden]{display:none}
+#contact .contact-question-icon{display:grid;place-items:center;flex-shrink:0;width:38px;height:38px;border-radius:12px;background:#edf3fc;color:#31518a}
+#contact .contact-question-body{min-width:0;flex:1}
+#contact .contact-question-label{display:block;font-size:11px;font-weight:700;letter-spacing:.04em;color:#526a93;margin-bottom:5px}
+#contact .contact-question h3{font-size:17px;font-weight:700;line-height:1.5;letter-spacing:-.03em;color:#20324f;margin:0 0 8px;word-break:keep-all}
+#contact .contact-question p{font-size:13px;line-height:1.75;color:#52617a;margin:0 0 15px;word-break:keep-all}
+#contact .contact-question-link{display:inline-flex;align-items:center;justify-content:center;gap:14px;min-height:44px;padding:10px 17px;border:1px solid #31518a;border-radius:9px;background:#f1f5fc;color:#243e6a;font-size:14px;font-weight:700;text-decoration:none;transition:background .15s}
+#contact .contact-question-link:hover{background:#e3ecfb}
 #contact .contact-chat{display:flex;gap:14px;align-items:center;max-width:420px;padding:20px;background:#fff3b4;border:1px solid #e6d68c;border-radius:16px;color:#382e17;transition:background .15s}
 #contact .contact-chat:hover{background:#ffe991}
 #contact .contact-chat-icon{display:grid;place-items:center;width:42px;height:42px;background:#f9df65;border-radius:13px;font-size:24px;flex-shrink:0}
@@ -3179,7 +3188,7 @@
 @media(prefers-reduced-motion:reduce){#contact *{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 
 #contact .form-more>summary::before{color:#31518a}
-@media(max-width:760px){#contact .contact-chat{order:3}#contact .contact-form-column{order:4}}
+@media(max-width:760px){#contact .contact-question{order:3;width:100%;max-width:none;margin:0;padding:20px}#contact .contact-question-link{width:100%}#contact .contact-chat{order:4}#contact .contact-form-column{order:5}#contact .contact-benefits{order:6}#contact .contact-owner{order:7}}
 </style>
 <style>
 /* Calm desktop hero typography */
@@ -4465,12 +4474,20 @@
           <div><span class="contact-benefit-num">02</span><p><strong>먼저 바꿀 항목 안내</strong><span>계정 확인 후 개선 우선순위를 제안합니다.</span></p></div>
           <div><span class="contact-benefit-num">03</span><p><strong>운영 결정은 상담 후에</strong><span>진단 신청만으로 운영 계약이 진행되지 않습니다.</span></p></div>
         </div>
-        <a class="contact-chat" href="https://open.kakao.com/o/sPhekaQi" target="_blank" rel="noopener" aria-label="카카오로 먼저 문의하기 (새 창)"><span class="contact-chat-icon" aria-hidden="true">↗</span><span><strong>먼저 가볍게 질문하고 싶다면</strong><span>카카오로 문의하기 <span aria-hidden="true">→</span></span></span></a>
+        <aside class="contact-question" data-question-entry aria-labelledby="contactQuestionTitle">
+          <span class="contact-question-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H7l-4 3v-7.5A7.5 7.5 0 0 1 10.5 7H16a4 4 0 0 1 4 4.5Z"/><path d="M8 12h7M8 15h4"/></svg></span>
+          <div class="contact-question-body">
+            <span class="contact-question-label">간단 질문</span>
+            <h3 id="contactQuestionTitle">상담 전에, 한 가지 먼저 물어보세요</h3>
+            <p>광고 고민만 남겨주세요.<br>연락처를 다시 입력할 필요가 없습니다.</p>
+            <a class="contact-question-link" href="/question/">질문 남기기 <span aria-hidden="true">→</span></a>
+          </div>
+        </aside>
+        <a class="contact-chat" href="https://open.kakao.com/o/sPhekaQi" target="_blank" rel="noopener" aria-label="카카오로 먼저 문의하기 (새 창)"><span class="contact-chat-icon" aria-hidden="true">↗</span><span><strong>카카오로 바로 이야기하고 싶다면</strong><span>카카오로 문의하기 <span aria-hidden="true">→</span></span></span></a>
         <p class="contact-owner">상담부터 진단까지, 이명수 마케터가 직접 확인합니다.</p>
       </div>
       <div class="contact-form-column">
         <div class="form-success" id="formSuccess" role="status" tabindex="-1"><div class="fs-ico" aria-hidden="true">✓</div><h3>신청이 잘 전달되었습니다.</h3><p>3영업일 내 이명수 마케터가 직접 연락드립니다.<br>통화 시 현재 광고 상황을 함께 확인하겠습니다.</p><a href="https://open.kakao.com/o/sPhekaQi" target="_blank" rel="noopener">추가로 남길 말씀이 있다면 카카오로 문의하기 ↗</a></div>
-            <p data-question-entry><a href="/question/">상담 신청 전에, 연락처 입력 없이 질문 한 가지 남기기 →</a></p>
             <form class="form-card" id="contactForm" name="diagnosis" method="POST"
           action="https://api.web3forms.com/submit">
       <input type="hidden" name="access_key" value="de89a769-2315-4cfb-8542-1e59c7f7950d" />
