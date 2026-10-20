@@ -3,21 +3,41 @@
   var service = window.MailplugInquiry;
   if (!service) return;
   var form = document.getElementById('question-form'), topic = '';
+  var presets = {
+    conversion: '클릭은 있는데 구매가 적어요. 무엇부터 확인하면 좋을까요?',
+    budget: '광고비를 늘려도 될까요? 예산을 늘리기 전에 무엇을 확인하면 좋을까요?',
+    start: '광고를 어디서부터 시작하면 좋을까요?'
+  };
+  var text = document.getElementById('question-text');
   var hints = {
     conversion: ['광고 클릭 이후 구매까지 기록이 연결되는지 확인해보세요.', '전체 평균보다 상품·검색어별로 차이가 있는지 살펴보세요.', '가격·배송·재고 등 구매를 망설이게 하는 조건도 함께 보세요.'],
     budget: ['현재 광고비에서 남는 이익을 먼저 확인해보세요.', '예산이 부족해 노출이 끊기는 구간인지 살펴보세요.', '예산을 늘린 뒤 비교할 기간과 기준을 미리 정해두세요.'],
     start: ['지금 집중할 상품이나 판매 목표를 먼저 정해보세요.', '주문을 어떤 경로에서 확인할 수 있는지 살펴보세요.', '처음 시험할 예산과 감당할 수 있는 범위를 정해보세요.']
   };
-  var linked = service.attribution.utm_source === 'mailplug' && /^[a-f0-9]{8}$/.test(service.attribution.utm_term || '') && service.attribution.batch;
-  if (linked) {
-    document.getElementById('reply-help').textContent = '메일로 받은 링크라면 수신 주소와 연결해 답변할 수 있습니다. 연락처를 다시 적지 않으셔도 됩니다.';
-    document.getElementById('reply-summary').textContent = '다른 이메일로 답변받기 (선택)';
+  var linked = false;
+  var emailInput = document.getElementById('reply-email');
+  emailInput.required = true;
+  if (service.attribution.utm_source === 'mailplug' && /^[a-f0-9]{8}$/.test(service.attribution.utm_term || '') && service.attribution.batch) {
+    document.getElementById('reply-help').textContent = '메일 수신 주소를 확인하고 있습니다. 확인되지 않으면 답변받을 이메일을 입력해주세요.';
+    fetch(service.api + '/recipient-context', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ attribution: service.attribution }) })
+      .then(function (response) { if (!response.ok) throw new Error('확인 실패'); return response.json(); })
+      .then(function (data) {
+        linked = data.can_reply_without_email === true;
+        emailInput.required = !linked;
+        document.getElementById('email-requirement').textContent = linked ? '(선택)' : '(필수)';
+        document.getElementById('reply-help').textContent = linked ? '이메일을 생략하면 안내받은 메일 수신 주소로 답변드립니다. 다른 주소로 답변받으려면 입력해주세요.' : '메일 수신 주소를 확인하지 못했습니다. 답변받을 이메일을 입력해주세요.';
+      }).catch(function () { document.getElementById('reply-help').textContent = '메일 수신 주소를 확인하지 못했습니다. 답변받을 이메일을 입력해주세요.'; });
   }
   service.event('question_view');
   document.querySelectorAll('[data-topic]').forEach(function (button) {
     button.addEventListener('click', function () {
       topic = topic === button.dataset.topic ? '' : button.dataset.topic;
       document.querySelectorAll('[data-topic]').forEach(function (el) { el.setAttribute('aria-pressed', String(el.dataset.topic === topic)); });
+      text.required = !presets[topic];
+      document.getElementById('question-label').textContent = presets[topic] ? '더 알려주실 내용' : '직접 질문하기';
+      document.getElementById('question-requirement').textContent = presets[topic] ? '(선택)' : '(질문 선택 또는 직접 입력)';
+      document.getElementById('question-help').textContent = presets[topic] ? '선택한 질문으로 바로 접수할 수 있습니다. 추가 설명은 선택입니다.' : '질문을 고르거나 직접 적어주세요. 계정 비밀번호나 고객 정보는 필요하지 않습니다.';
+      if (topic === 'other') text.focus();
       var checks = document.getElementById('checks');
       checks.replaceChildren();
       if (hints[topic]) {
@@ -31,10 +51,13 @@
   });
   form.addEventListener('submit', function (e) {
     e.preventDefault();
-    var question = document.getElementById('question-text').value.trim();
+    var detail = text.value.trim();
+    var question = presets[topic] ? presets[topic] + (detail ? '\n\n추가 설명: ' + detail : '') : detail;
     var error = document.getElementById('error'); error.hidden = true;
-    if (!question) { error.textContent = '질문을 한 줄 남겨주세요.'; error.hidden = false; return; }
-    var email = document.getElementById('reply-email').value.trim();
+    if (!question) { error.textContent = '질문을 고르거나 직접 적어주세요.'; error.hidden = false; return; }
+    if (question.length > 3000) { error.textContent = '질문과 추가 설명을 합해 3,000자 이내로 줄여주세요.'; error.hidden = false; return; }
+    var email = emailInput.value.trim();
+    if (!email && !linked) { error.textContent = '답변받을 이메일을 입력해주세요.'; error.hidden = false; emailInput.focus(); return; }
     var button = form.querySelector('button[type=submit]');
     button.disabled = true; button.textContent = '질문을 전달하고 있습니다…'; form.setAttribute('aria-busy', 'true');
     fetch(service.api + '/questions', {
