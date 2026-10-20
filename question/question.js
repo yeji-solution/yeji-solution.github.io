@@ -31,6 +31,7 @@
   }
   var inlineQuestion = document.getElementById('quick-question');
   if (inlineQuestion) {
+    if (inlineQuestion.open) service.event('question_view');
     inlineQuestion.addEventListener('toggle', function () { if (inlineQuestion.open) service.event('question_view'); });
   } else {
     service.event('question_view');
