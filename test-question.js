@@ -15,12 +15,11 @@ class Element {
   focus() { this.focused = true; }
   fire(name) { this.listeners[name]({ preventDefault() {} }); }
 }
-function page({ linked = false, confirmed = false, failing = false, inline = false, opened = false } = {}) {
+function page({ linked = false, confirmed = false, failing = false } = {}) {
   const elements = new Map(), posted = [], topics = ['conversion', 'budget', 'start', 'other'].map(topic => Object.assign(new Element(), { dataset: { topic } }));
   const events = [];
-  const get = id => { if (id === 'quick-question' && !inline) return null; if (!elements.has(id)) elements.set(id, new Element()); return elements.get(id); };
+  const get = id => { if (!elements.has(id)) elements.set(id, new Element()); return elements.get(id); };
   get('question-form').querySelector = () => get('submit');
-  if (inline) get('quick-question').open = opened;
   const attribution = linked ? { utm_source: 'mailplug', utm_term: '1234abcd', batch: 'batch1' } : {};
   vm.runInNewContext(source, {
     window: { MailplugInquiry: { api: 'https://example.test', attribution, event(name) { events.push(name); } } },
@@ -35,16 +34,8 @@ function page({ linked = false, confirmed = false, failing = false, inline = fal
 }
 const flush = () => new Promise(resolve => setImmediate(resolve));
 
-test('포트폴리오에서 질문을 펼친 시점에만 질문 화면 방문을 기록한다', async () => {
-  assert.deepEqual(page({ inline: true, opened: true }).events, ['question_view']);
-  const p = page({ inline: true, linked: true, confirmed: true });
-  assert.deepEqual(p.events, []);
-  p.get('quick-question').open = true; p.get('quick-question').fire('toggle');
-  assert.deepEqual(p.events, ['question_view']);
-  await flush(); p.choose('conversion'); p.submit(); await flush();
-  assert.equal(p.posted.length, 1);
-  assert.equal(p.posted[0].attribution.batch, 'batch1');
-  assert.equal(p.get('success').hidden, false);
+test('질문 페이지에서 질문 화면 방문을 기록한다', () => {
+  assert.deepEqual(page().events, ['question_view']);
 });
 test('질문을 선택하면 직접 글을 쓰지 않고 접수할 수 있다', async () => {
   const p = page(); p.choose('budget'); p.get('reply-email').value = 'visitor@example.test';

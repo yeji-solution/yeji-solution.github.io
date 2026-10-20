@@ -3217,8 +3217,6 @@
 @media(min-width:1024px){.hero-desktop-break{display:block}}
 </style>
 <script defer src="/inquiry.js?v=2"></script>
-<link rel="stylesheet" href="/question/inline.css?v=1" />
-<script defer src="/question/question.js?v=3"></script>
 </head>
 <body>
 
@@ -3963,41 +3961,7 @@
       <button type="button" class="results-toggle" id="resultsToggle" aria-controls="resultsCollection" aria-expanded="false">성과 사례 더 보기 ↓</button>
     </div>
     <p class="result-note"><span class="sentence">연도는 운영 시기입니다. 광고주 식별 정보는 싣지 않고 업종·카테고리만 표기했습니다.</span><span class="sentence">전후 집계 기간과 세부 광고비는 공개하지 않습니다.</span><span class="sentence">여러 조정을 함께 진행한 사례로, 특정 조치 하나의 효과나 향후 결과를 보장하지 않습니다.</span></p>
-    <details class="quick-question" id="quick-question" data-question-entry>
-      <summary><span><strong>내 쇼핑몰 광고에도 적용할 수 있을까요?</strong><small>궁금한 질문을 고르고, 이명수 마케터에게 남겨주세요.</small></span><span class="quick-question-toggle" aria-hidden="true">＋</span></summary>
-      <div class="question-card">
-        <p class="question-intro">전화 상담 전에 질문 한 가지만 남기셔도 됩니다. 선택한 질문에 덧붙일 설명은 선택입니다.</p>
-    <form id="question-form">
-      <fieldset><legend>어떤 질문을 남기실 건가요? <small>(선택 또는 직접 입력)</small></legend>
-        <div class="topics">
-          <button class="topic" type="button" data-topic="conversion" aria-pressed="false">클릭은 있는데 구매가 적어요</button>
-          <button class="topic" type="button" data-topic="budget" aria-pressed="false">광고비를 늘려도 될까요?</button>
-          <button class="topic" type="button" data-topic="start" aria-pressed="false">광고를 어디서부터 시작할까요?</button>
-          <button class="topic" type="button" data-topic="other" aria-pressed="false">직접 질문을 적을게요</button>
-        </div>
-      </fieldset>
-      <div id="checks" hidden aria-live="polite"></div>
-      <label for="question-text"><span id="question-label">직접 질문하기</span> <small id="question-requirement">(위에서 질문을 고르면 생략 가능)</small></label>
-      <textarea id="question-text" name="question" required maxlength="3000" placeholder="예) 광고비를 늘리면 매출도 늘지만 이익이 줄어요. 무엇부터 확인하면 좋을까요?" aria-describedby="question-help"></textarea>
-      <p class="help" id="question-help">질문을 고르거나 직접 적어주세요. 계정 비밀번호나 고객 정보는 필요하지 않습니다.</p>
-      <div class="reply-options">
-        <label for="reply-email">답변받을 이메일 <small id="email-requirement">(필수)</small></label>
-        <input type="email" id="reply-email" required maxlength="254" autocomplete="email" placeholder="답변을 받을 이메일 주소" aria-describedby="reply-help">
-        <p class="help" id="reply-help" aria-live="polite">일반 사이트 방문은 답변을 전달할 이메일이 필요합니다.</p>
-      </div>
-      <div class="trap" aria-hidden="true"><label for="question-website">Website</label><input id="question-website" name="website" tabindex="-1" autocomplete="off"></div>
-      <p class="help">질문과 유입 정보를 문의 확인·답변에 사용합니다. <a href="/privacy.html">개인정보 처리 안내</a></p>
-      <p id="error" role="alert" hidden></p>
-      <button type="submit">질문 남기기 →</button>
-    </form>
-    <div id="success" hidden tabindex="-1" role="status">
-      <h2>질문을 접수했습니다.</h2>
-      <p id="success-message"></p>
-      <p id="receipt"></p>
-      <p class="next"><a href="#contact">계정 확인이 필요한 경우 진단 상담 신청하기 →</a></p>
-    </div>
-      </div>
-    </details>
+    <p class="result-note" id="quick-question"><a href="/question/" data-question-entry>내 쇼핑몰 광고에 대해 질문하기 →</a></p>
 
   </div>
 </section>
@@ -4603,7 +4567,7 @@
     </form>
         <nav class="contact-alternatives" aria-label="다른 문의 방법">
           <span>진단 신청 전, 가볍게 물어보고 싶다면</span>
-          <a href="#quick-question" data-question-entry>간단 질문 남기기 →</a>
+          <a href="/question/" data-question-entry>간단 질문 남기기 →</a>
           <a href="https://open.kakao.com/o/sPhekaQi" target="_blank" rel="noopener">카카오로 문의하기 ↗</a>
         </nav>
       </div>
@@ -5431,7 +5395,6 @@
     var target;
     try { target = document.getElementById(decodeURIComponent(hash.slice(1))); } catch (e) { return; }
     if (!target) return;
-    if (target.tagName === 'DETAILS') target.open = true;
     var parent = target.parentElement;
     while (parent) {
       if (parent.tagName === 'DETAILS') parent.open = true;
