@@ -7,8 +7,12 @@
   if (query.has('utm_source')) {
     attr = {};
     keys.forEach(function (key) { if (query.has(key)) attr[key] = query.get(key).slice(0, 120); });
-    try { sessionStorage.setItem('mailplug-attribution-v1', JSON.stringify(attr)); } catch (e) {}
   }
+  // 이미 전달한 메일 링크도 발송 프로세스 재시작 없이 같은 20% 그룹으로 구분한다.
+  if (attr.utm_source === 'mailplug' && /^[a-f0-9]{8}$/.test(attr.utm_term || '') && !['question_v1', 'control_v1'].includes(attr.experiment)) {
+    attr.experiment = parseInt(attr.utm_term, 16) % 5 === 0 ? 'question_v1' : 'control_v1';
+  }
+  try { sessionStorage.setItem('mailplug-attribution-v1', JSON.stringify(attr)); } catch (e) {}
   function event(name) {
     if (attr.utm_source !== 'mailplug' || !attr.utm_term || !attr.batch) return;
     var cacheKey = 'mailplug-event-v1:' + [attr.batch, attr.utm_term, name, new Date().toISOString().slice(0, 10)].join(':');
@@ -34,7 +38,7 @@
       if (article) {
         var next = document.createElement('p');
         next.innerHTML = '<a href="/question/" style="display:inline-block;padding:12px 18px;border-radius:9px;background:#176e4c;color:#fff;text-decoration:none">내 광고에 대해 질문하기 →</a>';
-        article.appendChild(next);
+        article.insertBefore(next, article.firstChild);
       }
     }
     decorate();
