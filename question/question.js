@@ -3,6 +3,7 @@
   var service = window.MailplugInquiry;
   if (!service) return;
   var form = document.getElementById('question-form'), topic = '';
+  if (!form) return;
   var presets = {
     conversion: '클릭은 있는데 구매가 적어요. 무엇부터 확인하면 좋을까요?',
     budget: '광고비를 늘려도 될까요? 예산을 늘리기 전에 무엇을 확인하면 좋을까요?',
@@ -28,7 +29,12 @@
         document.getElementById('reply-help').textContent = linked ? '이메일을 생략하면 안내받은 메일 수신 주소로 답변드립니다. 다른 주소로 답변받으려면 입력해주세요.' : '메일 수신 주소를 확인하지 못했습니다. 답변받을 이메일을 입력해주세요.';
       }).catch(function () { document.getElementById('reply-help').textContent = '메일 수신 주소를 확인하지 못했습니다. 답변받을 이메일을 입력해주세요.'; });
   }
-  service.event('question_view');
+  var inlineQuestion = document.getElementById('quick-question');
+  if (inlineQuestion) {
+    inlineQuestion.addEventListener('toggle', function () { if (inlineQuestion.open) service.event('question_view'); });
+  } else {
+    service.event('question_view');
+  }
   document.querySelectorAll('[data-topic]').forEach(function (button) {
     button.addEventListener('click', function () {
       topic = topic === button.dataset.topic ? '' : button.dataset.topic;

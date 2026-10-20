@@ -15,13 +15,14 @@ class Element {
   focus() { this.focused = true; }
   fire(name) { this.listeners[name]({ preventDefault() {} }); }
 }
-function page({ linked = false, confirmed = false, failing = false } = {}) {
+function page({ linked = false, confirmed = false, failing = false, inline = false } = {}) {
   const elements = new Map(), posted = [], topics = ['conversion', 'budget', 'start', 'other'].map(topic => Object.assign(new Element(), { dataset: { topic } }));
-  const get = id => { if (!elements.has(id)) elements.set(id, new Element()); return elements.get(id); };
+  const events = [];
+  const get = id => { if (id === 'quick-question' && !inline) return null; if (!elements.has(id)) elements.set(id, new Element()); return elements.get(id); };
   get('question-form').querySelector = () => get('submit');
   const attribution = linked ? { utm_source: 'mailplug', utm_term: '1234abcd', batch: 'batch1' } : {};
   vm.runInNewContext(source, {
-    window: { MailplugInquiry: { api: 'https://example.test', attribution, event() {} } },
+    window: { MailplugInquiry: { api: 'https://example.test', attribution, event(name) { events.push(name); } } },
     document: { getElementById: get, querySelectorAll: () => topics, createElement: () => new Element() },
     fetch: async (url, options) => {
       if (url.endsWith('/recipient-context')) return { ok: true, json: async () => ({ can_reply_without_email: confirmed }) };
@@ -29,9 +30,20 @@ function page({ linked = false, confirmed = false, failing = false } = {}) {
       return { ok: !failing, json: async () => failing ? { error: '접수 서버 연결 실패' } : { ok: true, id: 'fixture-question' } };
     }
   });
-  return { get, posted, choose: topic => topics.find(button => button.dataset.topic === topic).fire('click'), submit: () => get('question-form').fire('submit') };
+  return { get, posted, events, choose: topic => topics.find(button => button.dataset.topic === topic).fire('click'), submit: () => get('question-form').fire('submit') };
 }
 const flush = () => new Promise(resolve => setImmediate(resolve));
+
+test('포트폴리오에서 질문을 펼친 시점에만 질문 화면 방문을 기록한다', async () => {
+  const p = page({ inline: true, linked: true, confirmed: true });
+  assert.deepEqual(p.events, []);
+  p.get('quick-question').open = true; p.get('quick-question').fire('toggle');
+  assert.deepEqual(p.events, ['question_view']);
+  await flush(); p.choose('conversion'); p.submit(); await flush();
+  assert.equal(p.posted.length, 1);
+  assert.equal(p.posted[0].attribution.batch, 'batch1');
+  assert.equal(p.get('success').hidden, false);
+});
 test('질문을 선택하면 직접 글을 쓰지 않고 접수할 수 있다', async () => {
   const p = page(); p.choose('budget'); p.get('reply-email').value = 'visitor@example.test';
   assert.equal(p.get('question-text').required, false);
