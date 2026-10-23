@@ -539,7 +539,7 @@
 
   /* 프로필 사진 */
   .hero-photo {
-    position: relative; aspect-ratio: 4 / 5;
+    position: relative; aspect-ratio: 2 / 3;
     width: 100%;
     border-radius: 24px; overflow: hidden;
     background: linear-gradient(160deg, #2c3d63 0%, #1B2A4E 100%);
@@ -2464,7 +2464,6 @@
     transition: background 0.2s, border-color 0.2s;
   }
   .question-prompt a:hover { background: #f4f7fc; border-color: var(--brand); }
-  .question-prompt a[hidden] { display: none; }
   .question-prompt strong { font-size: 14px; line-height: 1.6; letter-spacing: -0.025em; }
   .question-prompt-arrow { flex-shrink: 0; font-size: 18px; }
   @media (max-width: 720px) {
@@ -2731,7 +2730,7 @@
 
   /* aspect-ratio Safari 13 이하 폴백 */
   @supports not (aspect-ratio: 4 / 5) {
-    .hero-photo { height: 0; padding-bottom: 125%; }
+    .hero-photo { height: 0; padding-bottom: 150%; }
     .mp-photo-card { height: 0; padding-bottom: 125%; }
   }
 
@@ -2859,18 +2858,7 @@
     background: #f4f6fa; border-top: 1px solid #e4e9f1; border-bottom: 1px solid #e4e9f1;
   }
   .stats::after { display: none; }
-  .stats-eyebrow { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 18px; color: #526482; font-size: 12px; font-weight: 700; letter-spacing: 0.02em; }
-  .stats-eyebrow::before { content: ''; width: 28px; height: 2px; background: #31518a; }
-  .stats-header { display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; }
-  .stats-heading {
-    margin: 0;
-    color: var(--brand);
-    font-size: clamp(26px, 3vw, 36px); line-height: 1.45;
-    font-weight: 800;
-    letter-spacing: -0.04em;
-  }
-  .stats-description { color: #52617a; font-size: 14px; line-height: 1.8; }
-  .stats-grid { margin-top: 32px; padding-top: 32px; border-top: 1px solid #d7dfeb; gap: 0; }
+  .stats-grid { margin-top: 0; padding-top: 32px; border-top: 1px solid #d7dfeb; gap: 0; }
   .stat {
     display: flex; flex-direction: column; justify-content: center; gap: 16px;
     min-height: 128px; padding: 0 32px;
@@ -2889,15 +2877,11 @@
   .stats-support .stat-label { font-size: 13px; }
   .stats-note { color: #5c6980; margin-top: 20px; padding: 0; border-top: 0; text-align: left; }
   .stats-note p { color: inherit; font-size: 12px; line-height: 1.6; }
-  .stats-note p + p { margin-top: 5px; }
 
   @media (max-width: 720px) {
     .hero-slot-meta { width: 100%; box-sizing: border-box; padding: 13px 16px; }
     .stats { padding: 42px 0 32px; }
-    .stats-header { flex-direction: column; align-items: flex-start; gap: 14px; }
-    .stats-heading { font-size: 26px; }
-    .stats-description { font-size: 13px; }
-    .stats-grid { grid-template-columns: minmax(0, 1fr); margin-top: 24px; padding-top: 26px; }
+    .stats-grid { grid-template-columns: minmax(0, 1fr); padding-top: 26px; }
     .stats-grid .stat { min-height: 0; padding: 20px 0; flex-direction: row; justify-content: space-between; align-items: baseline; gap: 12px; }
     .stats-grid .stat:first-child { padding-top: 0; }
     .stats-grid .stat + .stat { border-left: 0; border-top: 1px solid #d7dfeb; }
@@ -3066,8 +3050,13 @@
   #results.results-collapsed[data-active-filter="all"] .result-card[data-featured="1"] { order: 1; }
   #results.results-collapsed[data-active-filter="all"] .result-card[data-featured="2"] { order: 2; }
   #results.results-collapsed[data-active-filter="all"] .result-card[data-featured="3"] { order: 3; }
-  #results .rc-row { flex-wrap: wrap; }
-  #results .rc-label { flex-basis: 100%; min-width: 0; }
+  #results .result-card { gap: 10px; }
+  #results .rc-divider { margin: 2px 0; }
+  #results .rc-row { flex-wrap: wrap; gap: 5px; }
+  #results .rc-label { min-width: 0; font-size: 11px; }
+  #results .rc-before { font-size: 12px; }
+  #results .rc-after { font-size: 13px; }
+  #results .rc-delta { font-size: 11px; padding: 2px 5px; }
   @media (min-width: 721px) and (max-width: 1000px) {
     #results.results-collapsed .result-grid,
     #results.results-collapsed[data-active-filter="all"] .results-collection { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -3084,6 +3073,7 @@
     #philosophy .reading-detail-body .timeline { grid-template-columns: minmax(0, 1fr); }
     #results.results-collapsed .result-grid,
     #results.results-collapsed[data-active-filter="all"] .results-collection { grid-template-columns: minmax(0, 1fr); }
+    #results .rc-label { flex-basis: 100%; }
 
   }
 
@@ -3098,7 +3088,10 @@
   #philosophy .reading-principles .quote > .sentence:first-child { margin-bottom: 10px; font-size: 16px; font-weight: 500; color: #c9d3e6; }
   #philosophy .reading-principles .quote > .sentence:last-child { font-size: clamp(24px, 2.5vw, 32px); letter-spacing: -0.04em; }
   #philosophy .reading-principles .quote em { color: #fff; background: linear-gradient(180deg, transparent 87%, #7d9bc8 87%); }
-  #philosophy .reading-principles .story { background: #fff; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+  #philosophy .reading-principles .story { gap: 16px; background: transparent; border: 0; }
+  #philosophy .reading-principles .story-cell { padding: 26px 24px; background: #fff; border: 1px solid #d7dfeb; border-top: 3px solid #31518a; border-radius: 14px; box-shadow: var(--shadow-sm); }
+  #philosophy .reading-principles .story-cell .num { display: inline-block; padding: 5px 10px; margin-bottom: 18px; background: #edf2fa; border-radius: 6px; color: #31518a; font-size: 12px; letter-spacing: 0.04em; }
+  #philosophy .reading-principles .story-cell h3 { margin-bottom: 12px; color: var(--brand); font-size: 20px; }
   .work-summary { margin: 36px 0; }
   #philosophy .work-summary .work-overview { margin: 18px 0; }
   #reading-work { border-color: #aabbd4; border-left: 3px solid #31518a; }
@@ -3191,7 +3184,7 @@
  .hero-cta{margin-top:24px}
  .hero-proof{margin-top:0}
  .hero-proof b{font-size:clamp(26px,2.4vw,34px);white-space:nowrap;letter-spacing:-.05em}
- .hero-photo{aspect-ratio:auto;min-height:420px;border-radius:18px;box-shadow:var(--shadow-sm)}
+ .hero-photo{align-self:center;border-radius:18px;box-shadow:var(--shadow-sm)}
  .hero-photo img{position:absolute;inset:0;object-position:center center}
  .hero .hero-text h1{font-size:clamp(34px,2.8vw,42px);font-weight:800;line-height:1.3;letter-spacing:-.035em}
  .hero .hero-text h1 strong{font-weight:800;background:none;-webkit-text-fill-color:currentColor;color:#1b2a4e;padding:0}
@@ -3371,10 +3364,9 @@
 <div class="experience-credentials">
 <section class="stats">
   <div class="wrap">
-    <span class="stats-eyebrow">쌓아온 운영 경험</span>
-    <div class="stats-header">
-      <h2 class="stats-heading">숫자 뒤에는,<br>직접 운영한 경험이 있습니다.</h2>
-      <p class="stats-description">계정마다 다른 상품과 고객을 만나며,<br>예산을 쓰는 기준을 쌓아왔습니다.</p>
+    <div class="section-head">
+      <span class="eyebrow dual">EXPERIENCE</span>
+      <h2>숫자로 보는 운영 경험</h2>
     </div>
     <div class="stats-grid">
       <div class="stat">
@@ -3405,7 +3397,6 @@
       </div>
     </div>
     <div class="stats-note">
-      <p>2020년부터 1,000곳 이상 운영 · 신규 접수 월 4팀</p>
       <p><span class="sentence">네이버·지그재그는 공식 파트너 구조로 운영하며, 관리비·위약금은 0원입니다.</span><span class="sentence">광고비 외 비용은 청구하지 않습니다.</span></p>
     </div>
   </div>
@@ -3970,8 +3961,8 @@
     </div>
     <p class="result-note"><span class="sentence">연도는 운영 시기입니다. 광고주 식별 정보는 싣지 않고 업종·카테고리만 표기했습니다.</span><span class="sentence">전후 집계 기간과 세부 광고비는 공개하지 않습니다.</span><span class="sentence">여러 조정을 함께 진행한 사례로, 특정 조치 하나의 효과나 향후 결과를 보장하지 않습니다.</span></p>
     <div class="question-prompt" id="quick-question">
-      <a href="/question/" data-question-entry>
-        <strong>내 쇼핑몰 광고에 대해 질문하기</strong>
+      <a href="#contact">
+        <strong>내 쇼핑몰 광고, 전화 상담 신청</strong>
         <span class="question-prompt-arrow" aria-hidden="true">→</span>
       </a>
     </div>
