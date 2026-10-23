@@ -3119,8 +3119,8 @@
 .hero-actions{margin-top:28px}
 .hero-actions .hero-cta{margin-top:0}
 .hero-actions .btn-primary{box-shadow:none}
-.hero-actions .btn-ghost-kakao{border:0;background:transparent;color:var(--text-sub)!important;box-shadow:none;text-decoration:underline;text-underline-offset:5px}
-.hero-actions .btn-ghost-kakao:hover{background:transparent;color:var(--brand)!important;transform:none;box-shadow:none}
+.hero-actions .btn-ghost-kakao{border:1px solid #e6d578;background:#fff4b8;color:#3a1d1d!important;box-shadow:none;text-decoration:none}
+.hero-actions .btn-ghost-kakao:hover{background:#fee500;border-color:#e4ce00;transform:none;box-shadow:none}
 .hero-badges{grid-column:1 / -1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 20px;margin-top:28px;padding:20px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .hero-badges .badge{min-width:0;padding:0;border:0;border-radius:0;background:transparent;color:var(--text-sub);box-shadow:none;font-size:12px;line-height:1.6;font-weight:600}
 .hero-badges .badge::before{display:none}
@@ -3153,11 +3153,12 @@
 }
 /* Keep the introduction, portrait and supporting facts on clear alignment lines. */
 @media(min-width:1024px){
- .hero{padding:72px 0}
- .hero-grid{grid-template-columns:minmax(0,1fr) 280px;gap:28px 32px;align-items:stretch}
+ .hero{padding:48px 0}
+ .hero-grid{grid-template-columns:minmax(0,1fr) 240px;gap:22px 32px;align-items:start}
  .hero-text{display:flex;flex-direction:column;min-width:0}
- .hero-actions{margin-top:auto;padding-top:28px}
- .hero-badges{grid-template-columns:repeat(4,minmax(0,1fr));margin-top:0;padding:20px 0}
+ .hero-tagline{margin-top:20px}
+ .hero-actions{margin-top:24px;padding-top:0}
+ .hero-badges{grid-template-columns:repeat(4,minmax(0,1fr));margin-top:0;padding:16px 0}
  .hero-proof{margin-top:0}
  .hero-proof b{font-size:clamp(26px,2.4vw,34px);white-space:nowrap;letter-spacing:-.05em}
  .hero-photo{align-self:start;border-radius:18px;box-shadow:var(--shadow-sm)}
