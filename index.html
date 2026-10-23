@@ -4354,7 +4354,7 @@
 
           <a href="#contact" class="sim-cta" id="simCtaBtn">내 계정 상황 무료 상담받기</a>
           <div class="sim-cta-meta">3영업일 내 연락 · 운영 시작 7일 내 첫 리포트</div>
-          <a href="#simOptions" class="sim-refine" id="simRefine" hidden>검색/GFA·업종을 선택해 더 구체적으로 보기 ↓</a>
+          <a href="#simOptions" class="sim-refine" id="simRefine" hidden>업종·운영 상태를 선택해 더 구체적으로 보기 ↓</a>
         </div>
       </div>
     </div>
@@ -5083,7 +5083,7 @@
         ['비교 기간과 집계 기준 확인', '기간이나 전환 집계 기준이 다른 숫자가 섞이지 않았는지, 추적 설정 변경이 있었는지 확인하세요.'],
         ['상품별 이익을 반영해 예산 검토', '원가·수수료·배송 부담을 반영해 허용 광고비를 정하고, 그 기준으로 상품별 예산 배분을 검토하세요.']
       ],
-      related: '관련 사례: 네이버 검색광고 헬스·스포츠용품. 상품별 성과를 볼 수 있도록 그룹을 정리하고 예산·입찰을 함께 조정한 뒤 ROAS 596% → 1,009%로 집계됐습니다. 전후 집계 기간과 세부 광고비는 비공개이며, GFA 사례나 동일 성과를 보장하는 수치는 아닙니다.'
+      related: '관련 사례: 네이버 검색광고 헬스·스포츠용품. 상품별 성과를 볼 수 있도록 그룹을 정리하고 예산·입찰을 함께 조정한 뒤 ROAS 596% → 1,009%로 집계됐습니다. 전후 집계 기간과 세부 광고비는 비공개이며, 동일 성과를 보장하는 수치는 아닙니다.'
     },
     unsure: {
       label: '무엇부터 봐야 할지 모르겠어요',
@@ -5362,10 +5362,6 @@
     if (s.medium === 'naver_search' && selectedSituation === 'clicks') {
       steps[1][1] = '실제 유입된 검색어가 판매 상품과 맞는지 보고, 광고의 상품·가격·혜택이 연결 첫 화면과 일치하는지 확인하세요.';
     }
-    if (s.medium === 'naver_gfa') {
-      if (selectedSituation === 'clicks') steps[1][1] = '캠페인 목적·타깃·소재별 유입을 나눠 보고, 소재에서 안내한 상품·혜택이 연결 첫 화면과 맞는지 확인하세요.';
-      if (selectedSituation === 'cost') steps[0] = ['캠페인·타깃·소재별 비용과 전환 비교', '캠페인 목적과 전환 집계 지원 범위를 먼저 확인하고, 같은 기간의 광고비와 구매 결과를 비교하세요. 상품별 집계가 지원되면 상품별 차이도 살펴보세요.'];
-    }
     return steps;
   }
 
@@ -5484,9 +5480,9 @@
   if (selectedSituation) {
     document.documentElement.classList.add('sim-entry-page');
     $('simulator').classList.add('sim-mail-entry');
-    $('simOptions').querySelector('.sim-label').textContent = '네이버 광고 유형 (선택사항)';
+    $('simOptions').querySelector('.sim-label').textContent = '광고 매체 · 네이버 검색 고정';
     $('simulator').querySelector('.section-head h2').textContent = '내 상황에 맞는 확인 순서, 10초 셀프 점검';
-    $('simulator').querySelector('.section-sub').textContent = '선택하신 상황의 점검 순서입니다. 필요하면 아래에서 광고 유형과 업종을 더 선택해 보세요.';
+    $('simulator').querySelector('.section-sub').textContent = '선택하신 상황의 네이버 검색광고 점검 순서입니다. 필요하면 아래에서 업종과 운영 상태를 더 선택해 보세요.';
     $('simEntry').hidden = false;
     $('simSituation').value = selectedSituation;
     $('simRelated').hidden = false;
@@ -5494,14 +5490,9 @@
     $('simCtaBtn').textContent = '이 상황으로 문의하기 →';
     $('simCtaBtn').nextElementSibling.textContent = '선택한 상황이 문의 내용에 미리 입력됩니다. 제출 전 수정할 수 있어요.';
     Array.prototype.forEach.call(document.querySelectorAll('input[name="simMedium"]'), function(input){
-      input.checked = false;
-      input.closest('label').hidden = input.value !== 'naver_search' && input.value !== 'naver_gfa';
-    });
-    $('simIndustry').innerHTML = '<option value="">광고 유형 선택 후 선택 가능</option>';
-    $('simIndustry').disabled = true;
-    $('simChecks').textContent = '네이버 검색 또는 GFA를 고르면 운영 상태를 추가로 점검할 수 있어요.';
-    Array.prototype.forEach.call(document.querySelectorAll('input[name="simMedium"]'), function(input){
-      input.addEventListener('change', function(){ $('simIndustry').disabled = false; });
+      input.checked = input.value === 'naver_search';
+      input.disabled = true;
+      input.closest('label').hidden = input.value !== 'naver_search';
     });
     $('simSituation').addEventListener('change', function(){
       if (!Object.prototype.hasOwnProperty.call(SITUATIONS, this.value)) return;
@@ -5512,7 +5503,7 @@
       var filter = document.querySelector('.rf-tab[data-filter="naver"]');
       if (filter) filter.click();
     });
-    calc();
+    renderMedia('naver_search');
   } else {
     renderMedia(getMedium());
   }

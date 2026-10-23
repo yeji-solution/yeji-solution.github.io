@@ -50,42 +50,42 @@ function page(query = '') {
   vm.runInNewContext(source, { document, window: {}, location: { search: query, href: 'https://yeji-solution.github.io/' + query }, URL, URLSearchParams });
   return {
     get, media, checks: () => checks,
-    chooseMedium(value) { media.forEach(input => { input.checked = input.value === value; }); media.find(input => input.checked).fire('change'); },
     inquiry: () => new URL(get('simCtaBtn').href),
   };
 }
 
-test('메일의 네 상황은 재선택 없이 결과를 표시하고 광고 유형·업종·운영 상태를 추정하지 않는다', () => {
+test('메일의 네 상황은 네이버 검색으로 고정하고 업종·운영 상태를 추정하지 않는다', () => {
   for (const key of ['start', 'clicks', 'cost', 'unsure']) {
     const p = page('?situation=' + key + '&utm_source=mailplug&utm_term=1234abcd&batch=preview&experiment=question_v1');
     assert.equal(p.get('simEntry').hidden, false);
     assert.equal(p.get('simSituation').value, key);
     assert.equal(p.get('simPriorities').innerHTML.match(/class="sp-num"/g).length, 3);
-    assert.equal(p.media.some(input => input.checked), false);
-    assert.equal(p.checks().length, 0);
+    assert.equal(p.media.find(input => input.checked).value, 'naver_search');
+    assert.equal(p.media.filter(input => !input.closest().hidden).length, 1);
+    assert.equal(p.media.every(input => input.disabled), true);
+    assert.equal(p.get('simIndustry').value, '');
+    assert.equal(p.checks().length, 5);
+    assert.equal(p.checks().some(input => input.checked), false);
     const url = p.inquiry();
     assert.equal(url.pathname, '/question/');
     assert.equal(url.searchParams.get('selfcheck'), key);
     assert.equal(url.searchParams.get('batch'), 'preview');
     assert.equal(url.searchParams.get('utm_term'), '1234abcd');
-    assert.match(url.searchParams.get('question'), /광고 유형: 미선택\n업종: 미선택/);
+    assert.match(url.searchParams.get('question'), /광고 유형: 네이버 검색\n업종: 미선택/);
     assert.doesNotMatch(p.get('simPriorities').innerHTML, /undefined/);
   }
 });
 
-test('검색·GFA와 업종 선택이 안내와 문의 내용에 반영되고 상황 변경 시 이전 결과를 지운다', () => {
+test('업종 선택이 검색광고 문의 내용에 반영되고 상황 변경 시 이전 결과를 지운다', () => {
   const p = page('?situation=clicks');
-  p.chooseMedium('naver_search');
   assert.match(p.get('simPriorities').innerHTML, /실제 유입된 검색어/);
   assert.equal(p.get('simIndustry').value, '');
-  p.chooseMedium('naver_gfa');
-  assert.match(p.get('simPriorities').innerHTML, /캠페인 목적·타깃·소재/);
   assert.equal(p.checks().some(input => input.checked), false);
   p.get('simIndustry').value = 'health'; p.get('simIndustry').fire('change');
-  assert.match(p.inquiry().searchParams.get('question'), /광고 유형: 네이버 GFA\n업종: 건강/);
+  assert.match(p.inquiry().searchParams.get('question'), /광고 유형: 네이버 검색\n업종: 건강/);
   p.get('simSituation').value = 'cost'; p.get('simSituation').fire('change');
   assert.equal(p.inquiry().searchParams.get('selfcheck'), 'cost');
-  assert.match(p.get('simPriorities').innerHTML, /캠페인·타깃·소재별 비용과 전환/);
+  assert.match(p.get('simPriorities').innerHTML, /상품·광고 그룹별 비용과 전환/);
   assert.doesNotMatch(p.get('simPriorities').innerHTML, /구매를 망설이게/);
   p.checks()[0].checked = true; p.checks()[0].fire('change');
   assert.match(p.get('simPriorities').innerHTML, /추가로 선택한 운영 상태/);
