@@ -3077,6 +3077,28 @@
     #results.results-collapsed[data-active-filter="all"] .result-card[data-featured] { display: flex; }
   }
 
+  /* Meaning-led line breaks for mobile headings and supporting copy. */
+  .qa .question-copy { flex: 1; min-width: 0; }
+  .qa .a > strong { display: block; margin-bottom: 12px; }
+  .qa .a > p { margin: 0; text-wrap: pretty; }
+  .qa .a > p + p { margin-top: 10px; }
+  .quote-message .quote-line { display: inline; }
+  @media (max-width: 720px) {
+    .mobile-line, .quote-message .quote-line { display: block; }
+    #philosophy .reading-principles .quote { padding: 26px 18px; }
+    #philosophy .reading-principles .quote > .sentence:last-child { font-size: clamp(21px, 5.9vw, 25px); line-height: 1.65; text-wrap: initial; }
+    #philosophy .reading-principles .quote em { display: block; background: none; }
+    #philosophy .reading-principles .quote em .quote-line { width: fit-content; background: linear-gradient(180deg, transparent 87%, #7d9bc8 87%); }
+    .section-head h2, .work-summary-title, .rc-title { text-wrap: pretty; }
+    .story-cell p, .work-overview p, .principle .pdesc, .case-block li,
+    .rc-detail, .ic-desc, .qa .q, .qa .a, .contact-benefits p > span,
+    .form-help, .contact-access p, .footer-tagline { text-wrap: pretty; }
+    .story-cell .sentence + .sentence, .principle .sentence + .sentence { margin-top: 8px; }
+    .qa .a { line-height: 1.85; }
+    .qa .q { text-align: left; }
+    .case-note > strong { display: block; margin-bottom: 8px; }
+    .contact-access .sentence + .sentence { margin-top: 8px; }
+  }
 </style>
 <style>
 
@@ -3406,7 +3428,7 @@
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow dual">CREDENTIALS</span>
-      <h2>공식 인증과 파트너십을 확인하세요.</h2>
+      <h2><span class="mobile-line">공식 인증과 파트너십을</span> <span class="mobile-line">확인하세요.</span></h2>
       <p class="section-sub">네이버 검색광고·디스플레이 공식 인증서를 공개합니다.</p>
     </div>
 
@@ -3564,7 +3586,7 @@
             <span class="rc-cat">헬스 · 스포츠용품</span>
             <span class="rc-period">2025 하반기</span>
           </div>
-          <div class="rc-title">광고 그룹을 재설계하고 전환이 높은 상품에 예산을 배분했습니다.</div>
+          <div class="rc-title"><span class="mobile-line">광고 그룹을 재설계하고</span> <span class="mobile-line">전환이 높은 상품에 예산을 배분했습니다.</span></div>
           <p class="rc-detail">상품별 성과를 볼 수 있도록 그룹 구조를 정리하고, 전환이 확인된 상품에 예산을 옮긴 사례입니다.</p>
           <div class="rc-approach">
             <span class="rc-chip">광고 그룹 구조 재설계</span>
@@ -3589,7 +3611,7 @@
             <span class="rc-cat">건강기능식품</span>
             <span class="rc-period">2025년</span>
           </div>
-          <div class="rc-title">고전환 키워드에 예산을 모으고 광고 소재를 테스트했습니다.</div>
+          <div class="rc-title"><span class="mobile-line">고전환 키워드에 예산을 모으고</span> <span class="mobile-line">광고 소재를 테스트했습니다.</span></div>
           <p class="rc-detail">키워드별 전환 성과를 기준으로 예산을 다시 배분하고, 소재 반응을 비교했습니다.</p>
           <div class="rc-approach">
             <span class="rc-chip">고전환 키워드 집중 배분</span>
@@ -3621,7 +3643,7 @@
             <span class="rc-cat">가전 · 생활가전</span>
             <span class="rc-period">2025년</span>
           </div>
-          <div class="rc-title">전환 키워드와 시간대에 맞춰 입찰을 조정했습니다.</div>
+          <div class="rc-title"><span class="mobile-line">전환 키워드와 시간대에 맞춰</span> <span class="mobile-line">입찰을 조정했습니다.</span></div>
           <p class="rc-detail">어떤 검색어와 시간대에서 전환이 발생하는지 나눠 보고 입찰을 조정했습니다.</p>
           <div class="rc-approach">
             <span class="rc-chip">전환 집중 키워드 재배분</span>
@@ -3657,7 +3679,7 @@
             <span class="rc-cat">여성패션</span>
             <span class="rc-period">2025년</span>
           </div>
-          <div class="rc-title">타깃을 세분화하고 소재와 예산 배분을 조정했습니다.</div>
+          <div class="rc-title"><span class="mobile-line">타깃을 세분화하고</span> <span class="mobile-line">소재와 예산 배분을 조정했습니다.</span></div>
           <p class="rc-detail">타깃별 반응을 나눠 확인하고 소재와 예산을 조정한 뒤, 전환매출이 4.40억 원에서 8.46억 원으로 증가했습니다.</p>
           <div class="rc-approach">
             <span class="rc-chip">타깃 세그먼트 세분화</span>
@@ -3689,7 +3711,7 @@
             <span class="rc-cat">패션 잡화</span>
             <span class="rc-period">2025 상반기</span>
           </div>
-          <div class="rc-title">카테고리마다 입찰과 ROAS 목표를 따로 설정했습니다.</div>
+          <div class="rc-title"><span class="mobile-line">카테고리마다 입찰과 ROAS 목표를</span> <span class="mobile-line">따로 설정했습니다.</span></div>
           <p class="rc-detail">서로 다른 상품군에 같은 목표를 적용하지 않도록 카테고리별 운영 기준을 분리했습니다.</p>
           <div class="rc-approach">
             <span class="rc-chip">카테고리별 입찰 분리</span>
@@ -3714,7 +3736,7 @@
             <span class="rc-cat">일상복</span>
             <span class="rc-period">2025년</span>
           </div>
-          <div class="rc-title">신규 고객 타깃을 확장하고 시즌 상품에 맞춰 소재를 바꿨습니다.</div>
+          <div class="rc-title"><span class="mobile-line">신규 고객 타깃을 확장하고</span> <span class="mobile-line">시즌 상품에 맞춰 소재를 바꿨습니다.</span></div>
           <p class="rc-detail">새 고객층으로 노출 범위를 넓히면서 시즌 상품 소재를 교체한 뒤, 전환매출이 8,842만 원에서 1.94억 원으로 증가했습니다.</p>
           <div class="rc-approach">
             <span class="rc-chip">시즌 컬렉션 연동</span>
@@ -3757,7 +3779,7 @@
             <span class="rc-cat">건강기능식품</span>
             <span class="rc-period">2025년</span>
           </div>
-          <div class="rc-title">스폰서 광고와 판매 상품의 연동을 조정했습니다.</div>
+          <div class="rc-title"><span class="mobile-line">스폰서 광고와 판매 상품의</span> <span class="mobile-line">연동을 조정했습니다.</span></div>
           <p class="rc-detail">광고에 노출할 상품과 판매 상황을 함께 확인하며 운영 대상을 조정했습니다.</p>
           <div class="rc-approach">
             <span class="rc-chip">스폰서 광고 연동 최적화</span>
@@ -3789,7 +3811,7 @@
             <span class="rc-cat">뷰티 · 헬스케어</span>
             <span class="rc-period">2025년</span>
           </div>
-          <div class="rc-title">아이템 위너 상품에 집중하고 CPC 입찰을 조정했습니다.</div>
+          <div class="rc-title"><span class="mobile-line">아이템 위너 상품에 집중하고</span> <span class="mobile-line">CPC 입찰을 조정했습니다.</span></div>
           <p class="rc-detail">판매 경쟁력이 있는 상품을 우선 운영하고, 클릭당 입찰가를 조정했습니다.</p>
           <div class="rc-approach">
             <span class="rc-chip">아이템 위너 진입 전략</span>
@@ -3821,7 +3843,7 @@
             <span class="rc-cat">유아 · 아동용품</span>
             <span class="rc-period">2025년</span>
           </div>
-          <div class="rc-title">경쟁 상품을 분석하고 주력 상품의 노출을 조정했습니다.</div>
+          <div class="rc-title"><span class="mobile-line">경쟁 상품을 분석하고</span> <span class="mobile-line">주력 상품의 노출을 조정했습니다.</span></div>
           <p class="rc-detail">경쟁 상품의 노출과 가격을 살펴본 뒤 주력 상품에 예산을 배분했습니다.</p>
           <div class="rc-approach">
             <span class="rc-chip">경쟁사 입찰 분석</span>
@@ -3864,7 +3886,7 @@
             <span class="rc-cat">가구 · 수납함</span>
             <span class="rc-period">2025년</span>
           </div>
-          <div class="rc-title">새 타깃을 찾고 반응에 맞춰 소재를 개선했습니다.</div>
+          <div class="rc-title"><span class="mobile-line">새 타깃을 찾고</span> <span class="mobile-line">반응에 맞춰 소재를 개선했습니다.</span></div>
           <p class="rc-detail">기존 타깃 밖의 반응을 확인하고, 반응이 확인된 소재에 맞춰 운영을 조정했습니다.</p>
           <div class="rc-approach">
             <span class="rc-chip">신규 타깃층 발굴</span>
@@ -3896,7 +3918,7 @@
             <span class="rc-cat">인테리어 소품</span>
             <span class="rc-period">2025년</span>
           </div>
-          <div class="rc-title">관심사 타깃을 다시 설정하고 소재를 바꿨습니다.</div>
+          <div class="rc-title"><span class="mobile-line">관심사 타깃을 다시 설정하고</span> <span class="mobile-line">소재를 바꿨습니다.</span></div>
           <p class="rc-detail">관심사 설정과 소재를 함께 바꿔 어떤 조합에서 전환이 발생하는지 확인했습니다.</p>
           <div class="rc-approach">
             <span class="rc-chip">관심사 타깃 재설정</span>
@@ -3921,7 +3943,7 @@
             <span class="rc-cat">조명</span>
             <span class="rc-period">2025년</span>
           </div>
-          <div class="rc-title">프리미엄 상품 소재와 가격대별 메시지를 조정했습니다.</div>
+          <div class="rc-title"><span class="mobile-line">프리미엄 상품 소재와</span> <span class="mobile-line">가격대별 메시지를 조정했습니다.</span></div>
           <p class="rc-detail">가격대에 따라 광고에서 강조할 내용을 달리하고, 프리미엄 상품 소재를 조정했습니다.</p>
           <div class="rc-approach">
             <span class="rc-chip">프리미엄 라인 소재 강화</span>
@@ -3963,13 +3985,13 @@
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">WHY ME</span>
-      <h2>맡기시면, 무엇이 달라지나요?</h2>
+      <h2><span class="mobile-line">맡기시면,</span> <span class="mobile-line">무엇이 달라지나요?</span></h2>
       <p class="section-sub">예산 배분, 성과 점검, 직접 담당까지 세 가지 운영 기준을 설명합니다.</p>
     </div>
 
 <div class="reading-visible reading-principles" id="reading-principles"><div class="reading-visible-heading"><div><h3>직접 운영하는 세 가지 기준</h3></div></div><div class="reading-detail-body">    <div class="quote">
       <span class="sentence">광고비를 줄이는 게 목적이 아닙니다.</span>
-      <span class="sentence"><em>같은 광고비가 더 일하게 만드는 것</em>이 진짜 운영입니다.</span>
+      <span class="sentence quote-message"><em><span class="quote-line">같은 광고비가</span> <span class="quote-line">더 일하게 만드는 것</span></em><span class="quote-line">이 진짜 운영입니다.</span></span>
     </div>
 
     <div class="story">
@@ -3991,17 +4013,17 @@
     </div>
 
 </div></div>
-<div class="work-summary"><h3 class="work-summary-title">진단부터 운영까지, 이렇게 진행합니다.</h3>
+<div class="work-summary"><h3 class="work-summary-title"><span class="mobile-line">진단부터 운영까지,</span> <span class="mobile-line">이렇게 진행합니다.</span></h3>
 <div class="work-overview" aria-label="광고 운영 과정 요약">
-  <article><span class="work-overview-phase">첫 7일</span><h3>현재 상태 진단</h3><p>계정 구조와 성과를 살펴보고, 첫 리포트로 개선 우선순위를 안내합니다.</p></article>
-  <article><span class="work-overview-phase">첫 한 달</span><h3>구조 정리와 테스트</h3><p>키워드·타깃·소재를 점검하고, 반응에 따라 입찰과 예산을 조정합니다.</p></article>
-  <article><span class="work-overview-phase">이후 지속 운영</span><h3>결과 공유와 개선</h3><p>주간 보고와 월간 리뷰로 변경 내용과 다음 운영 방향을 함께 확인합니다.</p></article>
+  <article><span class="work-overview-phase">첫 7일</span><h3>현재 상태 진단</h3><p><span class="mobile-line">계정 구조와 성과를 살펴보고,</span> <span class="mobile-line">첫 리포트로 개선 우선순위를 안내합니다.</span></p></article>
+  <article><span class="work-overview-phase">첫 한 달</span><h3>구조 정리와 테스트</h3><p><span class="mobile-line">키워드·타깃·소재를 점검하고,</span> <span class="mobile-line">반응에 따라 입찰과 예산을 조정합니다.</span></p></article>
+  <article><span class="work-overview-phase">이후 지속 운영</span><h3>결과 공유와 개선</h3><p><span class="mobile-line">주간 보고와 월간 리뷰로</span> <span class="mobile-line">변경 내용과 다음 운영 방향을 함께 확인합니다.</span></p></article>
 </div>
 <details class="reading-detail" id="reading-work"><summary><span><strong>광고 운영 과정 자세히 보기</strong><span class="reading-detail-hint">첫 7일 진단부터 장기 운영까지</span></span><span class="reading-detail-icon" aria-hidden="true"></span></summary><div class="reading-detail-body"><section id="work" class="soft">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow z">HOW I WORK</span>
-      <h2>광고 운영은 이렇게 진행합니다.</h2>
+      <h2><span class="mobile-line">광고 운영은</span> <span class="mobile-line">이렇게 진행합니다.</span></h2>
       <p class="section-sub"><span class="sentence">계정 인계 후 7일 안에 첫 리포트를 공유합니다.</span> <span class="sentence">그 뒤 매일·매주 어떤 작업을 하는지 보여드립니다.</span></p>
     </div>
 
@@ -4074,7 +4096,7 @@
     <div class="section-head">
       <span class="eyebrow">GOOD FIT</span>
 <p class="reading-fit-hint">주요 상품군과 함께 일하는 방식</p>
-      <h2>이런 광고주분께 잘 맞습니다.</h2>
+      <h2><span class="mobile-line">이런 광고주분께</span> <span class="mobile-line">잘 맞습니다.</span></h2>
       <p class="section-sub">주로 맡는 상품과 일하는 방식을 살펴보세요.</p>
     </div>
 
@@ -4107,7 +4129,7 @@
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow dual">STRATEGY</span>
-      <h2>매체별로 전략이 달라야 합니다.</h2>
+      <h2><span class="mobile-line">매체별로 전략이</span> <span class="mobile-line">달라야 합니다.</span></h2>
       <p class="section-sub"><span>네이버와 지그재그는 노출 방식이 다릅니다.</span><span>매체에 맞는 기준으로 광고를 운영합니다.</span></p>
     </div>
 
@@ -4178,7 +4200,7 @@
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow dual">ACCOUNT CHECKS</span>
-      <h2>계정 점검에서 자주 확인하는 세 가지 패턴</h2>
+      <h2><span class="mobile-line">계정 점검에서 자주 확인하는</span> <span class="mobile-line">세 가지 패턴</span></h2>
       <p class="section-sub">여러 상담에서 반복된 상황을 묶어, 확인할 항목과 조정 방향을 정리했습니다.</p>
     </div>
 
@@ -4289,7 +4311,7 @@
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow dual">DIAGNOSIS SIMULATOR</span>
-      <h2>내 광고의 점검 우선순위, <strong>30초 안에 살펴보세요.</strong></h2>
+      <h2><span class="mobile-line">내 광고의 점검 우선순위,</span> <strong class="mobile-line">30초 안에 살펴보세요.</strong></h2>
       <p class="section-sub"><span class="sentence">매체와 현재 운영 상태를 선택해 보세요.</span> <span class="sentence">계정에서 먼저 확인할 데이터와 조치 순서를 안내합니다.</span></p>
     </div>
 
@@ -4366,7 +4388,7 @@
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow dual">MARKETING INSIGHTS</span>
-      <h2>광고비를 쓰기 전에 먼저 읽어야 할 것들.</h2>
+      <h2><span class="mobile-line">광고비를 쓰기 전에</span> <span class="mobile-line">먼저 읽어야 할 것들.</span></h2>
       <p class="section-sub">매체 선택과 계정 운영에 필요한 판단 기준을 정리했습니다.</p>
     </div>
     <div class="insight-grid">
@@ -4398,45 +4420,51 @@
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow dual">MARKETING Q&amp;A</span>
-      <h2>광고주분들이 가장 자주 묻는 6가지.</h2>
+      <h2><span class="mobile-line">광고주분들이 가장</span> <span class="mobile-line">자주 묻는 6가지.</span></h2>
       <p class="section-sub"><span class="sentence">상담 전에 가장 많이 받는 질문을 모았습니다.</span> <span class="sentence">답변을 보시고 판단해 주세요.</span></p>
     </div>
 
     <div class="qa-list">
 <div class="qa">
-        <button type="button" class="q" aria-expanded="true" aria-controls="qa-answer-6">수수료는 어떻게 되나요? 대행 비용이 따로 발생하나요?</button>
+        <button type="button" class="q" aria-expanded="true" aria-controls="qa-answer-6"><span class="question-copy"><span class="mobile-line">수수료는 어떻게 되나요?</span> <span class="mobile-line">대행 비용이 따로 발생하나요?</span></span></button>
         <div class="a" id="qa-answer-6">
-          <strong>별도 대행 비용은 없습니다.</strong> 네이버·지그재그 공식 파트너사 구조로 운영되기 때문에, 광고주는 광고비만 집행하면 됩니다. 수수료는 매체에서 정산되는 구조라 광고주에게 추가 청구가 발생하지 않습니다. 관리비·세팅비 항목 자체가 없습니다.
+          <strong>별도 대행 비용은 없습니다.</strong>
+          <p>네이버·지그재그 공식 파트너사 구조로 운영되기 때문에, 광고주는 광고비만 집행하면 됩니다.</p><p>수수료는 매체에서 정산되는 구조라 광고주에게 추가 청구가 발생하지 않습니다.</p><p>관리비·세팅비 항목 자체가 없습니다.</p>
         </div>
       </div>
 <div class="qa">
-        <button type="button" class="q" aria-expanded="false" aria-controls="qa-answer-5">계약 기간은 어떻게 되나요? 중간에 해지가 가능한가요?</button>
+        <button type="button" class="q" aria-expanded="false" aria-controls="qa-answer-5"><span class="question-copy"><span class="mobile-line">계약 기간은 어떻게 되나요?</span> <span class="mobile-line">중간에 해지가 가능한가요?</span></span></button>
         <div class="a" id="qa-answer-5" hidden>
-          <strong>공식 대행사 구조라 계약 기간 자체가 없습니다.</strong> 언제든 해지하실 수 있고, 위약금이나 별도 조건도 없습니다. 광고비 외 추가 청구도 없습니다. 효과가 있으면 자연스럽게 길어지고, 없으면 즉시 정리하실 수 있는 구조입니다. 광고주 입장에서 부담이 가장 적은 형태입니다.
+          <strong>공식 대행사 구조라 계약 기간 자체가 없습니다.</strong>
+          <p>언제든 해지하실 수 있고, 위약금이나 별도 조건도 없습니다.</p><p>광고비 외 추가 청구도 없습니다.</p><p>효과가 있으면 자연스럽게 길어지고, 없으면 즉시 정리하실 수 있는 구조입니다.</p><p>광고주 입장에서 부담이 가장 적은 형태입니다.</p>
         </div>
       </div>
 <div class="qa">
         <button type="button" class="q" aria-expanded="false" aria-controls="qa-answer-2">대행사를 바꾸면 효과가 있을까요?</button>
         <div class="a" id="qa-answer-2" hidden>
-          <strong>담당자가 계정을 어떻게 살피고 조정하는지 확인해 보세요.</strong> 상담한 사람이 실제 운영과 성과 보고까지 맡는지, 어떤 근거로 변경 사항을 제안하는지 묻는 것이 좋습니다.
+          <strong>담당자가 계정을 어떻게 살피고 조정하는지 확인해 보세요.</strong>
+          <p>상담한 사람이 실제 운영과 성과 보고까지 맡는지, 어떤 근거로 변경 사항을 제안하는지 묻는 것이 좋습니다.</p>
         </div>
       </div>
 <div class="qa">
         <button type="button" class="q" aria-expanded="false" aria-controls="qa-answer-4">두 매체를 함께 운영해야 하나요?</button>
         <div class="a" id="qa-answer-4" hidden>
-          <strong>상품과 고객이 어디에서 비교하고 구매하는지 먼저 확인합니다.</strong> 검색 수요가 크면 네이버, 패션 탐색 비중이 높으면 지그재그를 검토할 수 있습니다. 두 매체를 함께 운영할지는 기존 성과와 예산을 보고 결정합니다.
+          <strong>상품과 고객이 어디에서 비교하고 구매하는지 먼저 확인합니다.</strong>
+          <p>검색 수요가 크면 네이버, 패션 탐색 비중이 높으면 지그재그를 검토할 수 있습니다.</p><p>두 매체를 함께 운영할지는 기존 성과와 예산을 보고 결정합니다.</p>
         </div>
       </div>
 <div class="qa">
         <button type="button" class="q" aria-expanded="false" aria-controls="qa-answer-1">광고비를 늘리면 매출이 늘어나나요?</button>
         <div class="a" id="qa-answer-1" hidden>
-          <strong>대부분 비례하지 않습니다.</strong> 노출·클릭·전환 중 어디에서 매출이 막히는지 먼저 찾아야 합니다. 원인을 그대로 둔 채 예산만 늘리면 ROAS가 떨어질 수 있습니다.
+          <strong>대부분 비례하지 않습니다.</strong>
+          <p>노출·클릭·전환 중 어디에서 매출이 막히는지 먼저 찾아야 합니다.</p><p>원인을 그대로 둔 채 예산만 늘리면 ROAS가 떨어질 수 있습니다.</p>
         </div>
       </div>
 <div class="qa">
         <button type="button" class="q" aria-expanded="false" aria-controls="qa-answer-3">ROAS만 잘 나오면 좋은 광고인가요?</button>
         <div class="a" id="qa-answer-3" hidden>
-          <strong>ROAS와 매출 규모를 함께 봐야 합니다.</strong> 광고비를 줄여 ROAS가 올라가더라도 전환수나 매출이 줄 수 있습니다. 전환매출·광고비·신규 고객 비중을 함께 확인한 뒤 예산을 결정합니다.
+          <strong>ROAS와 매출 규모를 함께 봐야 합니다.</strong>
+          <p>광고비를 줄여 ROAS가 올라가더라도 전환수나 매출이 줄 수 있습니다.</p><p>전환매출·광고비·신규 고객 비중을 함께 확인한 뒤 예산을 결정합니다.</p>
         </div>
       </div>
     </div>
@@ -4558,7 +4586,7 @@
 
       <button type="submit" class="form-submit">내 광고 무료 진단받기 →</button>
 
-<p class="contact-safe">신청 단계에서 계정 비밀번호를 요구하지 않습니다.</p><details class="contact-access"><summary>계정 확인은 어떻게 진행하나요?</summary><p>현황을 먼저 확인한 뒤, 분석에 필요한 경우에만 매체의 공식 사용자 초대로 열람 권한을 안내합니다. 동의를 거부하시면 진단 상담 신청이 제한됩니다.</p></details>
+<p class="contact-safe">신청 단계에서 계정 비밀번호를 요구하지 않습니다.</p><details class="contact-access"><summary>계정 확인은 어떻게 진행하나요?</summary><p><span class="sentence">현황을 먼저 확인한 뒤, 분석에 필요한 경우에만 매체의 공식 사용자 초대로 열람 권한을 안내합니다.</span><span class="sentence">동의를 거부하시면 진단 상담 신청이 제한됩니다.</span></p></details>
     </form>
         <nav class="contact-alternatives" aria-label="다른 문의 방법">
           <span>진단 신청 전, 가볍게 물어보고 싶다면</span>
