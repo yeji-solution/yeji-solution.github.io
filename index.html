@@ -3175,15 +3175,19 @@
 #contact .form-more>summary::before{color:#31518a}
 </style>
 <style>
-/* Emphasized desktop hero typography */
+.hero-actions{grid-column:1 / -1}
+/* Aligned desktop hero content and consultation row */
 @media(min-width:1024px){
  .hero-grid{grid-template-columns:minmax(0,1fr) 280px;gap:28px 32px;align-items:stretch}
  .hero-text{display:flex;flex-direction:column;min-width:0}
- .hero-badges{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:24px;max-width:620px}
- .hero-cta{margin-top:24px}
+ .hero-badges{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:auto;padding-top:24px}
+ .hero-badges .badge{border-radius:10px;min-height:42px}
+ .hero-actions{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:22px 24px;border:1px solid var(--line);border-radius:16px;background:#fff}
+ .hero-cta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin-top:0}
+ .hero-actions #heroSlotMeta{margin:0}
  .hero-proof{margin-top:0}
  .hero-proof b{font-size:clamp(26px,2.4vw,34px);white-space:nowrap;letter-spacing:-.05em}
- .hero-photo{align-self:center;border-radius:18px;box-shadow:var(--shadow-sm)}
+ .hero-photo{align-self:start;border-radius:18px;box-shadow:var(--shadow-sm)}
  .hero-photo img{position:absolute;inset:0;object-position:center center}
  .hero .hero-text h1{font-size:clamp(40px,3.7vw,54px);font-weight:800;line-height:1.25;letter-spacing:-.045em}
  .hero .hero-text h1 strong{font-weight:800;background:none;-webkit-text-fill-color:currentColor;color:#1b2a4e;padding:0}
@@ -3301,13 +3305,6 @@
         <span class="badge zigzag"><span class="dot"></span>지그재그 프리미어 에이전시</span>
         <span class="badge ably"><span class="dot"></span>에이블리 우수대행사</span>
       </div>
-
-      <div class="hero-cta">
-        <a href="#contact" class="btn-primary">무료 진단 신청하기</a>
-        <a href="https://open.kakao.com/o/sPhekaQi" target="_blank" rel="noopener noreferrer" class="btn-ghost-kakao">카카오 1:1 상담</a>
-      </div>
-      <p class="hero-cta-meta">네이버·지그재그 공식 대행: 관리비·위약금 0원</p>
-      <p class="hero-slot-meta" id="heroSlotMeta"><span class="slot-cap">매월 신규 운영은 4팀까지만 맡습니다</span><span class="slot-status">접수 일정 확인 중</span></p>
     </div>
 
     <!-- 프로필 사진: 같은 폴더에 profile.jpg(세로형 상반신 사진) 업로드 시 자동 표시 -->
@@ -3322,6 +3319,16 @@
         <source srcset="profile.webp" type="image/webp" />
         <img src="profile.jpg" alt="이명수 마케터 프로필 사진" width="720" height="1080" loading="eager" fetchpriority="high" onerror="this.parentNode.remove()" />
       </picture>
+    </div>
+    <div class="hero-actions">
+      <div>
+        <div class="hero-cta">
+          <a href="#contact" class="btn-primary">무료 진단 신청하기</a>
+          <a href="https://open.kakao.com/o/sPhekaQi" target="_blank" rel="noopener noreferrer" class="btn-ghost-kakao">카카오 1:1 상담</a>
+        </div>
+        <p class="hero-cta-meta">네이버·지그재그 공식 대행: 관리비·위약금 0원</p>
+      </div>
+      <p class="hero-slot-meta" id="heroSlotMeta"><span class="slot-cap">매월 신규 운영은 4팀까지만 맡습니다</span><span class="slot-status">접수 일정 확인 중</span></p>
     </div>
     <div class="hero-proof">
       <div class="hp-item"><span class="hp-cat">네이버 · ROAS</span><b data-target="1009" data-prefix="" data-suffix="%">1,009%</b><span class="hp-src">광고 그룹 구조 재설계</span><span class="hp-period">596% → 1,009%</span></div>
