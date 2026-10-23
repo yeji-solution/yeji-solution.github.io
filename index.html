@@ -511,6 +511,7 @@
   /* Hero 성과 strip */
   .hero-proof {
     margin-top: 30px;
+    grid-column: 1 / -1;
     display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px;
   }
   .hp-item {
@@ -2455,26 +2456,20 @@
   }
   .result-method strong { display: block; color: var(--brand); font-size: 13px; margin-bottom: 3px; }
   .result-note { margin-top: 28px; font-size: 12px; color: var(--text-dim); text-align: center; }
-  .question-prompt { margin-top: 32px; }
+  .question-prompt { margin-top: 20px; text-align: center; }
   .question-prompt a {
-    display: flex; align-items: center; justify-content: space-between; gap: 24px;
-    padding: 28px 32px; border: 1px solid #2c4269; border-radius: 16px;
-    background: var(--brand); color: #fff;
+    display: inline-flex; align-items: center; justify-content: center; gap: 16px;
+    max-width: 100%; padding: 13px 20px; border: 1px solid #bdc9dc; border-radius: 10px;
+    background: #fff; color: var(--brand);
     transition: background 0.2s, border-color 0.2s;
   }
-  .question-prompt a:hover { background: #263e67; border-color: #45618e; }
-  .question-prompt-copy { display: flex; flex-direction: column; gap: 6px; }
-  .question-prompt strong { font-size: 20px; line-height: 1.5; letter-spacing: -0.025em; }
-  .question-prompt-copy > span { color: #d0d9e9; font-size: 14px; line-height: 1.6; }
-  .question-prompt-arrow {
-    display: grid; place-items: center; flex: 0 0 44px; height: 44px;
-    border: 1px solid rgba(255,255,255,0.3); border-radius: 50%; font-size: 22px;
-  }
+  .question-prompt a:hover { background: #f4f7fc; border-color: var(--brand); }
+  .question-prompt a[hidden] { display: none; }
+  .question-prompt strong { font-size: 14px; line-height: 1.6; letter-spacing: -0.025em; }
+  .question-prompt-arrow { flex-shrink: 0; font-size: 18px; }
   @media (max-width: 720px) {
-    .question-prompt a { padding: 22px 20px; gap: 14px; }
-    .question-prompt strong { font-size: 17px; word-break: keep-all; }
-    .question-prompt-copy > span { font-size: 13px; }
-    .question-prompt-arrow { flex-basis: 36px; height: 36px; font-size: 20px; }
+    .question-prompt a { padding: 12px 16px; gap: 12px; }
+    .question-prompt strong { font-size: 13px; word-break: keep-all; }
   }
   /* ===== Phase 3 — KPI 밴드 + 플랫폼 필터 탭 ===== */
   .kpi-band { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 36px; }
@@ -2864,15 +2859,18 @@
     background: #f4f6fa; border-top: 1px solid #e4e9f1; border-bottom: 1px solid #e4e9f1;
   }
   .stats::after { display: none; }
-  .stats-eyebrow { display: block; margin-bottom: 12px; color: #526482; font-size: 11px; font-weight: 800; letter-spacing: 0.16em; }
+  .stats-eyebrow { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 18px; color: #526482; font-size: 12px; font-weight: 700; letter-spacing: 0.02em; }
+  .stats-eyebrow::before { content: ''; width: 28px; height: 2px; background: #31518a; }
+  .stats-header { display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; }
   .stats-heading {
     margin: 0;
     color: var(--brand);
-    font-size: clamp(22px, 3vw, 30px);
+    font-size: clamp(26px, 3vw, 36px); line-height: 1.45;
     font-weight: 800;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.04em;
   }
-  .stats-grid { padding-top: 36px; gap: 0; }
+  .stats-description { color: #52617a; font-size: 14px; line-height: 1.8; }
+  .stats-grid { margin-top: 32px; padding-top: 32px; border-top: 1px solid #d7dfeb; gap: 0; }
   .stat {
     display: flex; flex-direction: column; justify-content: center; gap: 16px;
     min-height: 128px; padding: 0 32px;
@@ -2880,7 +2878,7 @@
   }
   .stats-grid .stat:first-child { padding-left: 0; }
   .stats-grid .stat + .stat { border-left: 1px solid #d7dfeb; }
-  .stat-num { font-size: clamp(44px, 4.4vw, 64px); color: var(--brand); letter-spacing: -0.055em; white-space: nowrap; }
+  .stat-num { font-size: clamp(48px, 5vw, 72px); color: #243e6a; letter-spacing: -0.055em; white-space: nowrap; }
   .stat-num span { margin-left: 5px; font-size: 22px; font-weight: 600; letter-spacing: -0.025em; }
   .stat-label { margin-top: 0; font-size: 14px; font-weight: 600; color: #52617a; }
   .stats-support { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin-top: 36px; padding: 22px 0; border-top: 1px solid #d7dfeb; border-bottom: 1px solid #d7dfeb; }
@@ -2896,8 +2894,10 @@
   @media (max-width: 720px) {
     .hero-slot-meta { width: 100%; box-sizing: border-box; padding: 13px 16px; }
     .stats { padding: 42px 0 32px; }
-    .stats-heading { font-size: 22px; }
-    .stats-grid { grid-template-columns: minmax(0, 1fr); padding-top: 26px; }
+    .stats-header { flex-direction: column; align-items: flex-start; gap: 14px; }
+    .stats-heading { font-size: 26px; }
+    .stats-description { font-size: 13px; }
+    .stats-grid { grid-template-columns: minmax(0, 1fr); margin-top: 24px; padding-top: 26px; }
     .stats-grid .stat { min-height: 0; padding: 20px 0; flex-direction: row; justify-content: space-between; align-items: baseline; gap: 12px; }
     .stats-grid .stat:first-child { padding-top: 0; }
     .stats-grid .stat + .stat { border-left: 0; border-top: 1px solid #d7dfeb; }
@@ -3010,10 +3010,6 @@
     body { padding-bottom: calc(70px + env(safe-area-inset-bottom)); }
     .to-top { bottom: calc(78px + env(safe-area-inset-bottom)); }
   }
-  .credentials-next { margin-top: 20px; text-align: right; }
-  .credentials-next a { color: var(--brand); font-size: 14px; font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
-  @media (max-width: 720px) { .credentials-next { margin-top: 16px; } }
-
   /* Reading order: overview first, all original detail available on demand. */
   .experience-credentials .stats { padding-bottom: 48px; }
   .experience-credentials #credentials { padding-top: 36px; }
@@ -3098,10 +3094,19 @@
   .reading-visible-heading h3, .work-summary-title { color: var(--brand); font-size: 21px; line-height: 1.5; }
   .reading-visible-heading .reading-detail-hint { margin-top: 6px; }
   #philosophy .reading-visible > .reading-detail-body { padding: 0; }
-  #philosophy .reading-principles .quote { padding: 20px 24px; font-size: 18px; margin-bottom: 20px; }
+  #philosophy .reading-principles .quote { padding: 36px 40px; margin-bottom: 24px; border: 0; background: var(--brand); color: #fff; line-height: 1.55; }
+  #philosophy .reading-principles .quote > .sentence:first-child { margin-bottom: 10px; font-size: 16px; font-weight: 500; color: #c9d3e6; }
+  #philosophy .reading-principles .quote > .sentence:last-child { font-size: clamp(24px, 2.5vw, 32px); letter-spacing: -0.04em; }
+  #philosophy .reading-principles .quote em { color: #fff; background: linear-gradient(180deg, transparent 87%, #7d9bc8 87%); }
   #philosophy .reading-principles .story { background: #fff; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
   .work-summary { margin: 36px 0; }
   #philosophy .work-summary .work-overview { margin: 18px 0; }
+  #reading-work { border-color: #aabbd4; border-left: 3px solid #31518a; }
+  #reading-work > summary { background: #edf2fa; }
+  #reading-work > summary:hover { background: #e3ebf7; }
+  #reading-work > summary strong { font-size: 17px; }
+  #reading-work .reading-detail-icon { flex-basis: 36px; width: 36px; height: 36px; border: 1px solid #bac9df; border-radius: 50%; background: #fff; }
+  #reading-work .reading-detail-icon::before, #reading-work .reading-detail-icon::after { top: 16px; left: 11px; }
   .reading-fit-hint { color: var(--text-sub); font-size: 13px; margin: 8px 0; }
   #philosophy .reading-fit { margin: 36px 0; padding: 28px; background: #fff; border: 1px solid var(--line); border-radius: 14px; }
   #philosophy .reading-fit .section-head { margin-bottom: 22px; }
@@ -3109,7 +3114,10 @@
   @media (max-width: 720px) {
     .reading-visible-heading h3, .work-summary-title { font-size: 19px; }
     .reading-visible-heading .reading-detail-hint { display: block; }
-    #philosophy .reading-principles .quote { padding: 16px; font-size: 16px; }
+    #philosophy .reading-principles .quote { padding: 26px 22px; }
+    #philosophy .reading-principles .quote > .sentence:first-child { font-size: 13px; }
+    #philosophy .reading-principles .quote > .sentence:last-child { font-size: 23px; }
+    #reading-work > summary strong { font-size: 15px; }
     #philosophy .reading-principles .story-cell { padding: 20px; }
     #philosophy .reading-fit { padding: 22px 18px; }
     #philosophy .reading-fit h2 { font-size: 22px; }
@@ -3177,14 +3185,14 @@
 <style>
 /* Emphasized desktop hero typography */
 @media(min-width:1024px){
- .hero-grid{align-items:stretch}
+ .hero-grid{grid-template-columns:minmax(0,1fr) 280px;gap:28px 56px;align-items:stretch}
  .hero-text{display:flex;flex-direction:column;min-width:0}
  .hero-badges{margin-top:24px}
  .hero-cta{margin-top:24px}
- .hero-proof{margin-top:24px}
+ .hero-proof{margin-top:0}
  .hero-proof b{font-size:clamp(26px,2.4vw,34px);white-space:nowrap;letter-spacing:-.05em}
- .hero-photo{aspect-ratio:auto;min-height:0}
- .hero-photo img{position:absolute;inset:0;object-position:center 35%}
+ .hero-photo{aspect-ratio:auto;min-height:420px;border-radius:18px;box-shadow:var(--shadow-sm)}
+ .hero-photo img{position:absolute;inset:0;object-position:center center}
  .hero .hero-text h1{font-size:clamp(34px,2.8vw,42px);font-weight:800;line-height:1.3;letter-spacing:-.035em}
  .hero .hero-text h1 strong{font-weight:800;background:none;-webkit-text-fill-color:currentColor;color:#1b2a4e;padding:0}
 }
@@ -3308,12 +3316,6 @@
       </div>
       <p class="hero-cta-meta">네이버·지그재그 공식 대행: 관리비·위약금 0원</p>
       <p class="hero-slot-meta" id="heroSlotMeta"><span class="slot-cap">매월 신규 운영은 4팀까지만 맡습니다</span><span class="slot-status">접수 일정 확인 중</span></p>
-
-      <div class="hero-proof">
-        <div class="hp-item"><span class="hp-cat">네이버 · ROAS</span><b data-target="1009" data-prefix="" data-suffix="%">1,009%</b><span class="hp-src">광고 그룹 구조 재설계</span><span class="hp-period">596% → 1,009%</span></div>
-        <div class="hp-item"><span class="hp-cat">지그재그 · 전환매출</span><b>약 2배</b><span class="hp-src">타깃 세분화 후 성장</span><span class="hp-period">4.40억 → 8.46억</span></div>
-        <div class="hp-item"><span class="hp-cat">에이블리 · 전환매출</span><b>2.2배</b><span class="hp-src">신규 타깃 확장 후 성장</span><span class="hp-period">8,842만 → 1.94억</span></div>
-      </div>
     </div>
 
     <!-- 프로필 사진: 같은 폴더에 profile.jpg(세로형 상반신 사진) 업로드 시 자동 표시 -->
@@ -3328,6 +3330,11 @@
         <source srcset="profile.webp" type="image/webp" />
         <img src="profile.jpg" alt="이명수 마케터 프로필 사진" width="720" height="1080" loading="eager" fetchpriority="high" onerror="this.parentNode.remove()" />
       </picture>
+    </div>
+    <div class="hero-proof">
+      <div class="hp-item"><span class="hp-cat">네이버 · ROAS</span><b data-target="1009" data-prefix="" data-suffix="%">1,009%</b><span class="hp-src">광고 그룹 구조 재설계</span><span class="hp-period">596% → 1,009%</span></div>
+      <div class="hp-item"><span class="hp-cat">지그재그 · 전환매출</span><b>약 2배</b><span class="hp-src">타깃 세분화 후 성장</span><span class="hp-period">4.40억 → 8.46억</span></div>
+      <div class="hp-item"><span class="hp-cat">에이블리 · 전환매출</span><b>2.2배</b><span class="hp-src">신규 타깃 확장 후 성장</span><span class="hp-period">8,842만 → 1.94억</span></div>
     </div>
   </div>
 </section>
@@ -3364,8 +3371,11 @@
 <div class="experience-credentials">
 <section class="stats">
   <div class="wrap">
-    <span class="stats-eyebrow">EXPERIENCE</span>
-    <h2 class="stats-heading">숫자로 확인하는 운영 경험</h2>
+    <span class="stats-eyebrow">쌓아온 운영 경험</span>
+    <div class="stats-header">
+      <h2 class="stats-heading">숫자 뒤에는,<br>직접 운영한 경험이 있습니다.</h2>
+      <p class="stats-description">계정마다 다른 상품과 고객을 만나며,<br>예산을 쓰는 기준을 쌓아왔습니다.</p>
+    </div>
     <div class="stats-grid">
       <div class="stat">
         <div class="stat-label">마케팅 경력</div>
@@ -3529,7 +3539,6 @@
         </div>
       </div>
     </div>
-    <div class="credentials-next"><a href="#results">광고 운영 성과 보기 →</a></div>
   </div>
 </section>
 </div>
@@ -3962,7 +3971,7 @@
     <p class="result-note"><span class="sentence">연도는 운영 시기입니다. 광고주 식별 정보는 싣지 않고 업종·카테고리만 표기했습니다.</span><span class="sentence">전후 집계 기간과 세부 광고비는 공개하지 않습니다.</span><span class="sentence">여러 조정을 함께 진행한 사례로, 특정 조치 하나의 효과나 향후 결과를 보장하지 않습니다.</span></p>
     <div class="question-prompt" id="quick-question">
       <a href="/question/" data-question-entry>
-        <span class="question-prompt-copy"><strong>내 쇼핑몰 광고에 대해 질문하기</strong><span>지금 고민 중인 광고 문제를 남겨주세요.</span></span>
+        <strong>내 쇼핑몰 광고에 대해 질문하기</strong>
         <span class="question-prompt-arrow" aria-hidden="true">→</span>
       </a>
     </div>
