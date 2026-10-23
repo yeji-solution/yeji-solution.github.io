@@ -2801,7 +2801,8 @@
     background: #f4f6fa; border-top: 1px solid #e4e9f1; border-bottom: 1px solid #e4e9f1;
   }
   .stats::after { display: none; }
-  .stats-grid { margin-top: 0; padding-top: 32px; border-top: 1px solid #d7dfeb; gap: 0; }
+  .stats .section-head { margin-bottom: 24px; }
+  .stats-grid { margin-top: 0; padding-top: 20px; border-top: 1px solid #d7dfeb; gap: 0; }
   .stat {
     display: flex; flex-direction: column; justify-content: center; gap: 16px;
     min-height: 128px; padding: 0 32px;
@@ -2823,7 +2824,7 @@
 
   @media (max-width: 720px) {
     .stats { padding: 42px 0 32px; }
-    .stats-grid { grid-template-columns: minmax(0, 1fr); padding-top: 26px; }
+    .stats-grid { grid-template-columns: minmax(0, 1fr); padding-top: 18px; }
     .stats-grid .stat { min-height: 0; padding: 20px 0; flex-direction: row; justify-content: space-between; align-items: baseline; gap: 12px; }
     .stats-grid .stat:first-child { padding-top: 0; }
     .stats-grid .stat + .stat { border-left: 0; border-top: 1px solid #d7dfeb; }
@@ -3154,7 +3155,7 @@
 /* Keep the introduction, portrait and supporting facts on clear alignment lines. */
 @media(min-width:1024px){
  .hero{padding:48px 0}
- .hero-grid{grid-template-columns:minmax(0,1fr) 240px;gap:22px 32px;align-items:start}
+ .hero-grid{grid-template-columns:max-content 240px;gap:22px 48px;align-items:start;justify-content:center}
  .hero-text{display:flex;flex-direction:column;min-width:0}
  .hero-tagline{margin-top:20px}
  .hero-actions{margin-top:24px;padding-top:0}
