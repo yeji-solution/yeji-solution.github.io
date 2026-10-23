@@ -2215,19 +2215,6 @@
     body { padding-bottom: 76px; }
   }
 
-  /* ===== COMMON ISSUES CTA ===== */
-  .btn-report-cta {
-    display: inline-flex; align-items: center;
-    padding: 14px 28px; border-radius: 10px;
-    background: var(--bg-soft); border: 1.5px solid var(--line-strong);
-    font-size: 14px; font-weight: 700; color: var(--text);
-    transition: background 0.15s, border-color 0.15s, transform 0.15s;
-  }
-  .btn-report-cta:hover {
-    background: var(--bg-naver); border-color: rgba(0,199,60,0.4);
-    color: var(--naver-dark); transform: translateY(-1px);
-  }
-
   /* ===== STATS NOTE ===== */
   .stats-note {
     padding: 22px 0 8px;
@@ -2468,6 +2455,27 @@
   }
   .result-method strong { display: block; color: var(--brand); font-size: 13px; margin-bottom: 3px; }
   .result-note { margin-top: 28px; font-size: 12px; color: var(--text-dim); text-align: center; }
+  .question-prompt { margin-top: 32px; }
+  .question-prompt a {
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    padding: 28px 32px; border: 1px solid #2c4269; border-radius: 16px;
+    background: var(--brand); color: #fff;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .question-prompt a:hover { background: #263e67; border-color: #45618e; }
+  .question-prompt-copy { display: flex; flex-direction: column; gap: 6px; }
+  .question-prompt strong { font-size: 20px; line-height: 1.5; letter-spacing: -0.025em; }
+  .question-prompt-copy > span { color: #d0d9e9; font-size: 14px; line-height: 1.6; }
+  .question-prompt-arrow {
+    display: grid; place-items: center; flex: 0 0 44px; height: 44px;
+    border: 1px solid rgba(255,255,255,0.3); border-radius: 50%; font-size: 22px;
+  }
+  @media (max-width: 720px) {
+    .question-prompt a { padding: 22px 20px; gap: 14px; }
+    .question-prompt strong { font-size: 17px; word-break: keep-all; }
+    .question-prompt-copy > span { font-size: 13px; }
+    .question-prompt-arrow { flex-basis: 36px; height: 36px; font-size: 20px; }
+  }
   /* ===== Phase 3 — KPI 밴드 + 플랫폼 필터 탭 ===== */
   .kpi-band { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 36px; }
   .kpi { background: #fff; border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow-sm); padding: 24px 18px; text-align: center; }
@@ -2850,47 +2858,38 @@
     .mobile-overview-links a:last-child { background: var(--brand); color: #fff; }
   }
 
-  /* 운영 경험: 핵심 성과와 운영 조건을 분리해 읽기 쉽게 표시 */
+  /* 운영 경험: 핵심 수치를 중심으로 운영 조건을 간결하게 표시 */
   .stats {
-    padding: 64px 0 48px;
-    background: linear-gradient(135deg, #172744 0%, #21365c 100%);
+    padding: 64px 0 56px;
+    background: #f4f6fa; border-top: 1px solid #e4e9f1; border-bottom: 1px solid #e4e9f1;
   }
+  .stats::after { display: none; }
+  .stats-eyebrow { display: block; margin-bottom: 12px; color: #526482; font-size: 11px; font-weight: 800; letter-spacing: 0.16em; }
   .stats-heading {
     margin: 0;
-    color: #fff;
+    color: var(--brand);
     font-size: clamp(22px, 3vw, 30px);
     font-weight: 800;
     letter-spacing: -0.025em;
   }
-  .stats-grid { padding-top: 26px; gap: 14px; }
+  .stats-grid { padding-top: 36px; gap: 0; }
   .stat {
-    position: relative; overflow: hidden;
-    display: flex; flex-direction: column; justify-content: center;
-    min-height: 144px; padding: 28px 22px;
-    border: 1px solid rgba(255,255,255,0.16);
-    border-radius: 18px; background: rgba(255,255,255,0.08);
-    box-shadow: none; text-align: left;
+    display: flex; flex-direction: column; justify-content: center; gap: 16px;
+    min-height: 128px; padding: 0 32px;
+    border: 0; border-radius: 0; background: transparent; box-shadow: none; text-align: left;
   }
-  .stat-featured {
-    background: #fff; border-color: #fff;
-    box-shadow: 0 14px 30px rgba(5,15,34,0.16);
-  }
-  .stat-featured::after {
-    content: ''; position: absolute; right: -22px; top: -38px;
-    width: 112px; height: 112px; border-radius: 50%;
-    border: 19px solid rgba(0,199,60,0.07); pointer-events: none;
-  }
-  .stat-num { position: relative; z-index: 1; font-size: 46px; color: #8ee2b3; letter-spacing: -0.055em; white-space: nowrap; }
-  .stat-featured .stat-num { color: #087e4b; }
-  .stat-num span { font-size: 18px; letter-spacing: -0.025em; }
-  .stat-label { position: relative; z-index: 1; margin-top: 10px; font-size: 14px; font-weight: 700; color: rgba(255,255,255,0.8); }
-  .stat-featured .stat-label { color: #41516a; }
-  .stats-support { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 14px; }
-  .stats-support .stat { min-height: 105px; padding: 17px 22px; }
-  .stats-support .stat-num { font-size: 30px; }
-  .stats-support .stat-num span { font-size: 15px; }
-  .stats-support .stat-label { margin-top: 5px; font-size: 12px; }
-  .stats-note { color: rgba(255,255,255,0.82); margin-top: 22px; padding: 18px 0 0; border-top: 1px solid rgba(255,255,255,0.18); }
+  .stats-grid .stat:first-child { padding-left: 0; }
+  .stats-grid .stat + .stat { border-left: 1px solid #d7dfeb; }
+  .stat-num { font-size: clamp(44px, 4.4vw, 64px); color: var(--brand); letter-spacing: -0.055em; white-space: nowrap; }
+  .stat-num span { margin-left: 5px; font-size: 22px; font-weight: 600; letter-spacing: -0.025em; }
+  .stat-label { margin-top: 0; font-size: 14px; font-weight: 600; color: #52617a; }
+  .stats-support { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin-top: 36px; padding: 22px 0; border-top: 1px solid #d7dfeb; border-bottom: 1px solid #d7dfeb; }
+  .stats-support .stat { flex-direction: row; justify-content: flex-start; align-items: baseline; gap: 10px; min-height: 0; padding: 0 32px; }
+  .stats-support .stat:first-child { padding-left: 0; }
+  .stats-support .stat-num { font-size: 21px; letter-spacing: -0.035em; }
+  .stats-support .stat-num span { margin-left: 2px; font-size: 14px; }
+  .stats-support .stat-label { font-size: 13px; }
+  .stats-note { color: #5c6980; margin-top: 20px; padding: 0; border-top: 0; text-align: left; }
   .stats-note p { color: inherit; font-size: 12px; line-height: 1.6; }
   .stats-note p + p { margin-top: 5px; }
 
@@ -2898,17 +2897,18 @@
     .hero-slot-meta { width: 100%; box-sizing: border-box; padding: 13px 16px; }
     .stats { padding: 42px 0 32px; }
     .stats-heading { font-size: 22px; }
-    .stats-grid { padding-top: 20px; gap: 10px; }
-    .stats-grid .stat:first-child { grid-column: 1 / -1; min-height: 118px; }
-    .stat { min-height: 112px; padding: 20px; }
-    .stat-num { font-size: 36px; }
-    .stat-num span { font-size: 16px; }
-    .stat-label { font-size: 12px; line-height: 1.4; white-space: nowrap; }
-    .stats-support { gap: 8px; margin-top: 10px; }
-    .stats-support .stat { min-height: 88px; padding: 13px 10px; text-align: center; align-items: center; }
-    .stats-support .stat-num { font-size: clamp(21px, 7vw, 28px); }
-    .stats-support .stat-num span { font-size: 12px; }
-    .stats-support .stat-label { font-size: 11px; white-space: normal; word-break: keep-all; }
+    .stats-grid { grid-template-columns: minmax(0, 1fr); padding-top: 26px; }
+    .stats-grid .stat { min-height: 0; padding: 20px 0; flex-direction: row; justify-content: space-between; align-items: baseline; gap: 12px; }
+    .stats-grid .stat:first-child { padding-top: 0; }
+    .stats-grid .stat + .stat { border-left: 0; border-top: 1px solid #d7dfeb; }
+    .stat-num { font-size: 40px; }
+    .stat-num span { font-size: 17px; }
+    .stat-label { font-size: 13px; line-height: 1.4; }
+    .stats-support { margin-top: 8px; padding: 18px 0; gap: 10px; }
+    .stats-support .stat { padding: 0; flex-direction: column; align-items: center; gap: 8px; text-align: center; }
+    .stats-support .stat-num { font-size: 24px; }
+    .stats-support .stat-num span { font-size: 13px; }
+    .stats-support .stat-label { font-size: 12px; word-break: keep-all; }
     .hp-item b { font-size: clamp(17px, 5vw, 21px); white-space: nowrap; letter-spacing: -0.05em; }
     .hp-period { font-size: 10px; }
     .stats-note { text-align: left; }
@@ -2943,7 +2943,6 @@
   @media (max-width: 720px) {
     .result-grid, .results-collapsed .result-grid { grid-template-columns: minmax(0, 1fr); }
     .result-card { min-width: 0; }
-    .btn-report-cta { max-width: 100%; justify-content: center; text-align: center; }
   }
   @media (max-width: 360px) {
     .hero .hero-text h1 { font-size: 23px; letter-spacing: -0.035em; }
@@ -2952,9 +2951,6 @@
     .review-card { padding: 22px 14px; }
     .review-text { font-size: 12.5px; }
     .rc-row { flex-wrap: wrap; }
-    .stats-grid .stat:not(:first-child) { padding: 16px 14px; }
-    .stats-grid .stat:not(:first-child) .stat-num { font-size: 30px; }
-    .stats-grid .stat:not(:first-child) .stat-num span { font-size: 13px; }
   }
 
   /* Mobile reading pass: keep the established copy and make the first screen useful. */
@@ -3019,7 +3015,7 @@
   @media (max-width: 720px) { .credentials-next { margin-top: 16px; } }
 
   /* Reading order: overview first, all original detail available on demand. */
-  .experience-credentials .stats { padding-bottom: 16px; }
+  .experience-credentials .stats { padding-bottom: 48px; }
   .experience-credentials #credentials { padding-top: 36px; }
   #philosophy .work-overview {
     display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px;
@@ -3059,7 +3055,6 @@
   #philosophy .reading-detail-body h2 { font-size: clamp(21px, 3vw, 28px); }
   #philosophy .reading-detail-body .quote { margin-top: 0; }
   #philosophy .reading-detail-body .timeline { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .reading-cta { margin-top: 28px; text-align: center; }
   #philosophy .reading-shortcut { padding: 0; margin: 20px 0; }
   #philosophy .reading-shortcut > .wrap { padding: 0; width: 100%; }
   #results.results-collapsed .result-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -3182,6 +3177,14 @@
 <style>
 /* Emphasized desktop hero typography */
 @media(min-width:1024px){
+ .hero-grid{align-items:stretch}
+ .hero-text{display:flex;flex-direction:column;min-width:0}
+ .hero-badges{margin-top:24px}
+ .hero-cta{margin-top:24px}
+ .hero-proof{margin-top:24px}
+ .hero-proof b{font-size:clamp(26px,2.4vw,34px);white-space:nowrap;letter-spacing:-.05em}
+ .hero-photo{aspect-ratio:auto;min-height:0}
+ .hero-photo img{position:absolute;inset:0;object-position:center 35%}
  .hero .hero-text h1{font-size:clamp(34px,2.8vw,42px);font-weight:800;line-height:1.3;letter-spacing:-.035em}
  .hero .hero-text h1 strong{font-weight:800;background:none;-webkit-text-fill-color:currentColor;color:#1b2a4e;padding:0}
 }
@@ -3361,19 +3364,20 @@
 <div class="experience-credentials">
 <section class="stats">
   <div class="wrap">
+    <span class="stats-eyebrow">EXPERIENCE</span>
     <h2 class="stats-heading">숫자로 확인하는 운영 경험</h2>
     <div class="stats-grid">
-      <div class="stat stat-featured">
-        <div class="stat-num" data-count="7" data-suffix="년차">7<span>년차</span></div>
+      <div class="stat">
         <div class="stat-label">마케팅 경력</div>
+        <div class="stat-num" data-count="7" data-suffix="년차">7<span>년차</span></div>
       </div>
-      <div class="stat stat-featured">
-        <div class="stat-num">50<span>억+</span></div>
+      <div class="stat">
         <div class="stat-label">누적 관리 광고비</div>
+        <div class="stat-num">50<span>억+</span></div>
       </div>
-      <div class="stat stat-featured">
-        <div class="stat-num">1,000<span>+</span></div>
+      <div class="stat">
         <div class="stat-label">누적 운영 브랜드</div>
+        <div class="stat-num">1,000<span>+</span></div>
       </div>
     </div>
     <div class="stats-support">
@@ -3387,7 +3391,7 @@
       </div>
       <div class="stat">
         <div class="stat-num" data-count="0" data-suffix="원">0<span>원</span></div>
-        <div class="stat-label">관리비 0원</div>
+        <div class="stat-label">관리비</div>
       </div>
     </div>
     <div class="stats-note">
@@ -3956,7 +3960,12 @@
       <button type="button" class="results-toggle" id="resultsToggle" aria-controls="resultsCollection" aria-expanded="false">성과 사례 더 보기 ↓</button>
     </div>
     <p class="result-note"><span class="sentence">연도는 운영 시기입니다. 광고주 식별 정보는 싣지 않고 업종·카테고리만 표기했습니다.</span><span class="sentence">전후 집계 기간과 세부 광고비는 공개하지 않습니다.</span><span class="sentence">여러 조정을 함께 진행한 사례로, 특정 조치 하나의 효과나 향후 결과를 보장하지 않습니다.</span></p>
-    <p class="result-note" id="quick-question"><a href="/question/" data-question-entry>내 쇼핑몰 광고에 대해 질문하기 →</a></p>
+    <div class="question-prompt" id="quick-question">
+      <a href="/question/" data-question-entry>
+        <span class="question-prompt-copy"><strong>내 쇼핑몰 광고에 대해 질문하기</strong><span>지금 고민 중인 광고 문제를 남겨주세요.</span></span>
+        <span class="question-prompt-arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
 
   </div>
 </section>
@@ -3993,9 +4002,6 @@
       </div>
     </div>
 
-    <div style="margin-top: 36px; text-align: center;">
-      <a href="#contact" class="btn-report-cta">내 계정도 점검받기 →</a>
-    </div>
 </div></div>
 <div class="work-summary"><h3 class="work-summary-title">진단부터 운영까지, 이렇게 진행합니다.</h3>
 <div class="work-overview" aria-label="광고 운영 과정 요약">
@@ -4104,9 +4110,6 @@
       </div>
     </div>
 
-    <div style="margin-top: 36px; text-align: center;">
-      <a href="#contact" class="btn-report-cta">내 광고에 맞는 운영 상담 →</a>
-    </div>
   </div>
 </section></div></div>
 <p class="reading-guide">궁금한 항목을 펼쳐 운영 방법과 점검 기준을 확인하세요.</p>
@@ -4275,13 +4278,9 @@
       <strong>아래 내용은 여러 계정의 점검 경험을 바탕으로 구성한 예시입니다.</strong> 각 카드의 항목과 수치는 특정 광고주 한 곳의 기록이 아닙니다. 실제 조치 순서는 계정 데이터를 확인한 뒤 정합니다.
     </div>
 
-    <div style="margin-top: 36px; text-align: center;">
-      <a href="#contact" class="btn-report-cta">비슷한 고민 상담하기 →</a>
-    </div>
   </div>
 </section></div></details>
 </div>
-<div class="reading-cta"><a href="#contact" class="btn-report-cta">내 광고 계정 무료 진단받기 →</a></div>
   </div>
 </section>
 
@@ -4438,9 +4437,6 @@
       </div>
     </div>
 
-    <div style="margin-top: 36px; text-align: center;">
-      <a href="#contact" class="btn-report-cta">궁금한 점 직접 상담하기 →</a>
-    </div>
   </div>
 </section>
 
