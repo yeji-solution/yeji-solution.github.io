@@ -302,6 +302,11 @@
     content-visibility: auto;
     contain-intrinsic-size: auto 900px;
   }
+  html.sim-entry-page { scroll-behavior: auto; }
+  .sim-entry-page main > section:nth-child(n+4):not(#contact) {
+    content-visibility: visible;
+    contain-intrinsic-size: none;
+  }
   a { color: inherit; text-decoration: none; }
   .wrap { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
 
@@ -741,6 +746,20 @@
 
   /* ===== DIAGNOSIS SIMULATOR (NAVER 인증 톤 정합) ===== */
   section#simulator { background: var(--bg-soft); }
+  .sim-entry { margin-bottom: 22px; padding: 18px 20px; border: 1px solid #cde3d5; border-radius: 14px; background: #fff; }
+  .sim-entry label { display: block; margin-bottom: 9px; font-size: 13px; font-weight: 700; color: var(--naver-dark); }
+  .sim-entry .sim-select { max-width: 480px; }
+  .sim-mail-entry .sim-grid { display: flex; flex-direction: column; }
+  .sim-mail-entry .sim-grid > * { width: 100%; min-width: 0; }
+  .sim-mail-entry .sim-result { order: -1; }
+  .sim-mail-entry .sim-result-card { position: static; }
+  .sim-mail-entry .sp-item { align-items: flex-start; padding: 10px 0; line-height: 1.7; }
+  .sim-mail-entry .sp-item p { margin: 4px 0 0; font-weight: 400; color: var(--text-sub); }
+  .sim-related { margin: 0 0 20px; padding: 16px 18px; border: 1px solid var(--line); border-radius: 10px; }
+  .sim-related p { margin: 0 0 8px; font-size: 13px; line-height: 1.7; color: var(--text-sub); }
+  .sim-related a { font-size: 14px; font-weight: 700; color: var(--naver-dark); }
+  .sim-refine { display: block; margin-top: 14px; font-size: 13px; text-align: center; color: var(--text-sub); }
+  .sim-entry[hidden], .sim-related[hidden], .sim-refine[hidden] { display: none; }
   section#simulator .section-head h2 strong {
     color: var(--naver-dark);
     background: linear-gradient(180deg, transparent 62%, rgba(0,199,60,0.18) 62%);
@@ -3198,7 +3217,7 @@
 
 <script>
   try {
-    if (!sessionStorage.getItem('ys_intro_v3_shown') &&
+    if (!new URLSearchParams(location.search).has('situation') && !sessionStorage.getItem('ys_intro_v3_shown') &&
         !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       document.documentElement.classList.add('show-intro');
       sessionStorage.setItem('ys_intro_v3_shown', '1');
@@ -4274,8 +4293,18 @@
       <p class="section-sub"><span class="sentence">매체와 현재 운영 상태를 선택해 보세요.</span> <span class="sentence">계정에서 먼저 확인할 데이터와 조치 순서를 안내합니다.</span></p>
     </div>
 
+    <div class="sim-entry" id="simEntry" hidden>
+      <label for="simSituation">선택하신 상황 · 다른 상황으로 바꿀 수도 있어요</label>
+      <select class="sim-select" id="simSituation">
+        <option value="start">광고 시작 전이에요</option>
+        <option value="clicks">클릭은 있는데 구매가 적어요</option>
+        <option value="cost">광고비 대비 매출이 아쉬워요</option>
+        <option value="unsure">무엇부터 봐야 할지 모르겠어요</option>
+      </select>
+    </div>
+
     <div class="sim-grid">
-      <div class="sim-input">
+      <div class="sim-input" id="simOptions">
         <div class="sim-field">
           <label class="sim-label">광고 매체</label>
           <div class="sim-toggle-group">
@@ -4314,12 +4343,18 @@
             <div class="sp-empty">우선 진단 항목을 선택해 주세요.</div>
           </div>
 
+          <div class="sim-related" id="simRelated" hidden>
+            <p id="simRelatedText"></p>
+            <a href="#results" id="simRelatedLink">네이버 운영 사례 보기 →</a>
+          </div>
+
           <p class="sim-disclaimer">
             <strong>안내:</strong> 선택한 항목만으로 정리한 일반적인 점검 순서입니다. 실제 우선순위와 성과는 계정 데이터 확인 후 달라질 수 있습니다.
           </p>
 
           <a href="#contact" class="sim-cta" id="simCtaBtn">내 계정 상황 무료 상담받기</a>
           <div class="sim-cta-meta">3영업일 내 연락 · 운영 시작 7일 내 첫 리포트</div>
+          <a href="#simOptions" class="sim-refine" id="simRefine" hidden>검색/GFA·업종을 선택해 더 구체적으로 보기 ↓</a>
         </div>
       </div>
     </div>
@@ -5016,6 +5051,55 @@
 (function(){
   if (!document.getElementById('simulator')) return;
 
+  var SITUATIONS = {
+    start: {
+      label: '광고 시작 전이에요',
+      title: '예산을 쓰기 전에, 구매 준비부터 확인하세요.',
+      lead: '대표 상품과 구매 과정, 성과를 확인할 방법을 먼저 준비하세요.',
+      steps: [
+        ['대표 상품과 구매 과정 확인', '재고·가격·배송 안내가 준비된 상품을 정하고, 모바일에서 옵션 선택부터 결제 직전까지 살펴보세요.'],
+        ['구매 성과를 확인할 방법 준비', '사용할 광고 유형의 전환 집계 지원 범위와 설정을 확인하세요. 연동이 필요하면 시작 전에 점검하세요.'],
+        ['테스트 예산과 검토 시점 정하기', '원가·수수료·배송 부담을 뺀 이익을 기준으로 감당할 비용과 결과를 검토할 시점을 정하세요.']
+      ],
+      related: '시작 준비를 확인했다면, 실제 운영에서 어떤 항목을 조정했는지 살펴보세요. 공개 사례는 네이버 검색광고 사례입니다.'
+    },
+    clicks: {
+      label: '클릭은 있는데 구매가 적어요',
+      title: '구매 집계 → 유입 → 구매 조건 순서로 보세요.',
+      lead: '구매가 적게 보이는 이유를 확인한 뒤, 방문자가 구매까지 가는 구간을 살펴보세요.',
+      steps: [
+        ['구매가 정상적으로 기록되는지 확인', '같은 기간의 스토어 주문과 광고 전환 집계를 비교하고, 집계 기준·반영 지연·추적 설정을 확인하세요. 두 숫자가 같아야 하는 것은 아닙니다.'],
+        ['유입 대상과 연결 화면 확인', '광고에서 본 상품·가격·혜택을 클릭한 첫 화면에서 바로 찾을 수 있는지 모바일로 확인하세요.'],
+        ['구매를 망설이게 하는 조건 확인', '가격·배송비·도착 안내·후기·옵션을 살펴보고, 구매 전에 필요한 정보가 빠져 있는지 확인하세요.']
+      ],
+      related: '점검 순서를 확인했다면, 키워드·소재·예산을 함께 조정한 네이버 검색광고 사례를 참고하세요. 구매 부진의 원인이 같다는 뜻은 아닙니다.'
+    },
+    cost: {
+      label: '광고비 대비 매출이 아쉬워요',
+      title: '상품별 광고비와 구매 결과를 나눠보세요.',
+      lead: '전체 평균에 섞인 상품별 차이를 확인한 다음 예산 조정을 검토하세요.',
+      steps: [
+        ['상품·광고 그룹별 비용과 전환 비교', '같은 기간의 상품별 광고비·구매 수·전환매출을 비교하세요. 집계 지연과 데이터 양을 확인한 뒤 조정할 대상을 정하세요.'],
+        ['비교 기간과 집계 기준 확인', '기간이나 전환 집계 기준이 다른 숫자가 섞이지 않았는지, 추적 설정 변경이 있었는지 확인하세요.'],
+        ['상품별 이익을 반영해 예산 검토', '원가·수수료·배송 부담을 반영해 허용 광고비를 정하고, 그 기준으로 상품별 예산 배분을 검토하세요.']
+      ],
+      related: '관련 사례: 네이버 검색광고 헬스·스포츠용품. 상품별 성과를 볼 수 있도록 그룹을 정리하고 예산·입찰을 함께 조정한 뒤 ROAS 596% → 1,009%로 집계됐습니다. 전후 집계 기간과 세부 광고비는 비공개이며, GFA 사례나 동일 성과를 보장하는 수치는 아닙니다.'
+    },
+    unsure: {
+      label: '무엇부터 봐야 할지 모르겠어요',
+      title: '노출 → 클릭 → 구매, 막히는 구간부터 보세요.',
+      lead: '광고 운영 여부와 기본 수치부터 확인하고, 한 구간씩 살펴보세요.',
+      steps: [
+        ['광고 운영 여부와 노출 확인', '운영 중이라면 노출 수와 비용이 발생하는지 보세요. 노출이 없다면 운영 상태·심사·예산·일정을 확인하고, 시작 전이라면 시작 준비 상황을 선택하세요.'],
+        ['노출 다음의 클릭 반응 확인', '비슷한 조건의 이전 기간과 비교해 클릭이 줄었다면 노출 대상과 광고 소재를 살펴보세요.'],
+        ['클릭 다음의 구매 확인', '클릭은 발생하지만 구매가 적다면 구매 집계와 상품 연결 화면·구매 조건을 차례로 확인하세요.']
+      ],
+      related: '공개된 네이버 검색광고 사례에서 어떤 문제를 확인하고 무엇을 조정했는지 참고하세요. 내 계정의 원인은 데이터 확인 후 달라질 수 있습니다.'
+    }
+  };
+  var entryKey = new URLSearchParams(location.search).get('situation');
+  var selectedSituation = Object.prototype.hasOwnProperty.call(SITUATIONS, entryKey) ? entryKey : '';
+
   var MEDIA_CONFIG = {
     naver_search: {
       label: '네이버 검색',
@@ -5205,7 +5289,7 @@
 
   function getMedium(){
     var el = document.querySelector('input[name="simMedium"]:checked');
-    return el ? el.value : 'naver_search';
+    return el ? el.value : (selectedSituation ? '' : 'naver_search');
   }
 
   function renderMedia(medium){
@@ -5216,6 +5300,7 @@
     sel.innerHTML = cfg.industries.map(function(ind){
       return '<option value="' + ind.v + '">' + ind.l + '</option>';
     }).join('');
+    if (selectedSituation) sel.insertAdjacentHTML('afterbegin', '<option value="" selected>업종 선택 (선택사항)</option>');
 
     var checksDiv = $('simChecks');
     checksDiv.innerHTML = cfg.checks.map(function(c){
@@ -5246,6 +5331,7 @@
 
   function calc(){
     var s = getState();
+    if (selectedSituation) { renderSituation(s); return; }
     $('simMetrics').textContent = METRICS[s.medium];
     $('simResultHeading').textContent = s.issues.length
       ? '먼저 확인할 항목 ' + s.issues.length + '개'
@@ -5269,6 +5355,56 @@
       }).join('');
       pri.innerHTML = '<div class="sp-title">확인 및 조치 순서</div>' + items;
     }
+  }
+
+  function situationSteps(s){
+    var steps = SITUATIONS[selectedSituation].steps.map(function(step){ return step.slice(); });
+    if (s.medium === 'naver_search' && selectedSituation === 'clicks') {
+      steps[1][1] = '실제 유입된 검색어가 판매 상품과 맞는지 보고, 광고의 상품·가격·혜택이 연결 첫 화면과 일치하는지 확인하세요.';
+    }
+    if (s.medium === 'naver_gfa') {
+      if (selectedSituation === 'clicks') steps[1][1] = '캠페인 목적·타깃·소재별 유입을 나눠 보고, 소재에서 안내한 상품·혜택이 연결 첫 화면과 맞는지 확인하세요.';
+      if (selectedSituation === 'cost') steps[0] = ['캠페인·타깃·소재별 비용과 전환 비교', '캠페인 목적과 전환 집계 지원 범위를 먼저 확인하고, 같은 기간의 광고비와 구매 결과를 비교하세요. 상품별 집계가 지원되면 상품별 차이도 살펴보세요.'];
+    }
+    return steps;
+  }
+
+  function updateSituationInquiry(s){
+    var data = SITUATIONS[selectedSituation];
+    var industry = s.cfg.industries.filter(function(ind){ return ind.v === s.industry; })[0];
+    var url = new URL('/question/', location.href);
+    var params = new URLSearchParams(location.search);
+    var attr = window.MailplugInquiry ? window.MailplugInquiry.attribution : {};
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'batch', 'experiment'].forEach(function(key){
+      var value = attr[key] || params.get(key);
+      if (value) url.searchParams.set(key, value);
+    });
+    url.searchParams.set('selfcheck', selectedSituation);
+    url.searchParams.set('question', '[네이버 광고 10초 셀프 점검]\n현재 상황: ' + data.label
+      + '\n광고 유형: ' + (s.medium ? s.cfg.label : '미선택')
+      + '\n업종: ' + (industry ? industry.l : '미선택')
+      + '\n확인 순서: ' + situationSteps(s).map(function(step){ return step[0]; }).join(' → ')
+      + '\n\n이 상황에서 무엇부터 확인하면 좋을지 문의드립니다.');
+    $('simCtaBtn').href = url.href;
+  }
+
+  function renderSituation(s){
+    var data = SITUATIONS[selectedSituation];
+    $('simResultHeading').textContent = data.title;
+    $('simResultLead').textContent = data.lead;
+    $('simMetrics').textContent = METRICS[s.medium] || '운영 여부 · 노출 · 클릭 · 광고비 · 구매 집계';
+    $('simPriorities').innerHTML = '<div class="sp-title">먼저 확인할 순서</div>'
+      + situationSteps(s).map(function(step, i){
+        return '<div class="sp-item"><span class="sp-num">' + (i+1) + '</span><div><strong>' + step[0] + '</strong><p>' + step[1] + '</p></div></div>';
+      }).join('')
+      + (s.issues.length ? '<div class="sp-title">추가로 선택한 운영 상태의 조치</div>' + s.issues.map(function(k){
+        return '<div class="sp-item">' + s.cfg.priorityMap[k] + '</div>';
+      }).join('') : '');
+    $('simRelatedText').textContent = data.related;
+    Array.prototype.forEach.call(document.querySelectorAll('.sim-check'), function(lbl){
+      lbl.classList.toggle('checked', lbl.querySelector('input').checked);
+    });
+    updateSituationInquiry(s);
   }
 
   function prefillForm(){
@@ -5337,6 +5473,7 @@
   var ctaBtn = $('simCtaBtn');
   if (ctaBtn){
     ctaBtn.addEventListener('click', function(){
+      if (selectedSituation) { updateSituationInquiry(getState()); return; }
       prefillForm();
       if (typeof gtag === 'function'){
         gtag('event', 'simulator_cta_click', { event_category: 'conversion' });
@@ -5344,7 +5481,41 @@
     });
   }
 
-  renderMedia(getMedium());
+  if (selectedSituation) {
+    document.documentElement.classList.add('sim-entry-page');
+    $('simulator').classList.add('sim-mail-entry');
+    $('simOptions').querySelector('.sim-label').textContent = '네이버 광고 유형 (선택사항)';
+    $('simulator').querySelector('.section-head h2').textContent = '내 상황에 맞는 확인 순서, 10초 셀프 점검';
+    $('simulator').querySelector('.section-sub').textContent = '선택하신 상황의 점검 순서입니다. 필요하면 아래에서 광고 유형과 업종을 더 선택해 보세요.';
+    $('simEntry').hidden = false;
+    $('simSituation').value = selectedSituation;
+    $('simRelated').hidden = false;
+    $('simRefine').hidden = false;
+    $('simCtaBtn').textContent = '이 상황으로 문의하기 →';
+    $('simCtaBtn').nextElementSibling.textContent = '선택한 상황이 문의 내용에 미리 입력됩니다. 제출 전 수정할 수 있어요.';
+    Array.prototype.forEach.call(document.querySelectorAll('input[name="simMedium"]'), function(input){
+      input.checked = false;
+      input.closest('label').hidden = input.value !== 'naver_search' && input.value !== 'naver_gfa';
+    });
+    $('simIndustry').innerHTML = '<option value="">광고 유형 선택 후 선택 가능</option>';
+    $('simIndustry').disabled = true;
+    $('simChecks').textContent = '네이버 검색 또는 GFA를 고르면 운영 상태를 추가로 점검할 수 있어요.';
+    Array.prototype.forEach.call(document.querySelectorAll('input[name="simMedium"]'), function(input){
+      input.addEventListener('change', function(){ $('simIndustry').disabled = false; });
+    });
+    $('simSituation').addEventListener('change', function(){
+      if (!Object.prototype.hasOwnProperty.call(SITUATIONS, this.value)) return;
+      selectedSituation = this.value;
+      calc();
+    });
+    $('simRelatedLink').addEventListener('click', function(){
+      var filter = document.querySelector('.rf-tab[data-filter="naver"]');
+      if (filter) filter.click();
+    });
+    calc();
+  } else {
+    renderMedia(getMedium());
+  }
 })();
 </script>
 

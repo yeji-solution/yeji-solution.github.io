@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "npm run validate",
-    "test": "node --test test-inquiry.js test-question.js && npm run validate",
+    "test": "node --test test-inquiry.js test-question.js test-simulator.js && npm run validate",
     "validate": "node validate-site.js"
   },
   "keywords": [],

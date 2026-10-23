@@ -15,13 +15,14 @@ class Element {
   focus() { this.focused = true; }
   fire(name) { this.listeners[name]({ preventDefault() {} }); }
 }
-function page({ linked = false, confirmed = false, failing = false } = {}) {
+function page({ linked = false, confirmed = false, failing = false, query = '' } = {}) {
   const elements = new Map(), posted = [], topics = ['conversion', 'budget', 'start', 'other'].map(topic => Object.assign(new Element(), { dataset: { topic } }));
   const events = [];
   const get = id => { if (!elements.has(id)) elements.set(id, new Element()); return elements.get(id); };
   get('question-form').querySelector = () => get('submit');
   const attribution = linked ? { utm_source: 'mailplug', utm_term: '1234abcd', batch: 'batch1' } : {};
   vm.runInNewContext(source, {
+    URLSearchParams, location: { search: query },
     window: { MailplugInquiry: { api: 'https://example.test', attribution, event(name) { events.push(name); } } },
     document: { getElementById: get, querySelectorAll: () => topics, createElement: () => new Element() },
     fetch: async (url, options) => {
@@ -33,6 +34,16 @@ function page({ linked = false, confirmed = false, failing = false } = {}) {
   return { get, posted, events, choose: topic => topics.find(button => button.dataset.topic === topic).fire('click'), submit: () => get('question-form').fire('submit') };
 }
 const flush = () => new Promise(resolve => setImmediate(resolve));
+
+test('자가진단에서 전달한 상황은 문의 내용에 미리 들어가며 자동 접수되지 않는다', () => {
+  const question = '[네이버 광고 10초 셀프 점검]\n현재 상황: 광고비 대비 매출이 아쉬워요';
+  const p = page({ query: '?selfcheck=cost&question=' + encodeURIComponent(question) });
+  assert.equal(p.get('question-text').value, question);
+  assert.equal(p.get('question-label').textContent, '셀프 점검 결과에 대해 질문하기');
+  assert.equal(p.posted.length, 0);
+  const invalid = page({ query: '?selfcheck=invalid&question=' + encodeURIComponent(question) });
+  assert.equal(invalid.get('question-text').value, '');
+});
 
 test('질문 페이지에서 질문 화면 방문을 기록한다', () => {
   assert.deepEqual(page().events, ['question_view']);
