@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,follow">
+  <title>네이버 광고 10초 셀프 점검 | YEJI SOLUTION</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="/inquiry.js" defer></script>
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <header class="header">
+    <a class="brand" href="/"><span class="brand-mark">Y.</span><span>YEJI SOLUTION<small>이명수 마케터</small></span></a>
+    <nav aria-label="주요 메뉴">
+      <a href="./" id="checkNav">셀프 점검</a>
+      <a href="/#results">운영 사례 <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="checkView" class="check-view">
+      <div class="intro">
+        <p class="eyebrow"><span class="naver-label">N</span> NAVER ADS SELF CHECK</p>
+        <h1>네이버 광고,<br>무엇부터 확인할까요?</h1>
+        <p class="intro-copy">지금 상황 하나만 선택하세요.<br class="mobile-break"> <strong>10초 셀프 점검</strong>으로 확인할 순서를 찾아보세요.</p>
+        <div class="benefits"><span>로그인 없이</span><span>광고계정 연결 없이</span><span>바로 결과 확인</span></div>
+      </div>
+
+      <div class="chooser" id="chooser">
+        <div class="section-label"><span>현재 가장 가까운 상황은?</span><span class="small-label">하나만 선택</span></div>
+        <div class="choices" role="group" aria-label="현재 광고 상황">
+          <button type="button" class="choice" data-situation="start" aria-pressed="false"><span class="choice-icon" aria-hidden="true">01</span><span class="choice-text"><strong>광고를 시작하려고 해요</strong><small>시작 전에 준비할 것을 알고 싶어요</small></span><span class="arrow" aria-hidden="true">↗</span></button>
+          <button type="button" class="choice" data-situation="clicks" aria-pressed="false"><span class="choice-icon" aria-hidden="true">02</span><span class="choice-text"><strong>클릭은 있는데 구매가 적어요</strong><small>방문이 주문으로 이어지지 않아요</small></span><span class="arrow" aria-hidden="true">↗</span></button>
+          <button type="button" class="choice" data-situation="cost" aria-pressed="false"><span class="choice-icon" aria-hidden="true">03</span><span class="choice-text"><strong>광고비에 비해 매출이 아쉬워요</strong><small>비용을 쓰는데 성과가 답답해요</small></span><span class="arrow" aria-hidden="true">↗</span></button>
+          <button type="button" class="choice" data-situation="unsure" aria-pressed="false"><span class="choice-icon" aria-hidden="true">04</span><span class="choice-text"><strong>무엇이 문제인지 모르겠어요</strong><small>어떤 숫자부터 봐야 할지 막막해요</small></span><span class="arrow" aria-hidden="true">↗</span></button>
+        </div>
+      </div>
+
+      <section id="result" class="result" aria-labelledby="resultTitle" hidden>
+        <div class="result-top"><span class="eyebrow">YOUR CHECKLIST</span><button type="button" id="reset" class="text-button">다른 상황 선택하기 ↑</button></div>
+        <p class="selected-label" id="selectedLabel"></p>
+        <h2 id="resultTitle" tabindex="-1"></h2>
+        <p id="resultLead" class="result-lead"></p>
+        <p class="first-action-label">지금 먼저 해볼 일</p>
+        <ol id="priorities" class="priorities first-priority"></ol>
+        <details id="otherChecks" class="other-checks">
+          <summary>다음으로 확인할 항목 2개 <span aria-hidden="true">＋</span></summary>
+          <ol id="remainingPriorities" class="priorities remaining-priorities" start="2"></ol>
+        </details>
+        <p class="result-note">선택한 상황에 따른 일반적인 점검 순서입니다. 실제 계정·매출 데이터를 분석한 결과는 아니며, 광고 유형과 운영 조건에 따라 달라질 수 있습니다.</p>
+
+        <section class="resource-card" aria-labelledby="resourceTitle">
+          <p id="resourceEyebrow" class="eyebrow"></p>
+          <p id="resourceBridge" class="resource-bridge"></p>
+          <h3 id="resourceTitle"></h3>
+          <p id="resourceDescription" class="resource-description"></p>
+          <p id="caseMeta" class="case-meta" hidden>공개 운영 사례 · 네이버 검색광고 · 헬스/스포츠용품 · 2025 하반기</p>
+          <details id="resourceDetails" class="resource-details">
+            <summary><span id="resourceSummary"></span><span aria-hidden="true">＋</span></summary>
+            <div id="resourceContent" class="resource-content"></div>
+            <div id="caseEvidence" class="case-evidence" hidden>
+              <p class="metric-label">홈페이지 공개 지표 · ROAS</p>
+              <p class="case-metric"><span>596%</span><span class="metric-arrow" aria-hidden="true">→</span><strong>1,009%</strong></p>
+              <p class="evidence-note">기존 홈페이지에 공개된 수치입니다. 전후 집계 기간과 세부 광고비는 공개돼 있지 않습니다. 여러 조정을 함께 진행한 사례로, 특정 조치 하나의 효과나 같은 성과를 보장하지 않습니다.</p>
+              <a class="portfolio-link" href="https://yeji-solution.github.io/#results" target="_blank" rel="noopener noreferrer">기존 홈페이지의 공개 사례 확인 ↗</a>
+            </div>
+          </details>
+        </section>
+        <article class="inquiry-card contextual-inquiry">
+          <div><p class="eyebrow">NEXT STEP</p><h3 id="inquiryHeading"></h3><p id="inquiryLead"></p></div>
+          <div><a id="openInquiry" class="primary-button" href="/question/"></a><small>선택한 상황이 문의 내용에 자동으로 들어갑니다.</small></div>
+        </article>
+        <p class="credentials-note">담당자 확인 <strong>이명수 마케터</strong><a href="https://yeji-solution.github.io/about/" target="_blank" rel="noopener noreferrer">프로필·경력 ↗</a><a href="https://yeji-solution.github.io/#credentials" target="_blank" rel="noopener noreferrer">공식 인증 ↗</a></p>
+      </section>
+      <div class="signature"><span class="signature-line"></span><p>광고의 다음 순서를 함께 찾습니다.<strong>이명수 마케터 · YEJI SOLUTION</strong></p></div>
+    </section>
+
+  </main>
+  <footer>YEJI SOLUTION <span>네이버 광고 10초 셀프 점검</span></footer>
+
+  <noscript><p class="noscript">셀프 점검을 이용하려면 브라우저의 자바스크립트를 켜주세요.</p></noscript>
+</body>
+</html>

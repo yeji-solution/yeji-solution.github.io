@@ -10,6 +10,12 @@
     start: '광고를 어디서부터 시작하면 좋을까요?'
   };
   var text = document.getElementById('question-text');
+  var entry = new URLSearchParams(location.search);
+  if (['start', 'clicks', 'cost', 'unsure'].includes(entry.get('selfcheck')) && entry.get('question')) {
+    text.value = entry.get('question').slice(0, 3000);
+    document.getElementById('question-label').textContent = '셀프 점검 결과에 대해 질문하기';
+  }
+
   var hints = {
     conversion: ['광고 클릭 이후 구매까지 기록이 연결되는지 확인해보세요.', '전체 평균보다 상품·검색어별로 차이가 있는지 살펴보세요.', '가격·배송·재고 등 구매를 망설이게 하는 조건도 함께 보세요.'],
     budget: ['현재 광고비에서 남는 이익을 먼저 확인해보세요.', '예산이 부족해 노출이 끊기는 구간인지 살펴보세요.', '예산을 늘린 뒤 비교할 기간과 기준을 미리 정해두세요.'],
