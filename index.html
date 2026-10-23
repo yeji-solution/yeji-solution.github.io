@@ -3083,12 +3083,14 @@
   .qa .a > p { margin: 0; text-wrap: pretty; }
   .qa .a > p + p { margin-top: 10px; }
   .quote-message .quote-line { display: inline; }
+  .quote-message > .quote-line { display: block; margin-top: 8px; font-size: 20px; font-weight: 500; }
   @media (max-width: 720px) {
-    .mobile-line, .quote-message .quote-line { display: block; }
+    .mobile-line { display: block; }
     #philosophy .reading-principles .quote { padding: 26px 18px; }
-    #philosophy .reading-principles .quote > .sentence:last-child { font-size: clamp(21px, 5.9vw, 25px); line-height: 1.65; text-wrap: initial; }
+    #philosophy .reading-principles .quote > .sentence:last-child { font-size: clamp(17px, 4.4vw, 23px); line-height: 1.65; text-wrap: initial; }
     #philosophy .reading-principles .quote em { display: block; background: none; }
-    #philosophy .reading-principles .quote em .quote-line { width: fit-content; background: linear-gradient(180deg, transparent 87%, #7d9bc8 87%); }
+    #philosophy .reading-principles .quote em .quote-line { display: inline-block; white-space: nowrap; background: linear-gradient(180deg, transparent 87%, #7d9bc8 87%); }
+    .quote-message > .quote-line { font-size: 15px; }
     .section-head h2, .work-summary-title, .rc-title { text-wrap: pretty; }
     .story-cell p, .work-overview p, .principle .pdesc, .case-block li,
     .rc-detail, .ic-desc, .qa .q, .qa .a, .contact-benefits p > span,
@@ -3587,7 +3589,7 @@
             <span class="rc-period">2025 하반기</span>
           </div>
           <div class="rc-title"><span class="mobile-line">광고 그룹을 재설계하고</span> <span class="mobile-line">전환이 높은 상품에 예산을 배분했습니다.</span></div>
-          <p class="rc-detail">상품별 성과를 볼 수 있도록 그룹 구조를 정리하고, 전환이 확인된 상품에 예산을 옮긴 사례입니다.</p>
+          <p class="rc-detail"><span class="mobile-line">상품별 성과를 볼 수 있도록 그룹 구조를 정리하고,</span> <span class="mobile-line">전환이 확인된 상품에 예산을 옮긴 사례입니다.</span></p>
           <div class="rc-approach">
             <span class="rc-chip">광고 그룹 구조 재설계</span>
             <span class="rc-chip">고전환 상품 집중 배분</span>
@@ -3612,7 +3614,7 @@
             <span class="rc-period">2025년</span>
           </div>
           <div class="rc-title"><span class="mobile-line">고전환 키워드에 예산을 모으고</span> <span class="mobile-line">광고 소재를 테스트했습니다.</span></div>
-          <p class="rc-detail">키워드별 전환 성과를 기준으로 예산을 다시 배분하고, 소재 반응을 비교했습니다.</p>
+          <p class="rc-detail"><span class="mobile-line">키워드별 전환 성과를 기준으로 예산을 다시 배분하고,</span> <span class="mobile-line">소재 반응을 비교했습니다.</span></p>
           <div class="rc-approach">
             <span class="rc-chip">고전환 키워드 집중 배분</span>
             <span class="rc-chip">소재 A/B 테스트</span>
@@ -3680,7 +3682,7 @@
             <span class="rc-period">2025년</span>
           </div>
           <div class="rc-title"><span class="mobile-line">타깃을 세분화하고</span> <span class="mobile-line">소재와 예산 배분을 조정했습니다.</span></div>
-          <p class="rc-detail">타깃별 반응을 나눠 확인하고 소재와 예산을 조정한 뒤, 전환매출이 4.40억 원에서 8.46억 원으로 증가했습니다.</p>
+          <p class="rc-detail"><span class="mobile-line">타깃별 반응을 나눠 확인하고 소재와 예산을 조정한 뒤,</span> <span class="mobile-line">전환매출이 4.40억 원에서 8.46억 원으로 증가했습니다.</span></p>
           <div class="rc-approach">
             <span class="rc-chip">타깃 세그먼트 세분화</span>
             <span class="rc-chip">소재 다변화</span>
@@ -3712,7 +3714,7 @@
             <span class="rc-period">2025 상반기</span>
           </div>
           <div class="rc-title"><span class="mobile-line">카테고리마다 입찰과 ROAS 목표를</span> <span class="mobile-line">따로 설정했습니다.</span></div>
-          <p class="rc-detail">서로 다른 상품군에 같은 목표를 적용하지 않도록 카테고리별 운영 기준을 분리했습니다.</p>
+          <p class="rc-detail"><span class="mobile-line">서로 다른 상품군에 같은 목표를 적용하지 않도록</span> <span class="mobile-line">카테고리별 운영 기준을 분리했습니다.</span></p>
           <div class="rc-approach">
             <span class="rc-chip">카테고리별 입찰 분리</span>
             <span class="rc-chip">ROAS 목표 세분화</span>
@@ -3737,7 +3739,7 @@
             <span class="rc-period">2025년</span>
           </div>
           <div class="rc-title"><span class="mobile-line">신규 고객 타깃을 확장하고</span> <span class="mobile-line">시즌 상품에 맞춰 소재를 바꿨습니다.</span></div>
-          <p class="rc-detail">새 고객층으로 노출 범위를 넓히면서 시즌 상품 소재를 교체한 뒤, 전환매출이 8,842만 원에서 1.94억 원으로 증가했습니다.</p>
+          <p class="rc-detail"><span class="mobile-line">새 고객층으로 노출 범위를 넓히면서 시즌 상품 소재를 교체한 뒤,</span> <span class="mobile-line">전환매출이 8,842만 원에서 1.94억 원으로 증가했습니다.</span></p>
           <div class="rc-approach">
             <span class="rc-chip">시즌 컬렉션 연동</span>
             <span class="rc-chip">신규 유저 타깃 확장</span>
@@ -3887,7 +3889,7 @@
             <span class="rc-period">2025년</span>
           </div>
           <div class="rc-title"><span class="mobile-line">새 타깃을 찾고</span> <span class="mobile-line">반응에 맞춰 소재를 개선했습니다.</span></div>
-          <p class="rc-detail">기존 타깃 밖의 반응을 확인하고, 반응이 확인된 소재에 맞춰 운영을 조정했습니다.</p>
+          <p class="rc-detail"><span class="mobile-line">기존 타깃 밖의 반응을 확인하고,</span> <span class="mobile-line">반응이 확인된 소재에 맞춰 운영을 조정했습니다.</span></p>
           <div class="rc-approach">
             <span class="rc-chip">신규 타깃층 발굴</span>
             <span class="rc-chip">소재 개선</span>
@@ -3919,7 +3921,7 @@
             <span class="rc-period">2025년</span>
           </div>
           <div class="rc-title"><span class="mobile-line">관심사 타깃을 다시 설정하고</span> <span class="mobile-line">소재를 바꿨습니다.</span></div>
-          <p class="rc-detail">관심사 설정과 소재를 함께 바꿔 어떤 조합에서 전환이 발생하는지 확인했습니다.</p>
+          <p class="rc-detail"><span class="mobile-line">관심사 설정과 소재를 함께 바꿔 어떤 조합에서</span> <span class="mobile-line">전환이 발생하는지 확인했습니다.</span></p>
           <div class="rc-approach">
             <span class="rc-chip">관심사 타깃 재설정</span>
             <span class="rc-chip">소재 A/B 테스트</span>
@@ -3944,7 +3946,7 @@
             <span class="rc-period">2025년</span>
           </div>
           <div class="rc-title"><span class="mobile-line">프리미엄 상품 소재와</span> <span class="mobile-line">가격대별 메시지를 조정했습니다.</span></div>
-          <p class="rc-detail">가격대에 따라 광고에서 강조할 내용을 달리하고, 프리미엄 상품 소재를 조정했습니다.</p>
+          <p class="rc-detail"><span class="mobile-line">가격대에 따라 광고에서 강조할 내용을 달리하고,</span> <span class="mobile-line">프리미엄 상품 소재를 조정했습니다.</span></p>
           <div class="rc-approach">
             <span class="rc-chip">프리미엄 라인 소재 강화</span>
             <span class="rc-chip">고단가 전략</span>
@@ -3976,7 +3978,7 @@
     <div class="results-toggle-wrap">
       <button type="button" class="results-toggle" id="resultsToggle" aria-controls="resultsCollection" aria-expanded="false">성과 사례 더 보기 ↓</button>
     </div>
-    <p class="result-note"><span class="sentence">연도는 운영 시기입니다. 광고주 식별 정보는 싣지 않고 업종·카테고리만 표기했습니다.</span><span class="sentence">전후 집계 기간과 세부 광고비는 공개하지 않습니다.</span><span class="sentence">여러 조정을 함께 진행한 사례로, 특정 조치 하나의 효과나 향후 결과를 보장하지 않습니다.</span></p>
+    <p class="result-note"><span class="sentence">연도는 운영 시기입니다. 광고주 식별 정보는 싣지 않고 업종·카테고리만 표기했습니다.</span><span class="sentence">전후 집계 기간과 세부 광고비는 공개하지 않습니다.</span><span class="sentence"><span class="mobile-line">여러 조정을 함께 진행한 사례로,</span> <span class="mobile-line">특정 조치 하나의 효과나 향후 결과를 보장하지 않습니다.</span></span></p>
   </div>
 </section>
 
@@ -4003,7 +4005,7 @@
       <div class="story-cell">
         <div class="num">차이 02</div>
         <h3>빠른 성과 점검</h3>
-        <p><span class="sentence">동시에 운영하는 계정 수를 제한합니다.</span><span class="sentence">주간 리포트 외에도 ROAS·CTR·전환수에 변화가 보이면 먼저 공유하고 다음 조치를 함께 결정합니다.</span></p>
+        <p><span class="sentence">동시에 운영하는 계정 수를 제한합니다.</span><span class="sentence"><span class="mobile-line">주간 리포트 외에도 ROAS·CTR·전환수에 변화가 보이면</span> <span class="mobile-line">먼저 공유하고 다음 조치를 함께 결정합니다.</span></span></p>
       </div>
       <div class="story-cell">
         <div class="num">차이 03</div>
@@ -4481,11 +4483,11 @@
     <div class="contact-grid">
       <div class="contact-intro">
         <span class="contact-eyebrow"><span aria-hidden="true"></span> 내 광고의 다음 단계</span>
-        <h2 id="contactTitle">지금 광고에서<br>바꿀 곳을 찾아드립니다.</h2>
-        <p class="contact-lead">지금 운영 중인 광고를 살펴보고,<br>먼저 바꿀 항목부터 짚어드립니다.</p>
+        <h2 id="contactTitle">지금 광고에서<br>보완할 부분을 찾아드립니다.</h2>
+        <p class="contact-lead">지금 운영 중인 광고를 살펴보고,<br>보완이 필요한 부분부터 짚어드립니다.</p>
         <div class="contact-benefits" aria-label="무료 진단 안내">
           <div><span class="contact-benefit-num">01</span><p><strong>현재 상태부터 확인</strong><span>광고 현황과 지금 겪고 있는 고민을 듣습니다.</span></p></div>
-          <div><span class="contact-benefit-num">02</span><p><strong>먼저 바꿀 항목 안내</strong><span>계정 확인 후 개선 우선순위를 제안합니다.</span></p></div>
+          <div><span class="contact-benefit-num">02</span><p><strong>보완할 부분 안내</strong><span>계정 확인 후 개선 우선순위를 제안합니다.</span></p></div>
           <div><span class="contact-benefit-num">03</span><p><strong>운영 결정은 상담 후에</strong><span>진단 신청만으로 운영 계약이 진행되지 않습니다.</span></p></div>
         </div>
         <p class="contact-owner">상담부터 진단까지, 이명수 마케터가 직접 확인합니다.</p>
