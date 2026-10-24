@@ -4750,6 +4750,13 @@
   /* ===== 폼 제출 ===== */
   var cf = qs('#contactForm'), fs = qs('#formSuccess'), fe = qs('#formError');
   var contactSubmissionId = '', contactSubmittedAt = 0;
+  var contactRetryKey = 'contact-retry:' + location.pathname;
+  try {
+    var retry = JSON.parse(sessionStorage.getItem(contactRetryKey) || 'null');
+    if (retry && /^[a-f0-9-]{36}$/i.test(retry.id) && Number.isSafeInteger(retry.at) && Math.abs(Date.now() - retry.at) < 86400000) {
+      contactSubmissionId = retry.id; contactSubmittedAt = retry.at;
+    }
+  } catch (_) {}
   if (cf) {
     var phone = cf.querySelector('#f-phone');
     if (phone) {
@@ -4783,6 +4790,7 @@
     }
     cf.addEventListener('submit', function (e) {
       e.preventDefault();
+      if (cf.getAttribute('aria-busy') === 'true') return;
       if (fe) fe.classList.remove('show');
       var btn = cf.querySelector('button[type="submit"]');
       var idleLabel = btn.textContent;
@@ -4790,6 +4798,7 @@
       cf.setAttribute('aria-busy', 'true');
       var data = new FormData(cf);
       if (!contactSubmissionId) { contactSubmissionId = crypto.randomUUID(); contactSubmittedAt = Date.now(); }
+      try { sessionStorage.setItem(contactRetryKey, JSON.stringify({ id: contactSubmissionId, at: contactSubmittedAt })); } catch (_) {}
       var payload = {
         source: 'marketer_site', submission_id: contactSubmissionId, submitted_at: contactSubmittedAt,
         phone: data.get('phone') || '', name: data.get('name') || '', company: data.get('company') || '',
@@ -4801,6 +4810,7 @@
         .then(function (r) { return r.json(); })
         .then(function (res) {
           if (res.ok) {
+            try { sessionStorage.removeItem(contactRetryKey); } catch (_) {}
             cf.style.display = 'none';
             cf.removeAttribute('aria-busy');
             if (fs) { fs.classList.add('show'); fs.focus(); }
