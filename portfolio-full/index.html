@@ -3088,10 +3088,7 @@
     </div>
 
     <form class="form-card" id="contactForm" name="diagnosis" method="POST"
-          action="https://api.web3forms.com/submit">
-      <input type="hidden" name="access_key" value="de89a769-2315-4cfb-8542-1e59c7f7950d" />
-      <input type="hidden" name="subject" value="예지솔루션 상담 신청" />
-      <input type="hidden" name="from_name" value="YEJI SOLUTION" />
+          action="https://mailplug-inquiries.lmsnism.workers.dev/questions">
       <input type="checkbox" name="botcheck" style="display:none;" />
 
       <h3>무료 진단 신청</h3>
@@ -3107,7 +3104,7 @@
       <div class="form-row row2">
         <div>
           <label class="form-label" for="f-name">성함 <span class="req">*</span></label>
-          <input class="form-input" type="text" id="f-name" name="name" required autocomplete="name" />
+          <input class="form-input" type="text" id="f-name" name="name" maxlength="100" required autocomplete="name" />
         </div>
         <div>
           <label class="form-label" for="f-phone">연락처 <span class="req">*</span></label>
@@ -3118,11 +3115,11 @@
       <div class="form-row row2">
         <div>
           <label class="form-label" for="f-company">업체명 / 브랜드명 <span class="req">*</span></label>
-          <input class="form-input" type="text" id="f-company" name="company" required />
+          <input class="form-input" type="text" id="f-company" name="company" maxlength="200" required />
         </div>
         <div>
           <label class="form-label" for="f-email">이메일 <span style="color: var(--text-dim); font-weight: 500;">(선택)</span></label>
-          <input class="form-input" type="email" id="f-email" name="email" autocomplete="email" placeholder="리포트 받을 메일" />
+          <input class="form-input" type="email" id="f-email" name="email" maxlength="254" autocomplete="email" placeholder="리포트 받을 메일" />
         </div>
       </div>
 
@@ -3152,8 +3149,10 @@
 
       <div class="form-row">
         <label class="form-label" for="f-message">고민 / 문의 내용</label>
-        <textarea class="form-textarea" id="f-message" name="message" placeholder="예) ROAS가 점점 떨어지고 있는데 원인을 모르겠어요 / 대행사 변경 검토 중입니다 / 신규 매체 진입을 고민 중입니다"></textarea>
+        <textarea class="form-textarea" id="f-message" name="message" maxlength="2000" placeholder="예) ROAS가 점점 떨어지고 있는데 원인을 모르겠어요 / 대행사 변경 검토 중입니다 / 신규 매체 진입을 고민 중입니다"></textarea>
       </div>
+
+      <label class="form-consent"><input type="checkbox" name="privacy_consent" value="동의" required> (필수) 개인정보 수집·이용에 동의합니다. <a href="../privacy.html" target="_blank" rel="noopener">내용 보기</a></label>
 
       <button type="submit" class="form-submit">무료 진단 신청하기 →</button>
 
@@ -3371,6 +3370,7 @@
 
   /* ===== 폼 제출 ===== */
   var cf = qs('#contactForm'), fs = qs('#formSuccess'), fe = qs('#formError');
+  var contactSubmissionId = '', contactSubmittedAt = 0;
   if (cf) {
     cf.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -3378,14 +3378,18 @@
       var btn = cf.querySelector('button[type="submit"]');
       btn.disabled = true; btn.textContent = '제출 중...';
       var data = new FormData(cf);
-      fetch('https://api.web3forms.com/submit', { method: 'POST', body: data })
+      if (!contactSubmissionId) { contactSubmissionId = crypto.randomUUID(); contactSubmittedAt = Date.now(); }
+      var payload = {
+        source: 'marketer_site', submission_id: contactSubmissionId, submitted_at: contactSubmittedAt,
+        phone: data.get('phone') || '', name: data.get('name') || '', company: data.get('company') || '',
+        email: data.get('email') || '', media: data.getAll('media'), budget: data.get('budget') || '',
+        message: data.get('message') || '', sim_summary: data.get('sim_summary') || '',
+        privacy_consent: data.get('privacy_consent') || '', botcheck: data.get('botcheck') || ''
+      };
+      fetch(cf.action, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
         .then(function (r) { return r.json(); })
         .then(function (res) {
-          if (res.success) {
-            fetch('/notify', {
-              method: 'POST', headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ name: data.get('name'), phone: data.get('phone'), company: data.get('company'), email: data.get('email'), media: data.getAll('media'), budget: data.get('budget'), message: data.get('message') })
-            }).catch(function () {});
+          if (res.ok) {
             cf.style.display = 'none';
             if (fs) fs.classList.add('show');
           } else {
