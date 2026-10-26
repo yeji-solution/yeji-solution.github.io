@@ -19,7 +19,7 @@
     var item = document.createElement('li');
     var link = document.createElement('a');
     link.href = '#' + heading.id;
-    link.textContent = heading.textContent;
+    link.textContent = heading.textContent.replace(/^\s*\d+[.)]\s+/, '');
     item.appendChild(link);
     list.appendChild(item);
   });

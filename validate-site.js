@@ -22,11 +22,11 @@ function fail(file, message) {
   errors.push(`${path.relative(root, file)}: ${message}`);
 }
 
-function localTargetExists(href) {
+function localTargetExists(file, href) {
   const clean = href.split('#')[0].split('?')[0];
   if (!clean) return true;
   const relative = clean.startsWith('/') ? clean.slice(1) : clean;
-  const target = path.join(root, relative);
+  const target = path.resolve(clean.startsWith('/') ? root : path.dirname(file), relative);
   return fs.existsSync(target) || fs.existsSync(path.join(target, 'index.html'));
 }
 
@@ -47,7 +47,7 @@ for (const file of htmlFiles) {
   for (const match of html.matchAll(/<a\b[^>]*\shref="([^"]+)"/gi)) {
     const href = match[1];
     if (/^(?:https?:|mailto:|tel:|#)/i.test(href)) continue;
-    if (!localTargetExists(href)) fail(file, `존재하지 않는 내부 링크: ${href}`);
+    if (!localTargetExists(file, href)) fail(file, `존재하지 않는 내부 링크: ${href}`);
   }
 
   for (const match of html.matchAll(/<script(?![^>]*type="application\/ld\+json")[^>]*>([\s\S]*?)<\/script>/gi)) {

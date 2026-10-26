@@ -21,6 +21,71 @@
       .then(function (r) { if (r.ok) { try { sessionStorage.setItem(cacheKey, '1'); } catch (e) {} } }).catch(function () {});
   }
   window.MailplugInquiry = { api: API, attribution: attr, event: event };
+(function(){
+  'use strict';
+  var service=window.MailplugInquiry;if(!service)return;
+  var store='sharn-analytics-v1',now=Date.now(),state={};
+  try{state=JSON.parse(localStorage.getItem(store)||'{}');}catch(e){}
+  function uuid(){return crypto.randomUUID();}
+  if(!state.visitor||now-(state.created||0)>90*86400000)state={visitor:uuid(),created:now};
+  var fresh=!state.session||now-(state.active||0)>30*60000;
+  if(fresh)state.session=uuid();
+  var q=new URLSearchParams(location.search),ref=null;
+  try{ref=new URL(document.referrer);}catch(e){}
+  var external=ref&&ref.origin!==location.origin;
+  var touch={source:'direct_unknown',medium:'none',campaign:'',content:'',term:'',batch:'',experiment:'',entry:location.pathname,referrer:external?ref.hostname:'',keyword:'',at:new Date().toISOString()};
+  if(q.has('utm_source')){
+    ['source','medium','campaign','content','term'].forEach(function(k){touch[k]=(q.get('utm_'+k)||'').slice(0,120);});
+    touch.batch=(q.get('batch')||'').slice(0,120);touch.experiment=(q.get('experiment')||service.attribution.experiment||'').slice(0,120);
+  }else if(external){
+    var host=ref.hostname;
+    touch.source=/(^|\.)google\.[a-z.]+$/.test(host)?'google':/(^|\.)naver\.com$/.test(host)?'naver':host;
+    touch.medium=['google','naver'].includes(touch.source)?'organic':'referral';
+    if(touch.medium==='organic')touch.keyword=(ref.searchParams.get(touch.source==='google'?'q':'query')||'').slice(0,120);
+  }
+  if(!state.first)state.first=touch;
+  // Internal links retain the campaign. Only a new visit or new external campaign changes it.
+  var changed=q.has('utm_source')&&['source','medium','campaign','content','term','batch'].some(function(k){return touch[k]!==state.last?.[k];});
+  if(fresh||external||changed||!state.last)state.last=touch;
+  state.active=now;
+  function save(){try{localStorage.setItem(store,JSON.stringify(state));}catch(e){}}
+  save();
+  function context(){var at=Date.now();if(at-(state.active||0)>30*60000)state.session=uuid();state.active=at;save();return {visitor:state.visitor,session:state.session,first:state.first,last:state.last};}
+  service.tracking=context;
+  // Clear stale mail context when a later visit arrives without a mail link.
+  if(state.last.source!=='mailplug'&&service.attribution.utm_source==='mailplug'){
+    Object.keys(service.attribution).forEach(function(k){delete service.attribution[k];});
+    try{sessionStorage.removeItem('mailplug-attribution-v1');}catch(e){}
+  }
+  function send(event,path,engagedMs){
+    fetch(service.api+'/collect',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:uuid(),event:event,path:path||location.pathname,tracking:context(),engagedMs:engagedMs||0}),keepalive:true}).catch(function(){});
+  }
+  service.track=send;
+  send('page_view');
+  // Measure foreground attention, stopping after 60 seconds with no interaction.
+  var lastTick=Date.now(),lastActivity=lastTick,pending=0;
+  var foreground=!document.hidden&&(!document.hasFocus||document.hasFocus());
+  function settle(){
+    var at=Date.now();
+    if(foreground)pending+=Math.max(0,Math.min(at,lastActivity+60000)-lastTick);
+    lastTick=at;
+  }
+  function flush(){settle();if(pending>=1000){var duration=Math.min(30000,Math.round(pending));pending=0;send('engagement',null,duration);}}
+  function activity(){settle();lastActivity=Date.now();}
+  ['pointerdown','keydown','scroll','touchstart'].forEach(function(name){document.addEventListener(name,activity,{passive:true});});
+  document.addEventListener('visibilitychange',function(){flush();foreground=!document.hidden&&(!document.hasFocus||document.hasFocus());lastTick=Date.now();if(foreground)lastActivity=lastTick;});
+  if(window.addEventListener){
+    window.addEventListener('focus',function(){settle();foreground=!document.hidden;lastActivity=lastTick=Date.now();});
+    window.addEventListener('blur',function(){flush();foreground=false;});
+    window.addEventListener('pagehide',flush);
+  }
+  if(typeof setInterval==='function')setInterval(flush,15000);
+  var scroll=false,formStarted=false;
+  document.addEventListener('scroll',function(){var height=document.documentElement.scrollHeight-innerHeight;if(!scroll&&height>0&&scrollY/height>=.5){scroll=true;send('scroll_50');}},{passive:true});
+  document.addEventListener('click',function(e){var a=e.target.closest('a[href]');if(!a)return;var h=a.getAttribute('href')||'';if(/^tel:/i.test(h))send('phone_click');else if(/(?:pf\.kakao\.com|open\.kakao\.com|kakao\.com\/)/i.test(h))send('kakao_click');else if(h==='#contact'||h==='#contactForm')send('consultation_click');});
+  document.addEventListener('focusin',function(e){if(!formStarted&&e.target.closest('#contactForm,#question-form')){formStarted=true;send('form_start');}});
+})();
+
   event('visit');
   function decorate() {
     document.querySelectorAll('a[href]').forEach(function (link) {

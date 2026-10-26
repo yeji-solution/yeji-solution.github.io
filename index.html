@@ -3067,6 +3067,8 @@
   #philosophy .reading-fit h2 { font-size: 25px; }
   @media (max-width: 720px) {
     .reading-visible-heading h3, .work-summary-title { font-size: 19px; }
+    .work-summary-title { font-size: clamp(14px, 3.8vw, 19px); white-space: nowrap; }
+    #insights .section-head h2 { font-size: clamp(14px, 4vw, 25px); white-space: nowrap; }
     .reading-visible-heading .reading-detail-hint { display: block; }
     #philosophy .reading-principles .quote { padding: 26px 22px; }
     #philosophy .reading-principles .quote > .sentence:first-child { font-size: 13px; }
@@ -3074,10 +3076,35 @@
     #reading-work > summary strong { font-size: 15px; }
     #philosophy .reading-principles .story-cell { padding: 20px; }
     #philosophy .reading-fit { padding: 22px 18px; }
-    #philosophy .reading-fit h2 { font-size: 22px; }
+    #philosophy .reading-fit h2 { font-size: clamp(16px, 4.4vw, 22px); white-space: nowrap; }
     #results.results-collapsed[data-active-filter="all"] .result-card[data-featured] { display: flex; }
   }
 
+  /* Meaning-led line breaks for mobile headings and supporting copy. */
+  .qa .question-copy { flex: 1; min-width: 0; }
+  .qa .a > strong { display: block; margin-bottom: 12px; }
+  .qa .a > p { margin: 0; text-wrap: pretty; }
+  .qa .a > p + p { margin-top: 10px; }
+  .quote-message .quote-line { display: inline; }
+  .quote-message > .quote-line { display: block; margin-top: 8px; font-size: 20px; font-weight: 500; }
+  @media (max-width: 720px) {
+    .mobile-line { display: block; }
+    .section-head h2.compact-title { font-size: clamp(19px, 5vw, 27px); }
+    #philosophy .reading-principles .quote { padding: 26px 18px; }
+    #philosophy .reading-principles .quote > .sentence:last-child { font-size: clamp(17px, 4.4vw, 23px); line-height: 1.65; text-wrap: initial; }
+    #philosophy .reading-principles .quote em { display: block; background: none; }
+    #philosophy .reading-principles .quote em .quote-line { display: inline-block; white-space: nowrap; background: linear-gradient(180deg, transparent 87%, #7d9bc8 87%); }
+    .quote-message > .quote-line { font-size: 15px; }
+    .section-head h2, .work-summary-title, .rc-title { text-wrap: pretty; }
+    .story-cell p, .work-overview p, .principle .pdesc, .case-block li,
+    .rc-detail, .ic-desc, .qa .q, .qa .a, .contact-benefits p > span,
+    .form-help, .contact-access p, .footer-tagline { text-wrap: pretty; }
+    .story-cell .sentence + .sentence, .principle .sentence + .sentence { margin-top: 8px; }
+    .qa .a { line-height: 1.85; }
+    .qa .q { text-align: left; }
+    .case-note > strong { display: block; margin-bottom: 8px; }
+    .contact-access .sentence + .sentence { margin-top: 8px; }
+  }
 </style>
 <style>
 
@@ -3088,7 +3115,6 @@
 #contact .contact-eyebrow{display:inline-flex;gap:9px;align-items:center;color:#31518a;font-size:13px;font-weight:700;letter-spacing:.04em;margin-bottom:23px}
 #contact .contact-eyebrow>span{width:8px;height:8px;border-radius:50%;background:#4269a9;box-shadow:0 0 0 5px #dbe5f7}
 #contact h2{font-size:clamp(28px,2.5vw,34px);font-weight:700;line-height:1.45;letter-spacing:-.04em;margin:0 0 18px;color:#172745;word-break:keep-all}
-#contact .contact-lead{font-size:16px;line-height:1.85;color:#52617a;margin:0 0 30px}
 #contact .contact-benefits{display:grid;gap:20px;margin-bottom:30px}
 #contact .contact-benefits>div{display:flex;gap:14px;align-items:flex-start}
 #contact .contact-benefit-num{font-size:11px;font-weight:800;background:#fff;border:1px solid #d7e0ee;border-radius:11px;width:34px;height:34px;display:grid;place-items:center;flex-shrink:0;color:#31518a}
@@ -3131,7 +3157,7 @@
 #contact .form-success a{display:inline-block;margin-top:20px;text-decoration:underline;line-height:1.8;font-size:13px;color:#31518a}
 #contact .form-prefill{background:#eef4ff;color:#243e6a}
 @media(max-width:1000px){#contact .contact-grid{gap:32px}#contact .form-card{padding:25px}}
-@media(max-width:760px){#contact.contact-redesign{padding:52px 0}#contact .contact-grid{display:flex;flex-direction:column;gap:22px}#contact .contact-intro{display:contents}#contact .contact-eyebrow{order:0;margin:0}#contact h2{order:1;font-size:28px;margin:0}#contact .contact-desktop-break{display:none}#contact .contact-lead{order:2;margin:0;font-size:14px}#contact .contact-form-column{order:3;width:100%}#contact .contact-benefits{order:5;margin:4px 0 0;gap:16px}#contact .contact-owner{order:6;margin:0}#contact .form-card{padding:24px 20px;border-radius:20px}#contact .form-card h3{font-size:21px}#contact .form-card .form-sub{margin-bottom:22px}#contact .form-row.row2{grid-template-columns:1fr}#contact .form-consent{gap:9px}#contact .form-more>summary{font-size:12px}#contact .contact-capacity{font-size:11px}}
+@media(max-width:760px){#contact.contact-redesign{padding:52px 0}#contact .contact-grid{display:flex;flex-direction:column;gap:22px}#contact .contact-intro{display:contents}#contact .contact-eyebrow{order:0;margin:0}#contact h2{order:1;font-size:clamp(23px,7.1vw,28px);margin:0}#contact .contact-desktop-break{display:none}#contact .contact-form-column{order:3;width:100%}#contact .contact-benefits{order:5;margin:4px 0 0;gap:16px}#contact .contact-owner{order:6;margin:0}#contact .form-card{padding:24px 20px;border-radius:20px}#contact .form-card h3{font-size:21px}#contact .form-card .form-sub{margin-bottom:22px}#contact .form-row.row2{grid-template-columns:1fr}#contact .form-consent{gap:9px}#contact .form-more>summary{font-size:12px}#contact .contact-capacity{font-size:11px}}
 @media(prefers-reduced-motion:reduce){#contact *{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 
 #contact .form-more>summary::before{color:#31518a}
@@ -3407,7 +3433,7 @@
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow dual">CREDENTIALS</span>
-      <h2>공식 인증과 파트너십을 확인하세요.</h2>
+      <h2 class="compact-title">공식 인증과 파트너십</h2>
       <p class="section-sub">네이버 검색광고·디스플레이 공식 인증서를 공개합니다.</p>
     </div>
 
@@ -3565,8 +3591,8 @@
             <span class="rc-cat">헬스 · 스포츠용품</span>
             <span class="rc-period">2025 하반기</span>
           </div>
-          <div class="rc-title">광고 그룹을 재설계하고 전환이 높은 상품에 예산을 배분했습니다.</div>
-          <p class="rc-detail">상품별 성과를 볼 수 있도록 그룹 구조를 정리하고, 전환이 확인된 상품에 예산을 옮긴 사례입니다.</p>
+          <div class="rc-title"><span class="mobile-line">광고 그룹을 재설계하고</span> <span class="mobile-line">전환이 높은 상품에 예산을 배분했습니다.</span></div>
+          <p class="rc-detail"><span class="mobile-line">상품별 성과를 볼 수 있도록 그룹 구조를 정리하고,</span> <span class="mobile-line">전환이 확인된 상품에 예산을 옮긴 사례입니다.</span></p>
           <div class="rc-approach">
             <span class="rc-chip">광고 그룹 구조 재설계</span>
             <span class="rc-chip">고전환 상품 집중 배분</span>
@@ -3590,8 +3616,8 @@
             <span class="rc-cat">건강기능식품</span>
             <span class="rc-period">2025년</span>
           </div>
-          <div class="rc-title">고전환 키워드에 예산을 모으고 광고 소재를 테스트했습니다.</div>
-          <p class="rc-detail">키워드별 전환 성과를 기준으로 예산을 다시 배분하고, 소재 반응을 비교했습니다.</p>
+          <div class="rc-title"><span class="mobile-line">고전환 키워드에 예산을 모으고</span> <span class="mobile-line">광고 소재를 테스트했습니다.</span></div>
+          <p class="rc-detail"><span class="mobile-line">키워드별 전환 성과를 기준으로 예산을 다시 배분하고,</span> <span class="mobile-line">소재 반응을 비교했습니다.</span></p>
           <div class="rc-approach">
             <span class="rc-chip">고전환 키워드 집중 배분</span>
             <span class="rc-chip">소재 A/B 테스트</span>
@@ -3622,7 +3648,7 @@
             <span class="rc-cat">가전 · 생활가전</span>
             <span class="rc-period">2025년</span>
           </div>
-          <div class="rc-title">전환 키워드와 시간대에 맞춰 입찰을 조정했습니다.</div>
+          <div class="rc-title"><span class="mobile-line">전환 키워드와 시간대에 맞춰</span> <span class="mobile-line">입찰을 조정했습니다.</span></div>
           <p class="rc-detail">어떤 검색어와 시간대에서 전환이 발생하는지 나눠 보고 입찰을 조정했습니다.</p>
           <div class="rc-approach">
             <span class="rc-chip">전환 집중 키워드 재배분</span>
@@ -3658,8 +3684,8 @@
             <span class="rc-cat">여성패션</span>
             <span class="rc-period">2025년</span>
           </div>
-          <div class="rc-title">타깃을 세분화하고 소재와 예산 배분을 조정했습니다.</div>
-          <p class="rc-detail">타깃별 반응을 나눠 확인하고 소재와 예산을 조정한 뒤, 전환매출이 4.40억 원에서 8.46억 원으로 증가했습니다.</p>
+          <div class="rc-title"><span class="mobile-line">타깃을 세분화하고</span> <span class="mobile-line">소재와 예산 배분을 조정했습니다.</span></div>
+          <p class="rc-detail"><span class="mobile-line">타깃별 반응을 나눠 확인하고 소재와 예산을 조정한 뒤,</span> <span class="mobile-line">전환매출이 4.40억 원에서 8.46억 원으로 증가했습니다.</span></p>
           <div class="rc-approach">
             <span class="rc-chip">타깃 세그먼트 세분화</span>
             <span class="rc-chip">소재 다변화</span>
@@ -3690,8 +3716,8 @@
             <span class="rc-cat">패션 잡화</span>
             <span class="rc-period">2025 상반기</span>
           </div>
-          <div class="rc-title">카테고리마다 입찰과 ROAS 목표를 따로 설정했습니다.</div>
-          <p class="rc-detail">서로 다른 상품군에 같은 목표를 적용하지 않도록 카테고리별 운영 기준을 분리했습니다.</p>
+          <div class="rc-title"><span class="mobile-line">카테고리마다 입찰과 ROAS 목표를</span> <span class="mobile-line">따로 설정했습니다.</span></div>
+          <p class="rc-detail"><span class="mobile-line">서로 다른 상품군에 같은 목표를 적용하지 않도록</span> <span class="mobile-line">카테고리별 운영 기준을 분리했습니다.</span></p>
           <div class="rc-approach">
             <span class="rc-chip">카테고리별 입찰 분리</span>
             <span class="rc-chip">ROAS 목표 세분화</span>
@@ -3715,8 +3741,8 @@
             <span class="rc-cat">일상복</span>
             <span class="rc-period">2025년</span>
           </div>
-          <div class="rc-title">신규 고객 타깃을 확장하고 시즌 상품에 맞춰 소재를 바꿨습니다.</div>
-          <p class="rc-detail">새 고객층으로 노출 범위를 넓히면서 시즌 상품 소재를 교체한 뒤, 전환매출이 8,842만 원에서 1.94억 원으로 증가했습니다.</p>
+          <div class="rc-title"><span class="mobile-line">신규 고객 타깃을 확장하고</span> <span class="mobile-line">시즌 상품에 맞춰 소재를 바꿨습니다.</span></div>
+          <p class="rc-detail"><span class="mobile-line">새 고객층으로 노출 범위를 넓히면서 시즌 상품 소재를 교체한 뒤,</span> <span class="mobile-line">전환매출이 8,842만 원에서 1.94억 원으로 증가했습니다.</span></p>
           <div class="rc-approach">
             <span class="rc-chip">시즌 컬렉션 연동</span>
             <span class="rc-chip">신규 유저 타깃 확장</span>
@@ -3758,7 +3784,7 @@
             <span class="rc-cat">건강기능식품</span>
             <span class="rc-period">2025년</span>
           </div>
-          <div class="rc-title">스폰서 광고와 판매 상품의 연동을 조정했습니다.</div>
+          <div class="rc-title"><span class="mobile-line">스폰서 광고와 판매 상품의</span> <span class="mobile-line">연동을 조정했습니다.</span></div>
           <p class="rc-detail">광고에 노출할 상품과 판매 상황을 함께 확인하며 운영 대상을 조정했습니다.</p>
           <div class="rc-approach">
             <span class="rc-chip">스폰서 광고 연동 최적화</span>
@@ -3790,7 +3816,7 @@
             <span class="rc-cat">뷰티 · 헬스케어</span>
             <span class="rc-period">2025년</span>
           </div>
-          <div class="rc-title">아이템 위너 상품에 집중하고 CPC 입찰을 조정했습니다.</div>
+          <div class="rc-title"><span class="mobile-line">아이템 위너 상품에 집중하고</span> <span class="mobile-line">CPC 입찰을 조정했습니다.</span></div>
           <p class="rc-detail">판매 경쟁력이 있는 상품을 우선 운영하고, 클릭당 입찰가를 조정했습니다.</p>
           <div class="rc-approach">
             <span class="rc-chip">아이템 위너 진입 전략</span>
@@ -3822,7 +3848,7 @@
             <span class="rc-cat">유아 · 아동용품</span>
             <span class="rc-period">2025년</span>
           </div>
-          <div class="rc-title">경쟁 상품을 분석하고 주력 상품의 노출을 조정했습니다.</div>
+          <div class="rc-title"><span class="mobile-line">경쟁 상품을 분석하고</span> <span class="mobile-line">주력 상품의 노출을 조정했습니다.</span></div>
           <p class="rc-detail">경쟁 상품의 노출과 가격을 살펴본 뒤 주력 상품에 예산을 배분했습니다.</p>
           <div class="rc-approach">
             <span class="rc-chip">경쟁사 입찰 분석</span>
@@ -3865,8 +3891,8 @@
             <span class="rc-cat">가구 · 수납함</span>
             <span class="rc-period">2025년</span>
           </div>
-          <div class="rc-title">새 타깃을 찾고 반응에 맞춰 소재를 개선했습니다.</div>
-          <p class="rc-detail">기존 타깃 밖의 반응을 확인하고, 반응이 확인된 소재에 맞춰 운영을 조정했습니다.</p>
+          <div class="rc-title"><span class="mobile-line">새 타깃을 찾고</span> <span class="mobile-line">반응에 맞춰 소재를 개선했습니다.</span></div>
+          <p class="rc-detail"><span class="mobile-line">기존 타깃 밖의 반응을 확인하고,</span> <span class="mobile-line">반응이 확인된 소재에 맞춰 운영을 조정했습니다.</span></p>
           <div class="rc-approach">
             <span class="rc-chip">신규 타깃층 발굴</span>
             <span class="rc-chip">소재 개선</span>
@@ -3897,8 +3923,8 @@
             <span class="rc-cat">인테리어 소품</span>
             <span class="rc-period">2025년</span>
           </div>
-          <div class="rc-title">관심사 타깃을 다시 설정하고 소재를 바꿨습니다.</div>
-          <p class="rc-detail">관심사 설정과 소재를 함께 바꿔 어떤 조합에서 전환이 발생하는지 확인했습니다.</p>
+          <div class="rc-title"><span class="mobile-line">관심사 타깃을 다시 설정하고</span> <span class="mobile-line">소재를 바꿨습니다.</span></div>
+          <p class="rc-detail"><span class="mobile-line">관심사 설정과 소재를 함께 바꿔 어떤 조합에서</span> <span class="mobile-line">전환이 발생하는지 확인했습니다.</span></p>
           <div class="rc-approach">
             <span class="rc-chip">관심사 타깃 재설정</span>
             <span class="rc-chip">소재 A/B 테스트</span>
@@ -3922,8 +3948,8 @@
             <span class="rc-cat">조명</span>
             <span class="rc-period">2025년</span>
           </div>
-          <div class="rc-title">프리미엄 상품 소재와 가격대별 메시지를 조정했습니다.</div>
-          <p class="rc-detail">가격대에 따라 광고에서 강조할 내용을 달리하고, 프리미엄 상품 소재를 조정했습니다.</p>
+          <div class="rc-title"><span class="mobile-line">프리미엄 상품 소재와</span> <span class="mobile-line">가격대별 메시지를 조정했습니다.</span></div>
+          <p class="rc-detail"><span class="mobile-line">가격대에 따라 광고에서 강조할 내용을 달리하고,</span> <span class="mobile-line">프리미엄 상품 소재를 조정했습니다.</span></p>
           <div class="rc-approach">
             <span class="rc-chip">프리미엄 라인 소재 강화</span>
             <span class="rc-chip">고단가 전략</span>
@@ -3955,7 +3981,7 @@
     <div class="results-toggle-wrap">
       <button type="button" class="results-toggle" id="resultsToggle" aria-controls="resultsCollection" aria-expanded="false">성과 사례 더 보기 ↓</button>
     </div>
-    <p class="result-note"><span class="sentence">연도는 운영 시기입니다. 광고주 식별 정보는 싣지 않고 업종·카테고리만 표기했습니다.</span><span class="sentence">전후 집계 기간과 세부 광고비는 공개하지 않습니다.</span><span class="sentence">여러 조정을 함께 진행한 사례로, 특정 조치 하나의 효과나 향후 결과를 보장하지 않습니다.</span></p>
+    <p class="result-note">여러 조정을 함께 진행한 사례이며, 향후 동일한 성과를 보장하지 않습니다.</p>
   </div>
 </section>
 
@@ -3964,13 +3990,13 @@
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">WHY ME</span>
-      <h2>맡기시면, 무엇이 달라지나요?</h2>
+      <h2 class="compact-title">맡기면 무엇이 달라지나요?</h2>
       <p class="section-sub">예산 배분, 성과 점검, 직접 담당까지 세 가지 운영 기준을 설명합니다.</p>
     </div>
 
 <div class="reading-visible reading-principles" id="reading-principles"><div class="reading-visible-heading"><div><h3>직접 운영하는 세 가지 기준</h3></div></div><div class="reading-detail-body">    <div class="quote">
       <span class="sentence">광고비를 줄이는 게 목적이 아닙니다.</span>
-      <span class="sentence"><em>같은 광고비가 더 일하게 만드는 것</em>이 진짜 운영입니다.</span>
+      <span class="sentence quote-message"><em><span class="quote-line">같은 광고비가</span> <span class="quote-line">더 일하게 만드는 것</span></em><span class="quote-line">이 진짜 운영입니다.</span></span>
     </div>
 
     <div class="story">
@@ -3982,7 +4008,7 @@
       <div class="story-cell">
         <div class="num">차이 02</div>
         <h3>빠른 성과 점검</h3>
-        <p><span class="sentence">동시에 운영하는 계정 수를 제한합니다.</span><span class="sentence">주간 리포트 외에도 ROAS·CTR·전환수에 변화가 보이면 먼저 공유하고 다음 조치를 함께 결정합니다.</span></p>
+        <p><span class="sentence">동시에 운영하는 계정 수를 제한합니다.</span><span class="sentence"><span class="mobile-line">주간 리포트 외에도 ROAS·CTR·전환수에 변화가 보이면</span> <span class="mobile-line">먼저 공유하고 다음 조치를 함께 결정합니다.</span></span></p>
       </div>
       <div class="story-cell">
         <div class="num">차이 03</div>
@@ -3994,15 +4020,15 @@
 </div></div>
 <div class="work-summary"><h3 class="work-summary-title">진단부터 운영까지, 이렇게 진행합니다.</h3>
 <div class="work-overview" aria-label="광고 운영 과정 요약">
-  <article><span class="work-overview-phase">첫 7일</span><h3>현재 상태 진단</h3><p>계정 구조와 성과를 살펴보고, 첫 리포트로 개선 우선순위를 안내합니다.</p></article>
-  <article><span class="work-overview-phase">첫 한 달</span><h3>구조 정리와 테스트</h3><p>키워드·타깃·소재를 점검하고, 반응에 따라 입찰과 예산을 조정합니다.</p></article>
-  <article><span class="work-overview-phase">이후 지속 운영</span><h3>결과 공유와 개선</h3><p>주간 보고와 월간 리뷰로 변경 내용과 다음 운영 방향을 함께 확인합니다.</p></article>
+  <article><span class="work-overview-phase">첫 7일</span><h3>현재 상태 진단</h3><p><span class="mobile-line">계정 구조와 성과를 살펴보고,</span> <span class="mobile-line">첫 리포트로 개선 우선순위를 안내합니다.</span></p></article>
+  <article><span class="work-overview-phase">첫 한 달</span><h3>구조 정리와 테스트</h3><p><span class="mobile-line">키워드·타깃·소재를 점검하고,</span> <span class="mobile-line">반응에 따라 입찰과 예산을 조정합니다.</span></p></article>
+  <article><span class="work-overview-phase">이후 지속 운영</span><h3>결과 공유와 개선</h3><p><span class="mobile-line">주간 보고와 월간 리뷰로</span> <span class="mobile-line">변경 내용과 다음 운영 방향을 함께 확인합니다.</span></p></article>
 </div>
 <details class="reading-detail" id="reading-work"><summary><span><strong>광고 운영 과정 자세히 보기</strong><span class="reading-detail-hint">첫 7일 진단부터 장기 운영까지</span></span><span class="reading-detail-icon" aria-hidden="true"></span></summary><div class="reading-detail-body"><section id="work" class="soft">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow z">HOW I WORK</span>
-      <h2>광고 운영은 이렇게 진행합니다.</h2>
+      <h2 class="compact-title">광고 운영 과정</h2>
       <p class="section-sub"><span class="sentence">계정 인계 후 7일 안에 첫 리포트를 공유합니다.</span> <span class="sentence">그 뒤 매일·매주 어떤 작업을 하는지 보여드립니다.</span></p>
     </div>
 
@@ -4108,7 +4134,7 @@
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow dual">STRATEGY</span>
-      <h2>매체별로 전략이 달라야 합니다.</h2>
+      <h2 class="compact-title">매체별 운영 전략</h2>
       <p class="section-sub"><span>네이버와 지그재그는 노출 방식이 다릅니다.</span><span>매체에 맞는 기준으로 광고를 운영합니다.</span></p>
     </div>
 
@@ -4179,7 +4205,7 @@
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow dual">ACCOUNT CHECKS</span>
-      <h2>계정 점검에서 자주 확인하는 세 가지 패턴</h2>
+      <h2 class="compact-title">계정 점검의 세 가지 패턴</h2>
       <p class="section-sub">여러 상담에서 반복된 상황을 묶어, 확인할 항목과 조정 방향을 정리했습니다.</p>
     </div>
 
@@ -4290,7 +4316,7 @@
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow dual">DIAGNOSIS SIMULATOR</span>
-      <h2>내 광고의 점검 우선순위, <strong>30초 안에 살펴보세요.</strong></h2>
+      <h2><span class="mobile-line">내 광고의 점검 우선순위,</span> <span class="mobile-line"><strong>30초 안에 살펴보세요.</strong></span></h2>
       <p class="section-sub"><span class="sentence">매체와 현재 운영 상태를 선택해 보세요.</span> <span class="sentence">계정에서 먼저 확인할 데이터와 조치 순서를 안내합니다.</span></p>
     </div>
 
@@ -4400,45 +4426,51 @@
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow dual">MARKETING Q&amp;A</span>
-      <h2>광고주분들이 가장 자주 묻는 6가지.</h2>
+      <h2 class="compact-title">광고주가 자주 묻는 6가지</h2>
       <p class="section-sub"><span class="sentence">상담 전에 가장 많이 받는 질문을 모았습니다.</span> <span class="sentence">답변을 보시고 판단해 주세요.</span></p>
     </div>
 
     <div class="qa-list">
 <div class="qa">
-        <button type="button" class="q" aria-expanded="true" aria-controls="qa-answer-6">수수료는 어떻게 되나요? 대행 비용이 따로 발생하나요?</button>
+        <button type="button" class="q" aria-expanded="true" aria-controls="qa-answer-6"><span class="question-copy"><span class="mobile-line">수수료는 어떻게 되나요?</span> <span class="mobile-line">대행 비용이 따로 발생하나요?</span></span></button>
         <div class="a" id="qa-answer-6">
-          <strong>별도 대행 비용은 없습니다.</strong> 네이버·지그재그 공식 파트너사 구조로 운영되기 때문에, 광고주는 광고비만 집행하면 됩니다. 수수료는 매체에서 정산되는 구조라 광고주에게 추가 청구가 발생하지 않습니다. 관리비·세팅비 항목 자체가 없습니다.
+          <strong>별도 대행 비용은 없습니다.</strong>
+          <p>네이버·지그재그 공식 파트너사 구조로 운영되기 때문에, 광고주는 광고비만 집행하면 됩니다.</p><p>수수료는 매체에서 정산되는 구조라 광고주에게 추가 청구가 발생하지 않습니다.</p><p>관리비·세팅비 항목 자체가 없습니다.</p>
         </div>
       </div>
 <div class="qa">
-        <button type="button" class="q" aria-expanded="false" aria-controls="qa-answer-5">계약 기간은 어떻게 되나요? 중간에 해지가 가능한가요?</button>
+        <button type="button" class="q" aria-expanded="false" aria-controls="qa-answer-5"><span class="question-copy"><span class="mobile-line">계약 기간은 어떻게 되나요?</span> <span class="mobile-line">중간에 해지가 가능한가요?</span></span></button>
         <div class="a" id="qa-answer-5" hidden>
-          <strong>공식 대행사 구조라 계약 기간 자체가 없습니다.</strong> 언제든 해지하실 수 있고, 위약금이나 별도 조건도 없습니다. 광고비 외 추가 청구도 없습니다. 효과가 있으면 자연스럽게 길어지고, 없으면 즉시 정리하실 수 있는 구조입니다. 광고주 입장에서 부담이 가장 적은 형태입니다.
+          <strong>공식 대행사 구조라 계약 기간 자체가 없습니다.</strong>
+          <p>언제든 해지하실 수 있고, 위약금이나 별도 조건도 없습니다.</p><p>광고비 외 추가 청구도 없습니다.</p><p>효과가 있으면 자연스럽게 길어지고, 없으면 즉시 정리하실 수 있는 구조입니다.</p><p>광고주 입장에서 부담이 가장 적은 형태입니다.</p>
         </div>
       </div>
 <div class="qa">
         <button type="button" class="q" aria-expanded="false" aria-controls="qa-answer-2">대행사를 바꾸면 효과가 있을까요?</button>
         <div class="a" id="qa-answer-2" hidden>
-          <strong>담당자가 계정을 어떻게 살피고 조정하는지 확인해 보세요.</strong> 상담한 사람이 실제 운영과 성과 보고까지 맡는지, 어떤 근거로 변경 사항을 제안하는지 묻는 것이 좋습니다.
+          <strong>담당자가 계정을 어떻게 살피고 조정하는지 확인해 보세요.</strong>
+          <p><span class="mobile-line">상담한 사람이 실제 운영과 성과 보고까지 맡는지,</span> <span class="mobile-line">어떤 근거로 변경 사항을 제안하는지 묻는 것이 좋습니다.</span></p>
         </div>
       </div>
 <div class="qa">
         <button type="button" class="q" aria-expanded="false" aria-controls="qa-answer-4">두 매체를 함께 운영해야 하나요?</button>
         <div class="a" id="qa-answer-4" hidden>
-          <strong>상품과 고객이 어디에서 비교하고 구매하는지 먼저 확인합니다.</strong> 검색 수요가 크면 네이버, 패션 탐색 비중이 높으면 지그재그를 검토할 수 있습니다. 두 매체를 함께 운영할지는 기존 성과와 예산을 보고 결정합니다.
+          <strong>상품과 고객이 어디에서 비교하고 구매하는지 먼저 확인합니다.</strong>
+          <p>검색 수요가 크면 네이버, 패션 탐색 비중이 높으면 지그재그를 검토할 수 있습니다.</p><p>두 매체를 함께 운영할지는 기존 성과와 예산을 보고 결정합니다.</p>
         </div>
       </div>
 <div class="qa">
         <button type="button" class="q" aria-expanded="false" aria-controls="qa-answer-1">광고비를 늘리면 매출이 늘어나나요?</button>
         <div class="a" id="qa-answer-1" hidden>
-          <strong>대부분 비례하지 않습니다.</strong> 노출·클릭·전환 중 어디에서 매출이 막히는지 먼저 찾아야 합니다. 원인을 그대로 둔 채 예산만 늘리면 ROAS가 떨어질 수 있습니다.
+          <strong>대부분 비례하지 않습니다.</strong>
+          <p>노출·클릭·전환 중 어디에서 매출이 막히는지 먼저 찾아야 합니다.</p><p>원인을 그대로 둔 채 예산만 늘리면 ROAS가 떨어질 수 있습니다.</p>
         </div>
       </div>
 <div class="qa">
         <button type="button" class="q" aria-expanded="false" aria-controls="qa-answer-3">ROAS만 잘 나오면 좋은 광고인가요?</button>
         <div class="a" id="qa-answer-3" hidden>
-          <strong>ROAS와 매출 규모를 함께 봐야 합니다.</strong> 광고비를 줄여 ROAS가 올라가더라도 전환수나 매출이 줄 수 있습니다. 전환매출·광고비·신규 고객 비중을 함께 확인한 뒤 예산을 결정합니다.
+          <strong>ROAS와 매출 규모를 함께 봐야 합니다.</strong>
+          <p>광고비를 줄여 ROAS가 올라가더라도 전환수나 매출이 줄 수 있습니다.</p><p>전환매출·광고비·신규 고객 비중을 함께 확인한 뒤 예산을 결정합니다.</p>
         </div>
       </div>
     </div>
@@ -4454,12 +4486,11 @@
   <div class="wrap">
     <div class="contact-grid">
       <div class="contact-intro">
-        <span class="contact-eyebrow"><span aria-hidden="true"></span> 내 광고의 다음 단계</span>
-        <h2 id="contactTitle">지금 광고에서<br>바꿀 곳을 찾아드립니다.</h2>
-        <p class="contact-lead">지금 운영 중인 광고를 살펴보고,<br>먼저 바꿀 항목부터 짚어드립니다.</p>
+        <span class="contact-eyebrow"><span aria-hidden="true"></span> 이명수 마케터의 직접 진단</span>
+        <h2 id="contactTitle">성과가 달라지려면,<br>운영부터 달라져야 합니다.</h2>
         <div class="contact-benefits" aria-label="무료 진단 안내">
           <div><span class="contact-benefit-num">01</span><p><strong>현재 상태부터 확인</strong><span>광고 현황과 지금 겪고 있는 고민을 듣습니다.</span></p></div>
-          <div><span class="contact-benefit-num">02</span><p><strong>먼저 바꿀 항목 안내</strong><span>계정 확인 후 개선 우선순위를 제안합니다.</span></p></div>
+          <div><span class="contact-benefit-num">02</span><p><strong>조정 순서와 근거 제안</strong><span>계정 확인 후 개선 우선순위를 제안합니다.</span></p></div>
           <div><span class="contact-benefit-num">03</span><p><strong>운영 결정은 상담 후에</strong><span>진단 신청만으로 운영 계약이 진행되지 않습니다.</span></p></div>
         </div>
         <p class="contact-owner">상담부터 진단까지, 이명수 마케터가 직접 확인합니다.</p>
@@ -4467,10 +4498,7 @@
       <div class="contact-form-column">
         <div class="form-success" id="formSuccess" role="status" tabindex="-1"><div class="fs-ico" aria-hidden="true">✓</div><h3>신청이 잘 전달되었습니다.</h3><p>3영업일 내 이명수 마케터가 직접 연락드립니다.<br>통화 시 현재 광고 상황을 함께 확인하겠습니다.</p><a href="https://open.kakao.com/o/sPhekaQi" target="_blank" rel="noopener">추가로 남길 말씀이 있다면 카카오로 문의하기 ↗</a></div>
             <form class="form-card" id="contactForm" name="diagnosis" method="POST"
-          action="https://api.web3forms.com/submit">
-      <input type="hidden" name="access_key" value="de89a769-2315-4cfb-8542-1e59c7f7950d" />
-      <input type="hidden" name="subject" value="예지솔루션 상담 신청" />
-      <input type="hidden" name="from_name" value="YEJI SOLUTION" />
+          action="https://mailplug-inquiries.lmsnism.workers.dev/questions">
       <input type="hidden" name="sim_summary" id="f-sim-summary" value="" />
       <input type="checkbox" name="botcheck" style="display:none;" />
 
@@ -4500,16 +4528,16 @@
         <div class="form-more-body">
 <div class="form-row">        <div>
           <label class="form-label" for="f-name">성함 <span style="color: var(--text-dim); font-weight: 500;">(선택)</span></label>
-          <input class="form-input" type="text" id="f-name" name="name" autocomplete="name" placeholder="어떻게 불러드릴까요?" />
+          <input class="form-input" type="text" id="f-name" name="name" maxlength="100" autocomplete="name" placeholder="어떻게 불러드릴까요?" />
         </div></div>
           <div class="form-row row2">
             <div>
               <label class="form-label" for="f-company">업체명 / 브랜드명 <span style="color: var(--text-dim); font-weight: 500;">(선택)</span></label>
-              <input class="form-input" type="text" id="f-company" name="company" autocomplete="organization" placeholder="진단 시 참고합니다" />
+              <input class="form-input" type="text" id="f-company" name="company" maxlength="200" autocomplete="organization" placeholder="진단 시 참고합니다" />
             </div>
             <div>
               <label class="form-label" for="f-email">이메일 <span style="color: var(--text-dim); font-weight: 500;">(선택)</span></label>
-              <input class="form-input" type="email" id="f-email" name="email" autocomplete="email" placeholder="리포트 받을 메일" />
+              <input class="form-input" type="email" id="f-email" name="email" maxlength="254" autocomplete="email" placeholder="리포트 받을 메일" />
             </div>
           </div>
 
@@ -4540,7 +4568,7 @@
 
           <div class="form-row">
             <label class="form-label" for="f-message">고민 / 문의 내용</label>
-            <textarea class="form-textarea" id="f-message" name="message" placeholder="예) ROAS가 점점 떨어지고 있는데 원인을 모르겠어요 / 대행사 변경 검토 중입니다 / 신규 매체 진입을 고민 중입니다"></textarea>
+            <textarea class="form-textarea" id="f-message" name="message" maxlength="2000" placeholder="예) ROAS가 점점 떨어지고 있는데 원인을 모르겠어요 / 대행사 변경 검토 중입니다 / 신규 매체 진입을 고민 중입니다"></textarea>
           </div>
         </div>
       </details>
@@ -4560,7 +4588,7 @@
 
       <button type="submit" class="form-submit">내 광고 무료 진단받기 →</button>
 
-<p class="contact-safe">신청 단계에서 계정 비밀번호를 요구하지 않습니다.</p><details class="contact-access"><summary>계정 확인은 어떻게 진행하나요?</summary><p>현황을 먼저 확인한 뒤, 분석에 필요한 경우에만 매체의 공식 사용자 초대로 열람 권한을 안내합니다. 동의를 거부하시면 진단 상담 신청이 제한됩니다.</p></details>
+<p class="contact-safe">신청 단계에서 계정 비밀번호를 요구하지 않습니다.</p><details class="contact-access"><summary>계정 확인은 어떻게 진행하나요?</summary><p><span class="sentence">현황을 먼저 확인한 뒤, 분석에 필요한 경우에만 매체의 공식 사용자 초대로 열람 권한을 안내합니다.</span><span class="sentence">동의를 거부하시면 진단 상담 신청이 제한됩니다.</span></p></details>
     </form>
         <nav class="contact-alternatives" aria-label="다른 문의 방법">
           <span>진단 신청 전, 가볍게 물어보고 싶다면</span>
@@ -4723,6 +4751,14 @@
 
   /* ===== 폼 제출 ===== */
   var cf = qs('#contactForm'), fs = qs('#formSuccess'), fe = qs('#formError');
+  var contactSubmissionId = '', contactSubmittedAt = 0;
+  var contactRetryKey = 'contact-retry:' + location.pathname;
+  try {
+    var retry = JSON.parse(sessionStorage.getItem(contactRetryKey) || 'null');
+    if (retry && /^[a-f0-9-]{36}$/i.test(retry.id) && Number.isSafeInteger(retry.at) && Math.abs(Date.now() - retry.at) < 86400000) {
+      contactSubmissionId = retry.id; contactSubmittedAt = retry.at;
+    }
+  } catch (_) {}
   if (cf) {
     var phone = cf.querySelector('#f-phone');
     if (phone) {
@@ -4756,19 +4792,29 @@
     }
     cf.addEventListener('submit', function (e) {
       e.preventDefault();
+      if (cf.getAttribute('aria-busy') === 'true') return;
       if (fe) fe.classList.remove('show');
       var btn = cf.querySelector('button[type="submit"]');
       var idleLabel = btn.textContent;
       btn.disabled = true; btn.textContent = '신청 내용을 전달하고 있습니다…';
       cf.setAttribute('aria-busy', 'true');
       var data = new FormData(cf);
-      fetch('https://api.web3forms.com/submit', { method: 'POST', body: data })
+      if (!contactSubmissionId) { contactSubmissionId = crypto.randomUUID(); contactSubmittedAt = Date.now(); }
+      try { sessionStorage.setItem(contactRetryKey, JSON.stringify({ id: contactSubmissionId, at: contactSubmittedAt })); } catch (_) {}
+      var payload = {
+        source: 'marketer_site',
+        attribution: window.MailplugInquiry ? window.MailplugInquiry.attribution : {},
+        tracking: window.MailplugInquiry && window.MailplugInquiry.tracking ? window.MailplugInquiry.tracking() : {}, submission_id: contactSubmissionId, submitted_at: contactSubmittedAt,
+        phone: data.get('phone') || '', name: data.get('name') || '', company: data.get('company') || '',
+        email: data.get('email') || '', media: data.getAll('media'), budget: data.get('budget') || '',
+        message: data.get('message') || '', sim_summary: data.get('sim_summary') || '',
+        privacy_consent: data.get('privacy_consent') || '', botcheck: data.get('botcheck') || ''
+      };
+      fetch(cf.action, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
         .then(function (r) { return r.json(); })
         .then(function (res) {
-          if (res.success) {
-            /* 과거 Netlify Functions용 /notify 호출은 GitHub Pages에서 항상 404였고
-               .catch()로 조용히 무시되고 있었으므로 제거했다.
-               실시간 알림이 필요하면 Web3Forms 대시보드의 Webhook을 사용할 것. */
+          if (res.ok) {
+            try { sessionStorage.removeItem(contactRetryKey); } catch (_) {}
             cf.style.display = 'none';
             cf.removeAttribute('aria-busy');
             if (fs) { fs.classList.add('show'); fs.focus(); }
