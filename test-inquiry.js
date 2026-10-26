@@ -7,8 +7,9 @@ const source = fs.readFileSync(__dirname + '/inquiry.js', 'utf8');
 
 function run(search, storage = new Map()) {
   const context = {
-    location: { search }, window: {}, URLSearchParams, Date,
-    sessionStorage: { getItem: key => storage.get(key), setItem: (key, value) => storage.set(key, value) },
+    location: { search, pathname: '/', origin: 'https://yeji-solution.github.io' }, window: {}, URL, URLSearchParams, Date, crypto,
+    localStorage: { getItem: key => storage.get(key), setItem: (key, value) => storage.set(key, value) },
+    sessionStorage: { getItem: key => storage.get(key), setItem: (key, value) => storage.set(key, value), removeItem: key => storage.delete(key) },
     document: { readyState: 'loading', addEventListener() {} },
     fetch: async () => ({ ok: true })
   };

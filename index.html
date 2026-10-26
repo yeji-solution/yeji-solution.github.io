@@ -4800,7 +4800,9 @@
       if (!contactSubmissionId) { contactSubmissionId = crypto.randomUUID(); contactSubmittedAt = Date.now(); }
       try { sessionStorage.setItem(contactRetryKey, JSON.stringify({ id: contactSubmissionId, at: contactSubmittedAt })); } catch (_) {}
       var payload = {
-        source: 'marketer_site', submission_id: contactSubmissionId, submitted_at: contactSubmittedAt,
+        source: 'marketer_site',
+        attribution: window.MailplugInquiry ? window.MailplugInquiry.attribution : {},
+        tracking: window.MailplugInquiry && window.MailplugInquiry.tracking ? window.MailplugInquiry.tracking() : {}, submission_id: contactSubmissionId, submitted_at: contactSubmittedAt,
         phone: data.get('phone') || '', name: data.get('name') || '', company: data.get('company') || '',
         email: data.get('email') || '', media: data.getAll('media'), budget: data.get('budget') || '',
         message: data.get('message') || '', sim_summary: data.get('sim_summary') || '',

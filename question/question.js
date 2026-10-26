@@ -69,7 +69,7 @@
     button.disabled = true; button.textContent = '질문을 전달하고 있습니다…'; form.setAttribute('aria-busy', 'true');
     fetch(service.api + '/questions', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ question: question, topic: topic, reply_email: email, website: document.getElementById('question-website').value, attribution: service.attribution })
+      body: JSON.stringify({ question: question, topic: topic, reply_email: email, website: document.getElementById('question-website').value, attribution: service.attribution, tracking: service.tracking ? service.tracking() : {} })
     }).then(function (response) {
       return response.json().then(function (data) { if (!response.ok || !data.ok) throw new Error(data.error || '접수하지 못했습니다. 다시 시도해주세요.'); return data; });
     }).then(function (data) {
