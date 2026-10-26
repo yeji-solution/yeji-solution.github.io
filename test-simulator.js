@@ -103,3 +103,13 @@ test('일반 방문과 잘못된 상황 값은 기존 자가진단으로 동작�
     assert.equal(p.get('simResultHeading').textContent, '먼저 확인할 항목 1개');
   }
 });
+
+test('지그재그 메일 상황 링크는 지그재그 매체로 열리고 추가 선택 아래에서도 문의할 수 있다',()=>{
+  const p=page('?situation=clicks&ad_platform=zigzag&utm_source=mailplug&utm_term=1234abcd&batch=fixture');
+  assert.equal(p.media.find(input=>input.checked).value,'zigzag');
+  assert.equal(p.get('simRefineContact').hidden,false);
+  assert.equal(p.get('simRefineCta').href,p.get('simCtaBtn').href);
+  assert.match(p.inquiry().searchParams.get('question'),/지그재그 광고 10초 셀프 점검/);
+  p.get('simIndustry').value='fashion';p.get('simIndustry').fire('change');
+  assert.equal(p.get('simRefineCta').href,p.get('simCtaBtn').href);
+});

@@ -23,17 +23,18 @@
   };
   var linked = false;
   var emailInput = document.getElementById('reply-email');
-  emailInput.required = true;
+  emailInput.required = false;
+  var phoneInput = document.getElementById('reply-phone');
   if (service.attribution.utm_source === 'mailplug' && /^[a-f0-9]{8}$/.test(service.attribution.utm_term || '') && service.attribution.batch) {
-    document.getElementById('reply-help').textContent = '메일 수신 주소를 확인하고 있습니다. 확인되지 않으면 답변받을 이메일을 입력해주세요.';
+    document.getElementById('reply-help').textContent = '메일 수신 주소를 확인하고 있습니다. 확인되지 않으면 이메일 또는 전화번호 중 한 가지를 남겨주세요.';
     fetch(service.api + '/recipient-context', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ attribution: service.attribution }) })
       .then(function (response) { if (!response.ok) throw new Error('확인 실패'); return response.json(); })
       .then(function (data) {
         linked = data.can_reply_without_email === true;
-        emailInput.required = !linked;
-        document.getElementById('email-requirement').textContent = linked ? '(선택)' : '(필수)';
-        document.getElementById('reply-help').textContent = linked ? '이메일을 생략하면 안내받은 메일 수신 주소로 답변드립니다. 다른 주소로 답변받으려면 입력해주세요.' : '메일 수신 주소를 확인하지 못했습니다. 답변받을 이메일을 입력해주세요.';
-      }).catch(function () { document.getElementById('reply-help').textContent = '메일 수신 주소를 확인하지 못했습니다. 답변받을 이메일을 입력해주세요.'; });
+        emailInput.required = false;
+        document.getElementById('email-requirement').textContent = '(선택)';
+        document.getElementById('reply-help').textContent = linked ? '이메일을 생략하면 안내받은 메일 수신 주소로 답변드립니다. 다른 주소로 답변받으려면 입력해주세요.' : '메일 수신 주소를 확인하지 못했습니다. 이메일 또는 전화번호 중 한 가지를 남겨주세요.';
+      }).catch(function () { document.getElementById('reply-help').textContent = '메일 수신 주소를 확인하지 못했습니다. 이메일 또는 전화번호 중 한 가지를 남겨주세요.'; });
   }
   service.event('question_view');
   document.querySelectorAll('[data-topic]').forEach(function (button) {
@@ -64,19 +65,21 @@
     if (!question) { error.textContent = '질문을 고르거나 직접 적어주세요.'; error.hidden = false; return; }
     if (question.length > 3000) { error.textContent = '질문과 추가 설명을 합해 3,000자 이내로 줄여주세요.'; error.hidden = false; return; }
     var email = emailInput.value.trim();
-    if (!email && !linked) { error.textContent = '답변받을 이메일을 입력해주세요.'; error.hidden = false; emailInput.focus(); return; }
+    var phone = phoneInput.value.trim();
+    if (phone && (!/^[+()0-9 .-]{7,30}$/.test(phone) || phone.replace(/\D/g, '').length < 7 || phone.replace(/\D/g, '').length > 15)) { error.textContent = '연락받을 전화번호를 확인해주세요.'; error.hidden = false; phoneInput.focus(); return; }
+    if (!email && !phone && !linked) { error.textContent = '이메일 또는 전화번호 중 한 가지를 남겨주세요.'; error.hidden = false; emailInput.focus(); return; }
     var button = form.querySelector('button[type=submit]');
     button.disabled = true; button.textContent = '질문을 전달하고 있습니다…'; form.setAttribute('aria-busy', 'true');
     fetch(service.api + '/questions', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ question: question, topic: topic, reply_email: email, website: document.getElementById('question-website').value, attribution: service.attribution })
+      body: JSON.stringify({ question: question, topic: topic, reply_email: email, reply_phone: phone, website: document.getElementById('question-website').value, attribution: service.attribution })
     }).then(function (response) {
       return response.json().then(function (data) { if (!response.ok || !data.ok) throw new Error(data.error || '접수하지 못했습니다. 다시 시도해주세요.'); return data; });
     }).then(function (data) {
       form.hidden = true; form.removeAttribute('aria-busy');
       var success = document.getElementById('success'); success.hidden = false;
       document.getElementById('receipt').textContent = '접수 번호: ' + data.id;
-      document.getElementById('success-message').textContent = email ? '남겨주신 이메일로 답변드리겠습니다.' : linked ? '메일 수신 주소와 연결되는지 확인한 뒤 해당 주소로 답변드리겠습니다.' : '답변 주소를 남기지 않으셨습니다. 답변을 받고 싶으시면 접수 번호와 함께 카카오톡으로 알려주세요.';
+      document.getElementById('success-message').textContent = phone ? '남겨주신 전화번호로 연락드릴 수 있습니다.' : email ? '남겨주신 이메일로 답변드리겠습니다.' : linked ? '메일 수신 주소와 연결되는지 확인한 뒤 해당 주소로 답변드리겠습니다.' : '답변 주소를 남기지 않으셨습니다. 답변을 받고 싶으시면 접수 번호와 함께 카카오톡으로 알려주세요.';
       success.focus();
     }).catch(function (err) {
       error.textContent = (err instanceof TypeError ? '연결이 원활하지 않습니다. 작성한 내용은 유지됩니다. 잠시 후 다시 시도해주세요.' : err.message);

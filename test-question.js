@@ -62,14 +62,14 @@ test('선택 질문에 추가 설명을 붙여 전달한다', async () => {
 test('일반 유입은 이메일이 없으면 접수하지 않고 입력값을 유지한다', async () => {
   const p = page(); p.choose('start'); p.get('question-text').value = '네이버부터 시작하고 싶어요.';
   p.submit(); await flush();
-  assert.equal(p.posted.length, 0); assert.equal(p.get('reply-email').required, true); assert.equal(p.get('reply-email').focused, true); assert.match(p.get('error').textContent, /이메일/);
+  assert.equal(p.posted.length, 0); assert.equal(p.get('reply-email').required, false); assert.equal(p.get('reply-email').focused, true); assert.match(p.get('error').textContent, /이메일/);
   assert.equal(p.get('question-text').value, '네이버부터 시작하고 싶어요.');
 });
 test('서버에서 실제 수신 주소가 확인된 메일 유입만 이메일을 생략할 수 있다', async () => {
   const p = page({ linked: true, confirmed: true }); await flush(); p.choose('budget');
   assert.equal(p.get('reply-email').required, false); p.submit(); await flush(); assert.equal(p.posted.length, 1);
   const unknown = page({ linked: true, confirmed: false }); await flush(); unknown.choose('budget'); unknown.submit(); await flush();
-  assert.equal(unknown.get('reply-email').required, true); assert.equal(unknown.posted.length, 0);
+  assert.equal(unknown.get('reply-email').required, false); assert.equal(unknown.posted.length, 0);
 });
 test('직접 질문을 선택하면 질문 내용이 필요하다', async () => {
   const p = page(); p.choose('other'); p.get('reply-email').value = 'visitor@example.test';
@@ -79,4 +79,13 @@ test('직접 질문을 선택하면 질문 내용이 필요하다', async () => 
 test('접수 실패 시 선택과 추가 설명을 유지하고 다시 제출할 수 있다', async () => {
   const p = page({ failing: true }); p.choose('start'); p.get('reply-email').value = 'visitor@example.test'; p.get('question-text').value = '처음 시작합니다.';
   p.submit(); await flush(); assert.equal(p.get('question-form').hidden, false); assert.equal(p.get('submit').disabled, false); assert.equal(p.get('question-text').value, '처음 시작합니다.');
+});
+
+test('이메일 없이 전화번호만 남겨 답변을 요청할 수 있다', async () => {
+  const p=page();p.choose('start');p.get('reply-phone').value='010-1234-5678';p.submit();await flush();
+  assert.equal(p.posted.length,1);assert.equal(p.posted[0].reply_phone,'010-1234-5678');assert.equal(p.posted[0].reply_email,'');
+});
+test('전화번호가 잘못되면 제출하지 않고 작성 내용을 유지한다', async () => {
+  const p=page();p.choose('start');p.get('reply-phone').value='잘못된 전화번호';p.submit();await flush();
+  assert.equal(p.posted.length,0);assert.equal(p.get('reply-phone').focused,true);
 });
