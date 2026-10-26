@@ -57,11 +57,29 @@
     Object.keys(service.attribution).forEach(function(k){delete service.attribution[k];});
     try{sessionStorage.removeItem('mailplug-attribution-v1');}catch(e){}
   }
-  function send(event,path){
-    fetch(service.api+'/collect',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:uuid(),event:event,path:path||location.pathname,tracking:context()}),keepalive:true}).catch(function(){});
+  function send(event,path,engagedMs){
+    fetch(service.api+'/collect',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:uuid(),event:event,path:path||location.pathname,tracking:context(),engagedMs:engagedMs||0}),keepalive:true}).catch(function(){});
   }
   service.track=send;
   send('page_view');
+  // Measure foreground attention, stopping after 60 seconds with no interaction.
+  var lastTick=Date.now(),lastActivity=lastTick,pending=0;
+  var foreground=!document.hidden&&(!document.hasFocus||document.hasFocus());
+  function settle(){
+    var at=Date.now();
+    if(foreground)pending+=Math.max(0,Math.min(at,lastActivity+60000)-lastTick);
+    lastTick=at;
+  }
+  function flush(){settle();if(pending>=1000){var duration=Math.min(30000,Math.round(pending));pending=0;send('engagement',null,duration);}}
+  function activity(){settle();lastActivity=Date.now();}
+  ['pointerdown','keydown','scroll','touchstart'].forEach(function(name){document.addEventListener(name,activity,{passive:true});});
+  document.addEventListener('visibilitychange',function(){flush();foreground=!document.hidden&&(!document.hasFocus||document.hasFocus());lastTick=Date.now();if(foreground)lastActivity=lastTick;});
+  if(window.addEventListener){
+    window.addEventListener('focus',function(){settle();foreground=!document.hidden;lastActivity=lastTick=Date.now();});
+    window.addEventListener('blur',function(){flush();foreground=false;});
+    window.addEventListener('pagehide',flush);
+  }
+  if(typeof setInterval==='function')setInterval(flush,15000);
   var scroll=false,formStarted=false;
   document.addEventListener('scroll',function(){var height=document.documentElement.scrollHeight-innerHeight;if(!scroll&&height>0&&scrollY/height>=.5){scroll=true;send('scroll_50');}},{passive:true});
   document.addEventListener('click',function(e){var a=e.target.closest('a[href]');if(!a)return;var h=a.getAttribute('href')||'';if(/^tel:/i.test(h))send('phone_click');else if(/(?:pf\.kakao\.com|open\.kakao\.com|kakao\.com\/)/i.test(h))send('kakao_click');else if(h==='#contact'||h==='#contactForm')send('consultation_click');});
