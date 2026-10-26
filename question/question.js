@@ -25,13 +25,24 @@
   var emailInput = document.getElementById('reply-email');
   emailInput.required = false;
   var phoneInput = document.getElementById('reply-phone');
+  function contactRequirements() {
+    var email = emailInput.value.trim(), phone = phoneInput.value.trim();
+    // One contact method is enough. Group validation below handles the empty pair.
+    emailInput.required = false; phoneInput.required = false;
+    document.getElementById('email-requirement').textContent = phone || linked ? '(선택)' : email ? '(입력됨)' : '(둘 중 하나)';
+    document.getElementById('phone-requirement').textContent = email || linked ? '(선택)' : phone ? '(입력됨)' : '(둘 중 하나)';
+    document.getElementById('reply-help').textContent = linked ? '기존 메일 수신 주소로 답변받을 수 있습니다. 다른 연락처는 선택입니다.' : email ? '이메일로 답변드립니다. 전화번호는 입력하지 않아도 됩니다.' : phone ? '전화번호로 연락드립니다. 이메일은 입력하지 않아도 됩니다.' : '이메일 또는 전화번호 중 한 가지만 남겨주세요.';
+  }
+  emailInput.addEventListener('input', contactRequirements);
+  phoneInput.addEventListener('input', contactRequirements);
+  contactRequirements();
   if (service.attribution.utm_source === 'mailplug' && /^[a-f0-9]{8}$/.test(service.attribution.utm_term || '') && service.attribution.batch) {
     document.getElementById('reply-help').textContent = '메일 수신 주소를 확인하고 있습니다. 확인되지 않으면 이메일 또는 전화번호 중 한 가지를 남겨주세요.';
     fetch(service.api + '/recipient-context', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ attribution: service.attribution }) })
       .then(function (response) { if (!response.ok) throw new Error('확인 실패'); return response.json(); })
       .then(function (data) {
         linked = data.can_reply_without_email === true;
-        emailInput.required = false;
+        contactRequirements();
         document.getElementById('email-requirement').textContent = '(선택)';
         document.getElementById('reply-help').textContent = linked ? '이메일을 생략하면 안내받은 메일 수신 주소로 답변드립니다. 다른 주소로 답변받으려면 입력해주세요.' : '메일 수신 주소를 확인하지 못했습니다. 이메일 또는 전화번호 중 한 가지를 남겨주세요.';
       }).catch(function () { document.getElementById('reply-help').textContent = '메일 수신 주소를 확인하지 못했습니다. 이메일 또는 전화번호 중 한 가지를 남겨주세요.'; });

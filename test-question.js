@@ -89,3 +89,12 @@ test('전화번호가 잘못되면 제출하지 않고 작성 내용을 유지�
   const p=page();p.choose('start');p.get('reply-phone').value='잘못된 전화번호';p.submit();await flush();
   assert.equal(p.posted.length,0);assert.equal(p.get('reply-phone').focused,true);
 });
+
+test('이메일 또는 전화번호 입력 시 반대 연락처는 선택으로 안내하고 지우면 한 가지 필요 안내로 복귀', () => {
+  const p=page();
+  p.get('reply-email').value='visitor@example.test';p.get('reply-email').fire('input');
+  assert.equal(p.get('phone-requirement').textContent,'(선택)');assert.equal(p.get('reply-phone').required,false);
+  p.get('reply-email').value='';p.get('reply-phone').value='010-1234-5678';p.get('reply-phone').fire('input');
+  assert.equal(p.get('email-requirement').textContent,'(선택)');assert.equal(p.get('reply-email').required,false);
+  p.get('reply-phone').value='';p.get('reply-phone').fire('input');assert.match(p.get('reply-help').textContent,/한 가지만/);
+});
