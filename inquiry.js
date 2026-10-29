@@ -50,7 +50,7 @@
   state.active=now;
   function save(){try{localStorage.setItem(store,JSON.stringify(state));}catch(e){}}
   save();
-  function context(){var at=Date.now();if(at-(state.active||0)>30*60000)state.session=uuid();state.active=at;save();return {visitor:state.visitor,session:state.session,first:state.first,last:state.last};}
+  function context(){var at=Date.now();if(at-(state.active||0)>30*60000)state.session=uuid();state.active=at;save();return {visitor:state.visitor,session:state.session,first:state.first,last:state.last,client:{touchPoints:Math.min(20,navigator.maxTouchPoints||0),mobile:navigator.userAgentData?.mobile===true}};}
   service.tracking=context;
   // Clear stale mail context when a later visit arrives without a mail link.
   if(state.last.source!=='mailplug'&&service.attribution.utm_source==='mailplug'){
