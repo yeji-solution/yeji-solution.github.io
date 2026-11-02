@@ -3202,7 +3202,7 @@
 /* Keep the introduction, portrait and supporting facts on clear alignment lines. */
 @media(min-width:1024px){
  .hero{padding:48px 0}
- .hero-grid{grid-template-columns:max-content 240px;gap:22px 48px;align-items:start;justify-content:center}
+ .hero-grid{grid-template-columns:minmax(0, 600px) 240px;gap:22px 48px;align-items:start;justify-content:center}
  .hero-text{display:flex;flex-direction:column;min-width:0}
  .hero-tagline{margin-top:20px}
  .hero-actions{margin-top:24px;padding-top:0}
@@ -3248,7 +3248,7 @@
 .credential-new { display: inline-block; flex-shrink: 0; background: #087a42; color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 9px; font-weight: 800; line-height: 1.5; letter-spacing: .06em; animation: credential-glow 2.8s ease-in-out infinite; }
 .co-cert-latest .credential-new { margin-bottom: 8px; }
 @keyframes credential-glow { 0%, 100% { box-shadow: 0 0 0 0 rgba(8,122,66,0); } 50% { box-shadow: 0 0 0 4px rgba(8,122,66,.14); background: #139653; } }
-.hero-text .hero-badges { display: flex; flex-wrap: wrap; gap: 8px; padding: 16px 0; }
+.hero-text .hero-badges { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; padding: 16px 0; }
 .hero-text .hero-badges .badge { display: inline-flex; align-items: center; gap: 7px; padding: 6px 10px; border: 1px solid var(--line); border-radius: 8px; background: #f7f9fc; font-size: 11px; white-space: normal; }
 .hero-text .hero-badges .dot { display: none; }
 .hero-text .hero-badges .credential-latest, .mp-creds .credential-latest { color: #086637; background: #effaf3; border: 1px solid #a6d8bb; text-decoration: none; }
