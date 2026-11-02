@@ -672,7 +672,7 @@
     margin-bottom: 22px; position: relative;
   }
   .co-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px;
     position: relative;
   }
   .co-cert {
@@ -3240,6 +3240,22 @@
 #insights .insight-card{background:#f8fafd}
 </style>
 <script defer src="/inquiry.js?v=20261029-device-1"></script>
+<style>
+/* Latest certification and consistent credential badges */
+.co-cert { padding: 20px 16px; gap: 12px; }
+.co-cert-logo { width: 42px; height: 42px; font-size: 24px; }
+.co-cert-latest { border-color: #80c9a0; background: linear-gradient(145deg, #f0fbf4, #fff 80%); box-shadow: 0 4px 18px rgba(0,120,60,.08); }
+.credential-new { display: inline-block; flex-shrink: 0; background: #087a42; color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 9px; font-weight: 800; line-height: 1.5; letter-spacing: .06em; animation: credential-glow 2.8s ease-in-out infinite; }
+.co-cert-latest .credential-new { margin-bottom: 8px; }
+@keyframes credential-glow { 0%, 100% { box-shadow: 0 0 0 0 rgba(8,122,66,0); } 50% { box-shadow: 0 0 0 4px rgba(8,122,66,.14); background: #139653; } }
+.hero-text .hero-badges { display: flex; flex-wrap: wrap; gap: 8px; padding: 16px 0; }
+.hero-text .hero-badges .badge { display: inline-flex; align-items: center; gap: 7px; padding: 6px 10px; border: 1px solid var(--line); border-radius: 8px; background: #f7f9fc; font-size: 11px; white-space: normal; }
+.hero-text .hero-badges .dot { display: none; }
+.hero-text .hero-badges .credential-latest, .mp-creds .credential-latest { color: #086637; background: #effaf3; border: 1px solid #a6d8bb; text-decoration: none; }
+.mp-creds .credential-latest { display: inline-flex; align-items: center; gap: 6px; }
+@media (min-width: 721px) and (max-width: 1000px) { .co-cert { flex-direction: column; } }
+@media (prefers-reduced-motion: reduce) { .credential-new { animation: none; } }
+</style>
 </head>
 <body>
 
@@ -3323,11 +3339,11 @@
         <span class="badge badge-official"><span class="dot"></span>NAVER 공식 인증 Expert</span>
         <span class="badge naver"><span class="dot"></span>네이버 프리미어 파트너사</span>
         <span class="badge zigzag"><span class="dot"></span>지그재그 프리미어 에이전시</span>
-        <span class="badge-break"></span>
+
         <span class="badge">검색광고마케터 1급</span>
         <span class="badge">구글 GAIQ</span>
         <span class="badge">SNS광고마케터 1급</span>
-        <a class="badge" href="#credentials">애드부스트 공식 인증 · 개시 첫날 취득</a>
+        <a class="badge credential-latest" href="#credentials"><span class="credential-new">NEW</span>애드부스트 · 개시 첫날 취득</a>
       </div>
 
       <div class="hero-cta">
@@ -3393,7 +3409,7 @@
       <span class="mp-cred">검색광고마케터 1급</span>
       <span class="mp-cred">구글 GAIQ</span>
       <span class="mp-cred">SNS광고마케터 1급</span>
-      <span class="mp-cred">애드부스트 공식 인증 · 2026.11.02</span>
+      <a class="mp-cred credential-latest" href="#credentials"><span class="credential-new">NEW</span> 애드부스트 · 개시 첫날 취득 ↗</a>
     </div>
   </div>
 </section>
@@ -3469,9 +3485,10 @@
       </p>
 
       <div class="co-grid">
-        <div class="co-cert">
+        <div class="co-cert co-cert-latest">
           <div class="co-cert-logo">N</div>
           <div class="co-cert-body">
+            <span class="credential-new">NEW</span>
             <div class="co-cert-name">NAVER Ads Expert</div>
             <div class="co-cert-type">네이버 애드부스트(ADVoost) 광고 인증</div>
             <div class="co-cert-meta">
