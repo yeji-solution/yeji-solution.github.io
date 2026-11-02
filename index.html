@@ -3248,11 +3248,6 @@
 .credential-new { display: inline-block; flex-shrink: 0; background: #087a42; color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 9px; font-weight: 800; line-height: 1.5; letter-spacing: .06em; animation: credential-glow 2.8s ease-in-out infinite; }
 .co-cert-latest .credential-new { margin-bottom: 8px; }
 @keyframes credential-glow { 0%, 100% { box-shadow: 0 0 0 0 rgba(8,122,66,0); } 50% { box-shadow: 0 0 0 4px rgba(8,122,66,.14); background: #139653; } }
-.hero-text .hero-badges { display: flex; flex-wrap: wrap; align-content: flex-start; max-width: 100%; gap: 8px; padding: 16px 0; }
-.hero-text .hero-badges .badge { display: inline-flex; align-items: center; gap: 7px; padding: 6px 10px; border: 1px solid var(--line); border-radius: 8px; background: #f7f9fc; font-size: 11px; white-space: normal; }
-.hero-text .hero-badges .dot { display: none; }
-.hero-text .hero-badges .credential-latest, .mp-creds .credential-latest { color: #086637; background: #effaf3; border: 1px solid #a6d8bb; text-decoration: none; }
-.mp-creds .credential-latest { display: inline-flex; align-items: center; gap: 6px; }
 @media (min-width: 721px) and (max-width: 1000px) { .co-cert { flex-direction: column; } }
 @media (prefers-reduced-motion: reduce) { .credential-new { animation: none; } }
 </style>
@@ -3335,29 +3330,13 @@
         <span>무엇을 먼저 바꿔야 할지 짚어드립니다.</span>
       </p>
 
-      <div class="hero-badges">
-        <span class="badge badge-official"><span class="dot"></span>NAVER 공식 인증 Expert</span>
-        <span class="badge naver"><span class="dot"></span>네이버 프리미어 파트너사</span>
-        <span class="badge zigzag"><span class="dot"></span>지그재그 프리미어 에이전시</span>
-
-        <span class="badge">검색광고마케터 1급</span>
-        <span class="badge">구글 GAIQ</span>
-        <span class="badge">SNS광고마케터 1급</span>
-        <a class="badge credential-latest" href="#credentials"><span class="credential-new">NEW</span>애드부스트 · 개시 첫날 취득</a>
-      </div>
-
       <div class="hero-cta">
         <a href="#contact" class="btn-primary">무료 진단 신청하기</a>
         <a href="https://open.kakao.com/o/sQcLuovi" target="_blank" rel="noopener noreferrer" class="btn-ghost-kakao">카카오 1:1 상담</a>
       </div>
-      <p class="hero-cta-meta">관리비·위약금 0원<span class="sep">·</span>계약 부담 없음</p>
+      <p class="hero-cta-meta">네이버·지그재그 관리비·위약금 0원</p>
       <p class="hero-slot-meta" id="heroSlotMeta"></p>
 
-      <div class="hero-proof">
-        <div class="hp-item"><span class="hp-cat">ROAS</span><b data-target="1009" data-prefix="" data-suffix="%">1,009%</b><span class="hp-src">네이버 · 생활·건강</span><span class="hp-period">2025 하반기 3개월</span></div>
-        <div class="hp-item"><span class="hp-cat">성장률</span><b data-target="78" data-prefix="+" data-suffix="%">+78%</b><span class="hp-src">지그재그 · 패션</span><span class="hp-period">ROAS 567% → 1,007%</span></div>
-        <div class="hp-item"><span class="hp-cat">전환매출</span><b data-target="119" data-prefix="+" data-suffix="%">+119%</b><span class="hp-src">에이블리 · 패션</span><span class="hp-period">2025년 전년 대비</span></div>
-      </div>
     </div>
 
     <!-- 프로필 사진: 같은 폴더에 profile.jpg(세로형 상반신 사진) 업로드 시 자동 표시 -->
@@ -3373,16 +3352,10 @@
         <img src="profile.jpg" alt="이명수 마케터 프로필 사진" width="720" height="1080" loading="eager" fetchpriority="high" onerror="this.parentNode.remove()" />
       </picture>
     </div>
-    <div class="hero-badges">
-      <span class="badge badge-official"><span class="dot"></span>NAVER 공식 인증 Expert</span>
-      <span class="badge naver"><span class="dot"></span>네이버 프리미어 파트너사</span>
-      <span class="badge zigzag"><span class="dot"></span>지그재그 프리미어 에이전시</span>
-      <span class="badge ably"><span class="dot"></span>에이블리 우수대행사</span>
-    </div>
     <div class="hero-proof">
       <div class="hp-item"><span class="hp-cat">네이버 · ROAS</span><b data-target="1009" data-prefix="" data-suffix="%">1,009%</b><span class="hp-src">광고 그룹 구조 재설계</span><span class="hp-period">596% → 1,009%</span></div>
-      <div class="hp-item"><span class="hp-cat">지그재그 · 전환매출</span><b>약 2배</b><span class="hp-src">타깃 세분화 후 성장</span><span class="hp-period">4.40억 → 8.46억</span></div>
-      <div class="hp-item"><span class="hp-cat">에이블리 · 전환매출</span><b>2.2배</b><span class="hp-src">신규 타깃 확장 후 성장</span><span class="hp-period">8,842만 → 1.94억</span></div>
+      <div class="hp-item"><span class="hp-cat">지그재그 · 전환매출</span><b>+92%</b><span class="hp-src">타깃 세분화 후 성장</span><span class="hp-period">4.40억 → 8.46억</span></div>
+      <div class="hp-item"><span class="hp-cat">에이블리 · 전환매출</span><b>+119%</b><span class="hp-src">신규 타깃 확장 후 성장</span><span class="hp-period">8,842만 → 1.94억</span></div>
     </div>
   </div>
 </section>
@@ -3404,13 +3377,6 @@
     </div>
     <strong class="mp-name">이명수 마케터</strong>
     <p class="mp-role-text">YEJI SOLUTION · 2020년부터 7년째</p>
-    <div class="mp-creds">
-      <a class="mp-cred mp-cred-official" href="#credentials">NAVER Ads Expert · 검색·디스플레이 공식 인증 ↗</a>
-      <span class="mp-cred">검색광고마케터 1급</span>
-      <span class="mp-cred">구글 GAIQ</span>
-      <span class="mp-cred">SNS광고마케터 1급</span>
-      <a class="mp-cred credential-latest" href="#credentials"><span class="credential-new">NEW</span> 애드부스트 · 개시 첫날 취득 ↗</a>
-    </div>
   </div>
 </section>
 
